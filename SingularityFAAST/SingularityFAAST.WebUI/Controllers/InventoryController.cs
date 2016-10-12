@@ -13,11 +13,20 @@ namespace SingularityFAAST.WebUI.Controllers
         {
             return View();
         }
-
+        //returns list of Inventory Items
+        //public ActionResult NewInventoryItem()
+        //{
+        //    return View(db.InventoryItem.ToList());
+        //}
 
         public ActionResult NewInventoryItem()
         {
             return View();
         }
+
+        public RedirectToRouteResult MethodAddNewItem()
+        {
+            return null; //would eventually collect form info and add item to db and return user to inventory home page
+        } 
     }
 }
