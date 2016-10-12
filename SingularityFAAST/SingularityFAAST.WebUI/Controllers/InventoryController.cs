@@ -14,7 +14,7 @@ namespace SingularityFAAST.WebUI.Controllers
             return View();
         }
         //returns list of Inventory Items
-        //public ActionResult NewInventoryItem()
+        //public ActionResult ListInventoryItems()
         //{
         //    return View(db.InventoryItem.ToList());
         //}
