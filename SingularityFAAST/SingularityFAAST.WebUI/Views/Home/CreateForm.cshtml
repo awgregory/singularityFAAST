@@ -4,5 +4,13 @@
     ViewBag.Title = "CreateForm";
 }
 
-<h2>CreateForm</h2>
+<h2>Create New Client Form</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label>Name:</label>
+        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+    </div>
+}
 
