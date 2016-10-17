@@ -31,7 +31,7 @@ namespace SingularityFAAST.WebUI.Controllers
                 Category ="Family guardian or authorized rep"},
         };
         
-        // GET: Client
+        
         public ActionResult Index()
         {
             return View();
@@ -40,6 +40,11 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult Client()
         {
             return View(clients);
+        }
+
+        public ViewResult CreateForm()
+        {
+            return View();
         }
     }
 }
