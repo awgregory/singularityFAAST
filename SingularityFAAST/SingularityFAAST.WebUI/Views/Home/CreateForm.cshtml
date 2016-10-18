@@ -7,11 +7,7 @@
 <h2>Create New Client Form</h2>
 
 @using (Html.BeginForm())
-{                                                 //LastName input has no Bootstrap class
-    <div class="form-group">
-        <label>LastName (w/o bootstrap on the textbox input):</label>
-        @Html.TextBoxFor(x => x.LastName)  
-    </div>
+{   
 
 
     foreach (var property in ViewData.ModelMetadata.Properties)  // Loops through properties Model
