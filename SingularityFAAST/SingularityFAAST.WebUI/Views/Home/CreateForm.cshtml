@@ -7,10 +7,27 @@
 <h2>Create New Client Form</h2>
 
 @using (Html.BeginForm())
-{
+{                                                 //LastName input has no Bootstrap class
     <div class="form-group">
-        <label>Name:</label>
-        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+        <label>LastName (w/o bootstrap on the textbox input):</label>
+        @Html.TextBoxFor(x => x.LastName)  
     </div>
+
+
+    foreach (var property in ViewData.ModelMetadata.Properties)  // Loops through properties Model
+    {
+        if (property.PropertyName != "ClientID")
+        {
+            <div class="form-group">
+                <label>@(property.DisplayName ?? property.PropertyName)</label>
+                @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+            </div>
+        }
+    }
+
+    <div class="text-left">
+        <input class="btn btn-primary" type="submit" value="Add Client" />
+    </div>
+
 }
 
