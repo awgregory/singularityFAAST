@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
-    public class InventoryController : Controller
+    public class InventoryItemController : Controller
     {
         // GET: Inventory
         public ActionResult Index()

@@ -70,4 +70,60 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="DisabilityCategoryId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="d95dd35f-637a-4183-8589-51a80d724811" ChangeDateTime="10/22/2016 16:43:00">
+    <Property Name="ElementName" Value="[dbo].[Loans].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Loans]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LoanId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="09ff90bb-ad2c-4373-bf64-484a6088d974" ChangeDateTime="10/22/2016 16:52:06">
+    <Property Name="ElementName" Value="[dbo].[LoanMaster].[LoanId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LoanMasterId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dd4270da-a902-497e-9727-9bbabf85499d" ChangeDateTime="10/22/2016 17:05:44">
+    <Property Name="ElementName" Value="[dbo].[LoanMaster].[LoanTypeId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LoanCategoryId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e566add1-8280-4ce8-9d9f-3c33408f13c6" ChangeDateTime="10/22/2016 17:07:05">
+    <Property Name="ElementName" Value="[dbo].[InventoryItems].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[InventoryItems]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InventoryItemId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c71545c9-c0e4-4498-a07e-b8f5dc8c4f7d" ChangeDateTime="10/22/2016 17:07:49">
+    <Property Name="ElementName" Value="[dbo].[LoanCategories].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanCategories]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LoanCategoryId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3a834c7f-fea6-44cf-8cfd-c87dd45c9131" ChangeDateTime="10/22/2016 17:08:54">
+    <Property Name="ElementName" Value="[dbo].[LoanDetails].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanDetails]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LoanDetailId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="89039d4c-7962-4e65-bf3a-2454fd492f8a" ChangeDateTime="10/22/2016 17:13:38">
+    <Property Name="ElementName" Value="[dbo].[LoanDetails].[LoanMasterId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanDetails]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LoanNumber" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e3660aa8-3910-41d2-8858-01e2316f1093" ChangeDateTime="10/22/2016 17:28:28">
+    <Property Name="ElementName" Value="[dbo].[LoanDetails].[LoanNumber]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanDetails]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LoanMasterId" />
+  </Operation>
 </Operations>
