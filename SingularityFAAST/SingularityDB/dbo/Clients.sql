@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Clients]
 (
-	[ClientId]			INT				NOT NULL	IDENTITY(1,1)	PRIMARY KEY, 
+	[ClientId]			INT				NOT NULL	IDENTITY(1,1), 
     [Active]			BIT				NOT NULL, 
     [DateCreated]		DATETIME		NOT NULL, 
     [FirstName]			VARCHAR(50)		NOT NULL,
@@ -22,4 +22,10 @@
     [Title]				VARCHAR(20)		NULL, 
     [LoanEligibility]	BIT				NOT NULL, 
     [Notes]				VARCHAR(MAX)	NULL, 
+    [ClientCategoryId] INT NOT NULL,
+	
+	CONSTRAINT [PK_Clients] PRIMARY KEY ([ClientId]),
+	
+	CONSTRAINT [FK_Clients_ClientCategories] FOREIGN KEY ([ClientCategoryId])
+	REFERENCES dbo.ClientCategories(ClientCategoryId)
 )

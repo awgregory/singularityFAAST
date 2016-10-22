@@ -42,4 +42,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Zip" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="60ae8e49-0d62-4350-a086-5c91c0c185d7" ChangeDateTime="10/22/2016 15:20:05">
+    <Property Name="ElementName" Value="[dbo].[ClientCategories].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ClientCategories]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ClientCategoryId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a823bb0a-2b8b-45c9-8e24-84201a633c2a" ChangeDateTime="10/22/2016 15:34:18">
+    <Property Name="ElementName" Value="[dbo].[DisabilityCategories].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DisabilityCategories]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DisabilityCategoryId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="feca6bbc-f0f2-4424-bf46-85046abdb54a" ChangeDateTime="10/22/2016 15:38:08">
+    <Property Name="ElementName" Value="[dbo].[ClientDisabilities].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ClientDisabilities]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ClientDisabilitiesId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="58e8f74e-7c6e-47c5-a466-abaec68bcc8d" ChangeDateTime="10/22/2016 15:39:21">
+    <Property Name="ElementName" Value="[dbo].[ClientDisabilities].[ClientDisabilityId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ClientDisabilities]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DisabilityCategoryId" />
+  </Operation>
 </Operations>
