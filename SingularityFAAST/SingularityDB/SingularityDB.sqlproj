@@ -76,5 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />
+    <None Include="SingularityDB.publish.xml" />
   </ItemGroup>
 </Project>
