@@ -1,7 +1,99 @@
-﻿
+﻿@*New Inventory Item page
+    Hope Haven - FAAST Inventory System
+    Jonathan Ebert*@
+
 @{
     ViewBag.Title = "NewInventoryItem";
 }
 
-<h2>New Inventory Item</h2>
+<h2>New Item</h2>
 
+<form>
+    <div class="row">
+
+        <div class="col-md-4">
+            @*Item Name*@
+            <div class="form-group">
+                <label for="ItemName">Item Name</label>
+                <Input type="text" class="form-control" id="ItemName">
+            </div>
+
+            @*Inventory Number*@
+            <div class="form-group">
+                <label for="InventoryNumber">Inventory Number</label>
+                <Input type="text" class="form-control" id="InventoryNumber">
+            </div>
+
+            @*Serial Number*@
+            <div class="form-group">
+                <label for="ItemNumber">Item Number</label>
+                <Input type="text" class="form-control" id="ItemNumber">
+            </div>
+
+            @*Retail Cost*@
+            <div class="form-group">
+                <label for="RetailCost">Retail Cost</label>
+                <Input type="text" class="form-control" id="RetailCost">
+            </div>
+
+            @*Location*@
+            <div class="form-group">
+                <label for="Location">Location</label>
+                <select class="form-control" id="Location">
+                    <option>Jacksonville</option>
+                    <option>Tampa</option>
+                    <option>Gainesville</option>
+                    <option>Miami</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            @*Category & Sub Category*@
+            <div class="form-group">
+                <label for="Category">Category</label>
+                <select class="form-control" id="Category">
+                    <option disabled selected value> -- select and option -- </option>
+                    <option>Category 1</option>
+                    <option>Category 2</option>
+                    <option>Category 3</option>
+                    <option>Category 4</option>
+                    <option>Category 5</option>
+                </select>
+                <br/>
+                <label for="SubCategory">Sub Category</label>
+                <select class="form-control" id="SubCategory">
+                    <option disabled selected value> -- select and option -- </option>
+                    <option>Sub Category 1</option>
+                    <option>Sub Category 2</option>
+                    <option>Sub Category 3</option>
+                    <option>Sub Category 4</option>
+                    <option>Sub Category 5</option>
+                </select>
+            </div>
+
+            @*Purchase Date*@
+            <div class="form-group">
+                <label for="PurchaseDate">Purchase Date</label>
+                <Input type="text" class="form-control" id="PurchaseDate">
+            </div>
+
+            @*Cost Paid*@
+            <div class="form-group">
+                <label for="CostPaid">Cost Paid</label>
+                <Input type="text" class="form-control" id="CostPaid">
+            </div>
+
+
+            @*Description*@
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <textarea rows="4" class="form-control" id="Description"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Create Item", "MethodAddNewItem", null, new {@class = "btn btn-primary"})
+    </div>
+</form>
