@@ -114,6 +114,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\DummyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryItemController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
@@ -137,6 +138,7 @@
     <Content Include="Views\Home\Client.cshtml" />
     <Content Include="Views\InventoryItem\NewInventoryItem.cshtml" />
     <Content Include="Views\Home\CreateForm.cshtml" />
+    <Content Include="Views\Dummy\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -150,6 +152,10 @@
     <Folder Include="Views\Loan\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SingularityFAAST.Core\SingularityFAAST.Core.csproj">
+      <Project>{fd88baca-7834-4214-a412-a79ebd7bc9fe}</Project>
+      <Name>SingularityFAAST.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SingularityFAAST.Services\SingularityFAAST.Services.csproj">
       <Project>{8f6a22db-9e94-4f6f-a5d7-fa0b94feaad9}</Project>
       <Name>SingularityFAAST.Services</Name>

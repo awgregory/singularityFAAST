@@ -1,0 +1,16 @@
+﻿@model IList<SingularityFAAST.Core.Entities.Dummy>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All the dummies</h2>
+
+@* capital M Model is the reference on a view that points up to @model (defined at the top) *@
+@foreach(var dummy in Model)
+{
+    <h2>@dummy.Name</h2>
+    <h2>@dummy.Age</h2>
+    <h2>@dummy.Description</h2>
+}
+
