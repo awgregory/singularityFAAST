@@ -126,4 +126,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="LoanMasterId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="00778b3f-6669-4383-a9bb-01d5a2531b17" ChangeDateTime="10/29/2016 01:05:47">
+    <Property Name="ElementName" Value="[dbo].[InventoryItemCategories].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[InventoryItemCategories]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InventoryCategoryId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9434a30a-a0ea-41e5-80e2-93dc7a9501c9" ChangeDateTime="10/29/2016 01:09:59">
+    <Property Name="ElementName" Value="[dbo].[InventoryItemSubCategories].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[InventoryItemSubCategories]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InvSubCategoryId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a1c7cb3f-376a-4d31-a4c7-a5272b02d4b2" ChangeDateTime="10/29/2016 15:59:06">
+    <Property Name="ElementName" Value="[dbo].[InventoryItemCategories].[InvCategoryName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[InventoryItemCategories]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CategoryName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bb780487-edd0-49fe-a697-ffc3d3e8748a" ChangeDateTime="10/29/2016 16:04:41">
+    <Property Name="ElementName" Value="[dbo].[InventoryItems].[InventoryItemCategory]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[InventoryItems]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InventoryCategoryId" />
+  </Operation>
 </Operations>
