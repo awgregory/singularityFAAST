@@ -72,6 +72,7 @@
     <Build Include="dbo\LoanCategories.sql" />
     <Build Include="dbo\InventoryItemCategories.sql" />
     <Build Include="dbo\InventoryItemSubCategories.sql" />
+    <Build Include="dbo\Dummies.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SingularityDB.refactorlog" />
