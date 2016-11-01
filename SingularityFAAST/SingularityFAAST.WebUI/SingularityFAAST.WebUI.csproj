@@ -142,6 +142,7 @@
     <Content Include="Views\InventoryItem\NewInventoryItem.cshtml" />
     <Content Include="Views\Client\Index.cshtml" />
     <Content Include="Views\Client\CreateForm.cshtml" />
+    <Content Include="Views\Client\AddClient.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
