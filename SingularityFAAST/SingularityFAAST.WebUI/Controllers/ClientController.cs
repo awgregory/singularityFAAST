@@ -40,10 +40,11 @@ namespace SingularityFAAST.WebUI.Controllers
         //    return View(db.Clients.ToList());
         //}
 
-        public ViewResult CreateForm()
-        {
-            return View();
-        }
+
+        //public ViewResult CreateForm()
+        //{
+        //    return View();
+        //}
 
         public ViewResult AddClient()
         {
