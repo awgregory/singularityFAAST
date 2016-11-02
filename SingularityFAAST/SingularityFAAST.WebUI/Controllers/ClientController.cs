@@ -41,10 +41,6 @@ namespace SingularityFAAST.WebUI.Controllers
         //}
 
 
-        //public ViewResult CreateForm()
-        //{
-        //    return View();
-        //}
 
         public ViewResult AddClient()
         {
