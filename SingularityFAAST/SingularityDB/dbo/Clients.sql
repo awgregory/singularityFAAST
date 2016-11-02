@@ -9,7 +9,7 @@
     [Address1]			VARCHAR(200)	NOT NULL, 
 	[Address2]			VARCHAR(200)	NULL,
 	[StateName]			VARCHAR(30)		NULL, 
-    [StateCode]			CHAR(2)			NULL, 
+    [StateCode]			CHAR(2)			NULL , 
     [Zip]				VARCHAR(10)		NULL, 
     [County]			VARCHAR(50)		NULL, 
     [CountyFIPS]		CHAR(10)		NULL, 
@@ -20,7 +20,7 @@
 	[WorkPhone]			VARCHAR(30)		NULL,
     [Company]			VARCHAR(50)		NULL, 
     [Title]				VARCHAR(20)		NULL, 
-    [LoanEligibility]	BIT				NOT NULL, 
+    [LoanEligibility]	BIT				NOT NULL DEFAULT 1, 
     [Notes]				VARCHAR(MAX)	NULL, 
     [ClientCategoryId] INT NOT NULL,
 	
