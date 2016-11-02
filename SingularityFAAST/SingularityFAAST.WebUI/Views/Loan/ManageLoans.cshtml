@@ -1,0 +1,115 @@
+﻿@using SingularityFAAST.WebUI.Models
+@model IEnumerable<SingularityFAAST.WebUI.Models.Loan>
+
+@{
+    ViewBag.Title = "Loan";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ManageLoans</title>
+</head>
+    <body>
+    <div class="container">
+        <br/>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <h2>Manage Loans</h2>
+            </div>
+        </div>
+        <br/>
+        <hr/>
+        <div class="row">
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="col-md-7">
+                        <input type="search" class="form-control" placeholder="Search Loans by Client Last Name" size="150"/>
+                    </div>
+                    <input class="btn btn-primary" value="Search"/>
+                </div>
+            </form>
+        </div>
+        <br/><br/>
+        <div class="row">
+            <div class="col-md-4">
+                Choose any loan to edit, renew or cancel.
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink("Renew Loan", "", null, new {@class = "btn btn-primary"}) @*RenewLoan*@
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink("Cancel Loan", "", null, new {@class = "btn btn-primary"}) @*CancelLoan*@
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink("Edit Loan", "", null, new {@class = "btn btn-primary"}) @*EditLoan*@
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink("Check In Device", "", null, new { @class = "btn btn-primary"}) @*CheckinLoan*@ @*To record client outcome, damages etc.*@
+            </div>
+        </div>
+        <br/>
+        <table class="table">
+            <tr>
+                <th>Select</th>
+                <th>
+                    Loan ID
+                </th>
+                <th>
+                    Client Last Name
+                </th>
+                <th>
+                    Client First Name
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DeviceName)
+                </th>
+                <th>
+                    Loan End Date @Html.ActionLink("Loan End Date", "Index", new { sort = ViewBag.DateSortParm })
+                </th>
+                <th>
+                    Notes
+                </th>
+                <th>
+                    Eligibility
+                </th>
+            </tr>
+
+            @foreach (var item in Loan.manager)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("Select", "", new {id = item.LoanId}) @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
+                    </td>
+                    <td>
+                        @item.LoanId
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.DeviceName
+                    </td>
+                    <td>
+                        @item.LoanEndDate
+                    </td>
+                    <td>
+                        @item.Notes
+                    </td>
+                    <td>
+                        @item.Eligibility
+                    </td>
+                </tr>
+            }
+        </table>
+        <a href="ManageLoans.cshtml">< Previous 10 </a>
+        <a href="ManageLoans.cshtml">| Next 10 ></a>
+    </div>
+</body>
+</html>
+
