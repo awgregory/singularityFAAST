@@ -34,11 +34,24 @@ namespace SingularityFAAST.WebUI.Controllers
             return View(clients);
         }
 
+
+        //public ActionResult Index()
+        //{
+        //    var services = new ClientServices();
+
+        //    var model = services.GetAllClients();
+
+        //    return View(model);
+        //}
+
+
+
         //returns list of Clients
         //public ActionResult ListClients()
         //{
         //    return View(db.Clients.ToList());
         //}
+
 
 
 
