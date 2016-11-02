@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SingularityFAAST.Core\SingularityFAAST.Core.csproj">
+      <Project>{FD88BACA-7834-4214-A412-A79EBD7BC9FE}</Project>
+      <Name>SingularityFAAST.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SingularityFAAST.DataAccess\SingularityFAAST.DataAccess.csproj">
       <Project>{ca39d2c1-bb2a-473a-960b-d45fa9e110e9}</Project>
       <Name>SingularityFAAST.DataAccess</Name>
