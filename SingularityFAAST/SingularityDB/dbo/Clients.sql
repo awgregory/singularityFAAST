@@ -20,7 +20,7 @@
 	[WorkPhone]			VARCHAR(30)		NULL,
     [Company]			VARCHAR(50)		NULL, 
     [Title]				VARCHAR(20)		NULL, 
-    [LoanEligibility]	BIT				NOT NULL DEFAULT 1, 
+    [LoanEligibility]	BIT				NOT NULL , 
     [Notes]				VARCHAR(MAX)	NULL, 
     [ClientCategoryId] INT NOT NULL,
 	
