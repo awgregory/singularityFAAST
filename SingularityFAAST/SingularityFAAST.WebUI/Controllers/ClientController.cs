@@ -29,21 +29,21 @@ namespace SingularityFAAST.WebUI.Controllers
                 Category ="Family guardian or authorized rep"},
         };
 
-        // GET: Client
-        //public ActionResult Index()
-        //{
-        //    return View(clients);
-        //}
-
-
+        //GET: Client
         public ActionResult Index()
         {
-            var services = new ClientServices();
-
-            var model = services.GetAllClients();
-
-            return View(model);
+            return View(clients);
         }
+
+
+        //public ActionResult Index()
+        //{
+        //    var services = new ClientServices();
+
+        //    var model = services.GetAllClients();
+
+        //    return View(model);
+        //}
 
 
 
