@@ -6,7 +6,7 @@ namespace SingularityFAAST.WebUI.Models
     {
         public int ClientID { get; set; }
 
-        [Required(ErrorMessage = "Please enter a last name")]
+        [Required(ErrorMessage = "Please enter a last name")] 
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
