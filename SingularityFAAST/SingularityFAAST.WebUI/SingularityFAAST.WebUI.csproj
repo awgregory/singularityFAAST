@@ -121,6 +121,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\InventoryItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +138,7 @@
     <Content Include="Views\Home\Client.cshtml" />
     <Content Include="Views\InventoryItem\NewInventoryItem.cshtml" />
     <Content Include="Views\Home\CreateForm.cshtml" />
+    <Content Include="Views\InventoryItem\ViewAllInventory.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

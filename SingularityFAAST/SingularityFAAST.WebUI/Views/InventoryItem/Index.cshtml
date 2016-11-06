@@ -5,4 +5,11 @@
 
 <h2>Inventory</h2>
 
-@Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem")
+<table>
+    <tr>
+        <td>@Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem")</td>
+    </tr>
+    <tr>
+        <td>@Html.ActionLink("View All Inventory Items", "ViewAllInventory", "InventoryItem")</td>
+    </tr>
+</table>

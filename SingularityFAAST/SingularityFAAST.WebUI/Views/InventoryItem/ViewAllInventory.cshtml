@@ -1,0 +1,38 @@
+﻿@using SingularityFAAST.WebUI.Models
+
+@*View All Inventory Item page
+    Hope Haven - FAAST Inventory System
+    Jonathan Ebert*@
+
+@{
+    ViewBag.Title = "All Inventory";
+}
+
+<h2>View All Inventory</h2>
+
+<ul class="nav nav-pills">
+    <li class="active" id="all"><a href="#">All</a></li>
+    <li id="avail"><a href="#">Available</a></li>
+    <li id="onLoan"><a href="#">On Loan</a></li>
+</ul>
+
+@* nav pill content *@
+
+<div class="tab-content">
+    <div id="all" class="tab-pane fade in active">
+        <h4>ITEMS</h4>
+        <table class="table">
+            <tr>
+               @*<th>@InventoryItem.</th>*@
+            </tr>
+        </table>
+    </div>
+    <div id="avail" class="tab-pane fade">
+        <h4>AVAILABLE CONTENT</h4>
+        <p>Some content from available items.</p>
+    </div>
+    <div id="onLoan" class="tab-pane fade">
+        <h4>ONLY ITEMS ON LOAN</h4>
+        <p>Some more things.</p>
+    </div>
+</div>
