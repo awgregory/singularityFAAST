@@ -30,20 +30,20 @@ namespace SingularityFAAST.WebUI.Controllers
         };
 
         //GET: Client
-        public ActionResult Index()
-        {
-            return View(clients);
-        }
-
-
         //public ActionResult Index()
         //{
-        //    var services = new ClientServices();
-
-        //    var model = services.GetAllClients();
-
-        //    return View(model);
+        //    return View(clients);
         //}
+
+
+        public ActionResult Index()
+        {
+            var services = new ClientServices();
+
+            var model = services.GetAllClients();
+
+            return View(model);
+        }
 
 
 
