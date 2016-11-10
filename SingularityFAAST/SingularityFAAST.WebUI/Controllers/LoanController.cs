@@ -19,5 +19,18 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return View("ManageLoans");  
         }
+        public ActionResult RenewLoan()
+        {
+            return View("RenewLn");
+        }
+        //public ActionResult EditLoan()
+        //{
+        //    return View("EditLn");
+        //}
+        //public ActionResult CheckIn()
+        //{
+        //    return View("CheckIn");
+        //}
+
     }
 }

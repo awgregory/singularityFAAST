@@ -9,7 +9,7 @@ namespace SingularityFAAST.Core.Entities
         public int LoanId { get; set; }
 
         [Required(ErrorMessage = "Please enter a device name")]
-        [Display(Name = "Device Name")]
+
         public string DeviceName { get; set; }
 
         public string LastName { get; set; }
