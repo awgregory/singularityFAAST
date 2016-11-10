@@ -27,7 +27,9 @@ namespace SingularityFAAST.WebUI.Controllers
         //View All inventory page
         public ActionResult ViewAllInventory()
         {
-            return View(/*db*/);
+            var inventoryServices = new InventoryItemServices();
+            var model = inventoryServices.GetAllInventory();
+            return View(model);
         }
 
         public ActionResult ViewAllAvailableInv()

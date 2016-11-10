@@ -169,6 +169,10 @@
     <Folder Include="Views\Loan\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SingularityFAAST.Core\SingularityFAAST.Core.csproj">
+      <Project>{FD88BACA-7834-4214-A412-A79EBD7BC9FE}</Project>
+      <Name>SingularityFAAST.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SingularityFAAST.Services\SingularityFAAST.Services.csproj">
       <Project>{8f6a22db-9e94-4f6f-a5d7-fa0b94feaad9}</Project>
       <Name>SingularityFAAST.Services</Name>

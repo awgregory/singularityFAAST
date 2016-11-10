@@ -41,7 +41,7 @@
             </tr>
             </thead>
             <tbody>
-            @*@foreach (var inventoryItem in Model)
+           @foreach (var inventoryItem in Model)
                     {
                         <tr>
                             <td>@inventoryItem.InventoryItemId</td>
@@ -52,9 +52,9 @@
                             <td>@inventoryItem.Description</td>
                             <td>@inventoryItem.SerialNumber</td>
                             <td>@inventoryItem.Availability</td>
-                            <td>@Html.ActionLink("View","Index")</td>@*needs to be a link to a specific item pulled by the item name associated with it*@
-            @*</tr>*@
-            @*}*@
+                            <td>@Html.ActionLink("View","Index")</td>@*needs to be a link to a specific item pulled by the item name associated with it.*@
+            </tr>
+            }
             </tbody>
         </table>
     </div>
@@ -68,7 +68,6 @@
                @{ int x = 0;}
                 @foreach (var itemCategory in Model)
                 {
-                    
                     <option id="@itemCategory.InventoryCategoryId">@itemCategory.InventoryCategoryId</option>
                     x++;
                 }
