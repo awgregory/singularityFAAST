@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-//using database?
+
 namespace SingularityFAAST.WebUI.Controllers
 {
     public class InventoryItemController : Controller
     {
-        // GET: Inventory
+        //private InventoryDBContext db = new InventoryDBContext();
+
+
         public ActionResult Index()
         {
             return View();
         }
-        //returns list of Inventory Items
+        ////returns list of Inventory Items
         //public ActionResult ListInventoryItems()
         //{
+        //    var allInventory = new 
         //    return View(db.InventoryItem.ToList());
         //}
 
-         //new inventory page
+        //new inventory page
         public ActionResult NewInventoryItem()
         {
             return View();
@@ -27,6 +30,16 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //View All inventory page
         public ActionResult ViewAllInventory()
+        {
+            return View();
+        }
+
+        public ActionResult ViewAllAvailableInv()
+        {
+            return View();
+        }
+
+        public ActionResult ViewAllOnLoanInv()
         {
             return View();
         }

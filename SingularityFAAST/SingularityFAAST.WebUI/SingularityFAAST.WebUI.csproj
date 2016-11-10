@@ -154,6 +154,8 @@
     <Content Include="Views\InventoryItem\ViewAllInventory.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\InventoryItem\ViewAllOnLoanInv.cshtml" />
+    <Content Include="Views\InventoryItem\ViewAllAvailableInv.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

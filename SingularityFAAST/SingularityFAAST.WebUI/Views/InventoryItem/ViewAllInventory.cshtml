@@ -1,4 +1,5 @@
 ﻿@using SingularityFAAST.WebUI.Models
+@model IEnumerable<SingularityFAAST.Core.Entities.InventoryItem>
 
 @*View All Inventory Item page
     Hope Haven - FAAST Inventory System
@@ -10,29 +11,35 @@
 
 <h2>View All Inventory</h2>
 
-<ul class="nav nav-pills">
-    <li class="active" id="all"><a data-toggle="tab" href="#home">All</a></li>
-    <li id="avail"><a data-toggle="tab" href="#">Available</a></li>
-    <li id="onLoan"><a data-toggle="tab" href="#">On Loan</a></li>
-</ul>
 
-@* nav pill content *@
+<div class="table table-responsive col-md-12">
+    <table>
+        @*this row holds buttons for navigating available views*@
+        <tr>
+            @*all inventory*@
+            <td>@Html.ActionLink("All", "ViewAllInventory", null, new {@class = "btn btn-primary"})</td>
+            @*inventory available*@
+            <td>@Html.ActionLink("Available", "ViewAllAvailableInv", null, new {@class = "btn btn-primary"})</td>
+            @*inventory on loan*@
+            <td>@Html.ActionLink("On Loan", "ViewAllOnLoanInv", null, new {@class = "btn btn-primary"})</td>
+        </tr>
+    </table>
 
-<div class="tab-content">
-    <div id="all" class="tab-pane fade in active">
-        <h4>ITEMS</h4>
-        <table class="table">
+    @*separate table for displaying all the data*@
+    <table class="table">
+        <thead>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.InventoryItemId)</td>
+            <td>@Html.DisplayNameFor(model => model.)</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-               @*<th>@InventoryItem.</th>*@
+                
             </tr>
-        </table>
-    </div>
-    <div id="avail" class="tab-pane fade">
-        <h4>AVAILABLE CONTENT</h4>
-        <p>Some content from available items.</p>
-    </div>
-    <div id="onLoan" class="tab-pane fade">
-        <h4>ONLY ITEMS ON LOAN</h4>
-        <p>Some more things.</p>
-    </div>
+        }
+        </tbody>
+    </table>
 </div>
