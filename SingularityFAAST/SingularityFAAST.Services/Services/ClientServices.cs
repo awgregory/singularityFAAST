@@ -16,13 +16,13 @@ namespace SingularityFAAST.Services.Services
                 //var clients = context.Clients.Where(client => client.Age > 50);   Example
 
                 //grab clients in Clients table - NOT A LIST YET
-                var clients = context.Clients.ToList();
+                var clients = context.Clients;
 
                 //instantiate into list of concrete client objects (c# objs)
-                //var clientList = clients.ToList();
+                var clientList = clients.ToList();
 
                 //return them
-                return clients;
+                return clientList;
             }
         }
     }

@@ -9,7 +9,7 @@
 <h2>Clients</h2>
 
 <p>
-    @Html.ActionLink("Add New Client", "AddClient", new {@class = "btn btn-primary"})
+    @Html.ActionLink("Add New Client", "AddClient", null, new {@class = "btn btn-primary"})
 </p>
 <table class="table">
     <tr>
@@ -34,6 +34,7 @@
         <th></th>
     </tr>
 
+    @*@{ int x = 0}*@
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -63,3 +64,4 @@
 }
 
 </table>
+

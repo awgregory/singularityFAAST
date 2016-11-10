@@ -48,6 +48,10 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
+        public ViewResult SearchClient()
+        {
+            return View();
+        }
 
         public ViewResult AddClient()
         {
