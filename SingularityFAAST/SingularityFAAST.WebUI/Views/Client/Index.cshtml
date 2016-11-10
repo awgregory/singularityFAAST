@@ -1,4 +1,6 @@
-﻿@model IEnumerable<SingularityFAAST.Core.Entities.Client>
+﻿@*Change model back to WebUI.Models  when switching back to the other Action Method*@
+
+@model IEnumerable<SingularityFAAST.Core.Entities.Client>
 
 @{
     ViewBag.Title = "Index";
@@ -7,27 +9,27 @@
 <h2>Clients</h2>
 
 <p>
-    @Html.ActionLink("Add New Client", "AddClient")
+    @Html.ActionLink("Add New Client", "AddClient", new {@class = "btn btn-primary"})
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayNameFor(model => model.LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StateAbbr)
+            @Html.DisplayNameFor(model => model.Address1)    @*Change to match attributes of Core Entity*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ZipCode)
+            @Html.DisplayNameFor(model => model.StateCode)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Category)
+            @Html.DisplayNameFor(model => model.Zip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientCategoryId)
         </th>
         <th></th>
     </tr>
@@ -35,31 +37,28 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @item.ClientID
+            @item.FirstName
         </td>
         <td>
             @item.LastName
         </td>
         <td>
-            @item.FirstName
+            @item.Address1
         </td>
         <td>
-            @item.Address
+            @item.StateCode
         </td>
         <td>
-            @item.StateAbbr
+            @item.Zip
         </td>
         <td>
-            @item.ZipCode
+            @item.ClientCategoryId
         </td>
-        <td>
-            @item.Category
-        </td>
-        <td>
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ClientID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ClientID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ClientID })
-        </td>
+        </td>*@
     </tr>
 }
 

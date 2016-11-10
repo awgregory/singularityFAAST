@@ -29,11 +29,13 @@ namespace SingularityFAAST.WebUI.Controllers
                 Category ="Family guardian or authorized rep"},
         };
 
-        //GET: Client
+        //GET: Client - switch the Model for Index.cshtml when switching back to this
+
         //public ActionResult Index()
         //{
         //    return View(clients);
         //}
+
 
 
         public ActionResult Index()
@@ -44,17 +46,6 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return View(model);
         }
-
-
-
-        //returns list of Clients
-        //public ActionResult ListClients()
-        //{
-        //    return View(db.Clients.ToList());
-        //}
-
-
-
 
 
 

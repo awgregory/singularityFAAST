@@ -13,7 +13,7 @@ namespace SingularityFAAST.Services.Services
         {
             using (var context = new SingularityDBContext())
             {
-                //var clients = context.Clients.Where(client => client.Age > 50);
+                //var clients = context.Clients.Where(client => client.Age > 50);   Example
 
                 //grab clients in Clients table - NOT A LIST YET
                 var clients = context.Clients.ToList();
