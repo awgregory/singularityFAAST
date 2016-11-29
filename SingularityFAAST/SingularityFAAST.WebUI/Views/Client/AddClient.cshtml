@@ -1,4 +1,5 @@
-﻿
+﻿@model SingularityFAAST.Core.Entities.Client
+
 @{
     ViewBag.Title = "AddClient";
 }
@@ -6,54 +7,69 @@
 <h2>Add New Client</h2>
 
 @using (Html.BeginForm())
-{
+    
+    {
 
 
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <label for="Title">Title</label>
-                <Input type="text" class="form-control" id="Title" name="Title">
+                @*<label for="Title">Title</label>*@
+                @Html.LabelFor(client => client.Title)
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" } )
             </div>
         </div>
 
+
+
         <div class="col-md-4">
             <div class="form-group">
-                <label for="Company">Company</label>
-                <Input type="text" class="form-control" id="Company" name="Company">
+                @*<label for="company">company</label>*@
+                @Html.LabelFor(client => client.Company)
+                @Html.TextBoxFor(m => m.Company, new { @class = "form-control" } )
             </div>
         </div>
     </div>
 
+
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <label for="FirstName">First Name</label>
-                <Input type="text" class="form-control" id="FirstName" name="FirstName">
+                @*<label for="FirstName">First Name</label>*@
+                @Html.LabelFor(client => client.FirstName)
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" } )
+            </div>
+
+
+            <div class="form-group">
+                @*<label for="Address1">Address 1</label>*@
+                @Html.LabelFor(client => client.Address1)
+                @Html.TextBoxFor(m => m.Address1, new { @class = "form-control" })
+            </div>
+
+
+            <div class="form-group">
+                @*<label for="StateName">State Name</label>*@
+                @Html.LabelFor(client => client.StateName)
+                @Html.TextBoxFor(m => m.StateName, new { @class = "form-control" })
+            </div>
+
+
+            <div class="form-group">
+                @*<label for="StateCode">State Code</label>*@
+                @Html.LabelFor(client => client.StateCode)
+                @Html.TextBoxFor(m => m.StateCode, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="Address1">Address 1</label>
-                <Input type="text" class="form-control" id="Address1" name="Address1">
-            </div>
-
-            <div class="form-group">
-                <label for="StateName">State Name</label>
-                <Input type="text" class="form-control" id="StateName" name="StateName">
-            </div>
-
-            <div class="form-group">
-                <label for="StateCode">State Code</label>
-                <Input type="text" class="form-control" id="StateCode" name="StateCode">
-            </div>
-
-            <div class="form-group">
-                <label for="CellPhone">Cell Phone</label>
-                <Input type="text" class="form-control" id="CellPhone" name="CellPhone">
+                @*<label for="CellPhone">Cell Phone</label>*@
+                @Html.LabelFor(client => client.CellPhone)
+                @Html.TextBoxFor(m => m.CellPhone, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
                 <label for="ClientCategoryId">Client Category</label>
+                
                 <select class="form-control" id="ClientCategoryId" name="ClientCategoryId">
                     <option value="1">Individual with Disability</option>
                     <option value="2">Family Member</option>
@@ -69,61 +85,72 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                <label for="MiddleInitial">Middle Initial</label>
-                <Input type="text" class="form-control" id="MiddleInitial" name="MiddleInitial">
+                @*<label for="MiddleInitial">Middle Initial</label>*@
+                @Html.LabelFor(client => client.MiddleInitial)
+                @Html.TextBoxFor(m => m.MiddleInitial, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="Address2">Address 2</label>
-                <Input type="text" class="form-control" id="Address2" name="Address2">
+                @*<label for="Address2">Address 2</label>*@
+                @Html.LabelFor(client => client.Address2) 
+                @Html.TextBoxFor(m => m.Address2, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="County">County</label>
-                <Input type="text" class="form-control" id="County" name="County">
+                @*<label for="County">County</label>*@
+                @Html.LabelFor(client => client.County)
+                @Html.TextBoxFor(m => m.County, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="CountyFIPS">CountyFIPS</label>
-                <Input type="text" class="form-control" id="CountyFIPS" name="CountyFIPS">
+                @*<label for="CountyFIPS">CountyFIPS</label>*@
+                @Html.LabelFor(client => client.CountyFIPS)
+                @Html.TextBoxFor(m => m.CountyFIPS, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="HomePhone">Home Phone</label>
-                <Input type="text" class="form-control" id="HomePhone" name="HomePhone">
+                @*<label for="HomePhone">Home Phone</label>*@
+                @Html.LabelFor(client => client.HomePhone)
+                @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="LoanEligibility">Loan Eligibility</label>
-                <Input type="text" class="form-control" id="LoanEligibility" name="LoanEligibility">
+                @*<label for="LoanEligibility">Loan Eligibility</label>*@
+                @Html.LabelFor(client => client.LoanEligibility)
+                @Html.TextBoxFor(m => m.LoanEligibility, new { @class = "form-control" })
             </div>
         </div>
 
 
         <div class="col-md-4">
             <div class="form-group">
-                <label for="LastName">Last Name</label>
-                <Input type="text" class="form-control" id="LastName" name="LastName">
+                @*<label for="LastName">Last Name</label>*@
+                @Html.LabelFor(client => client.LastName)
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="City">City</label>
-                <Input type="text" class="form-control" id="City" name="City">
+                @*<label for="City">City</label>*@
+                @Html.LabelFor(client => client.City)
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="Email">Zip</label>
-                <Input type="text" class="form-control" id="Email" name="Email">
+                @*<label for="Zip">Zip</label>*@
+                @Html.LabelFor(client => client.Zip)
+                @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" } )
             </div>
 
             <div class="form-group">
-                <label for="Email">Email</label>
-                <Input type="text" class="form-control" id="Email" name="Email">
+                @*<label for="Email">Email</label>*@
+                @Html.LabelFor(client => client.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
             </div>
 
             <div class="form-group">
-                <label for="WorkPhone">Work Phone</label>
-                <Input type="text" class="form-control" id="WorkPhone" name="WorkPhone">
+                @*<label for="WorkPhone">Work Phone</label>*@
+                @Html.LabelFor(client => client.WorkPhone)
+                @Html.TextBoxFor(m => m.WorkPhone, new { @class = "form-control" })
             </div>
         </div>
 
@@ -134,7 +161,10 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="Notes">Notes</label>
-                <textarea rows="4" class="form-control" id="Notes" name="Notes"></textarea>
+                @Html.LabelFor(client => client.Notes)
+                @Html.TextAreaFor(client => client.Notes, new { @class = "form-control" })
+                
+                @*<textarea rows="4" class="form-control" id="Notes" name="Notes"></textarea>*@
             </div>
         </div>
     </div>

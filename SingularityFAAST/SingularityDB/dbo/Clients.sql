@@ -2,7 +2,7 @@
 (
 	[ClientId]			INT				NOT NULL	IDENTITY(1,1), 
     [Active]			BIT				NOT NULL DEFAULT 1, 
-    [DateCreated]		DATETIME		NOT NULL, 
+    [DateCreated]		DATETIME2		NOT NULL DEFAULT sysdatetime() , 
     [FirstName]			VARCHAR(50)		NOT NULL,
 	[MiddleInitial]		CHAR			NULL,
     [LastName]			VARCHAR(50)		NOT NULL, 

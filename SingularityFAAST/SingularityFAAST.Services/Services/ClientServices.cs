@@ -25,5 +25,17 @@ namespace SingularityFAAST.Services.Services
                 return clientList;
             }
         }
+
+        public void SaveClient(Client client)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                context.Clients.Add(client);   //that doesn't save just yet
+
+                var rowsAffected = context.SaveChanges();
+            }
+
+            
+        }
     }
 }

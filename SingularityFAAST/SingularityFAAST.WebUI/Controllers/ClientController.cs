@@ -1,7 +1,8 @@
 ﻿using SingularityFAAST.Services.Services;
-using SingularityFAAST.WebUI.Models;
+using SingularityFAAST.Core.Entities;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
@@ -10,24 +11,7 @@ namespace SingularityFAAST.WebUI.Controllers
         
         private static int id = 0;
 
-        private static List<Client> clients = new List<Client>()
-        {
-            new Client {ClientID = 1, LastName= "Stevens", FirstName="Bob",
-                Address= "123 Main St", StateAbbr= "FL", ZipCode=32210,
-                Category ="Individual with a Disability"},
 
-            new Client {ClientID = 2, LastName= "Brown", FirstName="Rocco",
-                Address= "64 Side St", StateAbbr= "FL", ZipCode=32256,
-                Category ="Family guardian or authorized rep"},
-
-            new Client {ClientID = 3, LastName= "Teske", FirstName="David",
-                Address= "PO Box 909", StateAbbr= "NC", ZipCode=28711,
-                Category ="Family guardian or authorized rep"},
-
-            new Client {ClientID = 4, LastName= "Stayer", FirstName="Bruce",
-                Address= "134 Deanna Drive", StateAbbr= "FL", ZipCode=33852,
-                Category ="Family guardian or authorized rep"},
-        };
 
         //GET: Client - switch the Model for Index.cshtml when switching back to this
 
@@ -50,18 +34,32 @@ namespace SingularityFAAST.WebUI.Controllers
 
         public ViewResult SearchClient()
         {
+
+            var listylist = new List<Client>()
+            {
+                new Client {FirstName = "Bob" },
+                new Client {FirstName = "Cat" }
+            };
+
+            var clientsNameBob = listylist.Where(client => client.FirstName.Equals("Bob")).ToList();
+
             return View();
         }
 
         public ViewResult AddClient()
         {
+
             return View();
         }
 
         [HttpPost]
         public ViewResult AddClient(Client client)
         {
-            Add Client(client);
+            var services = new ClientServices();
+
+            services.SaveClient(client);
+
+
             return View();
         }
 
