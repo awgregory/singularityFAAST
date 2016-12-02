@@ -9,11 +9,7 @@ namespace SingularityFAAST.WebUI.Controllers
     public class ClientController : Controller
     {
         
-        private static int id = 0;
-
-
-
-        //GET: Client - switch the Model for Index.cshtml when switching back to this
+        //private static int id = 0;
 
         //public ActionResult Index()
         //{
@@ -45,6 +41,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return View();
         }
+
 
         public ViewResult AddClient()
         {
