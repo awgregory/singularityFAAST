@@ -28,19 +28,7 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-        public ViewResult SearchClient()
-        {
 
-            var listylist = new List<Client>()
-            {
-                new Client {FirstName = "Bob" },
-                new Client {FirstName = "Cat" }
-            };
-
-            var clientsNameBob = listylist.Where(client => client.FirstName.Equals("Bob")).ToList();
-
-            return View();
-        }
 
 
         public ViewResult AddClient()
