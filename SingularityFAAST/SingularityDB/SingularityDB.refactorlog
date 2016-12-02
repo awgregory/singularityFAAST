@@ -154,4 +154,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="InventoryCategoryId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="7f3194f1-d699-424d-b6ad-9a1c833c8e83" ChangeDateTime="11/01/2016 14:33:07">
+    <Property Name="ElementName" Value="[dbo].[LoanMaster].[InventoryItemId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InventoryItemId1" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9859fd55-b8a1-4b38-824e-88151c78040c" ChangeDateTime="11/01/2016 14:49:11">
+    <Property Name="ElementName" Value="[dbo].[LoanDetails].[Purpose]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanDetails]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PurposeType" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="55b264e9-d618-42e0-a129-4c7555da1110" ChangeDateTime="11/01/2016 14:58:05">
+    <Property Name="ElementName" Value="[dbo].[LoanDetails].[LoanEndDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanDetails]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LoanDuration" />
+  </Operation>
 </Operations>
