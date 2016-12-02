@@ -17,7 +17,7 @@
     <body>
     <div class="container">
         <br/>
-        <div class="row">
+        <div class="row">  @*add class here to create two-column page (with third col for Jon's left hand tabs)*@
             <div class="col-md-4 col-md-offset-4">
                 <h2>Manage Loans</h2>
             </div>
@@ -53,8 +53,8 @@
             </div>
         </div>
         <br/>
-        <table class="table">
-            <tr>
+         <table class="table">
+            <tr >
                 <th>Select</th>
                 <th>
                     Loan ID
@@ -69,7 +69,7 @@
                     Device Name
                 </th>
                 <th>
-                    Loan End Date @Html.ActionLink("Loan End Date", "Index", new { sort = ViewBag.DateSortParm })
+                    @Html.ActionLink("Loan End Date", "Index", new { sort = ViewBag.DateSortParm })
                 </th>
                 <th>
                     Notes
@@ -83,7 +83,8 @@
             {
                 <tr>
                     <td>
-                        @Html.ActionLink("Select", "", new {id = item.LoanId}) @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
+                        @*@Html.ActionLink("Select", "", new {id = item.LoanId}) *@ @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
+                        @Html.CheckBox("item.LoanId", false)
                     </td>
                     <td>
                         @item.LoanId
