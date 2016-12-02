@@ -25,7 +25,9 @@
                 @Html.ActionLink("Report", "Index", "Report", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                @*needs to be reactive to log in credentials*@
+                <ul class="nav navbar-nav navbar-right">
+                    @Html.ActionLink("Log Out", null, null, new { area = "" }, new { @class = "navbar-brand" })
                 </ul>
             </div>
         </div>
@@ -35,7 +37,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - singularityFAAST</p>
+            <p>&copy; @DateTime.Now.Year - Singularity</p>
         </footer>
     </div>
 
