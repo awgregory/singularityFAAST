@@ -1,4 +1,9 @@
-﻿
+﻿@*Inventory Home page
+     -shows ONLY those inventory items that are currently loaned out
+
+    Hope Haven - FAAST Inventory System
+    Jonathan Ebert - 11/9/16*@
+
 @{
     ViewBag.Title = "Index";
 }
@@ -7,9 +12,12 @@
 
 <table>
     <tr>
-        <td>@Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new { @class = "btn btn-primary" @*add some styling for padding?*@})</td>
+        <td>@Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new {@class = "btn btn-primary" @*add some styling for padding?*@})</td>
     </tr>
     <tr>
-        <td>@Html.ActionLink("View All Inventory Items", "ViewAllInventory", "InventoryItem", null, new {@class = "btn btn-primary"})</td>
+        <td><br />@Html.ActionLink("Edit Inventory Item", "UpdateInventoryItem", "InventoryItem", null, new { @class = "btn btn-primary" })</td>
+    </tr>
+    <tr>
+        <td><br/>@Html.ActionLink("View All Inventory Items", "ViewAllInventory", "InventoryItem", null, new {@class = "btn btn-primary"})</td>
     </tr>
 </table>

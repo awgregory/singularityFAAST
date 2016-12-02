@@ -10,7 +10,7 @@ namespace SingularityFAAST.Services.Services
 {
     public class InventoryItemServices
     {
-        //Add getAllInventory() method
+        //gets all inventory items and passes it to the InventoryItemController
         public IList<InventoryItem> GetAllInventory()
         {
             using (var context = new SingularityDBContext())

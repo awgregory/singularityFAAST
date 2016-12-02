@@ -32,6 +32,12 @@ namespace SingularityFAAST.WebUI.Controllers
             return View(model);
         }
 
+        //update inventory item page
+        public ActionResult UpdateInventoryItem()
+        {
+            return View();
+        }
+
         public ActionResult ViewAllAvailableInv()
         {
             return View();
@@ -45,6 +51,11 @@ namespace SingularityFAAST.WebUI.Controllers
         public RedirectToRouteResult MethodAddNewItem()
         {
             return null; //would eventually collect form info and add item to db and return user to inventory home page
-        } 
+        }
+
+        public RedirectToRouteResult MethodUpdateItem()
+        {
+            return null; //would eventually collect form info and add item to db and return user to inventory home page
+        }
     }
 }
