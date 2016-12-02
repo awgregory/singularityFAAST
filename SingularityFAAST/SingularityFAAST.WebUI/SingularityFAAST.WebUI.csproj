@@ -121,6 +121,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\Loan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +138,8 @@
     <Content Include="Views\Home\Client.cshtml" />
     <Content Include="Views\InventoryItem\NewInventoryItem.cshtml" />
     <Content Include="Views\Home\CreateForm.cshtml" />
+    <Content Include="Views\Loan\ManageLoans.cshtml" />
+    <Content Include="Views\Loan\RenewLn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -147,7 +150,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Client\" />
-    <Folder Include="Views\Loan\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SingularityFAAST.Services\SingularityFAAST.Services.csproj">
