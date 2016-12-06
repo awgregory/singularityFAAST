@@ -10,7 +10,7 @@ namespace SingularityFAAST.WebUI.Controllers
     public class LoanController : Controller
     {
         // GET: Loan
-        public ActionResult Index(string sort)
+        public ActionResult IndexLoan(string sort)
         {
             ViewBag.DateSortParm = sort == "Date" ? "date_desc" : "Date";
             //var endDate = from s in SingularityDB.Loans  //obviously can't do this with these layered projects
@@ -21,16 +21,19 @@ namespace SingularityFAAST.WebUI.Controllers
         }
         public ActionResult RenewLoan()
         {
+
             return View("RenewLn");
         }
-        //public ActionResult EditLoan()
-        //{
-        //    return View("EditLn");
-        //}
-        //public ActionResult CheckIn()
-        //{
-        //    return View("CheckIn");
-        //}
+
+        public ActionResult EditLn()
+        {
+            return View("EditLoan");
+        }
+
+        public ActionResult CheckIn()
+        {
+            return View("CheckIn");
+        }
 
     }
 }
