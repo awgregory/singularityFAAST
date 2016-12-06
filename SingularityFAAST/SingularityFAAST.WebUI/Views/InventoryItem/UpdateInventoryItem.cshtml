@@ -1,14 +1,12 @@
-﻿@using SingularityFAAST.WebUI.Models
-
+﻿@*Update Inventory Item
+     
+    Hope Haven - FAAST Inventory System
+    Jonathan Ebert - 11/22/16*@
 @{
-    ViewBag.Title = "NewInventoryItem";
+    ViewBag.Title = "Update Item";
 }
 
-@*New Inventory Item page
-    Hope Haven - FAAST Inventory System
-    Jonathan Ebert*@
-
-<h2>New Item</h2>
+<h2>Update Inventory Item</h2>
 
 <form>
     <div class="row">
@@ -82,24 +80,27 @@
                 <textarea rows="4" class="form-control" id="Description"></textarea>
             </div>
         </div>
-        
+
         <div class="col-md-2">
-        @*Accessories*@
+            @*Accessories*@
             <div class="form-group">
                 <label for="Accessories">Accessories</label>
                 <textarea rows="4" class="form-control" id="Accessories"></textarea>
             </div>
 
-        @*@*Additional Files
-            <div class="form-control">
-                <label for="AdditionalFiles">Additional Files</label>
-            </div>*@
+            @*Additional Files
+    <div class="form-control">
+        <label for ="AdditionalFiles">Additional Files</label>
+    </div>*@
         </div>
     </div>
 
     
 
-        <div>
-            @Html.ActionLink("Create Item", "MethodAddNewItem", null, new { @class = "btn btn-primary" })
-        </div>
+    <div>
+        @Html.ActionLink("Update Item", "MethodUpdateItem", null, new { @class = "btn btn-primary" })
+        <br/>
+        <br/>
+        @Html.ActionLink("Delete Item", "MethodAddNewItem", null, new { @class = "btn btn-danger btn-sm" })
+    </div>
 </form>

@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 
-namespace SingularityFAAST.Core.Entities
+namespace SingularityFAAST.WebUI.Models
 {
     public class Loan
     {
@@ -9,7 +12,7 @@ namespace SingularityFAAST.Core.Entities
         public int LoanId { get; set; }
 
         [Required(ErrorMessage = "Please enter a device name")]
-
+        [Display(Name = "Device Name")]
         public string DeviceName { get; set; }
 
         public string LastName { get; set; }
@@ -37,4 +40,3 @@ namespace SingularityFAAST.Core.Entities
         };
     }
 }
-
