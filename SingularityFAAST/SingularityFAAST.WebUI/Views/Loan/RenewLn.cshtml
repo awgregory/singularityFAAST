@@ -1,26 +1,20 @@
-﻿@model SingularityFAAST.WebUI.Models.Loan
+﻿@model IEnumerable<SingularityFAAST.Core.Entities.Loan>
 
 @{
     ViewBag.Title = "RenewLn";
 }
 
-<!DOCTYPE html>
 @*View Devices in Loan should go to its own page that lists each item with the ability to renew individually *@
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>ManageLoans</title>
-    </head>
-    <body>
-    <div class="container">
-        <br />
+<br/>
+<div class="row">
+    <div class="col-md-5 col-md-offset-3">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="col-md-offset-4">Renew Loan</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-5 col-md-offset-3">
+                    <div class="col-md-10 col-md-offset-1">
                         Would you like to renew all items in this loan for 30 days?
                     </div>
                 </div>
@@ -46,6 +40,6 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+
 
