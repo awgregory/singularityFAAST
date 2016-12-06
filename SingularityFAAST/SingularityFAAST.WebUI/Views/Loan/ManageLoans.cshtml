@@ -1,0 +1,128 @@
+﻿@using SingularityFAAST.WebUI.Models
+@*@model IEnumerable<SingularityFAAST.WebUI.Models.Loan> *@
+@model IEnumerable<SingularityFAAST.Core.Entities.Loan>
+
+
+@{
+    ViewBag.Title = "Loan";
+}
+
+@*<head>
+        <meta name="viewport" content="width=device-width" />
+        <title>ManageLoans</title>
+    </head>
+*@
+
+@*<div class="row">*@   @*add class (makes body content + column into a single row) here to create two-column page for upcoming due loans *@
+@*This will be column for upcoming due loans, and past due loans*@
+
+<h2>Manage Loans</h2>
+@*<div class="col-md-4 col-md-offset-4"></div>*@  @*This was to center the title*@
+<br/>
+@*<div class="row">*@
+    <form class="form-inline">
+        <input type="text" class="form-control" placeholder="Search Loans by Client Last Name" style="width: 30%;"/>
+        <input class="btn btn-default" value="Search" />
+    </form>
+@*</div>*@
+<br /><br />
+<div class="row">
+    <div class="col-md-4">
+        Choose any loan to edit, renew or cancel.
+    </div>
+    <div class="btn-group">
+        @*<div class="col-md-2">*@
+        @Html.ActionLink("Renew Loan", "RenewLoan", null, new { @class = "btn btn-default" }) @*RenewLoan*@
+        @*</div>*@
+        @*<div class="col-md-2">*@
+        @Html.ActionLink("Cancel Loan", "", null, new { @class = "btn btn-default" }) @*CancelLoan*@
+        @*</div>*@
+        @*<div class="col-md-2">*@
+        @Html.ActionLink("Edit Loan", "EditLn", null, new { @class = "btn btn-default" }) @*EditLoan*@
+        @*</div>*@
+        @*<div class="col-md-2">*@
+        @Html.ActionLink("Check-In Loan", "CheckIn", null, new { @class = "btn btn-default" }) @*CheckinLoan*@ @*To record client outcome, damages etc.*@
+        @*</div>*@
+    </div>
+</div>
+<br/>
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-9">
+        <table class="table table-striped">
+            <tr>
+                <th>Select</th>
+                <th>
+                    Loan ID
+                </th>
+                <th>
+                    Client Last Name
+                </th>
+                <th>
+                    Client First Name
+                </th>
+                <th>
+                    Device Name
+                </th>
+                <th>
+                    @Html.ActionLink("Loan End Date", "IndexLoan", new { sort = ViewBag.DateSortParm })
+                </th>
+                <th>
+                    Notes
+                </th>
+                <th>
+                    Eligibility
+                </th>
+            </tr>
+
+            @foreach (var item in Loan.manager)
+            {
+                <tr>
+                    <td>
+                        @*@Html.ActionLink("Select", "", new {id = item.LoanId}) *@ @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
+                        @Html.CheckBox("item.LoanId", false)
+                    </td>
+                    <td>
+                        @item.LoanId
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.DeviceName
+                    </td>
+                    <td>
+                        @item.LoanEndDate
+                    </td>
+                    <td>
+                        @item.Notes
+                    </td>
+                    <td style="text-align: center;">
+                        @item.Eligibility
+                    </td>
+                </tr>
+            }
+        </table>
+        <a href="ManageLoans.cshtml">< Previous 10 </a> @*use bootstrap pagination here*@
+        <a href="ManageLoans.cshtml">| Next 10 ></a>
+
+
+        @*<div class="col-md-2 col-sm-3 hidden-xs">  *@
+        <!-- Placeholder - keep empty -->
+        @*</div>*@
+      
+        
+    @*<div class="col-md-2">  For Upcoming Devices Due column
+            <div class="navbar-collapse navbar-right collapse">
+
+                column here!!
+                <br/>
+                column here!!
+            </div>
+        </div>*@
+    </div>
+</div>
+</div>
