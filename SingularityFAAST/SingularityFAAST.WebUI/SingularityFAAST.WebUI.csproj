@@ -142,7 +142,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Loan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -152,9 +151,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\InventoryItem\Index.cshtml" />
-    <Content Include="Views\Home\Client.cshtml" />
     <Content Include="Views\InventoryItem\NewInventoryItem.cshtml" />
-    <Content Include="Views\Home\CreateForm.cshtml" />
     <Content Include="Views\InventoryItem\ViewAllInventory.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
@@ -165,6 +162,9 @@
     <Content Include="Views\Loan\RenewLn.cshtml" />
     <Content Include="Views\Loan\EditLoan.cshtml" />
     <Content Include="Views\Loan\CheckIn.cshtml" />
+    <Content Include="Views\Client\AddClient.cshtml" />
+    <Content Include="Views\Client\CreateForm.cshtml" />
+    <Content Include="Views\Client\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -174,7 +174,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Client\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SingularityFAAST.Core\SingularityFAAST.Core.csproj">
