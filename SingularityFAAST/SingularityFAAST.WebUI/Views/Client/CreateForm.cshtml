@@ -7,10 +7,10 @@
 <h2>Create New Client Form</h2>
 
 @using (Html.BeginForm())
-{   
+{
 
 
-    foreach (var property in ViewData.ModelMetadata.Properties)  // Loops through properties Model
+    foreach (var property in ViewData.ModelMetadata.Properties)  // Loops through properties of Model
     {
         if (property.PropertyName != "ClientID")
         {

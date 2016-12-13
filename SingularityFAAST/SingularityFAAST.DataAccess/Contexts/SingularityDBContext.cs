@@ -10,7 +10,7 @@ namespace SingularityFAAST.DataAccess.Contexts
     {
         public DbSet<Client> Clients { get; set; }
         public DbSet<InventoryItem> InventoryItems { get; set; }
-        public DbSet<Loan> Loans { get; set; }
+        //public DbSet<Loan> Loans { get; set; }
 
     }
 }
