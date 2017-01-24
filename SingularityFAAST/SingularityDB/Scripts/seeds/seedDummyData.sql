@@ -45,3 +45,26 @@ insert [dbo].[clients] ([clientid], [active], [datecreated], [firstname], [middl
 go
 set identity_insert [dbo].[clients] off
 go
+
+
+--INSERT INTO [dbo].[LoanCategories] ([LoanCategoryId],[CategoryName])   --What is a Loan Category?  Not found in existing data.  We have Loan Purpose and Purpose Type in LoanDetails table.
+--     VALUES (1,''), (2,''), (3, '')
+--GO
+
+SET IDENTITY_INSERT [dbo].[LoanMaster] ON  
+GO
+INSERT INTO [dbo].[LoanMaster] ([DateCreated],[IsActive],[ClientId],[LoanCategoryId],[InventoryItemId1],[InventoryItemId2],[InventoryItemId3],[InventoryItemId4],[InventoryItemId5],[InventoryItemId6],[LoanNumber])
+     VALUES (GETDATE(),1,3,null,2,1,null,null,null,null,15499)
+GO 
+
+SET IDENTITY_INSERT [dbo].[LoanMaster] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[LoanDetails] OFF   
+GO
+
+--Why is DateCreated in LoanMaster and LoanDate(presumably the date loan created) here?
+INSERT INTO [dbo].[LoanDetails]([LoanMasterId],[LoanDate],[LoanDuration],[Purpose],[PurposeType],[ClientOutcome],[Notes])
+     VALUES
+           (1,null,28,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs','two charger cords & one charger')
+GO
