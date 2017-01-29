@@ -71,7 +71,6 @@
     <Build Include="dbo\LoanMasters.sql" />
     <Build Include="dbo\LoanDetails.sql" />
     <Build Include="dbo\InventoryItems.sql" />
-    <Build Include="dbo\LoanCategories.sql" />
     <Build Include="dbo\InventoryItemCategories.sql" />
     <Build Include="dbo\InventoryItemSubCategories.sql" />
     <None Include="Scripts\seeds\seedDummyData.sql" />

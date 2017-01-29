@@ -31,16 +31,19 @@
     </div>
     <div class="btn-group">
         @*<div class="col-md-2">*@
-        @Html.ActionLink("Renew Loan", "RenewLoan", null, new { @class = "btn btn-default" }) @*RenewLoan*@
+        @Html.ActionLink("Create Loan", "AddLoan", null, new { @class = "btn btn-default" }) @*NewLoan*@
         @*</div>*@
         @*<div class="col-md-2">*@
-        @Html.ActionLink("Cancel Loan", "CancelLn", null, new { @class = "btn btn-default" }) @*CancelLoan*@
+        @Html.ActionLink("Renew Loan", "RenewLoan", null, new {@class = "btn btn-default"}) @*RenewLoan*@
         @*</div>*@
         @*<div class="col-md-2">*@
-        @Html.ActionLink("Edit Loan", "EditLn", null, new { @class = "btn btn-default" }) @*EditLoan*@
+        @Html.ActionLink("Cancel Loan", "CancelLn", null, new {@class = "btn btn-default"}) @*CancelLoan*@
         @*</div>*@
         @*<div class="col-md-2">*@
-        @Html.ActionLink("Check-In Loan", "CheckIn", null, new { @class = "btn btn-default" }) @*CheckinLoan*@ @*To record client outcome, damages etc.*@
+        @Html.ActionLink("Edit Loan", "EditLn", null, new {@class = "btn btn-default"}) @*EditLoan*@
+        @*</div>*@
+        @*<div class="col-md-2">*@
+        @Html.ActionLink("Check-In Loan", "CheckIn", null, new {@class = "btn btn-default"}) @*CheckinLoan*@ @*To record client outcome, damages etc.*@
         @*</div>*@
     </div>
 </div>
