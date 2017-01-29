@@ -68,7 +68,7 @@
     <Build Include="dbo\ClientCategories.sql" />
     <Build Include="dbo\DisabilityCategories.sql" />
     <Build Include="dbo\ClientDisabilities.sql" />
-    <Build Include="dbo\LoanMaster.sql" />
+    <Build Include="dbo\LoanMasters.sql" />
     <Build Include="dbo\LoanDetails.sql" />
     <Build Include="dbo\InventoryItems.sql" />
     <Build Include="dbo\LoanCategories.sql" />

@@ -158,13 +158,15 @@
     <Content Include="Views\InventoryItem\ViewAllOnLoanInv.cshtml" />
     <Content Include="Views\InventoryItem\ViewAllAvailableInv.cshtml" />
     <Content Include="Views\InventoryItem\UpdateInventoryItem.cshtml" />
-    <Content Include="Views\Loan\ManageLoans.cshtml" />
+    <Content Include="Views\Loan\Index.cshtml" />
     <Content Include="Views\Loan\RenewLn.cshtml" />
     <Content Include="Views\Loan\EditLoan.cshtml" />
     <Content Include="Views\Loan\CheckIn.cshtml" />
     <Content Include="Views\Client\AddClient.cshtml" />
     <Content Include="Views\Client\CreateForm.cshtml" />
     <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Loan\CancelLoan.cshtml" />
+    <Content Include="Views\Loan\RenewItems.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
