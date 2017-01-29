@@ -31,6 +31,24 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
+        public IList<string> GetLoans(int loanItemId)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var results =
+                    from client in context.LoanMasters ;
+                //join --- on
+                //where -- = loanItemId
+                //select 
+                //etc.....
+
+                //lambda =>
+
+                var resultList = results.ToList();
+                return resultList;
+
+            }
+        }
 
     }
 }
