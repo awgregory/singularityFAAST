@@ -39,7 +39,7 @@
   <ItemGroup>
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\InventoryItem.cs" />
-    <Compile Include="Entities\Loan.cs" />
+    <Compile Include="Entities\LoanMaster.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

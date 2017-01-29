@@ -11,7 +11,7 @@ namespace SingularityFAAST.Services.Services
          {
               using (var context = new SingularityDBContext())
               {
-                  var loans = context.Loans;
+                  var loans = context.LoanMaster;
                   
                   var loanList = loans.ToList();
                   
@@ -25,7 +25,7 @@ namespace SingularityFAAST.Services.Services
               {
                   loan.DateCreated = DateTime.Now;  // Manipulating the client object is done before saving to Db
   
-                  context.Loans.Add(loan);
+                  context.LoanMaster.Add(LoanMaster);
   
                   var rowsAffected = context.SaveChanges();
               }

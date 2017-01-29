@@ -1,10 +1,6 @@
-﻿es (121 sloc)  4.15 KB
-@*@using SingularityFAAST.Core.Entities*@
+﻿@using SingularityFAAST.Core.Entities
 @using SingularityFAAST.Services.Services;
-@model IEnumerable<SingularityFAAST.Core.Entities.Loan>
-
-
-
+@model IEnumerable<SingularityFAAST.Core.Entities.LoanMaster>
 
 @{
     ViewBag.Title = "Loan";
@@ -60,54 +56,55 @@
                             Loan ID
                         </th>
                         <th>
-                            Client Last Name
+                            DateCreated
                         </th>
                         <th>
-                            Client First Name
+                            Client ID
                         </th>
                         <th>
-                            Device Name
+                            Inventory Item ID
                         </th>
                         <th>
-                            @Html.ActionLink("Loan End Date", "IndexLoan", new { sort = ViewBag.DateSortParm })
+                            Loan End Date
+                            @*@Html.ActionLink("Loan End Date", "IndexLoan", new { sort = ViewBag.DateSortParm })*@
                         </th>
                         <th>
                             Notes
                         </th>
-                        <th>
+                        @*<th>
                             Eligibility
-                        </th>
+                        </th>*@
                     </tr>
                 </thead>
                 <tbody>
-                    @*@foreach (var item in Loan.)*@
-            {
+                    @foreach (var item in Model)
+                    {
                         <tr>
                             <td>
                                 @*@Html.ActionLink("Select", "", new {id = item.LoanId}) *@ @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
                                 @Html.RadioButton("item.LoanId", false)
                             </td>
                             <td>
-                                @item.LoanId
+                                @item.LoanMasterId
                             </td>
                             <td>
-                                @item.LastName
+                                @item.DateCreated
                             </td>
                             <td>
-                                @item.FirstName
+                                @item.ClientId
                             </td>
                             <td>
-                                @item.DeviceName
+                                @item.InventoryItemId
                             </td>
                             <td>
-                                @item.LoanEndDate
+                                @item.InventoryItemId
                             </td>
                             <td>
-                                @item.Notes
+                                @item.InventoryItemId
                             </td>
-                            <td style="text-align: center;">
+                            @*<td style="text-align: center;">
                                 @item.Eligibility
-                            </td>
+                            </td>*@
                         </tr>
                     }
                 </tbody>

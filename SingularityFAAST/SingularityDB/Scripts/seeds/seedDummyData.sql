@@ -47,17 +47,18 @@ set identity_insert [dbo].[clients] off
 go
 
 
---INSERT INTO [dbo].[LoanCategories] ([LoanCategoryId],[CategoryName])   --What is a Loan Category?  Not found in existing data.  We have Loan Purpose and Purpose Type in LoanDetails table.
---     VALUES (1,''), (2,''), (3, '')
---GO
-
-SET IDENTITY_INSERT [dbo].[LoanMaster] ON  
+INSERT INTO [dbo].[LoanCategories] ([LoanCategoryId],[CategoryName])   --What is a Loan Category?  Not found in existing data.  We have Loan Purpose and Purpose Type in LoanDetails table.
+     VALUES (1,'General')
 GO
-INSERT INTO [dbo].[LoanMaster] ([DateCreated],[IsActive],[ClientId],[LoanCategoryId],[InventoryItemId1],[InventoryItemId2],[InventoryItemId3],[InventoryItemId4],[InventoryItemId5],[InventoryItemId6],[LoanNumber])
-     VALUES (GETDATE(),1,3,null,2,1,null,null,null,null,15499)
+
+SET IDENTITY_INSERT [dbo].[LoanMasters] ON  
+GO
+INSERT INTO [dbo].[LoanMasters] ([LoanMasterID],[DateCreated],[IsActive],[ClientId],[LoanCategoryId],[InventoryItemId],[LoanNumber])
+     VALUES						(1, GETDATE(),		1,			3,			1,				1,				15499),
+								(2, GETDATE(),		1,			6,			1,				2,				24700)
 GO 
 
-SET IDENTITY_INSERT [dbo].[LoanMaster] OFF
+SET IDENTITY_INSERT [dbo].[LoanMasters] ON
 GO
 
 SET IDENTITY_INSERT [dbo].[LoanDetails] OFF   
@@ -66,5 +67,10 @@ GO
 --Why is DateCreated in LoanMaster and LoanDate(presumably the date loan created) here?
 INSERT INTO [dbo].[LoanDetails]([LoanMasterId],[LoanDate],[LoanDuration],[Purpose],[PurposeType],[ClientOutcome],[Notes])
      VALUES
-           (1,null,28,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs','two charger cords & one charger')
+           (1,GETDATE(),28,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs','two charger cords & one charger'),
+		   (3,GETDATE(),28,'Assist in decision making (device trial or evaluation)','Work','AT will meet needs','batteries and cards included')
+		   --(3,null,28,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs','two charger cords & one charger')
+		   --(4,null,28,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs','two charger cords & one charger')
+		   --(5,null,28,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs','two charger cords & one charger')
+		   --(6,null,28,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs','two charger cords & one charger') 
 GO
