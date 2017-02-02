@@ -1,4 +1,7 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using SingularityFAAST.Core.Entities;
 
 namespace SingularityFAAST.DataAccess.Contexts
@@ -11,4 +14,5 @@ namespace SingularityFAAST.DataAccess.Contexts
         public DbSet<LoanMaster> LoanMasters { get; set; }
         public DbSet<LoanDetail> LoanDetails { get; set; }
     }
+
 }

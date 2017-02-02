@@ -16,6 +16,9 @@ namespace SingularityFAAST.Core.Entities
 
         public int LoanDuration { get; set; }
 
+        [Key, Column(Order = 4)]
+        public int InventoryItemId { get; set; }
+
         public string Purpose { get; set; }
 
         public string PurposeType { get; set; }
@@ -23,7 +26,5 @@ namespace SingularityFAAST.Core.Entities
         public string ClientOutcome { get; set; }
 
         public string Notes { get; set; }
-
-        public int InventoryItemId { get; set; }
     }
 }

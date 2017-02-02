@@ -3,6 +3,8 @@ using SingularityFAAST.DataAccess.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Schema;
+
 namespace SingularityFAAST.Services.Services
 {
     public class LoanMasterServices
@@ -31,21 +33,33 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
-        public IList<string> GetLoans(int loanItemId)
+        public IList<string> GetLoans(int loanId)  //GetLoans(int loanItemId)  //this param is how you'd use a checkbox to pass the item to this method.  Param wouldn't be here for "see all loans".  Need to implement Adrian's search feature.
         {
-            using (var context = new SingularityDBContext())
+            using (var context = new SingularityDBContext())  //Get primary loan info - number, Client names, Date Made.  Individual items will show once this is clicked on, on next page (items in loan) and that is another script.
             {
                 var results =
-                    from client in context.LoanMasters ;
-                //join --- on
-                //where -- = loanItemId
-                //select 
-                //etc.....
+                    from c in context.Clients
+                    join l in context.LoanMasters
+                    on c.ClientId equals l.ClientId
+                    where l.LoanMasterId == loanId
 
-                //lambda =>
+                    //select new {c, l};
+                    //select new GetLoanInfo(){FirstName = c.FirstName, LastName = c.LastName, c.ClientId, l.LoanMasterId, l.DateCreated};
+                    select new {FirstName = c.FirstName, LastName = c.LastName, ClientId = c.ClientId, LoanMasterId = l.LoanMasterId, DateCreated = l.DateCreated};
+                    //select FirstName, LastName;
 
+                    //or use lambda =>
+                    //context.Clients.Join(context.LoanMasters, c => c.ClientId, l => l.ClientId,
+                    //    (c, l) => new {FirstName = c.FirstName, LoanId = l.LoanMasterId});
+
+                    //where -- = loanItemId  //Using param                
+
+                //Had issues with converting anonymous to string
                 var resultList = results.ToList();
                 return resultList;
+                //return (IList<string>)resultList;
+                //return GetLoanInfo = resultList;
+
 
             }
         }

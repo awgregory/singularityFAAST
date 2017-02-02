@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using SingularityFAAST.Services.Services;
 using SingularityFAAST.Core.Entities;
+using SingularityFAAST.WebUI.Models;
 
 
 namespace SingularityFAAST.WebUI.Controllers
@@ -15,7 +16,8 @@ namespace SingularityFAAST.WebUI.Controllers
         {
 
             //var services = new LoanMasterServices();
-            IList<LoanMaster> model = lm_services.GetAllLoans();
+            //IList<LoanMaster> model = lm_services.GetAllLoans();
+            IList<GetLoanInfo> model = lm_services.GetLoans();
             return View(model);
             
             //for search

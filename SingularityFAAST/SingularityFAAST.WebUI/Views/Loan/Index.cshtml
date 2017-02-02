@@ -1,6 +1,7 @@
 ﻿@using SingularityFAAST.Core.Entities
-@using SingularityFAAST.Services.Services;
+@using SingularityFAAST.Services.Services
 @model IEnumerable<SingularityFAAST.Core.Entities.LoanMaster>
+@*@model SingularityFAAST.WebUI.Models.GetLoanInfo*@
 
 @{
     ViewBag.Title = "Loan";
@@ -97,14 +98,14 @@
                                 @item.ClientId
                             </td>
                             <td>
-                                @item.InventoryItemId
+                                @item.FirstName
                             </td>
                             <td>
-                                @item.InventoryItemId
+                                @item.LastName
                             </td>
-                            <td>
+                            @*<td>
                                 @item.InventoryItemId
-                            </td>
+                            </td>*@
                             @*<td style="text-align: center;">
                                 @item.Eligibility
                             </td>*@
