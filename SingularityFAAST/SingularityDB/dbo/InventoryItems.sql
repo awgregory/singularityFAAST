@@ -13,7 +13,7 @@
     [Availability]			BIT				NOT NULL,
 	[Active]				BIT				NOT NULL, 
 --serial numbers have a max size of 14 characters and can contain numbers letters and special characters
-	[SerialNumber]			VARCHAR(14)		NULL , 
+	[SerialNumber]			VARCHAR(35)		NULL , 
     [Description]			VARCHAR(MAX)	NULL, 
     [Accessories]			VARCHAR(150)	NULL,
 	[Damages]				VARCHAR(200)	NULL, 
