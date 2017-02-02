@@ -56,19 +56,18 @@ namespace SingularityFAAST.WebUI.Controllers
 
         public ViewResult AddClient()
         {
-
             return View();
         }
 
+
         [HttpPost]
-        public ViewResult AddClient(Client client)
+        public RedirectToRouteResult AddClient(Client client)
         {
             var services = new ClientServices();
 
             services.SaveClient(client);
 
-
-            return View("Index");
+            return RedirectToAction("Index", "Client");
         }
 
     }
