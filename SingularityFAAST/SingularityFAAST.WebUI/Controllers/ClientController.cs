@@ -1,9 +1,8 @@
-﻿using SingularityFAAST.Services.Services;
-using SingularityFAAST.Core.Entities;
+﻿using SingularityFAAST.Core.Entities;
+using SingularityFAAST.Core.SearchRequests;
+using SingularityFAAST.Services.Services;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Linq;
-using System;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
@@ -46,11 +45,6 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-        public class SearchRequest
-        {
-            public string SearchByName { get; set; }
-            public string SearchById { get; set; }
-        }
 
 
         public ViewResult AddClient()
