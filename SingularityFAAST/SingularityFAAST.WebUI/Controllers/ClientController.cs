@@ -27,7 +27,7 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public ActionResult Index(SearchRequest searchRequest)
         {
-            if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
+            if (string.IsNullOrWhiteSpace(searchRequest.SearchByName))
             {
 
                 IList<Client> model = _clientServices.GetAllClients();
@@ -38,7 +38,7 @@ namespace SingularityFAAST.WebUI.Controllers
             else
             {
 
-                IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchBy);
+                IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);
 
                 return View(model);
             }
@@ -48,9 +48,8 @@ namespace SingularityFAAST.WebUI.Controllers
 
         public class SearchRequest
         {
-            public string SearchBy { get; set; }
-            public DateTime SearchDate { get; set; }
-            public string Honk { get; set; }
+            public string SearchByName { get; set; }
+            public string SearchById { get; set; }
         }
 
 
