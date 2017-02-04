@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SingularityFAAST.Core.Entities
 {
-    public class ClientDisability
+    public class DisabilityCategory
     {
-        [Key]
-        [Column(Order = 1)]
+        [Key]   
         public int DisabilityCategoryId { get; set; }
-        [Key]
-        [Column(Order = 2)]
-        public int ClientId { get; set; }
+
+        public string DisabilityType { get; set; }
 
     }
 }
