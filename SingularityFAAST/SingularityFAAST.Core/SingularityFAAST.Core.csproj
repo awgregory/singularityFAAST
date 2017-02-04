@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Client.cs" />
+    <Compile Include="Entities\ClientDisability.cs" />
     <Compile Include="Entities\InventoryItem.cs" />
     <Compile Include="Entities\LoanDetail.cs" />
     <Compile Include="Entities\LoanMaster.cs" />
