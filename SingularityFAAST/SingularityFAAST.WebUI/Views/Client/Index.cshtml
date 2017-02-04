@@ -11,23 +11,29 @@
     @Html.ActionLink("Add New Client", "AddClient", null, new {@class = "btn btn-primary"})
 </p>
 
+
 @using (Html.BeginForm("Index", "Client", FormMethod.Post, new { @class = "form-inline" }))
 {
     <div class="form-group">
-        <input type="text" class="form-control" name="searchby" />
-        <input type="date" class="form-control" name="searchdate" />
-        <input type="text" class="form-control" name="honk" />
-
+        <label for="searchbyname">Search by Last Name</label>
+        <input type="text" class="form-control" name="searchbyname" id="searchbyname" placeholder="Last Name" />
     </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        
 
- }
+    <div class="form-group">
+        <label for="searchbyid">ClientId</label>
+        <input type="number" class="form-control" name="searchbyid" id="searchbyid" placeholder="ClientId" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+
 
         <br />
 
         <table class="table table-striped">
             <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClientID)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.FirstName)
                 </th>
@@ -53,6 +59,9 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>
+                        @item.ClientID
+                    </td>
                     <td>
                         @item.FirstName
                     </td>
