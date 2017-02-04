@@ -3,7 +3,7 @@ using SingularityFAAST.Core.Entities;
 
 namespace SingularityFAAST.DataAccess.Contexts
 {
-    // ReSharper disable once InconsistentNaming
+    
     public class SingularityDBContext : DbContext
     {
         public DbSet<Client> Clients { get; set; }
