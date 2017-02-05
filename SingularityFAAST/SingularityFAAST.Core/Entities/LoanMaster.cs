@@ -17,5 +17,6 @@ namespace SingularityFAAST.Core.Entities
         public bool IsActive { get; set; }
 
         public string LoanNumber { get; set; }
+
     }
 }

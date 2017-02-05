@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Schema;
 
+
 namespace SingularityFAAST.Services.Services
 {
     public class LoanMasterServices
@@ -33,7 +34,7 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
-        public IList<string> GetLoans(int loanId)  //GetLoans(int loanItemId)  //this param is how you'd use a checkbox to pass the item to this method.  Param wouldn't be here for "see all loans".  Need to implement Adrian's search feature.
+        public IList<string> GetLoans(string lastName)  //GetLoans(int loanItemId)  //this param is how you'd use a checkbox to pass the item to this method.  Param wouldn't be here for "see all loans".  Need to implement Adrian's search feature.
         {
             using (var context = new SingularityDBContext())  //Get primary loan info - number, Client names, Date Made.  Individual items will show once this is clicked on, on next page (items in loan) and that is another script.
             {
@@ -41,7 +42,7 @@ namespace SingularityFAAST.Services.Services
                     from c in context.Clients
                     join l in context.LoanMasters
                     on c.ClientId equals l.ClientId
-                    where l.LoanMasterId == loanId
+                    where c.LastName == lastName
 
                     //select new {c, l};
                     //select new GetLoanInfo(){FirstName = c.FirstName, LastName = c.LastName, c.ClientId, l.LoanMasterId, l.DateCreated};
@@ -62,6 +63,15 @@ namespace SingularityFAAST.Services.Services
 
 
             }
+        }
+        public IList<Client> GetClientsByName(string searchby)
+        {
+            IList<Client> allClients = GetAllClients();
+
+            IList<Client> filteredClients = allClients.Where(client =>
+                string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            return filteredClients;
         }
 
     }
