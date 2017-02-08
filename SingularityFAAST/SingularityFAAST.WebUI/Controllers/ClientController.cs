@@ -1,51 +1,66 @@
-﻿using SingularityFAAST.Services.Services;
-using SingularityFAAST.Core.Entities;
+﻿using SingularityFAAST.Core.Entities;
+using SingularityFAAST.Core.SearchRequests;
+using SingularityFAAST.Services.Services;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Linq;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
     public class ClientController : Controller
     {
+
+        private readonly ClientServices _clientServices = new ClientServices();
         
-        //private static int id = 0;
-
-        //public ActionResult Index()
-        //{
-        //    return View(clients);
-        //}
 
 
-
+        [HttpGet]
         public ActionResult Index()
         {
-            var services = new ClientServices();
-
-            var model = services.GetAllClients();
+            IList<Client> model = _clientServices.GetAllClients();
 
             return View(model);
         }
 
 
 
+        [HttpPost]
+        public ActionResult Index(SearchRequest searchRequest)
+        {
+            if (string.IsNullOrWhiteSpace(searchRequest.SearchByName))
+            {
+
+                IList<Client> model = _clientServices.GetAllClients();
+
+                return View(model);
+            }
+
+            else
+            {
+
+                IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);
+
+                return View(model);
+            }
+            
+        }
+
+
 
 
         public ViewResult AddClient()
         {
-
             return View();
         }
 
+
         [HttpPost]
-        public ViewResult AddClient(Client client)
+        public RedirectToRouteResult AddClient(Client client)  // Make ViewModel
         {
             var services = new ClientServices();
 
             services.SaveClient(client);
 
-
-            return View();
+            return RedirectToAction("Index", "Client");
         }
 
     }

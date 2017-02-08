@@ -10,57 +10,83 @@
 <p>
     @Html.ActionLink("Add New Client", "AddClient", null, new {@class = "btn btn-primary"})
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address1)    @*Change to match attributes of Core Entity*@
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StateCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Zip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClientCategoryId)
-        </th>
-        <th></th>
-    </tr>
 
-    @*@{ int x = 0}*@
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item.FirstName
-        </td>
-        <td>
-            @item.LastName
-        </td>
-        <td>
-            @item.Address1
-        </td>
-        <td>
-            @item.StateCode
-        </td>
-        <td>
-            @item.Zip
-        </td>
-        <td>
-            @item.ClientCategoryId
-        </td>
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ClientID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ClientID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ClientID })
-        </td>*@
-    </tr>
+
+@using (Html.BeginForm("Index", "Client", FormMethod.Post, new { @class = "form-inline" }))
+{
+    <div class="form-group">
+        <label for="searchbyname">Search by Last Name</label>
+        <input type="text" class="form-control" name="searchbyname" id="searchbyname" placeholder="Last Name" />
+    </div>
+
+    <div class="form-group">
+        <label for="searchbyid">ClientId</label>
+        <input type="number" class="form-control" name="searchbyid" id="searchbyid" placeholder="ClientId" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 }
 
-</table>
+
+        <br />
+
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClientID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address1)   
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StateCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Zip)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClientCategoryId)
+                </th>
+                <th></th>
+            </tr>
+
+           
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.ClientID
+                    </td>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.Address1
+                    </td>
+                    <td>
+                        @item.StateCode
+                    </td>
+                    <td>
+                        @item.Zip
+                    </td>
+                    <td>
+                        @item.ClientCategoryId
+                    </td>
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id=item.ClientID }) |
+                            @Html.ActionLink("Details", "Details", new { id=item.ClientID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id=item.ClientID })
+                        </td>*@
+                </tr>
+            }
+
+        </table>
 

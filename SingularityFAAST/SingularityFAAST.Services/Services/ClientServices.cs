@@ -12,8 +12,7 @@ namespace SingularityFAAST.Services.Services
         public IList<Client> GetAllClients()
         {
             using (var context = new SingularityDBContext())
-            {
-                           
+            {                
                 var clients = context.Clients;
                 
                 var clientList = clients.ToList();
@@ -21,6 +20,17 @@ namespace SingularityFAAST.Services.Services
                 return clientList;
             }
         }
+
+        public IList<Client> GetClientsByName(string searchby)
+        {
+            IList<Client> allClients = GetAllClients();
+
+            IList<Client> filteredClients = allClients.Where(client => 
+                string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            return filteredClients;
+        }
+
 
         public void SaveClient(Client client)
         {
