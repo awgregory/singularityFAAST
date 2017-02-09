@@ -3,36 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using SingularityFAAST.Core.Entities;
 using SingularityFAAST.DataAccess.Contexts;
+using SingularityFAAST.Core.ViewModels.Reports;
 
 namespace SingularityFAAST.Services.Services
 {
     public class ReportingServices
     {
         private readonly SingularityDBContext _dbContext = new SingularityDBContext();
-
-        public IList<Loan> GetAllLoans()
+    
+        public LoanReportViewModel CreateLoanReportViewModel(DateTime startDate, DateTime endDate)
         {
-            IList<Loan> loans = _dbContext.Loans.ToList();
+            using (var context = new SingularityDBContext())
+            {
+                // We created a view model object that we will populate with information
+                var viewModel = new LoanReportViewModel();
 
-            //var allActiveLoans = loans.Where(loan => loan.IsActive == true);
+                // Created variable that holds the total amount of loans between two dates
+                var numberOfLoans = context.LoanMasters
+                    .Count(loan => loan.DateCreated >= startDate 
+                    && loan.DateCreated <= endDate);
 
-            //IList<bool> oldLoans = loans
-            //    .Where(loan => loan.DateCreated < DateTime.UtcNow)
-            //    .Select(filteredLoan => filteredLoan.IsActive)
-            //    .ToList();
+                
 
-            return loans;
-        }
+                // Assigned that value to the view model property
+                viewModel.TotalNumberOfLoans = numberOfLoans;
 
-        public IList<Loan> GetDateFilteredLoans(DateTime startDate, DateTime endDate)
-        {
-            IList<Loan> filteredLoans = _dbContext.Loans
-                .Where(loan => loan.DateCreated > startDate
-                            && loan.DateCreated < endDate)
-                .ToList();
-
-            return filteredLoans;
-            ;
+                return viewModel;
+            }
+            
         }
     }
 }

@@ -28,6 +28,11 @@ namespace SingularityFAAST.WebUI.Controllers
 
         }
 
+        public ActionResult LoanReports()
+        {
+            return View();
+        }
+
         public ActionResult RenewLoan()
         {
 

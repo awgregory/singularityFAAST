@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using SingularityFAAST.Core.Entities;
 using SingularityFAAST.Services.Services;
+using SingularityFAAST.Core.ViewModels.Reports;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
@@ -23,21 +24,22 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
         #region Loans
-        public ActionResult LoansReport()
+        public ActionResult LoanReports()
         {
             var startDate = DateTime.UtcNow.AddYears(-1);
             var endDate = DateTime.UtcNow;
 
-            IList<Loan> loans = _reportingServices.GetDateFilteredLoans(startDate, endDate);
+            LoanReportViewModel model = _reportingServices.CreateLoanReportViewModel(startDate, endDate);
 
-            return View(loans);
+            return View(model);
         }
 
         public ActionResult FilterLoansByDate(DateTime startDate, DateTime endDate)
         {
-            IList<Loan> loans = _reportingServices.GetDateFilteredLoans(startDate, endDate);
+            // IList<Loan> loans = _reportingServices.GetDateFilteredLoans(startDate, endDate);
 
-            return View("LoansReport", loans);
+            //return View("LoansReport", loans);
+            return null;
         }
         #endregion
 
