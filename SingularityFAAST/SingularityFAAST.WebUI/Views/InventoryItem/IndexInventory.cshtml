@@ -15,14 +15,6 @@
 
 <h2>Inventory</h2>
 
-<table>@* Table for Inventory Navigation buttons*@
-    <tr>
-        <td>@Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new {@class = "btn btn-primary"}) &nbsp;</td>
-        <td>@Html.ActionLink("Edit Inventory Item", "UpdateInventoryItem", "InventoryItem", null, new {@class = "btn btn-primary"})</td>
-        <td></td>
-    </tr>
-</table>
-
 <br/>
 
 <div class="container-fluid">
@@ -32,6 +24,13 @@
             <tr>
                 @*all inventory*@
                 @*<td style="padding-right: 10px; padding-bottom: 10px">@Html.ActionLink("All", "ViewAllInventory", null, new {@class = "btn btn-primary"})</td>*@
+
+                @* button for creating a new inventory item *@
+                <td style="padding-right: 10px; padding-bottom: 10px">@Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new {@class = "btn btn-primary"})</td>
+                @* button for editing a current inventory item *@
+                <td style="padding-right: 10px; padding-bottom: 10px">@Html.ActionLink("Edit Inventory Item", "UpdateInventoryItem", "InventoryItem", null, new {@class = "btn btn-primary"})</td>
+
+                @* SORTING BUTTONS *@
                 @*inventory available*@
                 <td style="padding-right: 10px; padding-bottom: 10px">@Html.ActionLink("Available", "ViewAllAvailableInv", null, new {@class = "btn btn-primary"})</td>
                 @*inventory on loan*@
@@ -55,7 +54,7 @@
             </tr>
             </thead>
             <tbody>
-            @*@foreach (var inventoryItem in Model)
+            @foreach (var inventoryItem in Model)
             {
                 <tr>
                     <td>@inventoryItem.InventoryItemId</td>
@@ -66,9 +65,9 @@
                     <td>@inventoryItem.Description</td>
                     <td>@inventoryItem.SerialNumber</td>
                     <td>@inventoryItem.Availability</td>
-                    @*needs to be a link to a specific item pulled by the item name associated with it.
+                    @*needs to be a link to a specific item pulled by the item name associated with it.*@
                 </tr>
-            }*@
+            }
             </tbody>
         </table>
     </div>
