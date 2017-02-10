@@ -31,6 +31,7 @@ namespace SingularityFAAST.Services.Services
             return filteredClients;
         }
 
+        //See left off notes
 
         public void SaveClient(Client client)
         {
@@ -40,7 +41,22 @@ namespace SingularityFAAST.Services.Services
 
                 context.Clients.Add(client);
 
-                var rowsAffected = context.SaveChanges();
+                context.SaveChanges();
+
+                if (client.DisabilityIds.Any())   
+                {
+                    var clientDisabilities = client.DisabilityIds
+                        .Select(disabilityId => new ClientDisability    //Where filters Select projects
+                        { ClientId = client.ClientID, DisabilityCategoryId = disabilityId });
+
+                    context.ClientDisabilities.AddRange(clientDisabilities);
+
+                    context.SaveChanges();
+
+                    
+
+                }
+                
             }
 
             
