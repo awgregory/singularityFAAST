@@ -15,18 +15,19 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult Index()  //(string sort) for search
         {
 
-            //var services = new LoanMasterServices();
-            //IList<LoanMaster> model = lm_services.GetAllLoans();
-            IList<GetLoanInfo> model = lm_services.GetLoans();
-            return View(model);
-            
+            var services = new LoanMasterServices();
+            IList<LoanMaster> model = lm_services.GetAllLoans();
+
+            //IList<GetLoanInfo> model = lm_services.GetLoans();
+            //return View(model);
+
             //for search
             //ViewBag.DateSortParm = sort == "Date" ? "date_desc" : "Date";
             //var endDate = from s in SingularityDB.Loans  //obviously can't do this with these layered projects
             //select s;
             //endDate = endDate.OrderBy(s => s.EnrollmentDate);
 
-            //return View("ManageLoans");   
+            return View("Index");
 
         }
 
