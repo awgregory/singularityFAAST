@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using SingularityFAAST.Services.Services;
 using SingularityFAAST.Core.Entities;
-using SingularityFAAST.WebUI.Models;
 
 
 namespace SingularityFAAST.WebUI.Controllers
@@ -19,7 +18,7 @@ namespace SingularityFAAST.WebUI.Controllers
             IList<LoanMaster> model = lm_services.GetAllLoans();
 
             //IList<GetLoanInfo> model = lm_services.GetLoans();
-            //return View(model);
+            return View(model);
 
             //for search
             //ViewBag.DateSortParm = sort == "Date" ? "date_desc" : "Date";
@@ -27,7 +26,7 @@ namespace SingularityFAAST.WebUI.Controllers
             //select s;
             //endDate = endDate.OrderBy(s => s.EnrollmentDate);
 
-            return View("Index");
+            //return View("Index");
 
         }
 
