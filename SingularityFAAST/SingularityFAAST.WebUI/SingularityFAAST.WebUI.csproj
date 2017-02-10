@@ -150,9 +150,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\InventoryItem\Index.cshtml" />
+    <Content Include="Views\InventoryItem\IndexInventory.cshtml" />
     <Content Include="Views\InventoryItem\NewInventoryItem.cshtml" />
-    <Content Include="Views\InventoryItem\ViewAllInventory.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\InventoryItem\ViewAllOnLoanInv.cshtml" />

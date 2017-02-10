@@ -1,0 +1,75 @@
+﻿@using SingularityFAAST.Core.Entities
+@model IEnumerable<InventoryItem>
+
+@*Inventory Home page
+     -Homepage for all Inventory actions
+     -User is directed here when the "Inventory" button on the navigation menu is selected
+     -Default view is "View All Inventory"
+
+    Hope Haven - FAAST Inventory System
+    Jonathan Ebert - 11/9/16*@
+
+@{
+    ViewBag.Title = "Inventory";
+}
+
+<h2>Inventory</h2>
+
+<table>@* Table for Inventory Navigation buttons*@
+    <tr>
+        <td>@Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new {@class = "btn btn-primary"}) &nbsp;</td>
+        <td>@Html.ActionLink("Edit Inventory Item", "UpdateInventoryItem", "InventoryItem", null, new {@class = "btn btn-primary"})</td>
+        <td></td>
+    </tr>
+</table>
+
+<br/>
+
+<div class="container-fluid">
+    <div class="table table-responsive">
+        <table>
+            @*this row holds buttons for navigating available views*@
+            <tr>
+                @*all inventory*@
+                @*<td style="padding-right: 10px; padding-bottom: 10px">@Html.ActionLink("All", "ViewAllInventory", null, new {@class = "btn btn-primary"})</td>*@
+                @*inventory available*@
+                <td style="padding-right: 10px; padding-bottom: 10px">@Html.ActionLink("Available", "ViewAllAvailableInv", null, new {@class = "btn btn-primary"})</td>
+                @*inventory on loan*@
+                <td style="padding-right: 10px; padding-bottom: 10px">@Html.ActionLink("On Loan", "ViewAllOnLoanInv", null, new {@class = "btn btn-primary"})</td>
+            </tr>
+        </table>
+
+        @*separate table for displaying all the data*@
+        <table class="table table-bordered  table-responsive">
+            <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.InventoryItemId)</th>
+                <th>@Html.DisplayNameFor(model => model.ItemName)</th>
+                <th>@Html.DisplayNameFor(model => model.Location)</th>
+                <th>@Html.DisplayNameFor(model => model.InventoryCategoryId)</th> @*need to display category name and not just the id*@
+                <th>@Html.DisplayNameFor(model => model.DatePurchased)</th>
+                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                <th>@Html.DisplayNameFor(model => model.SerialNumber)</th>
+                <th>@Html.DisplayNameFor(model => model.Availability)</th>
+                <th>Link to Item</th>
+            </tr>
+            </thead>
+            <tbody>
+            @*@foreach (var inventoryItem in Model)
+            {
+                <tr>
+                    <td>@inventoryItem.InventoryItemId</td>
+                    <td>@inventoryItem.ItemName</td>
+                    <td>@inventoryItem.Location</td>
+                    <td>@inventoryItem.InventoryCategoryId</td>
+                    <td>@inventoryItem.DatePurchased</td>
+                    <td>@inventoryItem.Description</td>
+                    <td>@inventoryItem.SerialNumber</td>
+                    <td>@inventoryItem.Availability</td>
+                    @*needs to be a link to a specific item pulled by the item name associated with it.
+                </tr>
+            }*@
+            </tbody>
+        </table>
+    </div>
+</div>
