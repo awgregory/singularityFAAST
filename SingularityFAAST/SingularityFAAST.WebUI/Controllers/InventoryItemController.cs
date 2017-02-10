@@ -12,7 +12,9 @@ namespace SingularityFAAST.WebUI.Controllers
        //This is the inventory home page
         public ActionResult IndexInventory()
         {
-            return View();
+            var services = new InventoryItemServices();
+            var model = services.GetAllInventory();
+            return View(model);
         }
         
 

@@ -1,5 +1,4 @@
-﻿@using SingularityFAAST.Core.Entities
-@model IEnumerable<InventoryItem>
+﻿@model IEnumerable<SingularityFAAST.Core.Entities.InventoryItem>
 
 @*Inventory Home page
      -Homepage for all Inventory actions
@@ -50,7 +49,7 @@
                 <th>@Html.DisplayNameFor(model => model.Description)</th>
                 <th>@Html.DisplayNameFor(model => model.SerialNumber)</th>
                 <th>@Html.DisplayNameFor(model => model.Availability)</th>
-                <th>Link to Item</th>
+                @*<th>Link to Item</th>*@
             </tr>
             </thead>
             <tbody>

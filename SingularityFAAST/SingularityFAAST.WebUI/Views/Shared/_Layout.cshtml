@@ -108,17 +108,17 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row">
+        @*<div class="row">
             <div class="navigation col-md-1 col-sm-1 hidden-xs">
                 <div class="tabbable tabs-left">
-                    <ul class="nav nav-tabs">  @*currently only routes to main site pages*@
-                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Client" ? "active" : "")">@Html.ActionLink("Clients", "Client", "Home")</li>  @*, "",new {data_toggle="tab" })  href="#a", @class="active", *@
-                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "IndexLoan" ? "active" : "")">@Html.ActionLink("Loans", "IndexLoan", "Loan")</li>
-                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "IndexInventory" ? "active" : "")">@Html.ActionLink("Inventory", "IndexInventory", "InventoryItem")</li>
-                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Report" ? "active" : "")">@Html.ActionLink("Reports", "IndexReport", "Report")</li>
-                        @*OG  <li><a href="#c" data-toggle="tab">Reports</a></li>*@
+                    <ul class="nav nav-tabs">  @*currently only routes to main site pages
+                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Client" ? "active" : "")">@Html.ActionLink("Clients", "Client", "Home")</li>  @*, "",new {data_toggle="tab" })  href="#a", @class="active", 
+                        <li class="(ViewContext.RouteData.Values["Action"].ToString() == "IndexLoan" ? "active" : "")">Html.ActionLink("Loans", "IndexLoan", "Loan")</li>
+                        <li class="(ViewContext.RouteData.Values["Action"].ToString() == "IndexInventory" ? "active" : "")">Html.ActionLink("Inventory", "IndexInventory", "InventoryItem")</li>
+                        <li class="(ViewContext.RouteData.Values["Action"].ToString() == "Report" ? "active" : "")">Html.ActionLink("Reports", "IndexReport", "Report")</li>
+                        OG  <li><a href="#c" data-toggle="tab">Reports</a></li>
                     </ul>
-                    @*<div class="tab-content">  Save in case of double column of tabs
+                    <div class="tab-content">  Save in case of double column of tabs
                         <div class="tab-pane active" id="a">
                             
                         </div>
@@ -128,9 +128,9 @@
                         <div class="tab-pane" id="c">
                             
                         </div>
-                    </div>*@
+                    </div>
                 </div>
-            </div>
+            </div>*@
             <div class="col-md-1 col-sm-1 hidden-xs">
                 <!-- Placeholder - keep empty -->
             </div>
