@@ -1,12 +1,19 @@
 ﻿use [singularitydb]
 
-insert into inventoryitemcategories values 	('hearing aids'),
-											('technology');
+insert into inventoryitemcategories values 	('hearing'),
+											('computersAndTechnology'),
+											('speech'),
+											('dailyLiving');
 
-declare @categoryid int = (select cat.inventorycategoryid from inventoryitemcategories as cat where cat.categoryname like 'hearing aids');
-declare @categoryid2 int = (select cat.inventorycategoryid from inventoryitemcategories as cat where cat.categoryname like 'technology');
+declare @categoryid int = (select cat.inventorycategoryid from inventoryitemcategories as cat where cat.categoryname like 'hearing');
+declare @categoryid2 int = (select cat.inventorycategoryid from inventoryitemcategories as cat where cat.categoryname like 'computersAndTechnology');
+declare @categoryid3 int = (select cat.inventorycategoryid from inventoryitemcategories as cat where cat.categoryname like 'speech');
+declare @categoryid4 int = (select cat.inventorycategoryid from inventoryitemcategories as cat where cat.categoryname like 'dailyLiving');
+
 
 insert into	inventoryitems			values	('20161106',@categoryid,'invisible hearing aid',200.00,200.00,'superhearing 1000','north east demonstration center',1,'00123456','this hearing aid is awesome!',null,'none'),
+											('20170211',@categoryid3,'sound board',40.00,40.00,'communication board','north east demonstration center',1,'98846528','Sound board used to aid communication.',null,'none'),
+											('20170124',@categoryid4,'steady spoon',350.00,425.00,'steadyeater1000','north east demonstration center',0,'22225865','Stabilized eating utensil',null,'none'),
 											('20161106',@categoryid2,'modified keyboard',80.00,90.00,'one handed keyboard deluxe','north east demonstration center',0,'99032256','this is a keyboard','1 extension cable','none');
 
 

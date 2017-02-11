@@ -9,43 +9,41 @@ namespace SingularityFAAST.WebUI.Controllers
 {
     public class InventoryItemController : Controller
     {
-       private InventoryItemServices db = new InventoryItemServices();
-
-
+       //This is the inventory home page
         public ActionResult IndexInventory()
         {
-            return View("Index");
+            var services = new InventoryItemServices();
+            var model = services.GetAllInventory();
+            return View(model);
         }
         
 
-        //new inventory page
+        //new inventory view
         public ActionResult NewInventoryItem()
         {
             return View();
         }
 
-        //View All inventory page
-        public ActionResult ViewAllInventory()
-        {
-            var inventoryServices = new InventoryItemServices();
-            var model = inventoryServices.GetAllInventory();
-            return View(model);
-        }
-
-        //update inventory item page
+        //update inventory item view
         public ActionResult UpdateInventoryItem()
         {
             return View();
         }
 
+        //returns view for All Available Inventory
         public ActionResult ViewAllAvailableInv()
         {
-            return View();
+            var services = new InventoryItemServices();
+            var model = services.ViewAvailableInv();
+            return View(model);
         }
 
+        //returns view for All Inventory on Loan
         public ActionResult ViewAllOnLoanInv()
         {
-            return View();
+            var services = new InventoryItemServices();
+            var model = services.ViewInvOnLoan();
+            return View(model);
         }
 
         public RedirectToRouteResult MethodAddNewItem()
