@@ -8,129 +8,33 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Chewy|Days+One|Orbitron|Poiret+One" rel="stylesheet">
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
-    <style>
-        /*move to file*/
-        #bodyMargin {
-            margin-top: 40px;
-            padding-left: 30px;
-        }
-
-        .navigation {
-            padding-top: 50px;
-            padding-right: 0px;
-            padding-left: 30px;
-            background-color: #d9edf7;
-            height : 100vh;
-        }
-
-        /*ul {
-            background-color: aliceblue;
-        }*/
-
-        .tabs-left > .nav-tabs {
-            border-bottom: 0;
-        }
-
-        /*Remove if removing href = #a,b,c,d*/
-        /*.tab-content > .tab-pane,
-        .pill-content > .pill-pane {
-            display: none;
-        }
-
-        .tab-content > .active,
-        .pill-content > .active {
-            display: block;
-        }*/
-        /*----------------------*/
-
-        .tabs-left > .nav-tabs > li 
-        {
-            float: none;
-        }
-
-        .tabs-left > .nav-tabs > li > a
-        {
-            min-width: 74px;
-            margin-right: 0;
-            margin-bottom: 3px;
-        }
-
-        .tabs-left > .nav-tabs {
-            /*float: left;
-          margin-right: 19px;*/
-            /*border-right: 1px solid #ddd;*/
-        }
-
-        .tabs-left > .nav-tabs > li > a {
-            margin-right: -1px;
-            -webkit-border-radius: 4px 0 0 4px;
-            -moz-border-radius: 4px 0 0 4px;
-            border-radius: 4px 0 0 4px;
-        }
-
-        .tabs-left > .nav-tabs > li > a:hover,
-        .tabs-left > .nav-tabs > li > a:focus {
-            border-color: #eee #eee #eee #eee;
-            background-color: #73badd;
-        }
-
-        .tabs-left > .nav-tabs .active > a,
-        .tabs-left > .nav-tabs .active > a:hover,
-        .tabs-left > .nav-tabs .active > a:focus {
-            border-color: #ddd transparent #ddd #ddd;
-            *border-right-color: #fff;
-        }
-    </style>
-
+    
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("FAASTer", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", style = "color: #1fb0f8; font-family: 'Days One', sans-serif; font-size: 22px; margin-left:30px;" })
-                @Html.ActionLink("Clients", "Index", "Client", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Loans", "IndexLoan", "Loan", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Inventory", "IndexInventory", "InventoryItem", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Reports", "IndexReport", "Report", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                @*needs to be reactive to log in credentials*@
-                <ul class="nav navbar-nav navbar-right">
-                    @Html.ActionLink("Log Out", null, null, new { area = "" }, new { @class = "navbar-brand" })
-                </ul>
-            </div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("FAASTer", "Index", "Home", new {area = ""}, new {@class = "navbar-brand", style = "color: #1fb0f8; font-family: 'Days One', sans-serif; font-size: 22px; margin-left:30px;"})
+            @Html.ActionLink("Clients", "Index", "Client", new {area = ""}, new {@class = "navbar-brand"})
+            @Html.ActionLink("Loans", "IndexLoan", "Loan", new {area = ""}, new {@class = "navbar-brand"})
+            @Html.ActionLink("Inventory", "IndexInventory", "InventoryItem", new {area = ""}, new {@class = "navbar-brand"})
+            @Html.ActionLink("Reports", "IndexReport", "Report", new {area = ""}, new {@class = "navbar-brand"})
+        </div>
+        <div class="navbar-collapse collapse">
+            @*needs to be reactive to log in credentials*@
+            <ul class="nav navbar-nav navbar-right">
+                @Html.ActionLink("Log Out", null, null, new {area = ""}, new {@class = "navbar-brand"})
+            </ul>
         </div>
     </div>
-    <div class="container-fluid">
-        @*<div class="row">
-            <div class="navigation col-md-1 col-sm-1 hidden-xs">
-                <div class="tabbable tabs-left">
-                    <ul class="nav nav-tabs">  @*currently only routes to main site pages
-                        <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Client" ? "active" : "")">@Html.ActionLink("Clients", "Client", "Home")</li>  @*, "",new {data_toggle="tab" })  href="#a", @class="active", 
-                        <li class="(ViewContext.RouteData.Values["Action"].ToString() == "IndexLoan" ? "active" : "")">Html.ActionLink("Loans", "IndexLoan", "Loan")</li>
-                        <li class="(ViewContext.RouteData.Values["Action"].ToString() == "IndexInventory" ? "active" : "")">Html.ActionLink("Inventory", "IndexInventory", "InventoryItem")</li>
-                        <li class="(ViewContext.RouteData.Values["Action"].ToString() == "Report" ? "active" : "")">Html.ActionLink("Reports", "IndexReport", "Report")</li>
-                        OG  <li><a href="#c" data-toggle="tab">Reports</a></li>
-                    </ul>
-                    <div class="tab-content">  Save in case of double column of tabs
-                        <div class="tab-pane active" id="a">
-                            
-                        </div>
-                        <div class="tab-pane" id="b">
-                            
-                        </div>
-                        <div class="tab-pane" id="c">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>*@
+</div>
+
             <div class="col-md-1 col-sm-1 hidden-xs">
                 <!-- Placeholder - keep empty -->
             </div>
@@ -143,7 +47,7 @@
                     </footer>
                 </div>
             </div>
-        </div>
+        
     
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
