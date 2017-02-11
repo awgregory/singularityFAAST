@@ -1,25 +1,56 @@
 ﻿using SingularityFAAST.Core.Entities;
+using SingularityFAAST.Core.DataTransferObjects;
 using SingularityFAAST.DataAccess.Contexts;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
-
 
 namespace SingularityFAAST.Services.Services
 {
     public class LoanMasterServices
     {
-        public IList<LoanMaster> GetAllLoans()   //was LoanClientItem
+        //Original, using only Loan Master
+
+        //public IList<LoanMaster> GetAllLoans()   
+        //{
+        //    using (var context = new SingularityDBContext())
+        //    {
+        //        var loans = context.LoanMasters;
+
+        //        var loanList = loans.ToList();
+
+        //        return loanList;
+        //    }
+        //}
+
+
+        //New, with DTO
+        public IList<LoansClientsInventoryDTO> GetAllLoans()
         {
             using (var context = new SingularityDBContext())
             {
-                var loans = context.LoanMasters;
 
-                var loanList = loans.ToList();
+                var loans = from c in context.Clients
+                            join l in context.LoanMasters
+                            on c.ClientId equals l.ClientId
+                            join ld in context.LoanDetails
+                            on l.LoanMasterId equals ld.LoanMasterId
 
-                return loanList;
+                select new LoansClientsInventoryDTO()
+                {
+                    LoanNumber = l.LoanNumber,
+                    DateCreated = l.DateCreated,
+                    ClientId = c.ClientId,
+                    LastName = c.LastName,
+                    FirstName = c.FirstName,
+                    Notes = ld.Notes
+                };
+
+                return loans.ToList();
             }
         }
+
 
         public void SaveLoan(LoanMaster loan)
         {
@@ -34,21 +65,21 @@ namespace SingularityFAAST.Services.Services
         }
 
 
-        //public IList<Client> GetLoansName(string clientName)  //GetLoans(int loanItemId)  //this param is how you'd use a checkbox to pass the item to this method.  Param wouldn't be here for "see all loans".  Need to implement Adrian's search feature.
+        //public IList<string> GetLoansName(string clientName)  //String //GetLoans(int loanItemId)  //this param is how you'd use a checkbox to pass the item to this method.  Param wouldn't be here for "see all loans".  Need to implement Adrian's search feature.
         //{
         //    using (var context = new SingularityDBContext())    //Get primary loan info - number, Client names, Date Made.  Individual items will show once this is clicked on, on next page (items in loan) and that is another script.
         //    {
-        //        //var results =
+        //        var results =
 
-        //            //from c in context.Clients
-        //            //join l in context.LoanMasters
-        //            //on c.ClientId equals l.ClientId
-        //            //where c.LastName == clientName
-        //            //select c;
+        //        from c in context.Clients
+        //        join l in context.LoanMasters
+        //        on c.ClientId equals l.ClientId
+        //        where c.LastName == clientName
+        //        select l.LoanNumber, c.LastName, c.FirstName, l.DateCreated;
 
 
-        //        //var resultList = results.ToList();
-        //        //return resultList;
+        //        IQueryable<string> resultList = results;  //.ToList();
+        //        return resultList;
 
 
         //        //or use lambda =>
@@ -57,10 +88,38 @@ namespace SingularityFAAST.Services.Services
         //    }
         //}
 
+
+        // GET all Loans with client name
+        public IList<LoansClientsInventoryDTO> GetLoans(string clientName)
+        {
+            using (var context = new SingularityDBContext())
+            {
+
+                var books = from c in context.Clients
+                            join l in context.LoanMasters
+                            on c.ClientId equals l.ClientId
+                            where c.LastName == clientName
+
+                select new LoansClientsInventoryDTO()
+                {
+                    LoanNumber = l.LoanNumber,
+                    DateCreated = l.DateCreated,
+                    ClientId = c.ClientId,
+                    LastName = c.LastName,
+                    FirstName = c.FirstName,
+                };
+
+                return books.ToList();
+            }
+        }
+
+
         //public IList<LoanMaster> GetByID(int Id)
         //{
         //    //
         //}
+
+
 
         //public IList<LoanClientItem> GetLoanByName(string searchby)
         //{

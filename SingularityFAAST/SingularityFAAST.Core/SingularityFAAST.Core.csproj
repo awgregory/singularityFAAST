@@ -37,6 +37,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTransferObjects\LoansClientsInventoryDTO.cs" />
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\InventoryItem.cs" />
     <Compile Include="Entities\LoanDetail.cs" />
