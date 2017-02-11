@@ -19,5 +19,31 @@ namespace SingularityFAAST.Services.Services
                 return inventoryList;
             }
         }
+
+        //returns all inventory items that 
+        public IList<InventoryItem> ViewAvailableInv()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var inventory = context.InventoryItems;
+
+                var inventoryList = inventory.ToList();
+
+                return inventoryList;
+            }
+        }
+
+
+        public IList<InventoryItem> ViewInvOnLoan()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var inventory = context.InventoryItems;
+
+                var inventoryList = inventory.ToList();
+
+                return inventoryList;
+            }
+        }
     }
 }

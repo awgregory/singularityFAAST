@@ -30,14 +30,20 @@ namespace SingularityFAAST.WebUI.Controllers
             return View();
         }
 
+        //returns view for All Available Inventory
         public ActionResult ViewAllAvailableInv()
         {
-            return View();
+            var services = new InventoryItemServices();
+            var model = services.ViewAvailableInv();
+            return View(model);
         }
 
+        //returns view for All Inventory on Loan
         public ActionResult ViewAllOnLoanInv()
         {
-            return View();
+            var services = new InventoryItemServices();
+            var model = services.ViewInvOnLoan();
+            return View(model);
         }
 
         public RedirectToRouteResult MethodAddNewItem()
