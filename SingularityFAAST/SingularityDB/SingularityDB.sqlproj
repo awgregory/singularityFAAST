@@ -83,6 +83,7 @@
     <None Include="local.publish.xml" />
     <None Include="SingularityDB.publish.xml" />
     <None Include="Scripts\seeds\loan\seedLoanMaster.sql" />
+    <None Include="SingularityDB_1.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

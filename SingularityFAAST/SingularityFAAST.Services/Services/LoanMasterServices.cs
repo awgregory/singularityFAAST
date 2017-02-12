@@ -52,6 +52,19 @@ namespace SingularityFAAST.Services.Services
         }
 
 
+        // GET all Loans with client name
+        public IList<LoansClientsInventoryDTO> GetLoansByClientLastName(string searchby)
+        {
+            IList<LoansClientsInventoryDTO> allLoans = GetAllLoans();  //Gets all the loans from the GetAllLoans() method
+
+            IList<LoansClientsInventoryDTO> filteredLoans =
+                allLoans.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            return filteredLoans;
+        }
+
+
+
         public void SaveLoan(LoanMaster loan)
         {
             using (var context = new SingularityDBContext())
@@ -65,71 +78,33 @@ namespace SingularityFAAST.Services.Services
         }
 
 
-        //public IList<string> GetLoansName(string clientName)  //String //GetLoans(int loanItemId)  //this param is how you'd use a checkbox to pass the item to this method.  Param wouldn't be here for "see all loans".  Need to implement Adrian's search feature.
-        //{
-        //    using (var context = new SingularityDBContext())    //Get primary loan info - number, Client names, Date Made.  Individual items will show once this is clicked on, on next page (items in loan) and that is another script.
-        //    {
-        //        var results =
-
-        //        from c in context.Clients
-        //        join l in context.LoanMasters
-        //        on c.ClientId equals l.ClientId
-        //        where c.LastName == clientName
-        //        select l.LoanNumber, c.LastName, c.FirstName, l.DateCreated;
 
 
-        //        IQueryable<string> resultList = results;  //.ToList();
-        //        return resultList;
-
-
-        //        //or use lambda =>
-        //        //context.Clients.Join(context.LoanMasters, c => c.ClientId, l => l.ClientId,
-        //        //    (c, l) => new {FirstName = c.FirstName, LoanId = l.LoanMasterId});
-        //    }
-        //}
-
-
-        // GET all Loans with client name
-        public IList<LoansClientsInventoryDTO> GetLoans(string clientName)
+        //The original get all loans with client name
+        public IList<LoansClientsInventoryDTO> GetLoansName(string clientName)  //String //GetLoans(int loanItemId)  //this param is how you'd use a checkbox to pass the item to this method.  Param wouldn't be here for "see all loans".  Need to implement Adrian's search feature.
         {
-            using (var context = new SingularityDBContext())
+            using (var context = new SingularityDBContext())    //Get primary loan info - number, Client names, Date Made.  Individual items will show once this is clicked on, on next page (items in loan) and that is another script.
             {
+                var results =   from c in context.Clients
+                                join l in context.LoanMasters
+                                on c.ClientId equals l.ClientId
+                                where c.LastName == clientName
+                                select new LoansClientsInventoryDTO()
+                                {
+                                    LoanNumber = l.LoanNumber,
+                                    DateCreated = l.DateCreated,
+                                    ClientId = c.ClientId,
+                                    LastName = c.LastName,
+                                    FirstName = c.FirstName,
+                                };
 
-                var books = from c in context.Clients
-                            join l in context.LoanMasters
-                            on c.ClientId equals l.ClientId
-                            where c.LastName == clientName
-
-                select new LoansClientsInventoryDTO()
-                {
-                    LoanNumber = l.LoanNumber,
-                    DateCreated = l.DateCreated,
-                    ClientId = c.ClientId,
-                    LastName = c.LastName,
-                    FirstName = c.FirstName,
-                };
-
-                return books.ToList();
+                return results.ToList();
+                
+                //or use lambda =>
+                //context.Clients.Join(context.LoanMasters, c => c.ClientId, l => l.ClientId,
+                //    (c, l) => new {FirstName = c.FirstName, LoanId = l.LoanMasterId});
             }
         }
-
-
-        //public IList<LoanMaster> GetByID(int Id)
-        //{
-        //    //
-        //}
-
-
-
-        //public IList<LoanClientItem> GetLoanByName(string searchby)
-        //{
-        //    IList<LoanClientItem> allClients = GetAllLoans();
-
-        //    IList<LoanClientItem> filteredClients = allClients.Where(client =>
-        //        string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
-
-        //    return filteredClients;
-        //}
 
     }
 }

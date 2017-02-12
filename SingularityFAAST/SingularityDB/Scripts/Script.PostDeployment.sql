@@ -13,3 +13,4 @@ Post-Deployment Script Template
 --list in deploy order
 
 --:r .\seeds\loan\seedLoanMaster.sql
+--:r .\seeds\seedDummyData.sql
