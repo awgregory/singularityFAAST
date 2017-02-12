@@ -64,7 +64,7 @@ INSERT [dbo].[InventoryItems] ([InventoryItemId], [AutoInventoryId], [DatePurcha
 GO
 INSERT [dbo].[InventoryItems] ([InventoryItemId], [AutoInventoryId], [DatePurchased], [InventoryCategoryId], [ItemName], [Manufacturer], [PricePaid], [RetailCost], [ModelName], [Location], [Availability], [Active], [SerialNumber], [Description], [Accessories], [Damages]) VALUES (31, N'12-IN-12783', CAST(N'2014-03-04T00:00:00.000' AS DateTime), @categoryid6, N'Reading Guide Strips- Variety Pack', N'School Health Corp', CAST(7.49 AS Decimal(18, 2)), CAST(7.49 AS Decimal(18, 2)), NULL, N'Hope Haven', 1, 1, NULL, NULL, NULL, NULL)
 GO
-=======
+
 --insert into	inventoryitems			values	('20161106',@categoryid,'invisible hearing aid',200.00,200.00,'superhearing 1000','north east demonstration center',1,'00123456','this hearing aid is awesome!',null,'none'),
 --											('20170211',@categoryid3,'sound board',40.00,40.00,'communication board','north east demonstration center',1,'98846528','Sound board used to aid communication.',null,'none'),
 --											('20170124',@categoryid4,'steady spoon',350.00,425.00,'steadyeater1000','north east demonstration center',0,'22225865','Stabilized eating utensil',null,'none'),

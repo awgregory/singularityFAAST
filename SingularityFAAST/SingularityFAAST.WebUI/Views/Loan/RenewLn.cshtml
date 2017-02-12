@@ -5,6 +5,7 @@
 }
 
 @*View Devices in Loan should go to its own page that lists each item with the ability to renew individually *@
+@* This page gets Loan number and passes it to RenewItems *@
 <br/>
 <div class="row">
     <div class="col-md-5 col-md-offset-3">
@@ -15,7 +16,8 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
-                        Would you like to renew all items in this loan for 30 days?
+                        Would you like to renew all items in this loan for 28 days?
+                        Loan# @Html.DisplayFor(model => model.LoanNumber)
                     </div>
                 </div>
                 <br/>
@@ -27,7 +29,7 @@
                 <br/>
                 <div class="row">
                     <div class="col-md-5 col-md-offset-3">
-                        @Html.ActionLink("View Devices In Loan", "RenewLnItem", null, null)
+                        @Html.ActionLink("View Loan Details to Renew Items", "RenewLnItem", null, null)  
                     </div>
                 </div>
                 <br/>
