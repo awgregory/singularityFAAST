@@ -81,5 +81,12 @@
   <ItemGroup>
     <None Include="local.publish.xml" />
     <None Include="SingularityDB.publish.xml" />
+    <None Include="Scripts\seeds\SeedClientCategories.sql" />
+    <None Include="Scripts\seeds\SeedDisabilityCategories.sql" />
+    <None Include="Scripts\seeds\SeedClientDisabilities.sql" />
+    <None Include="Scripts\seeds\SeedClients.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>
