@@ -10,5 +10,8 @@ namespace SingularityFAAST.Core.ViewModels.Reports
     {
         public int TotalNumberOfLoans { get; set; }
 
+        // Create Variables for Device Loans for Borrower Type
+        public int NumberOfDeviceBorrowerWithDisability { get; set; }
+
     }
 }

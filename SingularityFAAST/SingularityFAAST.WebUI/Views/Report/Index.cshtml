@@ -4,5 +4,27 @@
 }
 
 @Html.ActionLink("Click here for loans report", "LoanReports")
-<h2>Index</h2>
+<h2>Reports</h2>
+
+<br />
+
+@using (Html.BeginForm("LoanReports", "Report", FormMethod.Post))
+{
+    <h3>Enter Report Range</h3>
+    <div>
+        <input type="date" name="StartDate" value="@(DateTime.UtcNow.AddYears(-1))" />
+        <input type="date" name="EndDate" value="@DateTime.UtcNow" />
+    </div>
+
+    <br />
+
+    <h3>Choose Report Type</h3>
+    <div>
+        <input type="checkbox" name="LoanReport" value="LoanReport"/> Loans Report <br />
+        <input type="checkbox" name="ClientReport" value="ClientReport" /> Client Report <br />
+        <input type="checkbox" name="InventoryReport" value="InventoryReport" /> Inventory Report <br />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
 
