@@ -16,4 +16,5 @@ namespace SingularityFAAST.DataAccess.Contexts
         public DbSet<LoanMaster> LoanMasters { get; set; }
         public DbSet<LoanDetail> LoanDetails { get; set; }
     }
+
 }
