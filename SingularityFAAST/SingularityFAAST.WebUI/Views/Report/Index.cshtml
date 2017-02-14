@@ -8,7 +8,7 @@
 
 <br />
 
-@using (Html.BeginForm("LoanReports", "Report", FormMethod.Post))
+@using (Html.BeginForm("ReportFilter", "Report", FormMethod.Post))
 {
     <h3>Enter Report Range</h3>
     <div>
@@ -20,9 +20,9 @@
 
     <h3>Choose Report Type</h3>
     <div>
-        <input type="checkbox" name="LoanReport" value="LoanReport"/> Loans Report <br />
-        <input type="checkbox" name="ClientReport" value="ClientReport" /> Client Report <br />
-        <input type="checkbox" name="InventoryReport" value="InventoryReport" /> Inventory Report <br />
+        <input type="radio" name="ReportType" value="1"/> Loans Report <br />
+        <input type="radio" name="ReportType" value="2" /> Client Report <br />
+        <input type="radio" name="ReportType" value="3" /> Inventory Report <br />
     </div>
     <br />
     <button type="submit" class="btn btn-primary">Submit</button>

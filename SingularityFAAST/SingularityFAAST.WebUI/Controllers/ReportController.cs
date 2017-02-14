@@ -23,11 +23,33 @@ namespace SingularityFAAST.WebUI.Controllers
             return View();
         }
 
-        #region Loans
-        public ActionResult LoanReports()
+        public ActionResult ReportFilter(int reportType, DateTime startDate, DateTime endDate)
         {
-            var startDate = DateTime.UtcNow.AddYears(-1);
-            var endDate = DateTime.UtcNow;
+            switch(reportType)
+            {
+                case 1:
+                    return RedirectToAction ("LoanReports", new { startDate = startDate, endDate = endDate });
+                    
+                case 2:
+                    // TO DO add ClientReports
+                    RedirectToAction("Index");
+                    break;
+                case 3:
+                    // TO DO add Inventory Reports
+                    RedirectToAction("Index");
+                    break;
+                default:
+                    RedirectToAction("Index");
+                    break;
+            }
+            return RedirectToAction("Index");
+        }
+
+        #region Loans
+        public ActionResult LoanReports(DateTime startDate, DateTime endDate)
+        {
+           //  var startDate = DateTime.UtcNow.AddYears(-1);
+           //  var endDate = DateTime.UtcNow;
 
             LoanReportViewModel model = _reportingServices.CreateLoanReportViewModel(startDate, endDate);
 
