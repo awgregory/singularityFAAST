@@ -1,4 +1,8 @@
 ﻿--DBCC CHECKIDENT('dbo.Clients', RESEED, 0)
+-- Note on Reseed command above. This resets Identity columns  
+-- Only use this command if you are reseeding a table which you previously had records in and then remove
+-- For example if you previously made your own clients table with records and now are re-populating it with these records
+-- Don't use the command above on a table that never had data
 
 IF OBJECT_ID('tempdb..#tempClients') IS NOT NULL DROP TABLE #tempClients 
 
