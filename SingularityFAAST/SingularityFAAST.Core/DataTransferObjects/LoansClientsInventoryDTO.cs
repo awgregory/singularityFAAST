@@ -46,8 +46,9 @@ namespace SingularityFAAST.Core.DataTransferObjects
         public string ItemName { get; set; }
         public string Manufacturer { get; set; }
         public bool Availability { get; set; }
+        public string Description { get; set; }
 
 
-
+        public string SelectNum { get; set; }
     }
 }

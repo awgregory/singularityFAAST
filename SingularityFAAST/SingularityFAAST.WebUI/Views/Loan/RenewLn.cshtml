@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         Would you like to renew all items in this loan for 28 days?
-                        Loan# @Html.DisplayFor(model => model.LoanNumber)
+                        Loan#  item.LoanNumber here
                     </div>
                 </div>
                 <br/>
@@ -29,7 +29,7 @@
                 <br/>
                 <div class="row">
                     <div class="col-md-5 col-md-offset-3">
-                        @Html.ActionLink("View Loan Details to Renew Items", "RenewLnItem", null, null)  
+                        @Html.ActionLink("View Loan Details to Renew Items", "RenewItems", null, null)  
                     </div>
                 </div>
                 <br/>

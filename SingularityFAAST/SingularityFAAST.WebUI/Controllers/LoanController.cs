@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Web.Mvc;
 using SingularityFAAST.Core.DataTransferObjects;
 //using SingularityFAAST.DataAccess.Contexts;
@@ -48,13 +49,19 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //GET: Loans by Client Name  
         [HttpPost]
-        public ActionResult Index(SearchByCLastName searchRequest)  
+        public ActionResult Index(SearchByString searchRequest)  
         {
             if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
             {
                 IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
                 return View(model);
             }
+
+            //if (string contains numbers? regex? theirs begin with rl-3333 etc.)
+            //{
+            //    IList<LoansClientsInventoryDTO> model = lm_services.GetLoanByLoanNumber(searchRequest.SearchBy);
+            //    return View(model);
+            //}
 
             else
             {
@@ -66,20 +73,21 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         //should be a DTO?  Corresponds with form item on Index.cshtml
-        public class SearchByCLastName
+        public class SearchByString
         {
             public string SearchBy { get; set; }
         }
 
         public class PassALoanNumber
         {
-            public int LoanNum { get; set; }
+            public string LoanNum { get; set; }
         }
 
 
         
         public ActionResult RenewLoan(PassALoanNumber loanNumber)
         {
+
             //IList<LoansClientsInventoryDTO> model = lm_services. Do i need method here or is this just passing value from page to page   (loanNumber.LoanNum);
             return View("RenewLn");
         }
@@ -99,21 +107,18 @@ namespace SingularityFAAST.WebUI.Controllers
             return View("CancelLoan");
         }
 
-        public ActionResult RenewLnItem()
-        {
-            return View("RenewItems");
-        }
+        //public ActionResult RenewLnItem()
+        //{
+        //    return View("RenewItems");
+        //}
 
 
         [HttpGet]
-        public ActionResult RenewLnItem(PassALoanNumber loanNumber)  //(string sort) for search
+        public ActionResult RenewItems(PassALoanNumber loanNumber)  //(string sort) for search
         {
-            var services = new LoanMasterServices();
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoanItems(loanNumber.LoanNum);
-
             return View(model);
 
-            //return View("Index");
         }
 
 

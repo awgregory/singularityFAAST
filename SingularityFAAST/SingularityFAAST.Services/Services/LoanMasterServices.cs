@@ -42,6 +42,7 @@ namespace SingularityFAAST.Services.Services
                     ClientId = c.ClientID,
                     LastName = c.LastName,
                     FirstName = c.FirstName,
+                    SelectNum = ""
                 };
 
                 return loans.ToList();
@@ -60,8 +61,17 @@ namespace SingularityFAAST.Services.Services
             return filteredLoans;
         }
 
+        public IList<LoansClientsInventoryDTO> GetLoanByLoanNumber(string searchby)
+        {
+            IList<LoansClientsInventoryDTO> allLoans = GetAllLoans();  //Gets all the loans from the GetAllLoans() method
 
-        public IList<LoansClientsInventoryDTO> GetAllLoanItems(int loanNum)
+            IList<LoansClientsInventoryDTO> filteredLoans =
+                allLoans.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            return filteredLoans;
+        }
+
+        public IList<LoansClientsInventoryDTO> GetAllLoanItems(string loanNum)
         {
             using (var context = new SingularityDBContext())
             {
@@ -71,38 +81,27 @@ namespace SingularityFAAST.Services.Services
                     on ld.LoanMasterId equals l.LoanMasterId
                     join i in context.InventoryItems
                     on ld.InventoryItemId equals i.InventoryItemId
-                    where l.LoanNumber == loanNum
+                    where l.LoanNumber.Equals(loanNum)
 
                     select new LoansClientsInventoryDTO()
                     {
                         LoanNumber = l.LoanNumber,
                         DateCreated = ld.LoanDate,
+                        InventoryItemId = i.InventoryItemId,
                         ItemName = i.ItemName,
                         Manufacturer = i.Manufacturer,
-
-
+                        Description = i.Description,
+                        Notes = ld.Notes,
+                        SelectNum = ""
                     };
 
                 return loans.ToList();
-                IList<LoansClientsInventoryDTO> allLoans = GetAllLoans();
-                    //Gets all the loans from the GetAllLoans() method    //should be getallitems() where loan num = loan num
-
-                IList<LoansClientsInventoryDTO> filteredLoans =
-                    allLoans.Where(loan => int.Equals(loan.LoanNumber, loanNum)).ToList();
-
-                return filteredLoans;
             }
         }
 
 
 
-
-
-
-
-
-
-
+        
 
 
 

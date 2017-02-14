@@ -1,61 +1,121 @@
-﻿
-@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
 
 @{
     ViewBag.Title = "RenewItems";
 }
 
-<h2>RenewItems</h2>
+@*<head>
+        <meta name="viewport" content="width=device-width" />
+        <title>ManageLoans</title>
+    </head>
+*@
 
-<div>
-    <h4>Loan</h4>
-    <hr />
-    
-    Loan: #---- @Html.DisplayFor(model => model.LoanNumber)  Otero, Jeanette
+@*<div class="row">*@   @*add class (makes body content + column into a single row) here to create two-column page for upcoming due loans *@
+@*This will be column for upcoming due loans, and past due loans*@
 
-    <dl class="dl-horizontal">
-        <dt>
-            Item ID
-        </dt>
+<h2>Loan Items</h2>
+@*<div class="col-md-4 col-md-offset-4"></div>*@  @*This was to center the title*@
 
-        <dd>
-            @Html.DisplayFor(model => model.InventoryItemId)
-        </dd>
+@*<div class="row">*@
 
-        <dt>
-            Item Name
-        </dt>
+@*Search by name*@
+@*@using (Html.BeginForm("Index", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+{
+    <form class="form-inline">
+        <input type="text" class="form-control" name="searchby" placeholder="Search Loans by Client Name" style="width: 30%;" />
+        <input type="submit" class="btn btn-default" value="Search" />
+    </form>
+}*@
 
-        <dd>
-            @Html.DisplayFor(model => model.ItemName)
-        </dd>
+@*@Html.ActionLink("Create New Loan", "AddLoan", null, new { @class = "btn btn-default" }) @*NewLoan*@
 
-        <dt>
-            Manufacturer
-        </dt>
+@*</div>*@
+<br /><br />
+<div class="row">
+    <div class="col-md-4">
+        Select any item to renew, cancel or check in.
+    </div>
+    <div class="btn-group">
+        @*<div class="col-md-2">*@
 
-        <dd>
-            @Html.DisplayFor(model => model.Manufacturer)
-        </dd>
-
-        <dt>
-            Date Checked Out
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LoanDate)  @*Being LoanDate from LoanDetails table*@
-        </dd>
-
-        <dt>
-            Due Date
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LoanDate) @*LoanDate + 28 days *@
-        </dd>
-    </dl>
+        @*</div>*@
+        @*<div class="col-md-2">*@
+        @Html.ActionLink("Renew Item", "RenewLoan", null, new { @class = "btn btn-default" }) @*RenewLoan*@
+        @*</div>*@
+        @*<div class="col-md-2">*@
+        @Html.ActionLink("Cancel Item", "CancelLn", null, new { @class = "btn btn-default" }) @*CancelLoan*@
+        @*</div>*@
+        @*<div class="col-md-2">*@
+        @*@Html.ActionLink("Edit Loan", "EditLn", null, new { @class = "btn btn-default" }) @*EditLoan*@
+        @*</div>*@
+        @*<div class="col-md-2">*@
+        @Html.ActionLink("Check-In Item", "CheckIn", null, new { @class = "btn btn-default" }) @*CheckinLoan*@ @*To record client outcome, damages etc.*@
+        @*</div>*@
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "EditLn", null, null)  @*new { id = Model.LoanId }) |*@
-    @Html.ActionLink("Back to List", "IndexLoan", null, null)
-</p>
+<br />
+
+Information for Loan # - item.LoanNumber - here     Otero, Jeanette
+<br />
+<br />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9">
+            <table class="table table-striped table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>
+                        Select
+                    </th>
+                    <th>
+                        Item ID
+                    </th>
+                    <th>
+                        Item Name
+                    </th>
+                    <th>
+                        Manufacturer
+                    </th>
+                    <th>
+                        Date Loaned
+                    </th>
+                    <th>
+                        Date Due
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @*@Html.ActionLink("Select", "", new {id = item.LoanId}) *@ @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
+                            @Html.RadioButton("selectNum", false)
+                        </td>
+                        <td>
+                            @item.InventoryItemId
+                        </td>
+                        <td>
+                            @item.ItemName
+                        </td>
+                        <td>
+                            @item.Manufacturer
+                        </td>
+                        <td>
+                            @item.LoanDate
+                        </td>
+                        <td>
+                            @item.LoanDate    @* + 28 days *@
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "EditLn", null, null)  @*new { id = Model.LoanId }) |*@
+
+        @Html.ActionLink("Back to List", "Index", null, null)
+    </p>
+</div>
