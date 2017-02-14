@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SingularityFAAST.Core.Entities
@@ -7,6 +8,8 @@ namespace SingularityFAAST.Core.Entities
     {
         [Key]
         public int ClientID { get; set; }
+
+        public IEnumerable<int> DisabilityIds { get; set; }
 
         public bool Active { get; set; }
 

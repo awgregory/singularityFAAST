@@ -54,8 +54,8 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         [HttpPost]
-        public RedirectToRouteResult AddClient(Client client)  // Make ViewModel
-        {
+        public RedirectToRouteResult AddClient(Client client)  
+        {                                                       
             var services = new ClientServices();
 
             services.SaveClient(client);
