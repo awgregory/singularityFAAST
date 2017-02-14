@@ -7,6 +7,7 @@ namespace SingularityFAAST.DataAccess.Contexts
     public class SingularityDBContext : DbContext
     {
         public DbSet<Client> Clients { get; set; }
+
         public DbSet<ClientDisability> ClientDisabilities { get; set; }
         public DbSet<DisabilityCategory> DisabilityCategories { get; set; }
         public DbSet<ClientCategory> ClientCategories { get; set; }
