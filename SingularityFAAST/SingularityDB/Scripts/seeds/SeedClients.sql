@@ -1,4 +1,5 @@
-﻿
+﻿--DBCC CHECKIDENT('dbo.Clients', RESEED, 0)
+
 IF OBJECT_ID('tempdb..#tempClients') IS NOT NULL DROP TABLE #tempClients 
 
 
