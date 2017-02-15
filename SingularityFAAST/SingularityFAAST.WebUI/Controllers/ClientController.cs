@@ -10,9 +10,9 @@ namespace SingularityFAAST.WebUI.Controllers
     {
 
         private readonly ClientServices _clientServices = new ClientServices();
-        
 
 
+        //  Returns Client Home Page/All Clients View
         [HttpGet]
         public ActionResult Index()
         {
@@ -22,7 +22,7 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-
+        //  Returns Client records that match search criteria
         [HttpPost]
         public ActionResult Index(SearchRequest searchRequest)
         {
@@ -46,13 +46,14 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-
+        //  Returns the Add New Client Page
         public ViewResult AddClient()
         {
             return View();
         }
 
 
+        //  Collects the form data from AddClient view and saves
         [HttpPost]
         public RedirectToRouteResult AddClient(Client client)  
         {                                                       
