@@ -14,23 +14,26 @@
 
 <div class="container-fluid">
     <div class="row">
-        @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-            {
+        <div class="col-md-2">
+            @Html.ActionLink("Create New Loan", "AddLoan", null, new {@class = "btn btn-primary"})
+        </div>
+        @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+        {
             <div class="col-md-3">
-                <input type="text" class="form-control" name="searchby" placeholder="Search by Client Last Name" />
-                <input type="submit" class="btn btn-primary" value="Search" />
+                <input type="text" class="form-control" name="searchby" placeholder="Search by Client Last Name"/>
+                <input type="submit" class="btn btn-primary" value="Search"/>
             </div>
         }
 
-        @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-            {
+        @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+        {
             <div class="col-md-3">
-                <input type="text" class="form-control" name="searchby" placeholder="Search by Loan Number" />
-                <input type="submit" class="btn btn-primary" value="Search" />
+                <input type="text" class="form-control" name="searchby" placeholder="Search by Loan Number"/>
+                <input type="submit" class="btn btn-primary" value="Search"/>
             </div>
         }
 
-        @Html.ActionLink("Create New Loan", "AddLoan", null, new { @class = "btn btn-primary" }) @*NewLoan*@
+
     </div>
     <hr />
     <br />
@@ -101,7 +104,7 @@
                                     @item.LoanNumber
                                 </td>
                                 <td>
-                                    @item.DateCreated.ToString("MMM dd yyyy")
+                                    @item.DateCreated.ToString("MMMM dd yyyy")
                                 </td>
                                 <td>
                                     @item.ClientId
@@ -128,7 +131,7 @@
                 <div class="sidebar">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Upcoming Devices Due </h3>
+                            <h3 class="panel-title">Upcoming Loans Due </h3>   @*Could this be devices due?*@
                             @*<div class="navbar-collapse navbar-right collapse">*@
                         </div>
                         <div class="panel-body">

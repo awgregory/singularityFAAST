@@ -6,6 +6,7 @@ using SingularityFAAST.Core.DataTransferObjects;
 //using SingularityFAAST.DataAccess.Contexts;
 using SingularityFAAST.Services.Services;
 using SingularityFAAST.Core.Entities;
+using SingularityFAAST.Core.SearchRequests;
 
 
 namespace SingularityFAAST.WebUI.Controllers
@@ -13,7 +14,7 @@ namespace SingularityFAAST.WebUI.Controllers
     public class LoanController : Controller
     {
         private readonly LoanMasterServices lm_services = new LoanMasterServices();
-        //private readonly ClientServices _clientServices = new ClientServices();
+        private readonly ClientServices _clientServices = new ClientServices();
 
         //Original, using only LoanMaster
 
@@ -35,7 +36,7 @@ namespace SingularityFAAST.WebUI.Controllers
         //New
         //GET: All Loans
         [HttpGet]
-        public ActionResult Index()  //(string sort) for search
+        public ActionResult Index()  
         {
             var services = new LoanMasterServices();
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
@@ -49,7 +50,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //GET: Loans by Client Name  
         [HttpPost]
-        public ActionResult Index(SearchByString searchRequest)  
+        public ActionResult Index(SearchByString searchRequest)  //If routing to LoanMasterServices, mine is SearchByString (see below)
         {
             if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
             {
@@ -65,6 +66,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
             else
             {
+                //IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);
                 IList<LoansClientsInventoryDTO> model = lm_services.GetLoansByClientLastName(searchRequest.SearchBy);
                 return View(model);
             }
@@ -121,6 +123,14 @@ namespace SingularityFAAST.WebUI.Controllers
 
         }
 
+
+
+        public ActionResult AddLoan()
+        {
+            //var services = new LoanMasterServices();
+            //services.SaveLoan(loan);
+            return View();
+        }
 
 
         [HttpPost]
