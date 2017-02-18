@@ -26,22 +26,30 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public ActionResult Index(SearchRequest searchRequest)
         {
-            if (string.IsNullOrWhiteSpace(searchRequest.SearchByName))
-            {
 
-                IList<Client> model = _clientServices.GetAllClients();
+            IList<Client> model = _clientServices.HandlesSearchRequest(searchRequest);
 
-                return View(model);
-            }
+            return View(model);
 
-            else
-            {
 
-                IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);
 
-                return View(model);
-            }
-            
+
+            //if (string.IsNullOrWhiteSpace(searchRequest.SearchByName))
+            //{
+
+            //    IList<Client> model = _clientServices.GetAllClients();
+
+            //    return View(model);
+            //}
+
+            //else
+            //{
+
+            //    IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);
+
+            //    return View(model);
+            //}
+
         }
 
 
@@ -57,9 +65,31 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public RedirectToRouteResult AddClient(Client client)  
         {                                                       
-            var services = new ClientServices();
+            var services = _clientServices;
 
             services.SaveClient(client);
+
+            return RedirectToAction("Index", "Client");
+        }
+
+        [HttpGet]
+        public RedirectToRouteResult ViewClient(int id)
+        {
+            var services = _clientServices;
+
+
+            services.SaveClient(id);
+
+            return RedirectToAction("Index", "Client");
+        }
+
+
+        [HttpPost]
+        public RedirectToRouteResult EditClient(int id)
+        {
+            var services = _clientServices;
+
+            services.SaveClient(id);
 
             return RedirectToAction("Index", "Client");
         }

@@ -1,4 +1,5 @@
 ﻿using SingularityFAAST.Core.Entities;
+using SingularityFAAST.Core.SearchRequests;
 using SingularityFAAST.DataAccess.Contexts;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,32 @@ namespace SingularityFAAST.Services.Services
             return filteredClients;
         }
 
+
+        public IList<Client> HandlesSearchRequest(SearchRequest searchRequest)
+        {
+            IList<Client> filteredClients;
+
+            switch (searchRequest.SearchByType)
+            {
+                case 1: filteredClients = GetClientsByName(searchRequest.SearchBy);
+                    break;
+
+                case 2:
+                    filteredClients = GetClientsByName(searchRequest.SearchBy);
+                    break;
+
+                default:
+                    filteredClients = new List<Client>(0);
+                    break;
+
+            }
+
+            return filteredClients;
+        }
+
+
+
+
         //left off 
 
         public void SaveClient(Client client)
@@ -58,8 +85,10 @@ namespace SingularityFAAST.Services.Services
                 }
                 
             }
-
             
         }
+
+        
+
     }
 }
