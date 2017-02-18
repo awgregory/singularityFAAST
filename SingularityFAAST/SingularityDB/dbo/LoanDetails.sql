@@ -4,7 +4,7 @@
     [LoanMasterId] INT NOT NULL,
 
 	[LoanDate] DATE NOT NULL, 
-    [LoanDuration] INT NOT NULL DEFAULT 30, 
+    [LoanDuration] INT NOT NULL DEFAULT 28, 
     [InventoryItemId] INT NOT NULL,
 	[Purpose] VARCHAR(60) NOT NULL,
     [PurposeType] VARCHAR(25) NOT NULL, 

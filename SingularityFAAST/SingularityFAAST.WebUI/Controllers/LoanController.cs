@@ -14,36 +14,17 @@ namespace SingularityFAAST.WebUI.Controllers
     public class LoanController : Controller
     {
         private readonly LoanMasterServices lm_services = new LoanMasterServices();
-        private readonly ClientServices _clientServices = new ClientServices();
-
-        //Original, using only LoanMaster
-
-        // GET: All Loans
-        //public ActionResult Index()  //(string sort) for search
-        //{
-
-        //    var services = new LoanMasterServices();
-        //    IList<LoanMaster> model = lm_services.GetAllLoans();
-
-        //    //IList<GetLoanInfo> model = lm_services.GetLoans();
-        //    return View(model);
-
-        //    //return View("Index");
-        //}
+        private readonly ClientServices _clientServices = new ClientServices();  //to use Adrian's? 
 
 
-
-        //New
         //GET: All Loans
         [HttpGet]
         public ActionResult Index()  
         {
-            var services = new LoanMasterServices();
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
+           IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
 
             return View(model);
 
-            //return View("Index");
         }
 
 
@@ -66,33 +47,37 @@ namespace SingularityFAAST.WebUI.Controllers
 
             else
             {
-                //IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);
-                IList<LoansClientsInventoryDTO> model = lm_services.GetLoansByClientLastName(searchRequest.SearchBy);
+                //IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);  //to use Adrian's?
+                IList<LoansClientsInventoryDTO> model = lm_services.GetLoansByClientLastName(searchRequest.SearchBy); //or do this and do split logic in LMServices not here
                 return View(model);
             }
         }
 
 
 
-        //should be a DTO?  Corresponds with form item on Index.cshtml
-        public class SearchByString
+
+        //This is the page with the inventory items list in a loan
+        [HttpGet]
+        public ActionResult RenewItems(PassALoanNumber loanNumber)  //(string sort) for search
         {
-            public string SearchBy { get; set; }
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoanItems(loanNumber.LoanNum);
+            //return View(model);
+            return ViewBag
         }
 
-        public class PassALoanNumber
-        {
-            public string LoanNum { get; set; }
-        }
 
 
-        
+
+
+        //This is the page with a box 
         public ActionResult RenewLoan(PassALoanNumber loanNumber)
         {
 
             //IList<LoansClientsInventoryDTO> model = lm_services. Do i need method here or is this just passing value from page to page   (loanNumber.LoanNum);
             return View("RenewLn");
         }
+
+
 
         public ActionResult EditLn()
         {
@@ -107,20 +92,6 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult CancelLn()
         {
             return View("CancelLoan");
-        }
-
-        //public ActionResult RenewLnItem()
-        //{
-        //    return View("RenewItems");
-        //}
-
-
-        [HttpGet]
-        public ActionResult RenewItems(PassALoanNumber loanNumber)  //(string sort) for search
-        {
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoanItems(loanNumber.LoanNum);
-            return View(model);
-
         }
 
 
@@ -140,5 +111,18 @@ namespace SingularityFAAST.WebUI.Controllers
             services.SaveLoan(loan);
             return View();
         }
+
+
+        //should use SearchRequests files made by Adrian ?  Used by form item on Index.cshtml
+        public class SearchByString
+        {
+            public string SearchBy { get; set; }
+        }
+
+        public class PassALoanNumber
+        {
+            public string LoanNum { get; set; }
+        }
+
     }
 }

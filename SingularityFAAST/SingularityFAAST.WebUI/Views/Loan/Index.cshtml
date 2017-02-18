@@ -28,12 +28,12 @@
         @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new {@class = "form-inline"}))
         {
             <div class="col-md-3">
-                <input type="text" class="form-control" name="searchby" placeholder="Search by Loan Number"/>
+                <input type="text" class="form-control" name="searchbyNum" placeholder="Search by Loan Number"/>
                 <input type="submit" class="btn btn-primary" value="Search"/>
             </div>
         }
 
-
+        @*Remove edit, renew, cancel and put on details page*@
     </div>
     <hr />
     <br />
@@ -43,20 +43,21 @@
                 Select any loan to edit, renew or cancel.
             </div>
             <div class="btn-group">
+                @*@using (Html.BeginForm("Index", "Home", FormMethod.Post)) { }*@
 
-                @* If logic here. If radio button is true on select of these buttons, pass item.loanNum. *@
+                @*@* If logic here. If radio button is true on select of these buttons, pass item.loanNum. *@
                 @*</div>*@
                 @*<div class="col-md-2">*@
-                @Html.ActionLink("Renew Loan", "RenewLoan", null, new { @class = "btn btn-default" }) @*RenewLoan*@
+                @*@Html.ActionLink("Renew Loan", "RenewLoan", null, new { @class = "btn btn-default" }) @*RenewLoan*@
                 @*</div>*@
                 @*<div class="col-md-2">*@
-                @Html.ActionLink("Cancel Loan", "CancelLn", null, new { @class = "btn btn-default" }) @*CancelLoan*@
+                @*@Html.ActionLink("Cancel Loan", "CancelLn", null, new { @class = "btn btn-default" }) @*CancelLoan*@
                 @*</div>*@
                 @*<div class="col-md-2">*@
-                @Html.ActionLink("Edit Loan", "EditLn", null, new { @class = "btn btn-default" }) @*EditLoan*@
+                @*@Html.ActionLink("Edit Loan", "EditLn", null, new { @class = "btn btn-default" }) @*EditLoan*@
                 @*</div>*@
                 @*<div class="col-md-2">*@
-                @Html.ActionLink("Check-In Loan", "CheckIn", null, new { @class = "btn btn-default" }) @*CheckinLoan*@ @*To record client outcome, damages etc.*@
+                @*@Html.ActionLink("Check-In Loan", "CheckIn", null, new { @class = "btn btn-default" }) @*CheckinLoan*@ @*To record client outcome, damages etc.*@
                 @*</div>*@
 
             </div>
@@ -95,10 +96,15 @@
                         {
                             <tr>
                                 <td>
-                                    @*@Html.ActionLink("Select", "", new {id = item.LoanId}) *@ @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
-                                    @*@Html.RadioButtonFor(s=> s.LoanNum, item.LoanNumber)*@ @*replace with large icon?
+                                    @*@using (Html.BeginForm("RenewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                    {
+                                        <input type="submit" class="btn btn-primary"  name="LoanNum" value="Select" />*@
+                                        
+                                        @Html.ActionLink("Select", "RenewItems", "Loan", null, new {id = item.LoanNumber}) @* , @class = "btn btn-default"    Could be checkbox. Not a link, just selects, for one of three possible functions*@
+                                    
+                                        @*@Html.RadioButton("LoanNum", item.LoanNumber)*@ @*replace with large icon?
                                         @@Html.Hidden(item.LoanNumber) @*will want ajax because true/false value is passed to above before being passed to controller*@
-                                    X
+                                    @* } *@
                                 </td>
                                 <td>
                                     @item.LoanNumber

@@ -49,6 +49,38 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
+        public IList<LoansClientsInventoryDTO> GetAllItems(string loanNum)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                //Get all Items in DB
+                var items = from i in context.InventoryItems
+                            join ld in context.LoanDetails
+                            on i.InventoryItemId equals ld.InventoryItemId
+                            join lm in context.LoanMasters
+                            on ld.LoanMasterId equals lm.LoanMasterId
+                            join c in context.Clients
+                            on lm.ClientId equals c.ClientID
+                            where lm.LoanNumber.Equals(loanNum)
+
+                select new LoansClientsInventoryDTO()
+                {
+                    LoanNumber = lm.LoanNumber,
+                    DateCreated = ld.LoanDate,
+                    //InventoryItemId = i.InventoryItemId,
+                    ItemName = i.ItemName,
+                    Manufacturer = i.Manufacturer,
+                    //Description = i.Description,
+                    Notes = ld.Notes,
+                    HomePhone = c.HomePhone,
+                    Email = c.Email
+                };
+
+                return items.ToList();
+            }
+        }
+
+
 
         // GET all Loans associated with client name
         public IList<LoansClientsInventoryDTO> GetLoansByClientLastName(string searchby)
@@ -61,6 +93,7 @@ namespace SingularityFAAST.Services.Services
             return filteredLoans;
         }
 
+        //Search by Loan Number (also a string)
         public IList<LoansClientsInventoryDTO> GetLoanByLoanNumber(string searchby)
         {
             IList<LoansClientsInventoryDTO> allLoans = GetAllLoans();  //Gets all the loans from the GetAllLoans() method
@@ -71,32 +104,20 @@ namespace SingularityFAAST.Services.Services
             return filteredLoans;
         }
 
+
+
+        //Get all Inventory Items associated with LoanNumber
         public IList<LoansClientsInventoryDTO> GetAllLoanItems(string loanNum)
         {
-            using (var context = new SingularityDBContext())
-            {
-                //Get all loan items in a loan
-                var loans = from ld in context.LoanDetails
-                    join l in context.LoanMasters
-                    on ld.LoanMasterId equals l.LoanMasterId
-                    join i in context.InventoryItems
-                    on ld.InventoryItemId equals i.InventoryItemId
-                    where l.LoanNumber.Equals(loanNum)
+            IList<LoansClientsInventoryDTO> allItems = GetAllItems(loanNum);  //Gets all the items from the GetAllItems() method - maybe that method should only return inventory items, not client?
 
-                    select new LoansClientsInventoryDTO()
-                    {
-                        LoanNumber = l.LoanNumber,
-                        DateCreated = ld.LoanDate,
-                        InventoryItemId = i.InventoryItemId,
-                        ItemName = i.ItemName,
-                        Manufacturer = i.Manufacturer,
-                        Description = i.Description,
-                        Notes = ld.Notes,
-                        SelectNum = ""
-                    };
+            var selectedLoan = allItems.ToList();   //filtered in GetAllItems() instead
 
-                return loans.ToList();
-            }
+            //IList<LoansClientsInventoryDTO> filteredLoans =
+            //    allItems.Where(loan => string.Equals(loan.LoanNumber, loanNum, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            return selectedLoan;
+
         }
 
 

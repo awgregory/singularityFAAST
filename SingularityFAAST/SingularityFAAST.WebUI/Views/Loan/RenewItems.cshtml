@@ -46,7 +46,7 @@
         @Html.ActionLink("Cancel Item", "CancelLn", null, new { @class = "btn btn-default" }) @*CancelLoan*@
         @*</div>*@
         @*<div class="col-md-2">*@
-        @*@Html.ActionLink("Edit Loan", "EditLn", null, new { @class = "btn btn-default" }) @*EditLoan*@
+        @Html.ActionLink("Edit Loan", "EditLn", null, new { @class = "btn btn-default" }) @*EditLoan
         @*</div>*@
         @*<div class="col-md-2">*@
         @Html.ActionLink("Check-In Item", "CheckIn", null, new { @class = "btn btn-default" }) @*CheckinLoan*@ @*To record client outcome, damages etc.*@
@@ -55,7 +55,7 @@
 </div>
 <br />
 
-Information for Loan # - item.LoanNumber - here     Otero, Jeanette
+Information for Loan #@foreach (var each in Model) {@each.LoanNumber     @*Client: @each.LastName, @each.FirstName  Phone: @each.HomePhone  Email: @each.Email*@  }
 <br />
 <br />
 <div class="container-fluid">
@@ -89,7 +89,7 @@ Information for Loan # - item.LoanNumber - here     Otero, Jeanette
                 {
                     <tr>
                         <td>
-                            @*@Html.ActionLink("Select", "", new {id = item.LoanId}) *@ @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
+                            @*@Html.ActionLink("Select", "", new {id = item.LoanId})*@  @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
                             @Html.RadioButton("selectNum", false)
                         </td>
                         <td>
