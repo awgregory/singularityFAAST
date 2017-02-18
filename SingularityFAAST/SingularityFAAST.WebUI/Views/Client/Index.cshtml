@@ -7,9 +7,7 @@
 
 <h2>Clients</h2>
 
-<p>
-    @Html.ActionLink("Add New Client", "AddClient", null, new {@class = "btn btn-primary"})
-</p>
+
 
 
 @using (Html.BeginForm("Index", "Client", FormMethod.Post, new { @class = "form-inline" }))
@@ -23,8 +21,17 @@
         <label for="searchbyid">ClientId</label>
         <input type="number" class="form-control" name="searchbyid" id="searchbyid" placeholder="ClientId" />
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+
+    <div class="form-group">
+        @Html.ActionLink("Add New Client", "AddClient", "Client", null, new { @class = "btn btn-primary" })
+    </div>
 }
+
 
 
         <br />
@@ -32,22 +39,22 @@
         <table class="table table-striped">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ClientID)
+                    @Html.DisplayNameFor(model => model.ClientID) @*To be removed*@
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
+                    First Name
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.LastName)
+                    Last Name
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Address1)   
+                    Address
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.StateCode)
+                    State
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Zip)
+                    Zip
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ClientCategoryId)
@@ -55,7 +62,7 @@
                 <th></th>
             </tr>
 
-           
+
             @foreach (var item in Model)
             {
                 <tr>
@@ -78,13 +85,13 @@
                         @item.Zip
                     </td>
                     <td>
-                        @item.ClientCategoryId
+                        @item.ClientCategoryId  @*need to display category name and not just the id*@
                     </td>
-                    @*<td>
-                            @Html.ActionLink("Edit", "Edit", new { id=item.ClientID }) |
-                            @Html.ActionLink("Details", "Details", new { id=item.ClientID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id=item.ClientID })
-                        </td>*@
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.ClientID }) 
+                        @*@Html.ActionLink("Details", "Details", new { id=item.ClientID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.ClientID })*@
+                    </td>
                 </tr>
             }
 

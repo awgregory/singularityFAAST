@@ -12,7 +12,7 @@ namespace SingularityFAAST.WebUI.Controllers
         private readonly ClientServices _clientServices = new ClientServices();
 
 
-        //  Returns Client Home Page/All Clients View
+        //  Returns Home Page/All Clients View
         [HttpGet]
         public ActionResult Index()
         {

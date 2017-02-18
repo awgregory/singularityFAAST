@@ -9,14 +9,12 @@
 @using (Html.BeginForm())
 {
 
-        <input type="checkbox" name="DisabilityIds" value="1"/> <br />
-        <input type="checkbox" name="DisabilityIds" value="2" />
 
+        
 
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="Title">Title</label>*@
                     @Html.LabelFor(client => client.Title)
                     @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
                 </div>
@@ -26,7 +24,6 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="company">company</label>*@
                     @Html.LabelFor(client => client.Company)
                     @Html.TextBoxFor(m => m.Company, new { @class = "form-control" })
                 </div>
@@ -37,24 +34,21 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="FirstName">First Name</label>*@
-                    @Html.LabelFor(client => client.FirstName)
+                    @Html.LabelFor(client => client.FirstName,"First Name")
                     @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="MiddleInitial">Middle Initial</label>*@
-                    @Html.LabelFor(client => client.MiddleInitial)
+                    @Html.LabelFor(client => client.MiddleInitial, "Middle Initial")
                     @Html.TextBoxFor(m => m.MiddleInitial, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="LastName">Last Name</label>*@
-                    @Html.LabelFor(client => client.LastName)
+                    @Html.LabelFor(client => client.LastName, "Last Name")
                     @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
                 </div>
             </div>
@@ -64,23 +58,20 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="Address1">Address 1</label>*@
-                    @Html.LabelFor(client => client.Address1)
+                    @Html.LabelFor(client => client.Address1, "Address")
                     @Html.TextBoxFor(m => m.Address1, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="Address2">Address 2</label>*@
-                    @Html.LabelFor(client => client.Address2)
+                    @Html.LabelFor(client => client.Address2, "Address")
                     @Html.TextBoxFor(m => m.Address2, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="City">City</label>*@
                     @Html.LabelFor(client => client.City)
                     @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
                 </div>
@@ -93,22 +84,20 @@
             <div class="col-md-4">
                 <div class="form-group">
                     @*<label for="StateName">State Name</label>*@
-                    @Html.LabelFor(client => client.StateName)
+                    @Html.LabelFor(client => client.StateName, "State Name")
                     @Html.TextBoxFor(m => m.StateName, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="StateCode">State Code</label>*@
-                    @Html.LabelFor(client => client.StateCode)
+                    @Html.LabelFor(client => client.StateCode, "State Code")
                     @Html.TextBoxFor(m => m.StateCode, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="County">County</label>*@
                     @Html.LabelFor(client => client.County)
                     @Html.TextBoxFor(m => m.County, new { @class = "form-control" })
                 </div>
@@ -120,7 +109,6 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="CountyFIPS">CountyFIPS</label>*@
                     @Html.LabelFor(client => client.CountyFIPS)
                     @Html.TextBoxFor(m => m.CountyFIPS, new { @class = "form-control" })
                 </div>
@@ -128,7 +116,6 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="Zip">Zip</label>*@
                     @Html.LabelFor(client => client.Zip)
                     @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
                 </div>
@@ -136,7 +123,6 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="Email">Email</label>*@
                     @Html.LabelFor(client => client.Email)
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                 </div>
@@ -147,7 +133,6 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="CellPhone">Cell Phone</label>*@
                     @Html.LabelFor(client => client.CellPhone)
                     @Html.TextBoxFor(m => m.CellPhone, new { @class = "form-control" })
                 </div>
@@ -155,7 +140,6 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="HomePhone">Home Phone</label>*@
                     @Html.LabelFor(client => client.HomePhone)
                     @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control" })
                 </div>
@@ -164,7 +148,6 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="WorkPhone">Work Phone</label>*@
                     @Html.LabelFor(client => client.WorkPhone)
                     @Html.TextBoxFor(m => m.WorkPhone, new { @class = "form-control" })
                 </div>
@@ -192,29 +175,69 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="LoanEligibility">Loan Eligibility</label>*@
-                    @Html.LabelFor(client => client.LoanEligibility)
+                    @Html.LabelFor(client => client.LoanEligibility, "Loan Eligibility")
                     @Html.TextBoxFor(m => m.LoanEligibility, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @*<label for="Notes">Notes</label>*@
                     @Html.LabelFor(client => client.Notes)
                     @Html.TextAreaFor(client => client.Notes, new { @class = "form-control" })
-
-                    @*<textarea rows="4" class="form-control" id="Notes" name="Notes"></textarea>*@
                 </div>
             </div>
         </div>
 
 
+        
+            <label>Client Disabilities</label>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="1"> Cognitive Impairment
+                </label>
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="2"> Hearing Impairment
+                </label>
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="3"> Visual Impairment
+                </label>
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="4"> Deaf-Blind
+                </label>
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="5"> Learning Disability
+                </label>
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="6"> No Impairment
+                </label>
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="7"> Dexterity Impairment
+                </label>
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="8"> Mobility Impairment
+                </label>
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="9"> Spinal Cord Injury
+                </label>
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="10"> Elderly
+                </label>
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="11"> Speech/Language Impairment
+                </label>
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="12"> Traumatic Brain Injury
+                </label>
+                <label>
+                    <input type="checkbox" name="DisabilityIds" value="13"> Other
+                </label>
+            </div>
 
-        <div class="text-left">
-            <input class="btn btn-primary" type="submit" value="Add Client" />
-        </div>
 
-        }
+            <div class="text-left">
+                <input class="btn btn-primary" type="submit" value="Add Client" />
+            </div>
+
+            }
 
 
