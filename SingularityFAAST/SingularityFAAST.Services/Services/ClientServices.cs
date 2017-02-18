@@ -43,7 +43,7 @@ namespace SingularityFAAST.Services.Services
 
                 context.SaveChanges();
 
-                if (client.DisabilityIds.Any())     // saves client before getting to this error, needs another If null test?
+                if (client.DisabilityIds != null && client.DisabilityIds.Any())     // saves client before getting to this error, needs another If null test?
                 {
                     var clientDisabilities = client.DisabilityIds
                         .Select(disabilityId => new ClientDisability    
