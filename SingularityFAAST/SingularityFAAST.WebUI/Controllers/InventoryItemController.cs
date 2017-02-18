@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SingularityFAAST.Core.Entities;
 using SingularityFAAST.Services.Services;
 
 namespace SingularityFAAST.WebUI.Controllers
@@ -16,19 +17,40 @@ namespace SingularityFAAST.WebUI.Controllers
             var model = services.GetAllInventory();
             return View(model);
         }
-        
 
-        //new inventory view
-        public ActionResult NewInventoryItem()
+
+        //add inventory view
+        public ViewResult NewInventoryItem()
         {
             return View();
         }
+        [HttpPost]
+        public RedirectToRouteResult NewInventoryItem(InventoryItem item)
+        {
+            var services = new InventoryItemServices();
+
+            services.SaveNewItem(item);
+
+            return RedirectToAction("IndexInventory", "InventoryItem");
+        }
+
 
         //update inventory item view
         public ActionResult UpdateInventoryItem()
         {
             return View();
         }
+        [HttpPost]
+        public RedirectToRouteResult UpdateInventoryItem(InventoryItem item)
+        {
+            var services = new InventoryItemServices();
+
+            services.EditExistingItem(item);
+
+            return RedirectToAction("IndexInventory", "InventoryItem");
+        }
+
+        public RedirectToRouteResult UpdateInventoryItem(InventoryItem item)
 
         //returns view for All Available Inventory
         public ActionResult ViewAllAvailableInv()
@@ -44,16 +66,6 @@ namespace SingularityFAAST.WebUI.Controllers
             var services = new InventoryItemServices();
             var model = services.ViewInvOnLoan();
             return View(model);
-        }
-
-        public RedirectToRouteResult MethodAddNewItem()
-        {
-            return null; //would eventually collect form info and add item to db and return user to inventory home page
-        }
-
-        public RedirectToRouteResult MethodUpdateItem()
-        {
-            return null; //would eventually collect form info and add item to db and return user to inventory home page
         }
     }
 }
