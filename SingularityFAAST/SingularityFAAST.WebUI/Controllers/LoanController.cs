@@ -53,16 +53,12 @@ namespace SingularityFAAST.WebUI.Controllers
             }
         }
 
-
-
-
         //This is the page with the inventory items list in a loan
-        [HttpGet]
-        public ActionResult RenewItems(PassALoanNumber loanNumber)  //(string sort) for search
+        [HttpPost]
+        public ActionResult RenewItems(string loanNumber)  
         {
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoanItems(loanNumber.LoanNum);
-            //return View(model);
-            return ViewBag
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoanItems(loanNumber);
+            return View(model);
         }
 
 

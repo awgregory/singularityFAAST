@@ -67,7 +67,7 @@ namespace SingularityFAAST.Services.Services
                 {
                     LoanNumber = lm.LoanNumber,
                     DateCreated = ld.LoanDate,
-                    //InventoryItemId = i.InventoryItemId,
+                    InventoryItemId = i.InventoryItemId,
                     ItemName = i.ItemName,
                     Manufacturer = i.Manufacturer,
                     //Description = i.Description,
@@ -113,7 +113,7 @@ namespace SingularityFAAST.Services.Services
 
             var selectedLoan = allItems.ToList();   //filtered in GetAllItems() instead
 
-            //IList<LoansClientsInventoryDTO> filteredLoans =
+            //IList<LoansClientsInventoryDTO> selectedLoan =
             //    allItems.Where(loan => string.Equals(loan.LoanNumber, loanNum, StringComparison.OrdinalIgnoreCase)).ToList();
 
             return selectedLoan;

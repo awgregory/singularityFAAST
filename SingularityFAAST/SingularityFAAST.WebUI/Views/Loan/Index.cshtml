@@ -96,15 +96,12 @@
                         {
                             <tr>
                                 <td>
-                                    @*@using (Html.BeginForm("RenewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                    @using (Html.BeginForm("RenewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                     {
-                                        <input type="submit" class="btn btn-primary"  name="LoanNum" value="Select" />*@
+                                        <input type="hidden" value="@item.LoanNumber" name="LoanNumber"/>
+                                        <input type="submit" class="btn btn-primary" value="Select" />
                                         
-                                        @Html.ActionLink("Select", "RenewItems", "Loan", null, new {id = item.LoanNumber}) @* , @class = "btn btn-default"    Could be checkbox. Not a link, just selects, for one of three possible functions*@
-                                    
-                                        @*@Html.RadioButton("LoanNum", item.LoanNumber)*@ @*replace with large icon?
-                                        @@Html.Hidden(item.LoanNumber) @*will want ajax because true/false value is passed to above before being passed to controller*@
-                                    @* } *@
+                                     } 
                                 </td>
                                 <td>
                                     @item.LoanNumber

@@ -55,7 +55,7 @@
 </div>
 <br />
 
-Information for Loan #@foreach (var each in Model) {@each.LoanNumber     @*Client: @each.LastName, @each.FirstName  Phone: @each.HomePhone  Email: @each.Email*@  }
+Information for Loan # @Model.LoanNumber     @*Client: @each.LastName, @each.FirstName  Phone: @each.HomePhone  Email: @each.Email*@  }
 <br />
 <br />
 <div class="container-fluid">
@@ -102,7 +102,7 @@ Information for Loan #@foreach (var each in Model) {@each.LoanNumber     @*Clien
                             @item.Manufacturer
                         </td>
                         <td>
-                            @item.LoanDate
+                            @item.DateCreated.ToString("MMMM dd yyyy")
                         </td>
                         <td>
                             @item.LoanDate    @* + 28 days *@
