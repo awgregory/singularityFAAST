@@ -3,6 +3,7 @@ using SingularityFAAST.Core.SearchRequests;
 using SingularityFAAST.DataAccess.Contexts;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace SingularityFAAST.Services.Services
@@ -146,7 +147,7 @@ namespace SingularityFAAST.Services.Services
             {
                 context.Clients.Attach(client);
 
-                var entry = db.Entry(client);
+                var entry = context.Entry(client);
 
                 entry.State = EntityState.Modified;
 
