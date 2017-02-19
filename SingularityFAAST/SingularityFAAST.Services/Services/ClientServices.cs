@@ -33,6 +33,7 @@ namespace SingularityFAAST.Services.Services
         }
 
 
+        // need to use the search Action Method for Case 2, continue pattern beyond
         public IList<Client> HandlesSearchRequest(SearchRequest searchRequest)
         {
             IList<Client> filteredClients;
@@ -58,7 +59,7 @@ namespace SingularityFAAST.Services.Services
 
 
 
-        //left off 
+        // Review the If statement
 
         public void SaveClient(Client client)
         {
@@ -79,16 +80,22 @@ namespace SingularityFAAST.Services.Services
                     context.ClientDisabilities.AddRange(clientDisabilities);
 
                     context.SaveChanges();
-
-                    
-
-                }
-                
-            }
-            
+                }              
+            }      
         }
 
-        
+
+        // Left off here, need something different to pull up client, use this for SearchRequest
+
+        public IList<Client> GetClientsById(int searchbyId)
+        {
+            IList<Client> allClients = GetAllClients();
+
+            IList<Client> filteredClients = allClients.Where(client =>
+                client.ClientID == (Convert.ToInt32(searchbyId))).ToList();
+
+            return filteredClients;
+        }
 
     }
 }

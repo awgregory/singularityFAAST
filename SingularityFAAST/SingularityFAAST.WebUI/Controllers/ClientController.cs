@@ -54,14 +54,15 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        //  Returns the Add New Client Page
+        //  Returns Add New Client Page
         public ViewResult AddClient()
         {
             return View();
         }
 
 
-        //  Collects the form data from AddClient view and saves
+
+        //  Collects the form data from AddClient page and saves
         [HttpPost]
         public RedirectToRouteResult AddClient(Client client)  
         {                                                       
@@ -72,13 +73,17 @@ namespace SingularityFAAST.WebUI.Controllers
             return RedirectToAction("Index", "Client");
         }
 
+
+
+        // Refactor with Nicks code
         [HttpGet]
         public RedirectToRouteResult ViewClient(int id)
         {
             var services = _clientServices;
 
 
-            services.SaveClient(id);
+            services.GetClientsById(id); // This is wrong
+
 
             return RedirectToAction("Index", "Client");
         }
