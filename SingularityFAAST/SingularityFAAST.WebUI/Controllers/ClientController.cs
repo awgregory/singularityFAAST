@@ -31,6 +31,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return View(model);
 
+            //List had more built in Extension methods then Ienumerable  list vs Ienum,  What were they?
 
 
 
@@ -42,13 +43,7 @@ namespace SingularityFAAST.WebUI.Controllers
             //    return View(model);
             //}
 
-            //else
-            //{
 
-            //    IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);
-
-            //    return View(model);
-            //}
 
         }
 
@@ -90,7 +85,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         [HttpPost]
-        public RedirectToRouteResult EditClient(int id)
+        public RedirectToRouteResult EditClient(Client id)
         {
             var services = _clientServices;
 

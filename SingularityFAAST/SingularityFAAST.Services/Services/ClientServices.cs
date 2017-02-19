@@ -22,29 +22,29 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
-        public IList<Client> GetClientsByName(string searchby)
-        {
-            IList<Client> allClients = GetAllClients();
-
-            IList<Client> filteredClients = allClients.Where(client => 
-                string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
-
-            return filteredClients;
-        }
+ 
 
 
-        // need to use the search Action Method for Case 2, continue pattern beyond
         public IList<Client> HandlesSearchRequest(SearchRequest searchRequest)
         {
             IList<Client> filteredClients;
 
             switch (searchRequest.SearchByType)
             {
-                case 1: filteredClients = GetClientsByName(searchRequest.SearchBy);
+                case 1:
+                    filteredClients = GetClientByLastName(searchRequest.SearchBy);
                     break;
 
                 case 2:
-                    filteredClients = GetClientsByName(searchRequest.SearchBy);
+                    filteredClients = GetClientByFirstName(searchRequest.SearchBy);
+                    break;
+
+                case 3:
+                    filteredClients = GetClientById(searchRequest.SearchBy);
+                    break;
+
+                case 4:
+                    filteredClients = GetClientByEmail(searchRequest.SearchBy);
                     break;
 
                 default:
@@ -52,10 +52,50 @@ namespace SingularityFAAST.Services.Services
                     break;
 
             }
+            return filteredClients;
+        }
+
+        
+
+        public IList<Client> GetClientByLastName(string searchBy)
+        {
+            IList<Client> allClients = GetAllClients();
+
+            IList<Client> filteredClients = allClients.Where(client =>
+                string.Equals(client.LastName, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
 
             return filteredClients;
         }
 
+        private IList<Client> GetClientByFirstName(string searchBy)
+        {
+            IList<Client> allClients = GetAllClients();
+
+            IList<Client> filteredClients = allClients.Where(client =>
+                string.Equals(client.FirstName, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            return filteredClients;
+        }
+
+        public IList<Client> GetClientById(string searchBy)
+        {
+            IList<Client> allClients = GetAllClients();
+
+            IList<Client> filteredClients = allClients.Where(client =>
+                client.ClientID == (Convert.ToInt32(searchBy))).ToList();
+
+            return filteredClients;
+        }
+
+        private IList<Client> GetClientByEmail(string searchBy)
+        {
+            IList<Client> allClients = GetAllClients();
+
+            IList<Client> filteredClients = allClients.Where(client =>
+                string.Equals(client.Email, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            return filteredClients;
+        }
 
 
 
@@ -96,6 +136,8 @@ namespace SingularityFAAST.Services.Services
 
             return filteredClients;
         }
+
+
 
     }
 }

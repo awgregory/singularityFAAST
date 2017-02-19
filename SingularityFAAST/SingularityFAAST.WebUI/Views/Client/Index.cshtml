@@ -5,28 +5,36 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Clients</h2>
+<h2>Clients</h2> 
 
-
+<div class="form-group">
+    @Html.ActionLink("Add New Client", "AddClient", "Client", null, new { @class = "btn btn-primary" })
+</div>
 
 
 @using (Html.BeginForm("Index", "Client", FormMethod.Post, new { @class = "form-inline" }))
 {
     <div class="form-group">
-        <label for="searchby">Search by Last Name</label>
-        <input type="text" class="form-control" name="searchby" id="searchby" placeholder="Search by" />
+        <label for="searchby"></label>
+        <input type="text" class="form-control" name="searchby" id="searchby" placeholder="Client Search" />
     </div>
 
-    <div class="form-group">
-        <label for="searchByType"> Search by Last Name
-            <input type="radio" class="form-control" name="searchByType" value="1" />
+
+    <div class="radio">
+        <label for="Lastname"> Last Name
+            <input type="radio" class="form-control"  id="Lastname" name="searchByType" value="1" checked/>
         </label>
-        <label for="searchByType"> Search by ClientID
-            <input type="radio" class="form-control" name="searchByType" value="2" />
+        <label for="Firstname"> First Name
+            <input type="radio" class="form-control" id="Firstname" name="searchByType" value="2" />
+        </label>
+        <label for="ClientId"> Client ID
+            <input type="radio" class="form-control" id="ClientId" name="searchByType" value="3" />
+        </label>
+        <label for="Email"> Email
+            <input type="radio" class="form-control" id="Email" name="searchByType" value="4" />
         </label>
 
-        @*<label for="searchbyid">ClientId</label>
-        <input type="number" class="form-control" name="searchbyid" id="searchbyid" placeholder="ClientId" />*@
+        
     </div>
 
     <div class="form-group">
@@ -34,9 +42,6 @@
     </div>
 
 
-    <div class="form-group">
-        @Html.ActionLink("Add New Client", "AddClient", "Client", null, new { @class = "btn btn-primary" })
-    </div>
 }
 
 

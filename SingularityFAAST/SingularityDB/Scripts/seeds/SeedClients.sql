@@ -39,10 +39,10 @@ Zip, County, CountyFIPS, City, Email, HomePhone, CellPhone, WorkPhone, Company, 
 VALUES 
 
 
-(1, N'2016-11-03 00:00:00', N'Jeanette', NULL, N'Otero', N'5734 W 57th Way', NULL, N'Florida', N'FL', N'33409', N'Palm Beach', N'12099     ', N'West Palm Beach', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 2),
-(1, N'2016-11-03 00:00:00', N'Bruce', NULL, N'Stayer', N'134 Deanna Dr', NULL, N'Florida', N'FL', N'33852', N'Highlands', N'12055     ', N'Lake Placid', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1),
-(1, N'2016-11-03 00:00:00', N'Lorin', NULL, N'Anderson', N'15 B Cherry Ridge Dr', NULL, N'Florida', N'FL', N'32746', N'Seminole', N'12117     ', N'Lake Mary', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 2),
-(1, N'2017-02-01 20:08:26', N'Anthony', NULL, N'Stark', N'Avengers Mansion', NULL, N'California', N'Ca', N'78441', N'Big Sur', NULL, N'Big Sur', N'IronTony@starke.com', NULL, N'714-145-7746', NULL, N'Stark Industries', N'Mr.', 0, N'Has chest reactor that requires special magnetic charger adaptor', 1)
+(1, N'2016-11-03 00:00:00', N'Jeanette', NULL, N'Otero', N'5734 W 57th Way', NULL, N'Florida', N'FL', N'33409', N'Palm Beach', N'12099     ', N'West Palm Beach', N'otero@gmail.com', NULL, NULL, NULL, NULL, NULL, 1, NULL, 2),
+(1, N'2016-11-03 00:00:00', N'Bruce', NULL, N'Stayer', N'134 Deanna Dr', NULL, N'Florida', N'FL', N'33852', N'Highlands', N'12055     ', N'Lake Placid', N'stayer@gmail.com', NULL, NULL, NULL, NULL, NULL, 1, NULL, 1),
+(1, N'2016-11-03 00:00:00', N'Lorin', NULL, N'Anderson', N'15 B Cherry Ridge Dr', NULL, N'Florida', N'FL', N'32746', N'Seminole', N'12117     ', N'Lake Mary', N'anderson@gmail.com', NULL, NULL, NULL, NULL, NULL, 1, NULL, 2),
+(1, N'2017-02-01 20:08:26', N'Anthony', NULL, N'Stark', N'Avengers Mansion', NULL, N'California', N'Ca', N'78441', N'Big Sur', NULL, N'Big Sur', N'stark@gmail.com', NULL, N'714-145-7746', NULL, N'Stark Industries', N'Mr.', 0, N'Has chest reactor that requires special magnetic charger adaptor', 1)
 
 MERGE dbo.Clients AS target
 USING #tempClients AS source
