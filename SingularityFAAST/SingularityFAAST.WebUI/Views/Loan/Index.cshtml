@@ -37,7 +37,7 @@
     </div>
     <hr />
     <br />
-    <div class="col-md-11">
+    <div class="col-md-12">
         <div class="row">
             <div class="col-md-3">
                 Select any loan to edit, renew or cancel.
@@ -66,7 +66,7 @@
         @*<div class="container-fluid">*@
         <div class="row">
             <br />
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <table class="table table-striped table-hover table-condensed">
                     <thead>
                         <tr>
@@ -95,19 +95,27 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>
-                                    @using (Html.BeginForm("RenewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                    {
-                                        <input type="hidden" value="@item.LoanNumber" name="LoanNumber"/>
-                                        <input type="submit" class="btn btn-primary" value="Select" />
-                                        
-                                     } 
+                                <td class ="form">
+                                    <div class="form-inline">
+                                        @using (Html.BeginForm("RenewItems", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+                                        {
+                                            <input type="hidden" value="@item.LoanNumber" name="LoanNumber"/>
+                                            <input type="submit" class="btn btn-primary" value="Select"/>
+
+                                        }
+                                        @using (Html.BeginForm("CheckIn", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+                                        {
+                                            <input type="hidden" value="@item.LoanNumber" name="LoanNumber"/>
+                                            <button type="submit"><span class="glyphicon glyphicon-check" type="submit"></span></button>
+
+                                        }
+                                    </div>
                                 </td>
                                 <td>
-                                    @item.LoanNumber
+                                    12L-@item.LoanNumber
                                 </td>
                                 <td>
-                                    @item.DateCreated.ToString("MMMM dd yyyy")
+                                    @item.DateCreated.ToString("MMMM dd, yyyy")
                                 </td>
                                 <td>
                                     @item.ClientId
@@ -130,11 +138,11 @@
             @*Placeholder - keep empty*@
             @*</div>*@
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="sidebar">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Upcoming Loans Due </h3>   @*Could this be devices due?*@
+                            <h3 class="panel-title">Loans Due This Week</h3>   @*Could this be devices due?*@
                             @*<div class="navbar-collapse navbar-right collapse">*@
                         </div>
                         <div class="panel-body">
@@ -142,17 +150,27 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            Days Due In
+                                            Loan Number
                                         </th>
                                         <th>
-                                            Loan Number
+                                            Date Due
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>2234</td>
+                                @foreach (var item in Model)
+                                {
+                                    var dateDue = item.DateCreated.AddDays(28);
+                                    var dateC = item.DateCreated;
+
+                                    if (dateDue <= DateTime.Now.AddDays(7) && dateDue >= DateTime.Now)
+                                    {
+                                        <tr>
+                                            <td>@item.LoanNumber</td>
+                                            <td>@item.DateCreated.AddDays(28).ToString("MMMM dd")</td>
+                                        </tr>
+                                    }
+                                }
                                 </tbody>
                             </table>
                         </div>

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+﻿@using SingularityFAAST.Core.DataTransferObjects
+@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
 
 @{
     ViewBag.Title = "RenewItems";
@@ -43,10 +44,10 @@
         @Html.ActionLink("Renew Item", "RenewLoan", null, new { @class = "btn btn-default" }) @*RenewLoan*@
         @*</div>*@
         @*<div class="col-md-2">*@
-        @Html.ActionLink("Cancel Item", "CancelLn", null, new { @class = "btn btn-default" }) @*CancelLoan*@
+        @Html.ActionLink("Remove Item", "CancelLn", null, new { @class = "btn btn-default" }) @*CancelLoan  *@  
         @*</div>*@
         @*<div class="col-md-2">*@
-        @Html.ActionLink("Edit Loan", "EditLn", null, new { @class = "btn btn-default" }) @*EditLoan
+        @Html.ActionLink("Edit Loan", "EditLn", null, new { @class = "btn btn-default" }) @*EditLoan  Pass the Loan number to auto-populate details on EditLn *@
         @*</div>*@
         @*<div class="col-md-2">*@
         @Html.ActionLink("Check-In Item", "CheckIn", null, new { @class = "btn btn-default" }) @*CheckinLoan*@ @*To record client outcome, damages etc.*@
@@ -55,7 +56,9 @@
 </div>
 <br />
 
-Information for Loan # @Model.LoanNumber     @*Client: @each.LastName, @each.FirstName  Phone: @each.HomePhone  Email: @each.Email*@  }
+@*Information for Loan #@foreach (var each in Model) {@each.LoanNumber*@     @*Client: @each.LastName, @each.FirstName  Phone: @each.HomePhone  Email: @each.Email*@
+Information for Loan # @*@Html.DisplayFor(model => model.LoanNumber)*@
+
 <br />
 <br />
 <div class="container-fluid">
@@ -105,7 +108,7 @@ Information for Loan # @Model.LoanNumber     @*Client: @each.LastName, @each.Fir
                             @item.DateCreated.ToString("MMMM dd yyyy")
                         </td>
                         <td>
-                            @item.LoanDate    @* + 28 days *@
+                            @item.DateCreated.AddDays(28).ToString("MMMM dd yyyy")    @* + 28 days *@
                         </td>
                     </tr>
                 }

@@ -66,10 +66,11 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         //This is the page with a box 
-        public ActionResult RenewLoan(PassALoanNumber loanNumber)
+        public ActionResult RenewLoan(string loanNumber)
         {
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoanItems(loanNumber);
+            //process renewal here
 
-            //IList<LoansClientsInventoryDTO> model = lm_services. Do i need method here or is this just passing value from page to page   (loanNumber.LoanNum);
             return View("RenewLn");
         }
 

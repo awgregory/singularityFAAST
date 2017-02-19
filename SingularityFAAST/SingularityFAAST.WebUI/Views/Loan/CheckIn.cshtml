@@ -1,21 +1,25 @@
-﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
-
+﻿@*@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>*@
+@model SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO
 @{
     ViewBag.Title = "CheckIn";
 }
+
+This page checks in an entire loan at once. It updates the value LoanMasters.IsActive to False, and for each Item in loan sets Availability to True.  
 
 <h2>Loan Check In</h2>
 
 <div>
     <h4>Loan</h4>
     <hr />
+    <h3>Your Loan is checked in</h3>
+
     <dl class="dl-horizontal">
         <dt>
             Device
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DeviceName)
+            @Html.DisplayFor(model => model.LoanNumber)
         </dd>
 
         <dt>
@@ -39,7 +43,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LoanEndDate)
+            @Html.DisplayFor(model => model.DateCreated.AddDays(28).ToString("MMMM dd, yyyy"))
         </dd>
     </dl>
 

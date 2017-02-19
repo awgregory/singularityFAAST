@@ -70,10 +70,10 @@ namespace SingularityFAAST.Services.Services
                     InventoryItemId = i.InventoryItemId,
                     ItemName = i.ItemName,
                     Manufacturer = i.Manufacturer,
-                    //Description = i.Description,
+                    Description = i.Description,
                     Notes = ld.Notes,
                     HomePhone = c.HomePhone,
-                    Email = c.Email
+                    Email = c.Email,
                 };
 
                 return items.ToList();
@@ -111,8 +111,9 @@ namespace SingularityFAAST.Services.Services
         {
             IList<LoansClientsInventoryDTO> allItems = GetAllItems(loanNum);  //Gets all the items from the GetAllItems() method - maybe that method should only return inventory items, not client?
 
+            
             var selectedLoan = allItems.ToList();   //filtered in GetAllItems() instead
-
+            
             //IList<LoansClientsInventoryDTO> selectedLoan =
             //    allItems.Where(loan => string.Equals(loan.LoanNumber, loanNum, StringComparison.OrdinalIgnoreCase)).ToList();
 
