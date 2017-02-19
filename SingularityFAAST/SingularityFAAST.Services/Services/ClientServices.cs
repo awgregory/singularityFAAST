@@ -77,6 +77,8 @@ namespace SingularityFAAST.Services.Services
             return filteredClients;
         }
 
+        
+
         public IList<Client> GetClientById(string searchBy)
         {
             IList<Client> allClients = GetAllClients();
@@ -99,7 +101,7 @@ namespace SingularityFAAST.Services.Services
 
 
 
-        // Review the If statement
+        
 
         public void SaveClient(Client client)
         {
@@ -111,7 +113,7 @@ namespace SingularityFAAST.Services.Services
 
                 context.SaveChanges();
 
-                if (client.DisabilityIds != null && client.DisabilityIds.Any())     // saves client before getting to this error, needs another If null test?
+                if (client.DisabilityIds != null && client.DisabilityIds.Any())  // Review the If statement
                 {
                     var clientDisabilities = client.DisabilityIds
                         .Select(disabilityId => new ClientDisability    
@@ -125,16 +127,36 @@ namespace SingularityFAAST.Services.Services
         }
 
 
-        // Left off here, need something different to pull up client, use this for SearchRequest
+        // Left off here
 
-        public IList<Client> GetClientsById(int searchbyId)
+        public Client GetClientDetails(int id)
         {
-            IList<Client> allClients = GetAllClients();
+            using (var context = new SingularityDBContext())
+            {
+                var client = context.Clients.FirstOrDefault(x => x.ClientID == id);
 
-            IList<Client> filteredClients = allClients.Where(client =>
-                client.ClientID == (Convert.ToInt32(searchbyId))).ToList();
+                return client;
+            }
+        }
 
-            return filteredClients;
+        //Update an EXISTING client with some information
+        public void EditClientDetails(Client client)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                context.Clients.Attach(client);
+
+                var entry = db.Entry(client);
+
+                entry.State = EntityState.Modified;
+
+                context.SaveChanges();
+
+                //walked jon through this recently, and I do not have a full thorough
+                //understanding of how entity framework manages it objects in line with 
+                //db entries. this works, and is how you update an existing record with
+                //new values in the form of an obect
+            }
         }
 
 

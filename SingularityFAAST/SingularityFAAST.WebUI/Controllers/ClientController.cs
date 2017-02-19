@@ -70,29 +70,25 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        // Refactor with Nicks code
+        
         [HttpGet]
-        public RedirectToRouteResult ViewClient(int id)
+        public ActionResult EditClient(int id)
         {
-            var services = _clientServices;
+            var client = _clientServices.GetClientDetails(id); 
 
-
-            services.GetClientsById(id); // This is wrong
-
-
-            return RedirectToAction("Index", "Client");
+            return View(client);
         }
+
 
 
         [HttpPost]
-        public RedirectToRouteResult EditClient(Client id)
+        public ActionResult EditClient(Client client) //take in form values from views inputs
         {
-            var services = _clientServices;
+            _clientServices.EditClientDetails(client);
 
-            services.SaveClient(id);
-
-            return RedirectToAction("Index", "Client");
+            return View("EditClient") //does not need its own view, return back to client you were editing
         }
+
 
     }
 }
