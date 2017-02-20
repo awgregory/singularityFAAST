@@ -34,37 +34,40 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public ActionResult Index(SearchByString searchRequest)  //If routing to LoanMasterServices, mine is SearchByString (see below)
         {
+            //if (searchRequest.byNum == "Search")
             if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
+
             {
                 IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
                 return View(model);
             }
-
+            if (searchRequest.SearchByNum.Any(char.IsDigit))
+            {
+                IList<LoansClientsInventoryDTO> model = lm_services.GetLoanByLoanNumber(searchRequest.SearchBy);
+                return View(model);
+            }
             else
             {
                 //IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);  //to use Adrian's?
                 IList<LoansClientsInventoryDTO> model = lm_services.GetLoansByClientLastName(searchRequest.SearchBy); //or do this and do split logic in LMServices not here
                 return View(model);
             }
+
         }
 
 
-        //GET: Loans by Loan Number  
-        [HttpPost]
-        public ActionResult Index(SearchByString searchRequest, string byNum)
-        {
-            //if (lnNum.Any(c => char.IsDigit(c)))                                          
-            if (byNum == "Search")
-            {
-                IList<LoansClientsInventoryDTO> model = lm_services.GetLoanByLoanNumber(searchRequest.SearchBy);
-                return View(model);
-            }
-            else
-            { 
-                IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
-                return View(model);
-            }
-        }
+        ////GET: Loans by Loan Number  
+        //[HttpPost]
+        //public ActionResult Index(SearchByString searchRequest, string byNum)
+        //{
+        //    //if (lnNum.Any(c => char.IsDigit(c)))                                          
+
+        //    else
+        //    {
+        //        IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
+        //        return View(model);
+        //    }
+        //}
 
 
         //This is the page with the inventory items list in a loan
@@ -128,6 +131,7 @@ namespace SingularityFAAST.WebUI.Controllers
         public class SearchByString
         {
             public string SearchBy { get; set; }
+            public string SearchByNum { get; set; }
         }
 
         public class PassALoanNumber

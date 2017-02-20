@@ -20,17 +20,12 @@
         @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new {@class = "form-inline"}))
         {
             <div class="col-md-3">
-                <input type="text" class="form-control" name="searchby" placeholder="Search by Client Last Name"/>
-                <input type="submit" class="btn btn-primary" value='Search'/>Searcha
+                <input type="text" class="form-control"  name="searchby" placeholder="Search by Client Last Name"/>   @**@
+                <input type="submit" class="btn btn-primary"  name="byName"value='Search'/>
             </div>
-        }
-        
-        @*Still working on this*@
-        @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new {@class = "form-inline"})) 
-        {
             <div class="col-md-3">
-                <input type="text" class="form-control" name="searchbyNum" placeholder="Search by Loan Number"/>
-                <input type="submit" class="btn btn-primary" name ="byNum" value="Search"/>
+                <input type="text" class="form-control"  name="searchbynum" placeholder="Search by Loan Number"/>  @*name="searchbyNum"*@
+                <input type="submit" class="btn btn-primary" name="byNum" value="Search"/>
             </div>
         }
 
@@ -40,9 +35,9 @@
     <br />
     <div class="col-md-12">
         <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <i class="fa fa-search-plus fa-lg"></i>  Select any loan to edit, renew or cancel.
-                <i class="fa fa-check fa-lg"></i>  Select any active loan to check-in entire loan.
+                <i class="fa fa-check fa-lg"></i>  Select any active loan to check-in.
             </div>
             <div class="btn-group">
                 @*@using (Html.BeginForm("Index", "Home", FormMethod.Post)) { }*@
@@ -104,7 +99,6 @@
                                             <button type="submit" style= "float: left"><i class="fa fa-search-plus fa-md"></i></button>
                                         }
                                     @if (item.IsActive)
-                                        
                                         {
                                             using (Html.BeginForm("CheckIn", "Loan", FormMethod.Post, new {@class = "form-inline"}))
                                             {
