@@ -41,7 +41,7 @@ namespace SingularityFAAST.WebUI.Controllers
                 IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
                 return View(model);
             }
-            if (searchRequest.SearchByNum.Any(char.IsDigit))
+            if (searchRequest.SearchBy.Any(char.IsDigit))
             {
                 IList<LoansClientsInventoryDTO> model = lm_services.GetLoanByLoanNumber(searchRequest.SearchBy);
                 return View(model);
@@ -69,9 +69,15 @@ namespace SingularityFAAST.WebUI.Controllers
         //    }
         //}
 
+        //[HttpPost]
+        //public ActionResult loanItemsActions(SearchRequest searchRequest)
+        //{
+           
+        //}
 
-        //This is the page with the inventory items list in a loan
-        [HttpPost]
+
+//This is the page with the inventory items list in a loan
+[HttpPost]
         public ActionResult RenewItems(string loanNumber)  
         {
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoanItems(loanNumber);
