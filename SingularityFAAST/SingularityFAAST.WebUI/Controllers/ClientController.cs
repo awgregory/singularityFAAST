@@ -86,8 +86,10 @@ namespace SingularityFAAST.WebUI.Controllers
         {
             _clientServices.EditClientDetails(client);
 
-            return View("EditClient") //does not need its own view, return back to client you were editing
-        }
+            var id = client.ClientID;
+
+            return View("EditClient"); //return back to client you were editing,  Why does this work without an id?   
+        }                               // was getting error when it hit EditClient Get Method, null entry for parameter id
 
 
     }

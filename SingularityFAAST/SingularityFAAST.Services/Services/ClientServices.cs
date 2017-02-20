@@ -90,6 +90,7 @@ namespace SingularityFAAST.Services.Services
             return filteredClients;
         }
 
+
         private IList<Client> GetClientByEmail(string searchBy)
         {
             IList<Client> allClients = GetAllClients();
@@ -134,7 +135,7 @@ namespace SingularityFAAST.Services.Services
         {
             using (var context = new SingularityDBContext())
             {
-                var client = context.Clients.FirstOrDefault(x => x.ClientID == id);
+                var client = context.Clients.FirstOrDefault(x => x.ClientID == id); // How do you know what default is?
 
                 return client;
             }
@@ -147,16 +148,12 @@ namespace SingularityFAAST.Services.Services
             {
                 context.Clients.Attach(client);
 
-                var entry = context.Entry(client);
+                var entry = context.Entry(client);  //Intellisense in VS Code?
 
                 entry.State = EntityState.Modified;
 
                 context.SaveChanges();
 
-                //walked jon through this recently, and I do not have a full thorough
-                //understanding of how entity framework manages it objects in line with 
-                //db entries. this works, and is how you update an existing record with
-                //new values in the form of an obect
             }
         }
 
