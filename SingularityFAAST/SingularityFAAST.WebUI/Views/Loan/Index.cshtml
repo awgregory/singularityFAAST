@@ -21,15 +21,16 @@
         {
             <div class="col-md-3">
                 <input type="text" class="form-control" name="searchby" placeholder="Search by Client Last Name"/>
-                <input type="submit" class="btn btn-primary" value="Search"/>
+                <input type="submit" class="btn btn-primary" value='Search'/>Searcha
             </div>
         }
-
-        @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+        
+        @*Still working on this*@
+        @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new {@class = "form-inline"})) 
         {
             <div class="col-md-3">
                 <input type="text" class="form-control" name="searchbyNum" placeholder="Search by Loan Number"/>
-                <input type="submit" class="btn btn-primary" value="Search"/>
+                <input type="submit" class="btn btn-primary" name ="byNum" value="Search"/>
             </div>
         }
 
@@ -39,8 +40,9 @@
     <br />
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-3">
-                Select any loan to edit, renew or cancel.
+            <div class="col-sm-7">
+                <i class="fa fa-search-plus fa-lg"></i>  Select any loan to edit, renew or cancel.
+                <i class="fa fa-check fa-lg"></i>  Select any active loan to check-in entire loan.
             </div>
             <div class="btn-group">
                 @*@using (Html.BeginForm("Index", "Home", FormMethod.Post)) { }*@
@@ -95,21 +97,21 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td class ="form">
-                                    <div class="form-inline">
-                                        @using (Html.BeginForm("RenewItems", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+                                <td>
+                                    @using (Html.BeginForm("RenewItems", "Loan", FormMethod.Post, new {@class = "form-inline"}))
                                         {
                                             <input type="hidden" value="@item.LoanNumber" name="LoanNumber"/>
-                                            <input type="submit" class="btn btn-primary" value="Select"/>
-
+                                            <button type="submit" style= "float: left"><i class="fa fa-search-plus fa-md"></i></button>
                                         }
-                                        @using (Html.BeginForm("CheckIn", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+                                    @if (item.IsActive)
+                                        
                                         {
-                                            <input type="hidden" value="@item.LoanNumber" name="LoanNumber"/>
-                                            <button type="submit"><span class="glyphicon glyphicon-check" type="submit"></span></button>
-
-                                        }
-                                    </div>
+                                            using (Html.BeginForm("CheckIn", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+                                            {
+                                             <input type="hidden" value="@item.LoanNumber" name="LoanNumber"/>
+                                             <button type="submit" style="float: none"><i class="fa fa-check fa-md"></i></button>
+                                            }
+                                        } 
                                 </td>
                                 <td>
                                     12L-@item.LoanNumber

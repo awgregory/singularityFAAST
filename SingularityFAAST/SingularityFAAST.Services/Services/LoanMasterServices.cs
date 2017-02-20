@@ -42,7 +42,7 @@ namespace SingularityFAAST.Services.Services
                     ClientId = c.ClientID,
                     LastName = c.LastName,
                     FirstName = c.FirstName,
-                    SelectNum = ""
+                    IsActive = l.IsActive
                 };
 
                 return loans.ToList();
@@ -99,7 +99,7 @@ namespace SingularityFAAST.Services.Services
             IList<LoansClientsInventoryDTO> allLoans = GetAllLoans();  //Gets all the loans from the GetAllLoans() method
 
             IList<LoansClientsInventoryDTO> filteredLoans =
-                allLoans.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
+                allLoans.Where(loan => string.Equals(loan.LoanNumber, searchby)).ToList();
 
             return filteredLoans;
         }

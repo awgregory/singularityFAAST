@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Web.Mvc;
 using SingularityFAAST.Core.DataTransferObjects;
@@ -39,12 +40,6 @@ namespace SingularityFAAST.WebUI.Controllers
                 return View(model);
             }
 
-            //if (string contains numbers? regex? theirs begin with rl-3333 etc.)
-            //{
-            //    IList<LoansClientsInventoryDTO> model = lm_services.GetLoanByLoanNumber(searchRequest.SearchBy);
-            //    return View(model);
-            //}
-
             else
             {
                 //IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);  //to use Adrian's?
@@ -52,6 +47,25 @@ namespace SingularityFAAST.WebUI.Controllers
                 return View(model);
             }
         }
+
+
+        //GET: Loans by Loan Number  
+        [HttpPost]
+        public ActionResult Index(SearchByString searchRequest, string byNum)
+        {
+            //if (lnNum.Any(c => char.IsDigit(c)))                                          
+            if (byNum == "Search")
+            {
+                IList<LoansClientsInventoryDTO> model = lm_services.GetLoanByLoanNumber(searchRequest.SearchBy);
+                return View(model);
+            }
+            else
+            { 
+                IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
+                return View(model);
+            }
+        }
+
 
         //This is the page with the inventory items list in a loan
         [HttpPost]
