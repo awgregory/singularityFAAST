@@ -17,11 +17,11 @@
         @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new {@class = "form-inline"}))
         {
             <div class="col-md-3">
-                <input type="text" class="form-control" id="LName" name="searchby" placeholder="Search by Client Last Name"/>   @**@
+                <input type="text" class="form-control" id="LName" name="searchby" placeholder="Search by Client Last Name"/>   @*Search by last name*@
                 <input type="submit" class="btn btn-primary"  name="byName" value='Search'/>
             </div>
             <div class="col-md-3">
-                <input type="text" class="form-control"  id="LoanNum" name="searchby" placeholder="Search by Loan Number"/>  @*name="searchbyNum"*@
+                <input type="text" class="form-control"  id="LoanNum" name="searchby" placeholder="Search by Loan Number"/>  @*Search by loan Number*@
                 <input type="submit" class="btn btn-primary" name="byNum" value="Search"/>
             </div>
         }
@@ -85,7 +85,7 @@
                                         } 
                                 </td>
                                 <td>
-                                    12-DL-@item.LoanNumber                                      @*|| (item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)))) Gets overdue items in loan*@
+                                    12-DL-@item.LoanNumber                                      @*|| (item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)))) Gets overdue *items* in loan*@
                                     @if ((item.DateCreated.AddDays(28) < DateTime.Today.AddDays(1)) && (item.IsActive))  
                                     {
                                         <i class="fa fa-exclamation-circle fa-lg text-danger"></i>

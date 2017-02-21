@@ -15,7 +15,7 @@ namespace SingularityFAAST.WebUI.Controllers
     public class LoanController : Controller
     {
         private readonly LoanMasterServices lm_services = new LoanMasterServices();
-        //private readonly ClientServices _clientServices = new ClientServices();  //to use Adrian's? 
+        private readonly ClientServices _clientServices = new ClientServices();  //to use Adrian's? 
 
 
         //GET: All Loans
@@ -54,6 +54,7 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
+
         ////GET: Loans by Loan Number  
         //[HttpPost]
         //public ActionResult Index(SearchByString searchRequest, string byNum)
@@ -70,7 +71,7 @@ namespace SingularityFAAST.WebUI.Controllers
         //[HttpPost]
         //public ActionResult loanItemsActions(SearchRequest searchRequest)
         //{
-           
+
         //}
 
 
@@ -78,7 +79,7 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public ActionResult ViewItems(string loanNumber)    //loanNumber
         {
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoanItems(loanNumber);
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems(loanNumber);
 
             //Remove Item will also show this page:
             //IList<LoansClientsInventoryDTO> model = lm_services.removeItem(viewButton);   Not worked out yet
@@ -86,10 +87,12 @@ namespace SingularityFAAST.WebUI.Controllers
         }
         
         
+
+
         //This is the page with a box 
         public ActionResult RenewLoan(string loanNumber)
         {
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoanItems(loanNumber);
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems(loanNumber);
             //process renewal here
 
             return View("RenewLn");
@@ -99,7 +102,9 @@ namespace SingularityFAAST.WebUI.Controllers
 
         public ActionResult RenewItem(string loanNumber)
         {
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoanItems(loanNumber);
+            //List Item
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems(loanNumber);
+
             //process renewal here
 
             return View("RenewItem");
@@ -107,29 +112,56 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        public ActionResult EditLn()
+
+        public ActionResult EditLn(string loanNumber)
         {
             return View("EditLoan");
         }
 
 
 
+
+
+        //View Page with text boxes & one param passed in
         public ActionResult CheckIn(string inventoryItemId)
         {
-            IList<LoansClientsInventoryDTO> model = lm_services.CheckInLoan(inventoryItemId);
+            //View Items in Loan
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems(inventoryItemId);
 
+            //View text boxes for Damages, Notes and ClientOutcome
 
             return View(model);
         }
 
+        
 
         public ActionResult CheckItem(string inventoryItemId)
-        {
-            IList<LoansClientsInventoryDTO> model = lm_services.CheckInLoan(inventoryItemId);
+        {   
+            //View Item
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems(inventoryItemId);
 
-
+            //View text boxes for Damages, Notes and ClientOutcome
+           
             return View(model);
         }
+
+
+
+        //Called by CheckIn and CheckItem
+        //Controls the CheckIn process, routes to Services to update the DB, and then back to Index
+        [HttpPost]
+        public RedirectToRouteResult CheckInLoan(LoansClientsInventoryDTO loan)
+        {
+            //    var services = new LoanMasterServices();
+            //    services.SaveLoan(loan);
+
+            //    //Returns to Loan Index page
+            return RedirectToAction("Index", "Loan");
+        }
+
+
+
+
 
 
         public ActionResult CancelLn()
@@ -139,24 +171,61 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        public ActionResult AddLoan()
+
+
+
+        //Displays initial AddLoan Page with empty boxes
+        public ViewResult AddLoan()
         {
-            //var services = new LoanMasterServices();
-            //services.SaveLoan(loan);
-            return View();
+            IList<Client> model = _clientServices.GetAllClients();
+
+            return View(model);
+
+            //return View();
         }
 
 
+
+        //Displays Client search results on page 
         [HttpPost]
-        public ViewResult AddLoan(LoanMaster loan)
+        public ActionResult AddLoan(SearchByString searchRequest)  //If routing to LoanMasterServices, mine is SearchByString (see below)
         {
-            var services = new LoanMasterServices();
-            services.SaveLoan(loan);
-            return View();
+            //if (searchRequest.byNum == "Search")
+            if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
+
+            {
+                IList<LoansClientsInventoryDTO> model = lm_services.GetAllClients();
+                return View(model);
+            }
+            else
+            {
+                //IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);  //to use Adrian's?
+                IList<LoansClientsInventoryDTO> model = lm_services.GetClientsByName(searchRequest.SearchBy); //or do this and do split logic in LMServices not here
+                return View(model);
+            }
+
         }
 
 
-        //should use SearchRequests files made by Adrian ?  Used by form item on Index.cshtml
+
+        //Called by AddLoan and EditLoan
+        //Controls the Add Loan process, routes to Services to update the DB, and then back to Index
+        [HttpPost]
+        public RedirectToRouteResult AddLoan(LoansClientsInventoryDTO loan)
+        {
+        //    var services = new LoanMasterServices();
+        //    services.SaveLoan(loan);
+
+        //    //Returns to Loan Index page
+            return RedirectToAction("Index", "Loan");
+        }
+
+
+
+
+
+        //Search classes
+        //should use SearchRequests files made by Adrian ?  Used by form items
         public class SearchByString
         {
             public string SearchBy { get; set; }

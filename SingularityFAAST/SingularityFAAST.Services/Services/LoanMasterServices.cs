@@ -4,6 +4,7 @@ using SingularityFAAST.DataAccess.Contexts;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 
@@ -26,7 +27,7 @@ namespace SingularityFAAST.Services.Services
         //}
 
 
-        //New, with DTO
+        //Get All Loans in DB
         public IList<LoansClientsInventoryDTO> GetAllLoans()
         {
             using (var context = new SingularityDBContext())
@@ -54,6 +55,9 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
+        
+
+        //Get all Inventory Items associated with LoanNumber
         public IList<LoansClientsInventoryDTO> GetAllItems(string loanNum)
         {
             using (var context = new SingularityDBContext())
@@ -112,42 +116,89 @@ namespace SingularityFAAST.Services.Services
 
             return filteredLoans;
         }
+        
 
 
 
+        //public IList<LoansClientsInventoryDTO> GetAllClients()
+        //{
+        //    using (var context = new SingularityDBContext())
+        //    {
+        //        LoansClientsInventoryDTO dto = new LoansClientsInventoryDTO();
+        //        Client client = new Client();
+                
+        //        from i in context.Clients
+        //        select new LoansClientsInventoryDTO()
+        //        {
+        //        dto.FirstName = client.FirstName;
+        //        dto.LastName = client.LastName;
+        //        dto.ClientId = client.ClientID;
+        //        }
+
+        //        var clientList = clients.ToList();
+
+        //        return clientList;
+  
+        //    }
+        //}
+
+
+
+        //public IList<LoansClientsInventoryDTO> GetClientsByName(string searchby)
+       // {
+            //IList<LoansClientsInventoryDTO> allLoans = GetAllClients();  //Gets all the loans from the GetAllLoans() method
+
+            //IList<LoansClientsInventoryDTO> filteredLoans =
+              //  allLoans.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            //return filteredLoans;
+        //}
+
+
+
+
+        //This method not necessary!
         //Get all Inventory Items associated with LoanNumber
-        public IList<LoansClientsInventoryDTO> GetAllLoanItems(string loanNum)
+        //public IList<LoansClientsInventoryDTO> GetAllLoanItems(string loanNum)
+        //{
+        //    IList<LoansClientsInventoryDTO> allItems = GetAllItems(loanNum);  //Gets all the items from the GetAllItems() method - maybe that method should only return inventory items, not client?
+
+
+        //    var selectedLoan = allItems.ToList();   
+
+        //    //filtered in GetAllItems() instead
+        //    //IList<LoansClientsInventoryDTO> selectedLoan =
+        //    //    allItems.Where(loan => string.Equals(loan.LoanNumber, loanNum, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        //    return selectedLoan;
+
+        //}
+
+
+
+
+        //Updates the CheckIn DB fields
+        public void CheckInLoan(string loanNum)
         {
-            IList<LoansClientsInventoryDTO> allItems = GetAllItems(loanNum);  //Gets all the items from the GetAllItems() method - maybe that method should only return inventory items, not client?
-
-            
-            var selectedLoan = allItems.ToList();   
-            
-            //filtered in GetAllItems() instead
-            //IList<LoansClientsInventoryDTO> selectedLoan =
-            //    allItems.Where(loan => string.Equals(loan.LoanNumber, loanNum, StringComparison.OrdinalIgnoreCase)).ToList();
-
-            return selectedLoan;
-
+            //update LoanMasters IsActive to False
+            //update InventoryItems each item Availability to True
+            //update InventoryItems each item Damages
+            //update LoanDetails each item ClientOutcome
+            //update LoanDetails each item Notes
         }
 
 
-        public IList<LoansClientsInventoryDTO> CheckInLoan(string loanNum)
+        //Updates the AddLoan and EditLoan fields
+        public void SaveLoan(LoansClientsInventoryDTO loan)
         {
+        //    using (var context = new SingularityDBContext())
+        //    {
+        //        loan.DateCreated = DateTime.Now;  // Manipulating the client object is done before saving to Db
 
-        }
+        //        context.LoanMasters.Add(loan);
 
-
-        public void SaveLoan(LoanMaster loan)
-        {
-            using (var context = new SingularityDBContext())
-            {
-                loan.DateCreated = DateTime.Now;  // Manipulating the client object is done before saving to Db
-
-                context.LoanMasters.Add(loan);
-
-                var rowsAffected = context.SaveChanges();
-            }
+        //        var rowsAffected = context.SaveChanges();
+        //    }
         }
 
     }

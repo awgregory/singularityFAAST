@@ -24,7 +24,7 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.
         <div class="col-md-12">
             <div class="col-md-6 col-sm-offset-1">
                 <i class="fa fa-times fa-lg text-danger"></i> Select any item to remove it from the loan. <br/>
-                <i class="fa fa-check fa-lg text-info"></i> Select any active item to check in. The item is checked in if this does not appear.<br/>
+                <i class="fa fa-check fa-lg text-info"></i> Select any active item to check in. If this does not appear, the item has been checked in.<br/>
                 <i class="fa fa-refresh fa-lg text-success"></i> Select any item to renew it.
                 <br/><br/>
                 <i class="fa fa-exclamation-circle fa-lg text-danger"></i> Indicates an overdue item.
@@ -88,60 +88,60 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.
                     
                     @foreach (var item in Model)
                     {
-                             <tr>
-                                 <td>
-                                     <div style="width: 100px;">
-                                         @*@Html.ActionLink("Select", "", new {id = item.LoanId})*@ @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
-                                         @*@Html.RadioButton("selectNum", false)*@
+                        <tr>
+                            <td>
+                                <div style="width: 100px;">
+                                    @*@Html.ActionLink("Select", "", new {id = item.LoanId})*@ @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
+                                    @*@Html.RadioButton("selectNum", false)*@
 
-                                         @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                         {
-                                             <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
-                                             <button type="submit" style="float: left" name ="viewButton" value="1"><i class="fa fa-times fa-lg text-danger"></i></button> @*remove item*@
-                                         }
-                                         @*If Item not available (because it's checked out) ----what if it's checked out by another person?? will still appear*@
-                                         @if ((!item.Availability) && (item.IsActive))
-                                         {
-                                             using (Html.BeginForm("CheckItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                             {
-                                                 <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
-                                                 <button type="submit" style="float: left" name ="checkButton" value="1"><i class="fa fa-check fa-lg text-info"></i></button> @*check in the item, record client outcome, damages etc.*@
-                                             }
-                                         }
-                                         @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                         {
-                                             <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
-                                             <button type="submit" name="viewButton" value="2"><i class="fa fa-refresh fa-lg text-success"></i></button> @*renew item (create new loan)*@
-                                         }
-                                     </div>
-                                 </td>
-                                 <td>
-                                     <div style="width: 110px;">
-                                         12-IN-@item.InventoryItemId
-                                         @if ((item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)) && (!item.Availability))
-                                         {
-                                             <i class="fa fa-exclamation-circle fa-lg text-danger"></i>
-                                         }
-                                     </div>
-                                </td>
-                                 <td>
-                                     @item.ItemName
-                                 </td>
-                                 <td>
-                                     @item.Manufacturer
-                                 </td>
-                                 <td>
-                                     @item.LoanDate.ToString("MMMM dd yyyy")  @*Date item added to loan - may be the same day loan was created*@
-                                 </td>
-                                 <td>
-                                     @item.LoanDate.AddDays(28).ToString("MMMM dd yyyy") @* + 28 days *@
-                                 </td>
-                                 <td>
-                                     <div style="width: 300px;">
-                                         @item.Notes
-                                     </div>
-                                </td>
-                             </tr>
+                                    @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                    {
+                                        <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
+                                        <button type="submit" style="float: left" name ="viewButton" value="1"><i class="fa fa-times fa-lg text-danger"></i></button> @*remove item*@
+                                    }
+                                    @*If Item not available (because it's checked out) ----what if it's checked out by another person?? will still appear*@
+                                    @if ((!item.Availability) && (item.IsActive))
+                                    {
+                                        using (Html.BeginForm("CheckItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                        {
+                                            <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
+                                            <button type="submit" style="float: left" name ="checkButton" value="1"><i class="fa fa-check fa-lg text-info"></i></button> @*check in the item, record client outcome, damages etc.*@
+                                        }
+                                    }
+                                    @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                    {
+                                        <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
+                                        <button type="submit" name="viewButton" value="2"><i class="fa fa-refresh fa-lg text-success"></i></button> @*renew item (create new loan)*@
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 110px;">
+                                    12-IN-@item.InventoryItemId
+                                    @if ((item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)) && (!item.Availability))
+                                    {
+                                        <i class="fa fa-exclamation-circle fa-lg text-danger"></i>
+                                    }
+                                </div>
+                        </td>
+                            <td>
+                                @item.ItemName
+                            </td>
+                            <td>
+                                @item.Manufacturer
+                            </td>
+                            <td>
+                                @item.LoanDate.ToString("MMMM dd yyyy")  @*Date item added to loan - may be the same day loan was created*@
+                            </td>
+                            <td>
+                                @item.LoanDate.AddDays(28).ToString("MMMM dd yyyy") @* + 28 days *@
+                            </td>
+                            <td>
+                                <div style="width: 300px;">
+                                    @item.Notes
+                                </div>
+                        </td>
+                        </tr>
                          
                     }
 
@@ -150,8 +150,6 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.
             </div>
         </div>
         <p>
-            @Html.ActionLink("Edit", "EditLn", null, null)  @*new { id = Model.LoanId }) |*@
-
             @Html.ActionLink("Back to List", "Index", null, null)
         </p>
     </div>
