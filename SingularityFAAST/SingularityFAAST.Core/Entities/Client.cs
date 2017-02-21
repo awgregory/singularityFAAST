@@ -56,6 +56,51 @@ namespace SingularityFAAST.Core.Entities
         public int ClientCategoryId { get; set; }
 
 
+        //Data Annotations Display would still require logic, DisplayFor is more static for single values
+        public string ClientCategoryName   
+        {
+            get
+            {
+                string clientCategory;
+
+                switch (ClientCategoryId)
+                {
+                    case 1:
+                        clientCategory = "Individual with Disability";
+                        break;
+                    case 2:
+                        clientCategory = "Family Member";
+                        break;
+                    case 3:
+                        clientCategory = "Professional / Representative of Community Living";
+                        break;
+                    case 4:
+                        clientCategory = "Professional / Representative of Education";
+                        break;
+                    case 5:
+                        clientCategory = "Professional / Representative of Technology";
+                        break;
+                    case 6:
+                        clientCategory = "Professional / Representative of Employment";
+                        break;
+                    case 7:
+                        clientCategory = "Professional / Representative of Health, Allied Health, Rehabilitative Services";
+                        break;
+                    default:
+                        clientCategory = "Individual with Disability";
+                        break;
+
+
+                }
+
+                return clientCategory;
+
+
+            }
+        }
+
+
+
 
     }
 }
