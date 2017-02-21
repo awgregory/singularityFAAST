@@ -135,20 +135,21 @@ namespace SingularityFAAST.Services.Services
         {
             using (var context = new SingularityDBContext())
             {
-                var client = context.Clients.FirstOrDefault(x => x.ClientID == id); // How do you know what default is?
+                var client = context.Clients.FirstOrDefault(x => x.ClientID == id); 
 
                 return client;
             }
         }
 
-        //Update an EXISTING client with some information
+
+        //Update existing client info
         public void EditClientDetails(Client client)
         {
             using (var context = new SingularityDBContext())
             {
                 context.Clients.Attach(client);
 
-                var entry = context.Entry(client);  //Intellisense in VS Code?
+                var entry = context.Entry(client);  
 
                 entry.State = EntityState.Modified;
 

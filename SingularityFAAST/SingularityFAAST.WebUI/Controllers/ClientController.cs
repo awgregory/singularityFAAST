@@ -82,15 +82,16 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         [HttpPost]
-        public ActionResult EditClient(Client client) //take in form values from views inputs
+        public ActionResult EditClient(Client client) 
         {
             _clientServices.EditClientDetails(client);
 
-            var id = client.ClientID;
 
-            return View("EditClient"); //return back to client you were editing,  Why does this work without an id?   
-        }                               // was getting error when it hit EditClient Get Method, null entry for parameter id
+            return View(); //MVC Convention that it goes back to the original HttpGet which already had the id provided  
+        }                               
+                                       
 
+                                       
 
     }
 }

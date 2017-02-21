@@ -66,10 +66,10 @@
                     State
                 </th>
                 <th>
-                    Zip
+                    @Html.DisplayNameFor(model => model.Zip)  @*Usage comparison*@
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ClientCategoryId)
+                    Client Category
                 </th>
                 <th></th>
             </tr>
@@ -96,9 +96,15 @@
                     <td>
                         @item.Zip
                     </td>
+
+                    @*<td>
+                        @item.ClientCategoryId 
+                    </td>*@
+
                     <td>
-                        @item.ClientCategoryId  @*need to display category name and not just the id*@
+                        @item.ClientCategoryName
                     </td>
+
                     <td>
                         @Html.ActionLink("Edit", "EditClient", new { id=item.ClientID }) 
 

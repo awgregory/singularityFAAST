@@ -161,21 +161,11 @@
 
         <div class="row">
             
-            @*@Html.DropDownListFor(client => client.ClientCategoryId)*@
-
-
-
-            @*@Html.DropDownListFor(model => model.ClientCategoryId, new SelectList((System.Collections.IEnumerable)
-           ViewData["DropDownSource"], "Value", "Text", Model.ClientCategoryId), "Select Address", 
-           new { @class = "dropdown-toggle col-md-9 form-control" })*@
-
-
-
 
 
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="ClientCategoryId">Client Category</label>  @*Need id to associate?*@
+                    <label for="ClientCategoryId">Client Category</label>  @*change to HtmlHelper*@
 
                     
                     @Html.DropDownListFor(model => model.ClientCategoryId,
@@ -192,8 +182,9 @@
 
 
                     
+                    @*<label for="ClientCategoryId">Client Category</label>  
+                    <select class="form-control" id="ClientCategoryId" name="ClientCategoryId">
 
-                    @*<select class="form-control" id="ClientCategoryId" name="ClientCategoryId">
                         <option value="1">Individual with Disability</option>
                         <option value="2">Family Member</option>
                         <option value="3">Professional / Representative of Community Living</option>
@@ -202,6 +193,7 @@
                         <option value="6">Professional / Representative of Employment</option>
                         <option value="7">Professional / Representative of Health, Allied Health, Rehabilitative Services</option>
                     </select>*@
+
                 </div>
             </div>
 
@@ -219,6 +211,14 @@
                 </div>
             </div>
         </div>
+
+
+    //for (var i = 0; i < Model.DisabilityIds.Count(); i++)
+    //{
+    //    var role = Model
+    //    @Html.CheckBoxFor(model => model.DisabilityIds)
+    //}
+
 
 
 
