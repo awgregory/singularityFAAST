@@ -1,7 +1,6 @@
 ﻿CREATE TABLE [dbo].[InventoryItems]
 (
 	[InventoryItemId]		INT				NOT NULL	IDENTITY(1,1), 
-	[AutoInventoryId]		VARCHAR(20)		NOT NULL,
     [DatePurchased]			DATETIME		NOT NULL, 
     [InventoryCategoryId] INT		NOT NULL, 
     [ItemName]				VARCHAR(80)		NOT NULL,
