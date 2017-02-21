@@ -2,6 +2,7 @@
 using SingularityFAAST.Core.DataTransferObjects;
 using SingularityFAAST.DataAccess.Contexts;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
@@ -35,14 +36,18 @@ namespace SingularityFAAST.Services.Services
                             join l in context.LoanMasters
                             on c.ClientID equals l.ClientId
 
-                select new LoansClientsInventoryDTO()
+                            //join ld in context.LoanDetails
+                            //on l.LoanMasterId equals ld.LoanMasterId  selects less and repeats because not all loans have loan details, and each detail then appears as a new loan
+
+                            select new LoansClientsInventoryDTO()
                 {
                     LoanNumber = l.LoanNumber,
                     DateCreated = l.DateCreated,
                     ClientId = c.ClientID,
                     LastName = c.LastName,
                     FirstName = c.FirstName,
-                    IsActive = l.IsActive
+                    IsActive = l.IsActive,
+                    //LoanDate = ld.LoanDate
                 };
 
                 return loans.ToList();
@@ -66,7 +71,7 @@ namespace SingularityFAAST.Services.Services
                 select new LoansClientsInventoryDTO()
                 {
                     LoanNumber = lm.LoanNumber,
-                    DateCreated = ld.LoanDate,
+                    LoanDate = ld.LoanDate,
                     InventoryItemId = i.InventoryItemId,
                     ItemName = i.ItemName,
                     Manufacturer = i.Manufacturer,
@@ -74,6 +79,10 @@ namespace SingularityFAAST.Services.Services
                     Notes = ld.Notes,
                     HomePhone = c.HomePhone,
                     Email = c.Email,
+                    Availability = i.Availability,
+                    LastName = c.LastName,
+                    FirstName = c.FirstName,
+                    IsActive = lm.IsActive
                 };
 
                 return items.ToList();
@@ -112,8 +121,9 @@ namespace SingularityFAAST.Services.Services
             IList<LoansClientsInventoryDTO> allItems = GetAllItems(loanNum);  //Gets all the items from the GetAllItems() method - maybe that method should only return inventory items, not client?
 
             
-            var selectedLoan = allItems.ToList();   //filtered in GetAllItems() instead
+            var selectedLoan = allItems.ToList();   
             
+            //filtered in GetAllItems() instead
             //IList<LoansClientsInventoryDTO> selectedLoan =
             //    allItems.Where(loan => string.Equals(loan.LoanNumber, loanNum, StringComparison.OrdinalIgnoreCase)).ToList();
 
@@ -122,12 +132,10 @@ namespace SingularityFAAST.Services.Services
         }
 
 
+        public IList<LoansClientsInventoryDTO> CheckInLoan(string loanNum)
+        {
 
-        
-
-
-
-
+        }
 
 
         public void SaveLoan(LoanMaster loan)

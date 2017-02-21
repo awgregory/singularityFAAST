@@ -15,7 +15,7 @@ namespace SingularityFAAST.WebUI.Controllers
     public class LoanController : Controller
     {
         private readonly LoanMasterServices lm_services = new LoanMasterServices();
-        private readonly ClientServices _clientServices = new ClientServices();  //to use Adrian's? 
+        //private readonly ClientServices _clientServices = new ClientServices();  //to use Adrian's? 
 
 
         //GET: All Loans
@@ -23,9 +23,7 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult Index()  
         {
            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
-
-            return View(model);
-
+           return View(model);
         }
 
 
@@ -76,18 +74,18 @@ namespace SingularityFAAST.WebUI.Controllers
         //}
 
 
-//This is the page with the inventory items list in a loan
-[HttpPost]
-        public ActionResult RenewItems(string loanNumber)  
+        //This is the page with the inventory items list in a loan
+        [HttpPost]
+        public ActionResult ViewItems(string loanNumber)    //loanNumber
         {
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoanItems(loanNumber);
+
+            //Remove Item will also show this page:
+            //IList<LoansClientsInventoryDTO> model = lm_services.removeItem(viewButton);   Not worked out yet
             return View(model);
         }
-
-
-
-
-
+        
+        
         //This is the page with a box 
         public ActionResult RenewLoan(string loanNumber)
         {
@@ -99,15 +97,40 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
+        public ActionResult RenewItem(string loanNumber)
+        {
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoanItems(loanNumber);
+            //process renewal here
+
+            return View("RenewItem");
+        }
+
+
+
         public ActionResult EditLn()
         {
             return View("EditLoan");
         }
 
-        public ActionResult CheckIn()
+
+
+        public ActionResult CheckIn(string inventoryItemId)
         {
-            return View("CheckIn");
+            IList<LoansClientsInventoryDTO> model = lm_services.CheckInLoan(inventoryItemId);
+
+
+            return View(model);
         }
+
+
+        public ActionResult CheckItem(string inventoryItemId)
+        {
+            IList<LoansClientsInventoryDTO> model = lm_services.CheckInLoan(inventoryItemId);
+
+
+            return View(model);
+        }
+
 
         public ActionResult CancelLn()
         {

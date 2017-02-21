@@ -175,8 +175,10 @@
     <Content Include="Views\Client\Index.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Loan\CancelLoan.cshtml" />
-    <Content Include="Views\Loan\RenewItems.cshtml" />
+    <Content Include="Views\Loan\ViewItems.cshtml" />
     <Content Include="Views\Loan\AddLoan.cshtml" />
+    <Content Include="Views\Loan\CheckItem.cshtml" />
+    <Content Include="Views\Loan\RenewItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
