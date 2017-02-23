@@ -1,5 +1,6 @@
 ﻿using SingularityFAAST.Core.Entities;
 using SingularityFAAST.Core.SearchRequests;
+using SingularityFAAST.Core.ViewModels;
 using SingularityFAAST.Services.Services;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -70,13 +71,30 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        
+
+        //[HttpGet]
+        //public ActionResult EditClient(int id)
+        //{
+        //    var client = _clientServices.GetClientDetails(id); 
+
+        //    return View(client);
+        //}
+
+
+
+        // left off
         [HttpGet]
         public ActionResult EditClient(int id)
         {
-            var client = _clientServices.GetClientDetails(id); 
+            var client = _clientServices.GetClientDetails(id);
 
-            return View(client);
+            //need list of all possible disabilities
+            var disabilityList = _clientServices.GetAllDisabilities();
+
+            //create viewmodel from created client and new list
+            var viewModel = new EditClientViewModel(client, disabilityList);
+
+            return View(viewModel); //new class/object later defined
         }
 
 

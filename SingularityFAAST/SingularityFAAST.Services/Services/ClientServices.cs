@@ -129,15 +129,48 @@ namespace SingularityFAAST.Services.Services
         }
 
 
-        // Left off here
 
+
+        //public Client GetClientDetails(int id)
+        //{
+        //    using (var context = new SingularityDBContext())
+        //    {
+        //        var client = context.Clients.FirstOrDefault(x => x.ClientID == id); 
+
+        //        return client;
+        //    }
+        //}
+
+
+
+        // left off
         public Client GetClientDetails(int id)
         {
             using (var context = new SingularityDBContext())
             {
-                var client = context.Clients.FirstOrDefault(x => x.ClientID == id); 
+                var client = context.Clients.FirstOrDefault(x => x.ClientID == id); //default 0
+
+                //retrieve disability IDs associated with client
+                client.DisabilityIds = context.ClientDisabilities
+
+                    //give me associate table entries where this client ID
+                    .Where(cd => cd.ClientId == client.ClientID)
+
+                    //give me back the IDs of the DisabilityCategories
+                    .Select(i => i.DisabilityCategoryId)
+                    .ToList();
 
                 return client;
+            }
+        }
+
+
+        //new helper method in services
+        public IList<DisabilityCategory> GetAllDisabilities()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                return context.DisabilityCategories.ToList();
             }
         }
 
