@@ -50,7 +50,8 @@ namespace SingularityFAAST.WebUI.Controllers
             return RedirectToAction("IndexInventory", "InventoryItem");
         }
 
-        public RedirectToRouteResult UpdateInventoryItem(InventoryItem item)
+        //don't remember why I had this, but I'll keep it just in case
+        //public RedirectToRouteResult UpdateInventoryItem(InventoryItem item)
 
         //returns view for All Available Inventory
         public ActionResult ViewAllAvailableInv()
