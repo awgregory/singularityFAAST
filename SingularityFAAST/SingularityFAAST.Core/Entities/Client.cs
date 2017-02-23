@@ -6,6 +6,13 @@ namespace SingularityFAAST.Core.Entities
 {
     public class Client
     {
+
+        public Client()
+        {
+            Active = true;
+            LoanEligibility = true;
+        }
+
         [Key]
         public int ClientID { get; set; }
 
