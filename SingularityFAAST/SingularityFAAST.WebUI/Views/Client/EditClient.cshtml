@@ -165,7 +165,9 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="ClientCategoryId">Client Category</label>  @*change to HtmlHelper*@
+                    @Html.LabelFor(client => client.ClientCategoryName, "Client Category")  
+                    @*Does it matter label on diff property? index radio button*@
+
 
                     
                     @Html.DropDownListFor(model => model.ClientCategoryId,
@@ -181,18 +183,20 @@
 
 
 
-                    
-                    @*<label for="ClientCategoryId">Client Category</label>  
-                    <select class="form-control" id="ClientCategoryId" name="ClientCategoryId">
+                        
+                            @*<label for="ClientCategoryId">Client Category
+                                <select class="form-control" id="ClientCategoryId" name="ClientCategoryId">
 
-                        <option value="1">Individual with Disability</option>
-                        <option value="2">Family Member</option>
-                        <option value="3">Professional / Representative of Community Living</option>
-                        <option value="4">Professional / Representative of Education</option>
-                        <option value="5">Professional / Representative of Technology</option>
-                        <option value="6">Professional / Representative of Employment</option>
-                        <option value="7">Professional / Representative of Health, Allied Health, Rehabilitative Services</option>
-                    </select>*@
+                                    <option value="1">Individual with Disability</option>
+                                    <option value="2">Family Member</option>
+                                    <option value="3">Professional / Representative of Community Living</option>
+                                    <option value="4">Professional / Representative of Education</option>
+                                    <option value="5">Professional / Representative of Technology</option>
+                                    <option value="6">Professional / Representative of Employment</option>
+                                    <option value="7">Professional / Representative of Health, Allied Health, Rehabilitative Services</option>
+                                </select>
+                            </label>*@
+                            
 
                 </div>
             </div>
