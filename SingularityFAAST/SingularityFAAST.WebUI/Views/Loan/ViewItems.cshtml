@@ -26,11 +26,11 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.*
                 <h5><i class="fa fa-times fa-lg text-danger"></i> Select any item to remove it from the loan. </h5>
                 <h5><i class="fa fa-check fa-lg text-info"></i> Select any active item to check in. If this does not appear, the item has been checked in.</h5>
                 <h5><i class="fa fa-refresh fa-lg text-success"></i> Select any item to renew it.</h5>
-    <br />
+            <br />
                 <h5><i class="fa fa-exclamation-circle fa-lg text-danger"></i> Indicates an overdue item.</h5>
-</div>
+            </div>
         </div>
-        <div class="btn-group">
+
            
             @*@Html.ActionLink("Renew Item", "RenewLoan", null, new { @class = "btn btn-default" })*@ @*RenewLoan*@
             
@@ -38,10 +38,9 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.*
           
             @*@Html.ActionLink("Check-In Item", "CheckIn", null, new { @class = "btn btn-default" }) @*CheckinItem*@ @*And record client outcome, damages etc.*@
         
-        </div>
-    </div>
-    <br />
 
+    </div>
+ 
     @*Needs a better way to do this, like Enumerable.First() etc.*@
     <h4>Information for Loan #
         @foreach (var each in Model)
