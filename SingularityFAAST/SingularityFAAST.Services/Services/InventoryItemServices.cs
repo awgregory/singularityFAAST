@@ -1,6 +1,8 @@
 ﻿using SingularityFAAST.DataAccess.Contexts;
 using SingularityFAAST.Core.Entities;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace SingularityFAAST.Services.Services
@@ -17,6 +19,31 @@ namespace SingularityFAAST.Services.Services
                 var inventoryList = inventory.ToList();
 
                 return inventoryList;
+            }
+        }
+
+        //add new inventory item
+        public void SaveNewItem(InventoryItem item)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                item.DatePurchased = DateTime.Now;  // Manipulating the item object is done before saving to Db
+
+                context.InventoryItems.Add(item);
+
+                context.SaveChanges();
+             }
+         }
+
+        //edit existing item
+        public void EditExistingItem(InventoryItem item)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                context.InventoryItems.Attach(item);
+                var entry = context.Entry(item);
+                entry.State = EntityState.Modified;
+                context.SaveChanges();
             }
         }
 
