@@ -128,20 +128,15 @@ namespace SingularityFAAST.Services.Services
                 //Client client = new Client();
 
                 var clients = from c in context.Clients
-
-                              join lm in context.LoanMasters
-                              on c.ClientId equals lm.ClientId
+                              join l in context.LoanMasters
+                              on c.ClientID equals l.ClientId
                               join ld in context.LoanDetails
-                              on lm.LoanMasterId equals ld.LoanMasterId
+                              on l.LoanMasterId equals ld.LoanMasterId
                               join i in context.InventoryItems
                               on ld.InventoryItemId equals i.InventoryItemId
 
                               select new LoansClientsInventoryDTO()
-                        //{
-                        //dto.FirstName = client.FirstName;
-                        //dto.LastName = client.LastName;
-                        //dto.ClientId = client.ClientID;
-                        //}
+
                         {
                             HomePhone = c.HomePhone,
                             Email = c.Email,
