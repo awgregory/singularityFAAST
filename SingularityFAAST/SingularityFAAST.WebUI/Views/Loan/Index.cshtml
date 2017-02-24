@@ -17,7 +17,7 @@
         @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new {@class = "form-inline"}))
         {
             <div class="col-md-3">
-                <input type="text" class="form-control" id="LName" name="searchby" placeholder="Search by Client Last Name"/>   @*Search by last name*@
+                <input type="text" class="form-control" id="LName" name="searchby" placeholder="Search by Client Last Name"/>   @*Search by last name*@  @*Change to button with dropdown for 2?*@
                 <input type="submit" class="btn btn-primary"  name="byName" value='Search'/>
             </div>
             <div class="col-md-3">
@@ -30,7 +30,7 @@
 
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4">   @*make this a list group (see bootstrap components)*@
                 <i class="fa fa-search-plus fa-lg"></i> Select any loan to edit, renew or cancel. <br/>
                 <i class="fa fa-check text-info fa-lg"></i> Select any active loan to check-in. <br/>
                 <i class="fa fa-exclamation-circle fa-lg text-danger"></i> Indicates a loan or item in loan is overdue.
@@ -41,7 +41,7 @@
         <div class="row">
             <br />
             <div class="col-md-8">
-                <table class="table table-striped table-hover table-condensed">
+                <table class="table table-striped table-hover table-condensed" style="float: left;">
                     <thead>
                         <tr>
                             <th>
@@ -65,7 +65,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody>     @*Do for 5 items in list, with next page, or do iframe with scrolling *@
                         @foreach (var item in Model)
                         {
                             <tr>
@@ -152,11 +152,11 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                @*</div>*@
             </div>
                 
-            <div class="col-md-4">
-                <div class="sidebar">
+            @*<div class="col-md-4">*@
+                @*<div class="sidebar">*@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Overdue Loans</h3>   @*Could this be devices due?*@
@@ -193,4 +193,3 @@
             </div>
         </div>
     </div>
-</div>

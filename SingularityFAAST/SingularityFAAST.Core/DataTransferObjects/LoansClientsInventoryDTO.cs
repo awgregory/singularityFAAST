@@ -42,6 +42,8 @@ namespace SingularityFAAST.Core.DataTransferObjects
 
         public string Email { get; set; }
 
+        public bool LoanEligibility { get; set; }
+
 
         //Inventory
         [Key]
@@ -51,7 +53,9 @@ namespace SingularityFAAST.Core.DataTransferObjects
         public string Manufacturer { get; set; }
         public bool Availability { get; set; }
         public string Description { get; set; }
-        
+        public string Damages { get; set; }
+        public string Accessories { get; set; }
+
 
     }
 }

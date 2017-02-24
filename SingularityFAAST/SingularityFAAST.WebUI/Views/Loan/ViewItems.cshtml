@@ -10,25 +10,25 @@
 @*<div class="col-md-4 col-md-offset-4"></div>*@  @*This was to center the title*@
 
 <br />
-How to RenewItems, yet not make whole loan overdue (while having item that is for another 28 days), or affect monthly count of loans made?  <br/>
-When Item or Entire Loan is renewed, it should count as new loan for the month. 
-<br /><br />
+@*How to RenewItems, yet not make whole loan overdue (while having item that is for another 28 days), or affect monthly count of loans made?  <br/>
+When Item or Entire Loan is renewed, it should count as new loan for the month.*@ 
+
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Renew Entire Loan", "AddLoan", null, new { @class = "btn btn-primary" })   Currently, this creates a new loan for the month.
-        @Html.ActionLink("Edit Loan", "EditLn", null, new { @class = "btn btn-primary" })   Pass the Loan number to auto-populate details on EditLn
+        @Html.ActionLink("Renew Entire Loan", "AddLoan", null, new { @class = "btn btn-primary" })   @*Currently, this creates a new loan for the month.  !Or--New LoanMasterId is made but same Loan Number is kept!*@
+        @Html.ActionLink("Edit Loan", "EditLn", null, new { @class = "btn btn-primary" })   @*Pass the Loan number to auto-populate details on EditLn*@
     </div>
 </div>
     <br />
     <div class="row">
         <div class="col-md-12">
-            <div class="col-md-6 col-sm-offset-1">
-                <i class="fa fa-times fa-lg text-danger"></i> Select any item to remove it from the loan. <br/>
-                <i class="fa fa-check fa-lg text-info"></i> Select any active item to check in. If this does not appear, the item has been checked in.<br/>
-                <i class="fa fa-refresh fa-lg text-success"></i> Select any item to renew it.
-                <br/><br/>
-                <i class="fa fa-exclamation-circle fa-lg text-danger"></i> Indicates an overdue item.
-            </div>
+            <div class="col-md-6 ">   @*make this a list group (see bootstrap components)*@
+                <h5><i class="fa fa-times fa-lg text-danger"></i> Select any item to remove it from the loan. </h5>
+                <h5><i class="fa fa-check fa-lg text-info"></i> Select any active item to check in. If this does not appear, the item has been checked in.</h5>
+                <h5><i class="fa fa-refresh fa-lg text-success"></i> Select any item to renew it.</h5>
+    <br />
+                <h5><i class="fa fa-exclamation-circle fa-lg text-danger"></i> Indicates an overdue item.</h5>
+</div>
         </div>
         <div class="btn-group">
            
