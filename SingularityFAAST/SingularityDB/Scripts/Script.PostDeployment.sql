@@ -14,3 +14,5 @@ Post-Deployment Script Template
 --:r .\seeds\SeedDisabilityCategories.sql
 --:r .\seeds\SeedClients.sql
 --:r .\seeds\SeedClientDisabilities.sql
+--:r .\seeds\loan\seedLoanDetails.sql
+--:r .\seeds\loan\seedMasters.sql

@@ -87,6 +87,7 @@
     <None Include="Scripts\seeds\SeedDisabilityCategories.sql" />
     <None Include="Scripts\seeds\SeedClientDisabilities.sql" />
     <None Include="Scripts\seeds\SeedClients.sql" />
+    <None Include="Scripts\seeds\loan\seedLoanDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
