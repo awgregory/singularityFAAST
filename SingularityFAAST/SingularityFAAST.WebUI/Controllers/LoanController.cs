@@ -177,7 +177,7 @@ namespace SingularityFAAST.WebUI.Controllers
         //Displays initial AddLoan Page with empty boxes
         public ViewResult AddLoan()
         {
-            IList<Client> model = _clientServices.GetAllClients();
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllClients();
 
             return View(model);
 
@@ -205,6 +205,7 @@ namespace SingularityFAAST.WebUI.Controllers
             }
 
         }
+
 
 
 

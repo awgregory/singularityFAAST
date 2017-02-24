@@ -120,41 +120,59 @@ namespace SingularityFAAST.Services.Services
 
 
 
-        //public IList<LoansClientsInventoryDTO> GetAllClients()
-        //{
-        //    using (var context = new SingularityDBContext())
-        //    {
-        //        LoansClientsInventoryDTO dto = new LoansClientsInventoryDTO();
-        //        Client client = new Client();
-                
-        //        from i in context.Clients
-        //        select new LoansClientsInventoryDTO()
-        //        {
-        //        dto.FirstName = client.FirstName;
-        //        dto.LastName = client.LastName;
-        //        dto.ClientId = client.ClientID;
-        //        }
+        public IList<LoansClientsInventoryDTO> GetAllClients()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                //LoansClientsInventoryDTO dto = new LoansClientsInventoryDTO();
+                //Client client = new Client();
 
-        //        var clientList = clients.ToList();
+                var clients = from c in context.Clients
 
-        //        return clientList;
+                              join lm in context.LoanMasters
+                              on c.ClientId equals lm.ClientId
+                              join ld in context.LoanDetails
+                              on lm.LoanMasterId equals ld.LoanMasterId
+                              join i in context.InventoryItems
+                              on ld.InventoryItemId equals i.InventoryItemId
+
+                              select new LoansClientsInventoryDTO()
+                        //{
+                        //dto.FirstName = client.FirstName;
+                        //dto.LastName = client.LastName;
+                        //dto.ClientId = client.ClientID;
+                        //}
+                        {
+                            HomePhone = c.HomePhone,
+                            Email = c.Email,
+                            LastName = c.LastName,
+                            FirstName = c.FirstName,
+                            ClientId = c.ClientID,
+                            LoanEligibility = c.LoanEligibility,
+
+                            InventoryItemId = i.InventoryItemId,
+                            ItemName = i.ItemName,
+                            Manufacturer = i.Manufacturer,
+                            Description = i.Description,
+                        };
+                var clientList = clients.ToList();
+
+                return clientList;
   
-        //    }
-        //}
+            }
+        }
 
 
 
-        //public IList<LoansClientsInventoryDTO> GetClientsByName(string searchby)
-       // {
-            //IList<LoansClientsInventoryDTO> allLoans = GetAllClients();  //Gets all the loans from the GetAllLoans() method
+        public IList<LoansClientsInventoryDTO> GetClientsByName(string searchby)
+        {
+            IList<LoansClientsInventoryDTO> allLoans = GetAllClients();  //Gets all the loans from the GetAllLoans() method
 
-            //IList<LoansClientsInventoryDTO> filteredLoans =
-              //  allLoans.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
+            IList<LoansClientsInventoryDTO> filteredLoans =
+                allLoans.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
 
-            //return filteredLoans;
-        //}
-
-
+            return filteredLoans;
+        }
 
 
         //This method not necessary!

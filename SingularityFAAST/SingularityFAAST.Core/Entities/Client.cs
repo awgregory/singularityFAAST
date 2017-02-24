@@ -54,9 +54,7 @@ namespace SingularityFAAST.Core.Entities
         public string Notes { get; set; }
 
         public int ClientCategoryId { get; set; }
-
-
-
+        public int ClientId { get; set; }
     }
 }
 
