@@ -4,45 +4,52 @@
     ViewBag.Title = "CheckIn";
 }
 
+This page checks in an entire loan at once. It updates the value LoanMasters.IsActive to False, and for each Item in loan sets Availability to True.  And record client outcome, damages etc.
+Notify on overdue loans.
+
 <h2>Loan Check In</h2>
 
 <div>
     <h4>Loan</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Device
-        </dt>
+    @*<h3>Your Loan is checked in</h3>*@
+    @foreach (var item in Model)
+    {
 
-        <dd>
-            @Html.DisplayFor(model => model.DeviceName)
-        </dd>
+        <dl class="dl-horizontal">
+            <dt>
+                Device
+            </dt>
 
-        <dt>
-            Last Name
-        </dt>
+            <dd>
+                @item.LoanNumber
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+            <dt>
+                Last Name
+            </dt>
 
-        <dt>
-            First Name
-        </dt>
+            <dd>
+                @item.LastName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+            <dt>
+                First Name
+            </dt>
 
-        <dt>
-            Loan End Date
-        </dt>
+            <dd>
+                @item.FirstName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LoanEndDate)
-        </dd>
-    </dl>
+            <dt>
+                Loan End Date
+            </dt>
 
+            <dd>
+                @item.DateCreated.AddDays(28).ToString("MMMM dd, yyyy"))
+            </dd>
+        </dl>
+    }
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -52,7 +59,7 @@
 </div>
 
 <div>
-    @Html.ActionLink("Back to List", "IndexLoan")
+    @Html.ActionLink("Back to List", "Index")
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

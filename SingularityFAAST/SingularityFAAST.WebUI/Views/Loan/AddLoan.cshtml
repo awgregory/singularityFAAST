@@ -1,19 +1,128 @@
 ﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+@*@model SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO*@
+@using SingularityFAAST.Core.Entities
 
 @{
     ViewBag.Title = "Add Loan";
 }
 
-<!DOCTYPE html>
+<h2>New Loan</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AddLoan</title>
-</head>
-<body>
-<div>
-    Nothing to see here!  Move along
-</div>
-</body>
-</html>
+
+@using (Html.BeginForm())
+{
+    @*@Html.AntiForgeryToken()*@
+    <div class="form-horizontal">
+        @*Date appears, Due date appears*@
+        Today's Date: @DateTime.Now.ToString("MMMM dd, yyyy")
+        <br />
+        Loan Due Date: @DateTime.Now.AddDays(28).ToString("MMMM dd")
+
+        <hr />
+        @*search for client by last name, select*@
+        @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+        {
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="LastName" name="searchby" placeholder="Search by Client Last Name" /> @*Search by last name*@
+                <input type="submit" class="btn btn-primary" name="byName" value='Search' />
+            </div>
+        }
+        <div class="row">
+            <br />
+            <div class="col-md-8">
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                    <tr>
+                        <th>
+                            Select
+                        </th>
+                        <th>
+                            Client ID
+                        </th>
+                        <th>
+                            First Name
+                        </th>
+                        <th>
+                            Last Name
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model)
+                    {   
+                        <tr>
+                            <td>
+                                @*@using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new {@class = "form-inline"}))*@   @*AJAX*@
+                                {
+                                <input type="hidden" value="@item.ClientId" name="ClientId"/>
+                                <button type="submit" style="float: left" value="Select"></button> @*Select this client for this new loan*@
+                                }
+                            </td>
+                            <td>
+                                @item.ClientId
+                            </td>
+                            <td>
+                                @item.FirstName
+                            </td>
+                            <td>
+                                @item.LastName
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*@Html.HiddenFor(model => model.LoanNumber)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+        </div>
+
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

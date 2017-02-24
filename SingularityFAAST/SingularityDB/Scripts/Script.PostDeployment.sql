@@ -9,7 +9,8 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-:r .\seeds\SeedClientCategories.sql
-:r .\seeds\SeedDisabilityCategories.sql
-:r .\seeds\SeedClients.sql
-:r .\seeds\SeedClientDisabilities.sql
+--:r .\seeds\seedDummyData.sql
+--:r .\seeds\SeedClientCategories.sql
+--:r .\seeds\SeedDisabilityCategories.sql
+--:r .\seeds\SeedClients.sql
+--:r .\seeds\SeedClientDisabilities.sql

@@ -38,6 +38,10 @@ namespace SingularityFAAST.Core.DataTransferObjects
 
         public string LastName { get; set; }
 
+        public string HomePhone { get; set; }
+
+        public string Email { get; set; }
+
 
         //Inventory
         [Key]
@@ -47,8 +51,7 @@ namespace SingularityFAAST.Core.DataTransferObjects
         public string Manufacturer { get; set; }
         public bool Availability { get; set; }
         public string Description { get; set; }
+        
 
-
-        public string SelectNum { get; set; }
     }
 }
