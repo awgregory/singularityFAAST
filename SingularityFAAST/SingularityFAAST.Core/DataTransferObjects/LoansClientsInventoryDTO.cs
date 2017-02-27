@@ -57,5 +57,6 @@ namespace SingularityFAAST.Core.DataTransferObjects
         public string Accessories { get; set; }
 
 
+
     }
 }

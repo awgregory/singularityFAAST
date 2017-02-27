@@ -90,7 +90,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         //This is the page with a box 
-        public ActionResult RenewLoan(string loanNumber)
+        public ActionResult RenewLn(string loanNumber)
         {
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems(loanNumber);
             //process renewal here
@@ -110,6 +110,15 @@ namespace SingularityFAAST.WebUI.Controllers
             return View("RenewItem");
         }
 
+
+
+
+        public ActionResult RenewAllItems(string loanNumber)
+        {
+            //IList<LoansClientsInventoryDTO> model = lm_services.AddAllItemsAsNewLoan(loanNumber);
+
+            return View("Index");
+        }
 
 
 

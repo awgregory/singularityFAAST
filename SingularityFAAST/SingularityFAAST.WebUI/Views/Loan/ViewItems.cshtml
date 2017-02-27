@@ -15,7 +15,8 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.*
 
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Renew Entire Loan", "AddLoan", null, new { @class = "btn btn-primary" })   @*Currently, this creates a new loan for the month.  !Or--New LoanMasterId is made but same Loan Number is kept!*@
+        @Html.ActionLink("Renew Entire Loan", "RenewLn", null, new { @class = "btn btn-primary" })   @*Currently, this creates a new loan for the month.  !Or--New LoanMasterId is made but same Loan Number is kept!*@
+        
         @Html.ActionLink("Edit Loan", "EditLn", null, new { @class = "btn btn-primary" })   @*Pass the Loan number to auto-populate details on EditLn*@
     </div>
 </div>

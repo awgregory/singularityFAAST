@@ -136,11 +136,6 @@ namespace SingularityFAAST.Services.Services
                               on ld.InventoryItemId equals i.InventoryItemId
 
                               select new LoansClientsInventoryDTO()
-                        //{
-                        //dto.FirstName = client.FirstName;
-                        //dto.LastName = client.LastName;
-                        //dto.ClientId = client.ClientID;
-                        //}
                         {
                             HomePhone = c.HomePhone,
                             Email = c.Email,
@@ -216,6 +211,20 @@ namespace SingularityFAAST.Services.Services
 
         //        var rowsAffected = context.SaveChanges();
         //    }
+        }
+
+
+        //Renews all Items in a loan as a new loan
+        public void AddAllItemsAsNewLoan(LoansClientsInventoryDTO loan)
+        {
+            //    using (var context = new SingularityDBContext())
+            //    {
+            //        loan.DateCreated = DateTime.Now;  // Manipulating the client object is done before saving to Db
+
+            //        context.LoanMasters.Add(loan);
+
+            //        var rowsAffected = context.SaveChanges();
+            //    }
         }
 
     }

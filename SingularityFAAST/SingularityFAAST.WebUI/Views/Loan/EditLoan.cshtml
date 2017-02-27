@@ -6,64 +6,191 @@
 
 <h2>Edit Existing Loan</h2>
 
+    @Html.AntiForgeryToken()
+    
+
+        <h4>Loan</h4>
+
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Loan</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.LoanNumber)
+    //things wanted in this form:
+    //Type of individual (drop-down)
+    //Primary Purpose (drop-down)
+    //Primary Purpose Decision Area (drop-down)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    //Search Inventory
+    //Search By (drop-down is familiar to them) with text box to the right of dd
+    //Select Item in table by button on right of item record (like my other tables)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    //Perhaps + to add second item on this same page
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LoanEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LoanEndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LoanEndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    @*@Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        @Html.HiddenFor(model => model.LoanNumber)*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+    <h4>Loan Information: </h4>
+
+    //Type of individual (drop-down)
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Type of individual <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="#">Type of individual</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+    </ul>
+
+
+    //Primary Purpose (drop-down)
+
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Primary Purpose <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="#">Primary Purpose</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+    </ul>
+
+
+    //Primary Purpose Decision Area (drop-down)
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Primary Purpose Decision Area <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+    </ul>
+
+    <br /><br />
+    <h4>Select Inventory Items: </h4>
+            <div class="row col-md-6">
+
+                @*search for item by name, select*@
+                @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                {
+                    <div class="col-md-5  form-inline">
+                        <input type="text" class="form-control form-inline" id="ItemName" name="searchby" placeholder="Search by Item Name" /> @*Search by item name*@
+                        <input type="submit" class="btn btn-primary" name="byInvName" value='Search' />
+                    </div>
+                }
             </div>
-        </div>
-    </div>
-}
+            <br /><br /><br />
+            <div class="row">
+
+                <div class="col-md-12">
+                    <table class="table table-striped table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Select
+                                </th>
+                                <th>
+                                    Inventory Id
+                                </th>
+                                <th>
+                                    Item Name
+                                </th>
+                                <th>
+                                    Manufacturer
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                                <th>
+                                    Accessories
+                                </th>
+                                <th>
+                                    Availability
+                                </th>
+                                <th>
+                                    Damages
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @{
+                                int counterInv = 0;
+                                foreach (var item2 in Model)
+                                {
+                                    counterInv++;
+                                    if (counterInv < 11)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                                {
+                                                    <input type="hidden" value="@item2.ClientId" name="ClientId" /> @* C# Async method? *@
+                                                    <input type="checkbox" style="float: left;" value="Select" /> @*Select this client for this new loan*@
+                                                }
+                                            </td>
+                                            <td>
+                                                @item2.InventoryItemId
+                                            </td>
+                                            <td>
+                                                @item2.ItemName
+                                            </td>
+                                            <td>
+                                                @item2.Manufacturer
+                                            </td>
+                                            <td>
+                                                @item2.Description
+                                            </td>
+                                            <td>
+                                                @item2.Accessories
+                                            </td>
+                                            <td>
+                                                @item2.Availability
+                                            </td>
+                                            <td>
+                                                @item2.Damages
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <hr />
+            <div class="row col-md-7">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><b>Your new loan number is #12-DL-32. </b></h4>
+                    </div>
+                    <div class="panel-body">
+                        <h5>Client Anderson, Lorin is checking out these items: </h5>
+                        <div class="row col-md-6 col-md-offset-1">
+                            Modified Keyboard, Learn To Respond Appropriately
+                        </div>
+                        <br /><br />
+                        <b>Loan is due on @DateTime.Now.AddDays(28).ToString("MMMM dd") </b>
+                        <br />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            }
 
 <div>
     @Html.ActionLink("Back to List", "Index")

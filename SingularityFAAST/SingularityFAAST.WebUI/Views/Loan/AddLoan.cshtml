@@ -22,20 +22,20 @@
 
         <hr/>
         
-        <h3>Select Client: </h3>
-        <div class="row">
+        <h4>Select Client: </h4>
+        <div class="row col-md-6">
             
             @*search for client by last name, select*@
             @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new {@class = "form-inline"}))
             {
-                <div class="col-md-3">
+                <div class="col-md-6 form-inline">
                     <input type="text" class="form-control" id="LastName" name="searchby" placeholder="Search by Client Last Name"/> @*Search by last name*@
                     <input type="submit" class="btn btn-primary" name="byName" value='Search'/>
                 </div>
             }
         </div>
             <div class="row">
-                <br/>
+                <br/><br /><br />
                 <div class="col-md-8">
 
                     @*This table wants to be shorter and disappear when Client is chosen*@
@@ -136,7 +136,7 @@
             @Html.HiddenFor(model => model.LoanNumber)*@
 
             
-            <h3>Loan Information: </h3>
+            <h4>Loan Information: </h4>
 
             //Type of individual (drop-down)
        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -178,7 +178,19 @@
        </ul>
 
      <br /><br/>
-    <h4>Select Inventory Items: </h4>
+            <h4>Select Inventory Items: </h4>
+            <div class="row col-md-6">
+
+                @*search for item by name, select*@
+                @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                {
+                    <div class="col-md-5  form-inline">
+                        <input type="text" class="form-control form-inline" id="ItemName" name="searchby" placeholder="Search by Item Name" /> @*Search by item name*@
+                        <input type="submit" class="btn btn-primary" name="byInvName" value='Search' />
+                    </div>
+                }
+            </div>
+        <br /><br /><br />
             <div class="row">
         
                 <div class="col-md-12">
@@ -214,39 +226,46 @@
                         <tbody>
                    
 
-                        @foreach (var item2 in Model)
-                        {
-  
-                            <tr>
-                                <td>
-                                    @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                    {
-                                        <input type="hidden" value="@item2.ClientId" name="ClientId" /> @* C# Async method? *@
-                                        <input type="checkbox" style="float: left;" value="Select" /> @*Select this client for this new loan*@
-                                    }
-                                </td>
-                                <td>
-                                    @item2.InventoryItemId
-                                </td>
-                                <td>
-                                    @item2.ItemName
-                                </td>
-                                <td>
-                                    @item2.Manufacturer
-                                </td>
-                                <td>
-                                    @item2.Description
-                                </td>
-                                <td>
-                                    @item2.Accessories
-                                </td>
-                                <td>
-                                    @item2.Availability
-                                </td>
-                                <td>
-                                    @item2.Damages
-                                </td>
-                            </tr>
+                        @{
+
+                            int counterInv = 0;
+                            foreach (var item2 in Model)
+                            {
+                                counterInv++;
+                                if (counterInv < 11)
+                                {
+                                    <tr>
+                                        <td>
+                                            @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+                                            {
+                                                <input type="hidden" value="@item2.ClientId" name="ClientId"/> @* C# Async method? *@
+                                                <input type="checkbox" style="float: left;" value="Select"/> @*Select this client for this new loan*@
+                                            }
+                                        </td>
+                                        <td>
+                                            @item2.InventoryItemId
+                                        </td>
+                                        <td>
+                                            @item2.ItemName
+                                        </td>
+                                        <td>
+                                            @item2.Manufacturer
+                                        </td>
+                                        <td>
+                                            @item2.Description
+                                        </td>
+                                        <td>
+                                            @item2.Accessories
+                                        </td>
+                                        <td>
+                                            @item2.Availability
+                                        </td>
+                                        <td>
+                                            @item2.Damages
+                                        </td>
+                                    </tr>
+                                }
+                            }
                         }
                        
                         </tbody>
@@ -254,32 +273,38 @@
 
                 </div>
             </div>
-            <div class="row col-md-6">
-                <hr/>
-                <h4>Your new loan number is #12-DL-32. </h4>
+            <hr />
+            <div class="row col-md-7">
+                
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><b>Your new loan number is #12-DL-32. </b></h4>
+                    </div>
+                    <div class="panel-body">
+                        <h5>Client Anderson, Lorin is checking out these items: </h5>
+                        <div class="row col-md-6 col-md-offset-1">
+                            Modified Keyboard, Learn To Respond Appropriately
+                        </div>
+                        <br /><br />
+                        <b>Loan is due on @DateTime.Now.AddDays(28).ToString("MMMM dd") </b>
+                        <br />
+                        </div>
+                    </div>
 
-                <h5>Client Anderson, Lorin is checking out these items: </h5> 
-                <div class="row col-md-6 col-md-offset-1">
-                    Modified Keyboard, Learn To Respond Appropriately
-                </div>
-                    <br /><br />
-                    <b>Loan is due on @DateTime.Now.AddDays(28).ToString("MMMM dd") </b>
-                    <br />
-                    <hr />
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-10">
-                        <input type="submit" value="Create New Loan" class="btn btn-success"/>
-                    
-                </div>
-            </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-10">
+                            <input type="submit" value="Create New Loan" class="btn btn-success" />
 
-        }
+                        </div>
+                    </div>
 
-    <div class="row col-md-3">
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-</div>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+                    }
+
+                    <div class="row col-md-3">
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                </div>
+                <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+                <script src="~/Scripts/jquery.validate.min.js"></script>
+                <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
