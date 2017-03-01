@@ -10,9 +10,9 @@ namespace SingularityFAAST.WebUI.Controllers
     {
 
         private readonly ClientServices _clientServices = new ClientServices();
-        
 
 
+        //  Returns Home Page/All Clients View
         [HttpGet]
         public ActionResult Index()
         {
@@ -22,46 +22,76 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-
+        //  Returns Client records that match search criteria
         [HttpPost]
         public ActionResult Index(SearchRequest searchRequest)
         {
-            if (string.IsNullOrWhiteSpace(searchRequest.SearchByName))
-            {
 
-                IList<Client> model = _clientServices.GetAllClients();
+            IList<Client> model = _clientServices.HandlesSearchRequest(searchRequest);
 
-                return View(model);
-            }
+            return View(model);
 
-            else
-            {
+            //List had more built in Extension methods then Ienumerable  list vs Ienum,  What were they?
 
-                IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);
 
-                return View(model);
-            }
-            
+
+            //if (string.IsNullOrWhiteSpace(searchRequest.SearchByName))
+            //{
+
+            //    IList<Client> model = _clientServices.GetAllClients();
+
+            //    return View(model);
+            //}
+
+
+
         }
 
 
 
-
+        //  Returns Add New Client Page
         public ViewResult AddClient()
         {
             return View();
         }
 
 
+
+        //  Collects the form data from AddClient page and saves
         [HttpPost]
         public RedirectToRouteResult AddClient(Client client)  
         {                                                       
-            var services = new ClientServices();
+            var services = _clientServices;
 
             services.SaveClient(client);
 
             return RedirectToAction("Index", "Client");
         }
+
+
+
+        
+        [HttpGet]
+        public ActionResult EditClient(int id)
+        {
+            var client = _clientServices.GetClientDetails(id); 
+
+            return View(client);
+        }
+
+
+
+        [HttpPost]
+        public ActionResult EditClient(Client client) 
+        {
+            _clientServices.EditClientDetails(client);
+
+
+            return View(); //MVC Convention that it goes back to the original HttpGet which already had the id provided  
+        }                               
+                                       
+
+                                       
 
     }
 }

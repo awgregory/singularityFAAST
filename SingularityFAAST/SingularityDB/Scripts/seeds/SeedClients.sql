@@ -1,8 +1,4 @@
 ﻿--DBCC CHECKIDENT('dbo.Clients', RESEED, 0)
--- Note on Reseed command above. This resets Identity columns  
--- Only use this command if you are reseeding a table which you previously had records in and then remove
--- For example if you previously made your own clients table with records and now are re-populating it with these records
--- Don't use the command above on a table that never had data
 
 IF OBJECT_ID('tempdb..#tempClients') IS NOT NULL DROP TABLE #tempClients 
 
@@ -38,11 +34,15 @@ INSERT INTO #tempClients (Active, DateCreated, FirstName, MiddleInitial, LastNam
 Zip, County, CountyFIPS, City, Email, HomePhone, CellPhone, WorkPhone, Company, Title, LoanEligibility, Notes, ClientCategoryId) 
 VALUES 
 
-
 (1, N'2016-11-03 00:00:00', N'Jeanette', NULL, N'Otero', N'5734 W 57th Way', NULL, N'Florida', N'FL', N'33409', N'Palm Beach', N'12099     ', N'West Palm Beach', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 2),
 (1, N'2016-11-03 00:00:00', N'Bruce', NULL, N'Stayer', N'134 Deanna Dr', NULL, N'Florida', N'FL', N'33852', N'Highlands', N'12055     ', N'Lake Placid', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1),
 (1, N'2016-11-03 00:00:00', N'Lorin', NULL, N'Anderson', N'15 B Cherry Ridge Dr', NULL, N'Florida', N'FL', N'32746', N'Seminole', N'12117     ', N'Lake Mary', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 2),
 (1, N'2017-02-01 20:08:26', N'Anthony', NULL, N'Stark', N'Avengers Mansion', NULL, N'California', N'Ca', N'78441', N'Big Sur', NULL, N'Big Sur', N'IronTony@starke.com', NULL, N'714-145-7746', NULL, N'Stark Industries', N'Mr.', 0, N'Has chest reactor that requires special magnetic charger adaptor', 1)
+(1, N'2017-02-01 20:08:26', N'Tom', N'T', N'Stevens', N'1847 Reynolds Dr', NULL, N'Florida', N'FL', N'32256', N'Duval', NULL, N'Jacksonville', NULL, NULL, NULL, NULL, NULL, N'Mr', 0, N'Hearing Disabled', 2)
+(1, N'2017-02-01 20:08:26', N'Chad', NULL, N'Stevens', N'1847 Reynolds Dr', NULL, N'Florida', N'FL', N'32256', N'Duval', NULL, N'Jacksonville', NULL, NULL, NULL, NULL, NULL, N'Mr', 0, N'Hearing Disabled', 1)
+(0, N'2017-02-01 20:08:26', N'John', NULL, N'Mack', N'45761 Youmen dr', NULL, N'Florida', N'FL', N'32247', NULL, NULL, N'Jacksonville', NULL, NULL, NULL, NULL, NULL, NULL, 0, N'Blah', 1)
+(1, N'2017-02-01 20:08:26', N'Tom', N'Y', N'Meyers', N'1234 Main St', NULL, N'Florida', N'FL', N'32210', N'Duval', NULL, N'Jacksonville', N'tm@yahoo.com', NULL, N'9049999999', NULL, N'Beeline', N'Mr', 0, N'new client', 2)
+(1, N'2016-11-03 00:00:00', N'David', NULL, N'Teske', N'PO Box 909', NULL, N'North Carolina', N'NC', N'28711', N'Davie', N'37059     ', N'Advance', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 2)
 
 MERGE dbo.Clients AS target
 USING #tempClients AS source

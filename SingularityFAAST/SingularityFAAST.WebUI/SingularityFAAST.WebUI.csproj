@@ -106,7 +106,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
@@ -118,6 +121,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Properties\PublishProfiles\singularityFAAST - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -168,8 +176,11 @@
     <Content Include="Views\Client\Index.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Loan\CancelLoan.cshtml" />
-    <Content Include="Views\Loan\RenewItems.cshtml" />
+    <Content Include="Views\Loan\ViewItems.cshtml" />
     <Content Include="Views\Loan\AddLoan.cshtml" />
+    <Content Include="Views\Loan\CheckItem.cshtml" />
+    <Content Include="Views\Loan\RenewItem.cshtml" />
+    <Content Include="Views\Client\EditClient.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Report\LoanReports.cshtml" />
     <None Include="Web.Debug.config">

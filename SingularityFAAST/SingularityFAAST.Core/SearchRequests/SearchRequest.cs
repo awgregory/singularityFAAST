@@ -8,8 +8,8 @@ namespace SingularityFAAST.Core.SearchRequests
 {
     public class SearchRequest
     {
-        public string SearchByName { get; set; }
-        public string SearchById { get; set; }
+        public string SearchBy { get; set; }
+        public int SearchByType { get; set; }
 
     }
 }
