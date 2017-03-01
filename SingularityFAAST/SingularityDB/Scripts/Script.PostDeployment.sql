@@ -1,4 +1,4 @@
-﻿/*
+/*
 Post-Deployment Script Template							
 --------------------------------------------------------------------------------------
  This file contains SQL statements that will be appended to the build script.		
@@ -16,3 +16,5 @@ Post-Deployment Script Template
 --:r .\seeds\SeedClientDisabilities.sql
 --:r .\seeds\loan\seedLoanDetails.sql
 --:r .\seeds\loan\seedMasters.sql
+:r .\seeds\SeedInventoryItemCategories.sql
+:r .\seeds\SeedInventoryItems.sql

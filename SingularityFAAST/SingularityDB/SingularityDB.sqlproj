@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -73,8 +73,8 @@
     <Build Include="dbo\LoanDetails.sql" />
     <Build Include="dbo\InventoryItems.sql" />
     <Build Include="dbo\InventoryItemCategories.sql" />
-    <Build Include="dbo\InventoryItemSubCategories.sql" />
     <None Include="Scripts\seeds\seedDummyData.sql" />
+    <None Include="Scripts\seeds\SeedInventoryItems.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SingularityDB.refactorlog" />
@@ -87,7 +87,7 @@
     <None Include="Scripts\seeds\SeedDisabilityCategories.sql" />
     <None Include="Scripts\seeds\SeedClientDisabilities.sql" />
     <None Include="Scripts\seeds\SeedClients.sql" />
-    <None Include="Scripts\seeds\loan\seedLoanDetails.sql" />
+    <None Include="Scripts\seeds\SeedInventoryItemCategories.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
