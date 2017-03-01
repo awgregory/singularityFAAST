@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[InventoryItems]
+CREATE TABLE [dbo].[InventoryItems]
 (
 	[InventoryItemId]		 INT				NOT NULL	IDENTITY(1,1), 
 	[DatePurchased]			 DATETIME			NOT NULL, 
@@ -10,7 +10,7 @@
     [ModelName]				 VARCHAR(50)		NULL, 
     [Location]				 VARCHAR(50)		NULL, 
     [Availability]			 BIT				NOT NULL,
-	[Active]				 BIT				NOT NULL, 
+	[Active]				 BIT				NOT NULL,
 --serial numbers have a max size of 14 characters and can contain numbers letters and special characters
 	[SerialNumber]			 VARCHAR(35)		NULL , 
     [Description]			 VARCHAR(MAX)		NULL, 

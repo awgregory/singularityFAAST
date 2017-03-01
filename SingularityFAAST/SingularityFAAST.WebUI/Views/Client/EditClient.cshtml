@@ -1,40 +1,43 @@
 ﻿@model SingularityFAAST.Core.Entities.Client
 
 @{
-    ViewBag.Title = "AddClient";
+    ViewBag.Title = "EditClient";
 }
 
-<h2>Add New Client</h2>
+<h2>View/Edit Client Details</h2>
 
 @using (Html.BeginForm())
 {
 
 
-        
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.Title)
-                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-                </div>
-            </div>
+    <div class="row">
+
+        @Html.HiddenFor(m=>m.ClientID)
 
 
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.Company)
-                    @Html.TextBoxFor(m => m.Company, new { @class = "form-control" })
-                </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Title)
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
             </div>
         </div>
 
 
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Company)
+                @Html.TextBoxFor(m => m.Company, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(client => client.FirstName,"First Name")
+                    @Html.LabelFor(client => client.FirstName, "First Name")
                     @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
                 </div>
             </div>
@@ -157,19 +160,44 @@
 
 
         <div class="row">
+            
+
+
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="ClientCategoryId">Client Category</label>
+                    @Html.LabelFor(client => client.ClientCategoryName, "Client Category")  
+                    @*Does it matter label on diff property? index radio button*@
 
-                    <select class="form-control" id="ClientCategoryId" name="ClientCategoryId">
-                        <option value="1">Individual with Disability</option>
-                        <option value="2">Family Member</option>
-                        <option value="3">Professional / Representative of Community Living</option>
-                        <option value="4">Professional / Representative of Education</option>
-                        <option value="5">Professional / Representative of Technology</option>
-                        <option value="6">Professional / Representative of Employment</option>
-                        <option value="7">Professional / Representative of Health, Allied Health, Rehabilitative Services</option>
-                    </select>
+
+                    
+                    @Html.DropDownListFor(model => model.ClientCategoryId,
+                        new List<SelectListItem> {
+                            new SelectListItem { Value = "1", Text = "Individual with Disability" },
+                            new SelectListItem { Value = "2", Text = "Family Member" },
+                            new SelectListItem { Value = "3", Text = "Professional / Representative of Community Living" },
+                            new SelectListItem { Value = "4", Text = "Professional / Representative of Education" },
+                            new SelectListItem { Value = "5", Text = "Professional / Representative of Technology" },
+                            new SelectListItem { Value = "6", Text = "Professional / Representative of Employment" },
+                            new SelectListItem { Value = "7", Text = "Professional / Representative of Health, Allied Health, Rehabilitative Services" }
+                        }, new { @class = "form-control" })
+
+
+
+                        
+                            @*<label for="ClientCategoryId">Client Category
+                                <select class="form-control" id="ClientCategoryId" name="ClientCategoryId">
+
+                                    <option value="1">Individual with Disability</option>
+                                    <option value="2">Family Member</option>
+                                    <option value="3">Professional / Representative of Community Living</option>
+                                    <option value="4">Professional / Representative of Education</option>
+                                    <option value="5">Professional / Representative of Technology</option>
+                                    <option value="6">Professional / Representative of Employment</option>
+                                    <option value="7">Professional / Representative of Health, Allied Health, Rehabilitative Services</option>
+                                </select>
+                            </label>*@
+                            
+
                 </div>
             </div>
 
@@ -189,8 +217,16 @@
         </div>
 
 
-        
-            <label>Client Disabilities</label>
+    //for (var i = 0; i < Model.DisabilityIds.Count(); i++)
+    //{
+    //    var role = Model
+    //    @Html.CheckBoxFor(model => model.DisabilityIds)
+    //}
+
+
+
+
+        <label>Client Disabilities</label>
             <div class="checkbox">
                 <label>
                     <input type="checkbox" name="DisabilityIds" value="1"> Cognitive Impairment
@@ -235,9 +271,7 @@
 
 
             <div class="text-left">
-                <input class="btn btn-primary" type="submit" value="Add Client" />
+                <input class="btn btn-primary" type="submit" value="Edit Client" />
             </div>
 
-            }
-
-
+}
