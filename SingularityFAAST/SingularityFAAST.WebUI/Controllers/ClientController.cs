@@ -23,7 +23,7 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-        //  Returns Client records that match search criteria
+        //  Search Function
         [HttpPost]
         public ActionResult Index(SearchRequest searchRequest)
         {
@@ -36,6 +36,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
+            // NULL Case
             //if (string.IsNullOrWhiteSpace(searchRequest.SearchByName))
             //{
 
@@ -58,7 +59,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        //  Collects the form data from AddClient page and saves
+        //  Collects the form data from AddClient page and saves it
         [HttpPost]
         public RedirectToRouteResult AddClient(Client client)  
         {                                                       
@@ -72,7 +73,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        //[HttpGet]
+        //[HttpGet]                                     Prior to ClientDisabilities Change
         //public ActionResult EditClient(int id)
         //{
         //    var client = _clientServices.GetClientDetails(id); 
@@ -88,13 +89,11 @@ namespace SingularityFAAST.WebUI.Controllers
         {
             var client = _clientServices.GetClientDetails(id);
 
-            //need list of all possible disabilities
-            var disabilityList = _clientServices.GetAllDisabilities();
+            var disabilityList = _clientServices.GetAllDisabilities(); //*need list of all disabilities
 
-            //create viewmodel from created client and new list
-            var viewModel = new EditClientViewModel(client, disabilityList);
+            var viewModel = new EditClientViewModel(client, disabilityList); //*create viewmodel from created client and new list
 
-            return View(viewModel); //new class/object later defined
+            return View(viewModel);     //*Return viewModel
         }
 
 

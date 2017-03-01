@@ -25,7 +25,7 @@ namespace SingularityFAAST.Services.Services
 
  
 
-
+        // Search Function Service
         public IList<Client> HandlesSearchRequest(SearchRequest searchRequest)
         {
             IList<Client> filteredClients;
@@ -131,7 +131,7 @@ namespace SingularityFAAST.Services.Services
 
 
 
-        //public Client GetClientDetails(int id)
+        //public Client GetClientDetails(int id)                        Prior to ClientDisabilities Change
         //{
         //    using (var context = new SingularityDBContext())
         //    {
@@ -148,7 +148,7 @@ namespace SingularityFAAST.Services.Services
         {
             using (var context = new SingularityDBContext())
             {
-                var client = context.Clients.FirstOrDefault(x => x.ClientID == id); //default 0
+                var client = context.Clients.FirstOrDefault(x => x.ClientID == id); //default 0 int, The default value for reference and nullable types is null.
 
                 //retrieve disability IDs associated with client
                 client.DisabilityIds = context.ClientDisabilities
