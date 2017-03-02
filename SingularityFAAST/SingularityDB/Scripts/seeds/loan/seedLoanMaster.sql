@@ -4,12 +4,12 @@ CREATE TABLE #tempLoanMasters
 (
 	[LoanMasterId] INT NOT NULL IDENTITY(1,1),
     [DateCreated] DATETIME NOT NULL, 
-	[ClientId] INT NOT NULL, 
+	[ClientID] INT NOT NULL, 
     [IsActive] BIT NOT NULL, 
 	[LoanNumber] VARCHAR(20) NOT NULL,
 
 	CONSTRAINT [PK_LoanMasters] PRIMARY KEY ([LoanMasterId]),	 
-    CONSTRAINT [FK_LoanMasters_Clients] FOREIGN KEY ([ClientId]) REFERENCES dbo.Clients ([ClientId]),
+    CONSTRAINT [FK_LoanMasters_Clients] FOREIGN KEY ([ClientID]) REFERENCES dbo.Clients ([ClientID]),
 
 )
 
@@ -44,4 +44,4 @@ SET
 	target.ClientOutcome = source.ClientOutcome,
 	target.Notes = source.Notes;
 	
-	DROP TABLE #tempClients
+	DROP TABLE #tempLoanMasters

@@ -32,16 +32,16 @@ USING #tempLoanDetails AS source
 	ON source.LoanNumber = target.LoanNumber
 
 WHEN NOT MATCHED THEN 
-	INSERT (DateCreated, ClientId, IsActive, LoanNumber)
-	VALUES (source.DateCreated, source.ClientId, source.IsActive, source.LoanNumber)
+	INSERT (DateCreated, ClientID, IsActive, LoanNumber)
+	VALUES (source.DateCreated, source.ClientID, source.IsActive, source.LoanNumber)
 
 WHEN MATCHED THEN UPDATE 
 SET 
 	
 	target.DateCreated = source.DateCreated,
-	target.ClientId = source.ClientId,
+	target.ClientID = source.ClientID,
 	target.IsActive = source.IsActive,
-	target.MiddleInitial = source.MiddleInitial;
+	target.LoanNumber = source.LoanNumber;
 	
-	DROP TABLE #tempClients
+	DROP TABLE #tempLoanDetails
 
