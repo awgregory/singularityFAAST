@@ -5,16 +5,7 @@
 
 <h2>Loan Reports</h2>
 
-
-<h2>Loans Report</h2>
-@using (Html.BeginForm("FilterLoansByDate", "Report", FormMethod.Post))
-{
-    <div>
-        <input type="date" name="StartDate" value="@(DateTime.UtcNow.AddYears(-1))" />
-        <input type="date" name="EndDate" value="@DateTime.UtcNow" />
-    </div>
-
-    <button type="submit" class="btn btn-warning">Search Loans By Date</button>
-}
-
-<h3>@Model.TotalNumberOfLoans</h3>
+<div class="container">
+    <br />
+    <p>Total number of loans: @Model.TotalNumberOfLoans</p>
+</div>
