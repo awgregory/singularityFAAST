@@ -58,7 +58,7 @@ namespace SingularityFAAST.Services.Services
         
 
         //Get all Inventory Items associated with LoanNumber
-        public IList<LoansClientsInventoryDTO> GetAllItems(string loanNum)
+        public IList<LoansClientsInventoryDTO> GetAllItems()  //string loanNum, now filtered in the call instead
         {
             using (var context = new SingularityDBContext())
             {
@@ -70,7 +70,7 @@ namespace SingularityFAAST.Services.Services
                             on ld.LoanMasterId equals lm.LoanMasterId
                             join c in context.Clients
                             on lm.ClientId equals c.ClientID
-                            where lm.LoanNumber.Equals(loanNum)
+                            //where lm.LoanNumber.Equals(loanNum)  //put this filter in the call rather than here, so this can be reused
 
                 select new LoansClientsInventoryDTO()
                 {
@@ -158,6 +158,7 @@ namespace SingularityFAAST.Services.Services
 
 
 
+
         public IList<LoansClientsInventoryDTO> GetClientsByName(string searchby)
         {
             IList<LoansClientsInventoryDTO> allLoans = GetAllClients();  //Gets all the loans from the GetAllLoans() method
@@ -186,6 +187,15 @@ namespace SingularityFAAST.Services.Services
 
         //}
 
+
+        public IList<LoansClientsInventoryDTO> ViewAllItems(string loanNumber)
+        {
+            IList<LoansClientsInventoryDTO> model = GetAllItems();
+            IList<LoansClientsInventoryDTO> filteredLoans =
+            model.Where(loan => string.Equals(loan.LoanNumber, loanNumber)).ToList();
+
+            return filteredLoans;
+        }
 
 
 

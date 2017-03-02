@@ -22,7 +22,7 @@
 
         <hr/>
         
-        <h4>Select Client: </h4>
+        <h4>Select Client: </h4>  @*//make this just the return of a search, not a table that has to load at first page loa*@d
         <div class="row col-md-6">
             
             @*search for client by last name, select*@
@@ -38,7 +38,7 @@
                 <br/><br /><br />
                 <div class="col-md-8">
 
-                    @*This table wants to be shorter and disappear when Client is chosen*@
+                    @*show table only when Client is chosen*@
 
                         <table class="table table-striped table-hover table-condensed">
                             <thead>
@@ -135,11 +135,16 @@
             @*@Html.ValidationSummary(true, "", new {@class = "text-danger"})
             @Html.HiddenFor(model => model.LoanNumber)*@
 
-            
+
             <h4>Loan Information: </h4>
 
             //Type of individual (drop-down)
-       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @Html.DropDownListFor(m => m.First().ClientCategoryId, new SelectList(Model.AsEnumerable(), "ClientCategoryId", "Type"), "Type of Individual", new { @class = "btn btn-default" }) ;
+
+
+
+
+       @*<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          Type of individual <span class="caret"></span>
        </button>
        <ul class="dropdown-menu">
@@ -148,12 +153,13 @@
          <li><a href="#">Something else here</a></li>
          <li role="separator" class="divider"></li>
          <li><a href="#">Separated link</a></li>
-       </ul>
+       </ul>*@
 
 
             //Primary Purpose (drop-down)
+        @Html.DropDownListFor(m => m.First().ClientCategoryId, new SelectList(Model.AsEnumerable(), @*"ClientCategoryId",*@ "Purpose"), "Primary Purpose", new { @class = "btn btn-default" }) ;
 
-       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       @*<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          Primary Purpose <span class="caret"></span>
        </button>
        <ul class="dropdown-menu">
@@ -162,11 +168,13 @@
          <li><a href="#">Something else here</a></li>
          <li role="separator" class="divider"></li>
          <li><a href="#">Separated link</a></li>
-       </ul>
+       </ul>*@
 
-
+           
             //Primary Purpose Decision Area (drop-down)
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        @Html.DropDownListFor(m => m.First().ClientCategoryId, new SelectList(Model.AsEnumerable(), "ClientCategoryId", "PurposeType"), "Primary Purpose Decision Area", new { @class = "btn btn-default" }) ;
+   
+        @*<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          Primary Purpose Decision Area <span class="caret"></span>
        </button>
        <ul class="dropdown-menu">
@@ -175,7 +183,8 @@
          <li><a href="#">Something else here</a></li>
          <li role="separator" class="divider"></li>
          <li><a href="#">Separated link</a></li>
-       </ul>
+       </ul>*@
+
 
      <br /><br/>
             <h4>Select Inventory Items: </h4>

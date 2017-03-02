@@ -26,6 +26,10 @@ namespace SingularityFAAST.Core.DataTransferObjects
 
         public string Notes { get; set; }
 
+        public string Purpose { get; set; }
+
+        public string PurposeType { get; set; }
+
 
         //Client
         public int ClientId { get; set; }
@@ -44,9 +48,11 @@ namespace SingularityFAAST.Core.DataTransferObjects
 
         public bool LoanEligibility { get; set; }
 
+        public int ClientCategoryId { get; set; }
+
+
 
         //Inventory
-        [Key]
         public DateTime DatePurchased { get; set; }
         public int InventoryCategoryId { get; set; }
         public string ItemName { get; set; }
@@ -56,7 +62,8 @@ namespace SingularityFAAST.Core.DataTransferObjects
         public string Damages { get; set; }
         public string Accessories { get; set; }
 
-
+        //ClientCategories
+       public string Type { get; set; }
 
     }
 }

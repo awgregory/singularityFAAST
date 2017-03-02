@@ -79,7 +79,7 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public ActionResult ViewItems(string loanNumber)    //loanNumber
         {
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems(loanNumber);
+            IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);
 
             //Remove Item will also show this page:
             //IList<LoansClientsInventoryDTO> model = lm_services.removeItem(viewButton);   Not worked out yet
@@ -92,7 +92,7 @@ namespace SingularityFAAST.WebUI.Controllers
         //This is the page with a box 
         public ActionResult RenewLn(string loanNumber)
         {
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems(loanNumber);
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
             //process renewal here
 
             return View("RenewLn");
@@ -103,7 +103,7 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult RenewItem(string loanNumber)
         {
             //List Item
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems(loanNumber);
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
 
             //process renewal here
 
@@ -124,6 +124,11 @@ namespace SingularityFAAST.WebUI.Controllers
 
         public ActionResult EditLn(string loanNumber)
         {
+            IList<LoansClientsInventoryDTO> model2 = lm_services.GetAllItems();
+
+            IList<LoansClientsInventoryDTO> filteredLoans =
+            model2.Where(loan => string.Equals(loan.LoanNumber, loanNumber, StringComparison.OrdinalIgnoreCase)).ToList();
+
             return View("EditLoan");
         }
 
@@ -135,24 +140,27 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult CheckIn(string inventoryItemId)
         {
             //View Items in Loan
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems(inventoryItemId);
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
 
             //View text boxes for Damages, Notes and ClientOutcome
 
             return View(model);
         }
+
+
 
         
 
         public ActionResult CheckItem(string inventoryItemId)
         {   
             //View Item
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems(inventoryItemId);
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
 
             //View text boxes for Damages, Notes and ClientOutcome
            
             return View(model);
         }
+
 
 
 
@@ -178,21 +186,30 @@ namespace SingularityFAAST.WebUI.Controllers
             return View("CancelLoan");
         }
 
-
-
-
-
+        
 
         //Displays initial AddLoan Page with empty boxes
-        public ViewResult AddLoan()
-        {
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllClients();
+        public ViewResult AddLoan(string searchby)
+        {   
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllClients();   
 
-            return View(model);
+            IList<LoansClientsInventoryDTO> model2 = lm_services.GetAllItems();
+
+            //IList<LoansClientsInventoryDTO> filteredLoans =
+            //model2.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            IList<LoansClientsInventoryDTO> list = new List<LoansClientsInventoryDTO>();
+            for (int i = 0; i < 15; i++)
+            {
+                list.Add(new LoansClientsInventoryDTO { ClientCategoryId = i, Type = "Type" + i});  //Don't show the number, only Type name
+            }
+
+            return View(list);  //how to get all these lists to the view?
+
+            //return View(model);
 
             //return View();
         }
-
 
 
         //Displays Client search results on page 
@@ -219,7 +236,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         //Called by AddLoan and EditLoan
-        //Controls the Add Loan process, routes to Services to update the DB, and then back to Index
+        //Controls the Add Loan process, routes to Services to update the DB, and then back to Index  - does the actual adding 
         [HttpPost]
         public RedirectToRouteResult AddLoan(LoansClientsInventoryDTO loan)
         {
