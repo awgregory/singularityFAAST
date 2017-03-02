@@ -1,7 +1,7 @@
 ﻿-- This is the Merge Script that seeds and updates 
 -- The Post Deployment script is the master script which decides the order by which to run these Merge Scripts
 
-IF OBJECT_ID('tempdb..#tempInventoryItemCategories') IS NOT NULL DROP TABLE #tempClientCategories 
+IF OBJECT_ID('tempdb..#tempInventoryItemCategories') IS NOT NULL DROP TABLE #tempInventoryItemCategories 
 
 
 CREATE TABLE #tempInventoryItemCategories (
@@ -23,7 +23,7 @@ INSERT INTO [dbo].[InventoryItemCategories] ([InventoryCategoryId], [CategoryNam
 SET IDENTITY_INSERT [dbo].[InventoryItemCategories] OFF
 
 MERGE dbo.InventoryItemCategories AS target 
-USING #tempClientCategories AS source
+USING #tempInventoryItemCategories AS source
 	ON source.InventoryCategoryId = target.InventoryCategoryId 
 
 	
