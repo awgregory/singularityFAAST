@@ -13,7 +13,7 @@ namespace SingularityFAAST.WebUI.Controllers
         private readonly ClientServices _clientServices = new ClientServices();
 
 
-        //  Returns Home Page/All Clients View
+        //  Returns Index View
         [HttpGet]
         public ActionResult Index()
         {
@@ -27,27 +27,20 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public ActionResult Index(SearchRequest searchRequest)
         {
-
             IList<Client> model = _clientServices.HandlesSearchRequest(searchRequest);
 
             return View(model);
-
-            //List had more built in Extension methods then Ienumerable  list vs Ienum,  What were they?
-
-
-
-            // NULL Case
-            //if (string.IsNullOrWhiteSpace(searchRequest.SearchByName))
-            //{
-
-            //    IList<Client> model = _clientServices.GetAllClients();
-
-            //    return View(model);
-            //}
-
-
-
         }
+
+        // NULL Case
+        //if (string.IsNullOrWhiteSpace(searchRequest.SearchByName))
+        //{
+
+        //    IList<Client> model = _clientServices.GetAllClients();
+
+        //    return View(model);
+        //}
+
 
 
 
@@ -83,7 +76,6 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        // left off
         [HttpGet]
         public ActionResult EditClient(int id)
         {
@@ -102,7 +94,6 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult EditClient(Client client) 
         {
             _clientServices.EditClientDetails(client);
-
 
             return View(); //MVC Convention that it goes back to the original HttpGet which already had the id provided  
         }                               
