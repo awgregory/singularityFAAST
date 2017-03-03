@@ -52,7 +52,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        //  Collects the form data from AddClient page and saves it
+        //  Collects form data from AddClient page and saves it
         [HttpPost]
         public RedirectToRouteResult AddClient(Client client)  
         {                                                       
@@ -75,7 +75,7 @@ namespace SingularityFAAST.WebUI.Controllers
         //}
 
 
-
+        //  Returns Edit Client Page
         [HttpGet]
         public ActionResult EditClient(int id)
         {
@@ -89,7 +89,7 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-
+        //  Collects form data from Edit Client page and saves it
         [HttpPost]
         public ActionResult EditClient(Client client) 
         {

@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(client => client.FirstName,"First Name")
+                    @Html.LabelFor(client => client.FirstName,"First Name *")
                     @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
                 </div>
             </div>
@@ -48,7 +48,7 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(client => client.LastName, "Last Name")
+                    @Html.LabelFor(client => client.LastName, "Last Name *")
                     @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
                 </div>
             </div>
@@ -58,7 +58,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(client => client.Address1, "Address")
+                    @Html.LabelFor(client => client.Address1, "Address *")
                     @Html.TextBoxFor(m => m.Address1, new { @class = "form-control" })
                 </div>
             </div>

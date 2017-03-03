@@ -7,7 +7,7 @@ namespace SingularityFAAST.Core.Entities
     public class Client
     {
 
-        public Client()
+        public Client()    //Required as the default instance value for bool was over-riding db default
         {
             Active = true;
             LoanEligibility = true;
@@ -68,9 +68,9 @@ namespace SingularityFAAST.Core.Entities
         {
             get
             {
-                string clientCategory;
+                string clientCategory;  
 
-                switch (ClientCategoryId)
+                switch (ClientCategoryId) /*When the view accesses one Client of it's model List, it also has ClientCategoryID*/
                 {
                     case 1:
                         clientCategory = "Individual with Disability";
