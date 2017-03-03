@@ -1,7 +1,4 @@
 ﻿
-
-@*//update views model, and all calls to the model*@
-
 @model SingularityFAAST.Core.ViewModels.EditClientViewModel
 
 @*@model SingularityFAAST.Core.Entities.Client*@
@@ -20,13 +17,13 @@
 
     <div class="row">
 
-        @Html.HiddenFor(viewModel=>viewModel.Client.ClientID)   @*Why could we use anything m=>m.ClientID before but not with viewModel?*@
-                                                                    @*viewModel is a special word?*@
+        @Html.HiddenFor(x=>x.Client.ClientID)   @*x can be used*@
+                                                                   
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.Title)                                  @*client => client.Title*@
-                @Html.TextBoxFor(viewModel => viewModel.Client.Title, new { @class = "form-control" })         @*m => m.Title*@
+                @Html.LabelFor(viewModel => viewModel.Client.Title)     @*was: client => client.Title*@
+                @Html.TextBoxFor(viewModel => viewModel.Client.Title, new { @class = "form-control" }) 
             </div>
         </div>
 
@@ -166,12 +163,11 @@
 
 
         <div class="row">
-            
-
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.ClientCategoryName, "Client Category")  @*Does it matter label on diff property? vs index radio button*@
+                    @Html.LabelFor(viewModel=>viewModel.Client.ClientCategoryName, "Client Category")  
+                    @*Does it matter to use a dynamically generated label if it has hard text? index radio button is regular*@
 
                     
                     @Html.DropDownListFor(viewModel=>viewModel.Client.ClientCategoryId,
@@ -185,9 +181,7 @@
                             new SelectListItem { Value = "7", Text = "Professional / Representative of Health, Allied Health, Rehabilitative Services" }
                         }, new { @class = "form-control" })
 
-
-
-                        
+               
                             @*<label for="ClientCategoryId">Client Category
                                 <select class="form-control" id="ClientCategoryId" name="ClientCategoryId">
 
@@ -200,10 +194,9 @@
                                     <option value="7">Professional / Representative of Health, Allied Health, Rehabilitative Services</option>
                                 </select>
                             </label>*@
-                            
-
                 </div>
             </div>
+
 
             <div class="col-md-4">
                 <div class="form-group">
