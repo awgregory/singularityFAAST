@@ -17,3 +17,4 @@ Post-Deployment Script Template
 --:r .\seeds\loan\seedLoanDetails.sql
 --:r .\seeds\SeedInventoryItemCategories.sql
 --:r .\seeds\SeedInventoryItems.sql
+--:r .\seeds\seedLoanMaster.sql

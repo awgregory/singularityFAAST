@@ -32,8 +32,8 @@ namespace SingularityFAAST.WebUI.Controllers
                     
                 case 2:
                     // TO DO add ClientReports
-                    RedirectToAction("Index");
-                    break;
+                    return RedirectToAction("ClientReport", new { startDate = startDate, endDate = endDate });
+                    
                 case 3:
                     // TO DO add Inventory Reports
                     RedirectToAction("Index");
@@ -56,13 +56,8 @@ namespace SingularityFAAST.WebUI.Controllers
             return View(model);
         }
 
-        public ActionResult FilterLoansByDate(DateTime startDate, DateTime endDate)
-        {
-            // IList<Loan> loans = _reportingServices.GetDateFilteredLoans(startDate, endDate);
 
-            //return View("LoansReport", loans);
-            return null;
-        }
+        
         #endregion
 
         #region Inventory Reports
@@ -71,6 +66,12 @@ namespace SingularityFAAST.WebUI.Controllers
 
         #region Clients Reports
         //todo client reports
+        public ActionResult ClientReport(DateTime startDate, DateTime endDate)
+        {
+            LoanReportViewModel model = _reportingServices.CreateLoanReportViewModel(startDate, endDate);
+
+            return View(model);
+        }
         #endregion
     }
 }
