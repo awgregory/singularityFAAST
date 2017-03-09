@@ -1,4 +1,6 @@
 ﻿@*@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>*@
+@*@model SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>*@
+
 @model IList<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
 @using SingularityFAAST.Core.Entities
 
@@ -155,25 +157,25 @@
             Type of individual <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a href="#">Type of individual</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li>Individual with Disability</li>
+            <li>Family Guardian or Authorized Rep</li>
+            <li>Reps of Education</li>
+            <li>Reps of Employment</li>
+            <li>Reps of Community Living</li>
+            <li>Reps of Technology</li>
+            <li>Health Allied Health and Rehab</li>
         </ul>
 
 
         //Primary Purpose (drop-down)
-
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Primary Purpose <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a href="#">Primary Purpose</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li>Assist in decision making (device trial or evaluation)</li>
+            <li>Provide an accomodation on a short-term basis</li>
+            <li>Conduct training, self-education or other professional development activity</li>
+            <li>Serve as Loaner during Device Repair or while waiting for funding</li>
         </ul>
 
 
@@ -182,16 +184,16 @@
             Primary Purpose Decision Area <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li>Education</li>
+            <li>Employment</li>
+            <li>CommunityLiving</li>
         </ul>
 
         <br /><br />
         <h4>Select Inventory Items: </h4>
             <div class="row col-md-6">
+                
+                @* Original does: Search By button, InventoryName etc. drop-down, Input box, Search Button. Pulls relevant items from orig. table and displays in table *@
 
                 @*search for item by name, select*@
                 @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))

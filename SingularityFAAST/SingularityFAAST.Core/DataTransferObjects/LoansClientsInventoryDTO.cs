@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 using SingularityFAAST.Core.Entities;
 
@@ -131,6 +132,9 @@ namespace SingularityFAAST.Core.DataTransferObjects
 
         public IEnumerable<int> ClientCategoryID { get; set; }
 
+
+        public IQueryable<Client> Table1Data { get; set; }
+        public IQueryable<InventoryItem> Table2Data { get; set; }
 
     }
 }

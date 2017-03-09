@@ -366,7 +366,13 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
-        //EmailNotify----------------------------------------------------------------------------------------------------------------------------------
+//---------------------------
+
+        //public 
+        
+        
+        
+//EmailNotify----------------------------------------------------------------------------------------------------------------------------------
         //Poll the DateCreated in LoanMaster every 24 hours. Trigger this email  if ((item.DateCreated.AddDays(28) <= DateTime.Now.AddDays(7) && item.DateCreated.AddDays(28) >= DateTime.Now) && (item.IsActive)) 
         //Add Email Notification
         public void NotifyEmail(string loanNumber)  //or LoanClientsInventoryDTO

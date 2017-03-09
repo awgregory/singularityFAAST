@@ -8,6 +8,7 @@ using SingularityFAAST.Core.DataTransferObjects;
 using SingularityFAAST.Services.Services;
 using SingularityFAAST.Core.Entities;
 using SingularityFAAST.Core.SearchRequests;
+using SingularityFAAST.DataAccess.Contexts;
 
 
 namespace SingularityFAAST.WebUI.Controllers
@@ -63,7 +64,7 @@ namespace SingularityFAAST.WebUI.Controllers
             return View(model);
         }
         
-        
+//RenewMethods - loan and details------------------------------------------------------------------------------------------------------------        
 
 
         //This is the page with a box 
@@ -76,7 +77,7 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-
+        //This renews an individual item from View Items page
         public ActionResult RenewItem(string loan)
         {
             //List Item
@@ -86,19 +87,19 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-
+        //This is executed when click yes in page with a box
         public ActionResult RenewAllItems(LoansClientsInventoryDTO loan)
         {
             //IList<LoansClientsInventoryDTO> model = lm_services.AddAllItemsAsNewLoan(loanNumber);
-            var services = lm_services;
-
-            services.SaveAllItemsAsNewLoan(loan);
+            
+            lm_services.SaveAllItemsAsNewLoan(loan);
 
             return View("Index");
         }
 
 //Edit----------------------------------------------------------------------------------------------------------------------------
-
+        
+        //This displays Edit Loan page
         public ActionResult EditLn(string loanNumber)
         {
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
@@ -108,6 +109,7 @@ namespace SingularityFAAST.WebUI.Controllers
             return View("EditLoan");
         }
 
+        //This executes the loan editing when you click yes on Edit Loan page
         //[HttpPost]
         //public RedirectToRouteResult EditLoan(LoansClientsInventoryDTO loan)
         //{
@@ -164,9 +166,7 @@ namespace SingularityFAAST.WebUI.Controllers
             return RedirectToAction("Index", "Loan");
         }
 
-
-
-
+        
 
 
         public ActionResult CancelLn()
@@ -179,13 +179,13 @@ namespace SingularityFAAST.WebUI.Controllers
 //AddLoan-----------------------------------------------------------------------------------------------------------------------------------
 
         //Displays initial AddLoan Page with empty boxes
-        public ViewResult AddLoan()  //Loan case does not use loanNum but it might be used by Client use case
+        public ViewResult AddLoan() //Loan case does not use loanNum but it might be used by Client use case
         {
             //IList<LoansClientsInventoryDTO> model = lm_services.GetAllClients();
 
             IList<LoansClientsInventoryDTO> model2 = lm_services.GetAllItems();
 
-            
+
             //IList<LoansClientsInventoryDTO> filteredLoans =
             //model2.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
 
@@ -202,6 +202,36 @@ namespace SingularityFAAST.WebUI.Controllers
             return View(model2);  //model2
 
             //return View();
+        }
+
+        //test method  //Clearly would be in Services, not here :)
+        public ViewResult Strong()  
+        {
+
+            var n = new SingularityDBContext();
+            LoansClientsInventoryDTO vm = new LoansClientsInventoryDTO();
+                
+
+                vm.Table1Data = from c in n.Clients
+                                select new Client()
+                                {
+                                HomePhone = c.HomePhone,
+                                Email = c.Email,
+                                LastName = c.LastName,
+                                FirstName = c.FirstName,
+                                ClientID = c.ClientID,};
+
+                vm.Table2Data = from k in n.InventoryItems
+                                select new InventoryItem()
+                                {
+                                    InventoryItemId = k.InventoryItemId,
+                                    ItemName = k.ItemName,
+                                    Manufacturer = k.Manufacturer,
+                                    Description = k.Description,
+                                };
+
+                return View(vm);
+            
         }
 
 

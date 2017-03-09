@@ -183,6 +183,7 @@
     <Content Include="Views\Client\EditClient.cshtml" />
     <Content Include="Views\Loan\View.cshtml" />
     <Content Include="Views\Loan\View1.cshtml" />
+    <Content Include="Views\Loan\Strong.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

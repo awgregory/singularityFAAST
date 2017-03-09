@@ -13,6 +13,10 @@
     <div class="row">
         <div class="col-md-2">
             @Html.ActionLink("Create New Loan", "AddLoan", null, new {@class = "btn btn-primary"})
+
+            @*test button for Strong View*@
+            @Html.ActionLink("Create New Loan", "Strong", null, new { @class = "btn btn-primary" })
+
         </div>
         @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new {@class = "form-inline"}))
         {
@@ -88,7 +92,7 @@
                                         } 
                                 </td>
                                 <td>
-                                    12-DL-@item.LoanNumber                                      @*|| (item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)))) Gets overdue *items* in loan*@
+                                    12-DL-@item.LoanNumber              @*|| (item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)))) Gets overdue *items* in loan*@
                                     @if ((item.DateCreated.AddDays(28) < DateTime.Today.AddDays(1)) && (item.IsActive))  
                                     {
                                         <i class="fa fa-exclamation-circle fa-lg text-danger"></i>
