@@ -7,7 +7,7 @@ namespace SingularityFAAST.Core.Entities
     public class Client
     {
 
-        public Client()    //Required as the default instance value for bool was over-riding db default
+        public Client()    //Instance Constructor required as the default instance value for bool (false) was over-riding db default value. db default only comes into play if it is handed a null
         {
             Active = true;
             LoanEligibility = true;
@@ -62,6 +62,7 @@ namespace SingularityFAAST.Core.Entities
 
         public int ClientCategoryId { get; set; }
 
+        public bool IsDeleted { get; set; }
 
         //Data Annotations Display would still require logic, DisplayFor is more static for single values
         public string ClientCategoryName   
@@ -106,7 +107,7 @@ namespace SingularityFAAST.Core.Entities
             }
         }
 
-
+        
 
 
     }

@@ -56,9 +56,11 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public RedirectToRouteResult AddClient(Client client)  
         {                                                       
-            var services = _clientServices;
+            var services = _clientServices; //why is the global _clientService readonly? why need this line?
 
             services.SaveClient(client);
+
+            // Need a Saved Ack here
 
             return RedirectToAction("Index", "Client");
         }
@@ -75,15 +77,17 @@ namespace SingularityFAAST.WebUI.Controllers
         //}
 
 
+
+
         //  Returns Edit Client Page
         [HttpGet]
         public ActionResult EditClient(int id)
         {
-            var client = _clientServices.GetClientDetails(id);
+            var client = _clientServices.GetClientDetails(id); //gets this Client Object WITH the DisabilityIds Property
 
-            var disabilityList = _clientServices.GetAllDisabilities(); //*need list of all disabilities
+            var disabilityList = _clientServices.GetAllDisabilities(); //*gets list of ALL DisabilityCategory Objects
 
-            var viewModel = new EditClientViewModel(client, disabilityList); //*create viewmodel from created client and new list
+            var viewModel = new EditClientViewModel(client, disabilityList); //*viewmodel from created client and full list
 
             return View(viewModel);     //*Return viewModel
         }
@@ -91,14 +95,23 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //  Collects form data from Edit Client page and saves it
         [HttpPost]
-        public ActionResult EditClient(Client client) 
+        public ActionResult EditClient(Client client, IEnumerable<int> DisabilityIds)   // Model Binder didn't know what to do with the DisabilityIds values until we gave it a parameter that matched the name attribute
         {
-            _clientServices.EditClientDetails(client);
+            _clientServices.EditClientDetails(client);  
 
-            return View(); //MVC Convention that it goes back to the original HttpGet which already had the id provided  
+            var clientId = client.ClientID;
+
+            return RedirectToAction("EditClient", new { clientId });
+
+            
+            //sidenote: was working with default return View() before, MVC Convention that it goes back to the original HttpGet which already had the id provided  
         }                               
                                        
+        //[HttpPost]
+        //public ActionResult Delete(int id)
+        //{
 
+        //}
                                        
 
     }

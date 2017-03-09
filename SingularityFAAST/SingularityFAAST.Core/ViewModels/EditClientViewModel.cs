@@ -26,6 +26,6 @@ namespace SingularityFAAST.Core.ViewModels
 }
 
 // Like the second kind of view model, for wrapping two kinds of domain model classes in one container 
-// Client and sequence of DisabilityCategory objects
+// Client and sequence of DisabilityCategory objects   (or maybe of Hybrid of these two) hmmm
 
 // DTO more like first kind, using select properties of other objects

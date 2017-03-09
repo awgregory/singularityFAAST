@@ -7,41 +7,40 @@
 
 <h2>Clients</h2> 
 
-<div class="form-group">
-    @Html.ActionLink("Add New Client", "AddClient", "Client", null, new { @class = "btn btn-primary" })
-</div>
+
+
 
 
 @using (Html.BeginForm("Index", "Client", FormMethod.Post, new { @class = "form-inline" }))
 {
-    <div class="form-group">
-        <label for="searchby"></label>
-        <input type="text" class="form-control" name="searchby" id="searchby" placeholder="Client Search" />
-    </div>
-
-
-    <div class="radio">
-
-        <label for="Lastname"> Last Name
-            <input type="radio" class="form-control"  id="Lastname" name="searchByType" value="1" checked/>
-        </label>
-        <label for="Firstname"> First Name
-            <input type="radio" class="form-control" id="Firstname" name="searchByType" value="2" />
-        </label>
-        <label for="ClientId"> Client ID
-            <input type="radio" class="form-control" id="ClientId" name="searchByType" value="3" />
-        </label>
-        <label for="Email"> Email
-            <input type="radio" class="form-control" id="Email" name="searchByType" value="4" />
-        </label> 
-    </div>
-
 
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        @Html.ActionLink("Add New", "AddClient", "Client", null, new { @class = "btn btn-primary" })  OR    
     </div>
 
+    <label class="sr-only" for="searchby">Search Input</label>
+    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="searchby" name="searchby" placeholder="Search By">
 
+
+        <div class="radio mb-2 mr-sm-2 mb-sm-0">
+            <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="searchByType" value="1" checked> Last Name
+            </label>
+
+            <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="searchByType" value="2"> First Name
+            </label>
+
+            <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="searchByType" value="3"> Client ID
+            </label>
+
+            <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="searchByType" value="4"> Email
+            </label>
+        </div> 
+
+    <button type="submit" class="btn btn-primary">Submit</button>
 }
 
 
@@ -55,10 +54,11 @@
                 <th>Last Name</th>
                 <th>Cell Phone</th>
                 <th>Home Phone</th>
-                <th>@Html.DisplayNameFor(model => model.Email)</th>  @*Usage comparison*@                            
+                <th>@Html.DisplayNameFor(model => model.Email)</th>  @*Usage comparison*@                    
                 <th>Category</th>
                 <th>Notes</th>
-                <th></th>  @*To make th width match data*@
+                <th>View/Edit</th>  @*To make th width match data*@
+                <th>Delete</th>
             </tr>
 
 
@@ -75,9 +75,11 @@
                     <td>@item.Notes</td>
 
                     <td>@Html.ActionLink("View/Edit", "EditClient", new { id=item.ClientID }) 
+                    
 
-                        @*@Html.ActionLink("Details", "Details", new { id=item.ClientID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id=item.ClientID })*@
+                        @*@Html.ActionLink("Details", "Details", new { id=item.ClientID })*@
+                     
+                        @Html.ActionLink("Delete", "Delete", new { id=item.ClientID })
                     </td>
                 </tr>
             }

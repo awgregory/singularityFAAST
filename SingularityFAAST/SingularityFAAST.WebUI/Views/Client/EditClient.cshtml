@@ -166,7 +166,12 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.ClientCategoryName, "Client Category")  
+                    @Html.LabelFor(viewModel=>viewModel.Client.ClientCategoryName, "Client Category") 
+                    
+
+                    
+
+
                     @*Does it matter to use a dynamically generated label if it has hard text? index radio button is regular*@
 
                     
@@ -214,66 +219,45 @@
         </div>
 
 
-   
 
 
+    //If referencing the Model from inside the HTMLHelper it's first argument is automatically the Model of the page so it doesn't matter what you call the model (ie x, viewModel, etc)
+    //If referencing the Model outside HTMLHelper you must use Model 
 
 
-        @*<label>Client Disabilities</label>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="1"> Cognitive Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="2"> Hearing Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="3"> Visual Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="4"> Deaf-Blind
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="5"> Learning Disability
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="6"> No Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="7"> Dexterity Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="8"> Mobility Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="9"> Spinal Cord Injury
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="10"> Elderly
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="11"> Speech/Language Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="12"> Traumatic Brain Injury
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="13"> Other
-                </label>
-            </div>*@
+            @*foreach (var disabilityCategory in Model.DisabilityCategories) //ViewModel needed because of loop to list all types 
+    {
 
 
-
-            foreach (var disabilityCategory in Model.DisabilityCategories)  //using Model here? 
-            {
                 <label>@disabilityCategory.DisabilityType</label>
 
-                <input type="checkbox" name="DisabilityIds" value="@disabilityCategory.DisabilityCategoryId"
+                //ActionMethod being posted to must have parameter name that matches this attribute name, since we are using the EditClientViewModel in this loop vs Model.Client.DisabilityIds, individually listed in the Method signature 
+                <input type="checkbox" name="DisabilityIds" value="@disabilityCategory.DisabilityCategoryId"  
+                       
                        @if (Model.Client.DisabilityIds.Contains(disabilityCategory.DisabilityCategoryId))
-                       {
+                       {                                                
                            <text> checked="checked" </text>
                        } />
-            }
+
+    }*@
+
+
+
+                <br/>            
+                                                            // This posted value back, do I need viewModel?
+                <div class="form-check">  
+                    <label class="form-check-label">
+                       
+                        <input class="form-check-input" type="checkbox" name="DisabilityIds" value="1"
+                
+                        @if (Model.Client.DisabilityIds.Contains(1)) { <text> checked="checked" </text>  } />
+
+                        Cognitive Impairment
+                    </label>
+                </div>
+
+
+
 
 
             <div class="text-left">

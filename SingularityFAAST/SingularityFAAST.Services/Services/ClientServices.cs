@@ -68,6 +68,7 @@ namespace SingularityFAAST.Services.Services
             return filteredClients;
         }
 
+
         private IList<Client> GetClientByFirstName(string searchBy)
         {
             IList<Client> allClients = GetAllClients();
@@ -111,11 +112,11 @@ namespace SingularityFAAST.Services.Services
             {
                 client.DateCreated = DateTime.Now;  // Manipulating the client object is done before saving to Db
 
-                context.Clients.Add(client);
+                context.Clients.Add(client);  
 
                 context.SaveChanges();
 
-                if (client.DisabilityIds != null && client.DisabilityIds.Any())  // Review the If statement
+                if (client.DisabilityIds != null && client.DisabilityIds.Any())  // what was the thing that checked for null before Any()? default type for Enum?
                 {
                     var clientDisabilities = client.DisabilityIds
                         .Select(disabilityId => new ClientDisability    
@@ -143,22 +144,20 @@ namespace SingularityFAAST.Services.Services
 
 
 
-        // left off
+        
         public Client GetClientDetails(int id)
         {
             using (var context = new SingularityDBContext())
             {
                 var client = context.Clients.FirstOrDefault(x => x.ClientID == id); //default 0 int, The default value for reference and nullable types is null.
 
-                //retrieve disability IDs associated with client
-                client.DisabilityIds = context.ClientDisabilities
 
-                    //give me associate table entries where this client ID
-                    .Where(cd => cd.ClientId == client.ClientID)
+                
+                client.DisabilityIds = context.ClientDisabilities  //Access the ClientDisabilities Associate table entries
+                    .Where(cd => cd.ClientId == client.ClientID) //filter down to entries that match this ClientID                
+                    .Select(i => i.DisabilityCategoryId) //give me back the DisabilityCategoryId property for these entries
+                    .ToList();  // They become the IEnumerable<int> DisabilityIds property values for this Client instance 
 
-                    //give me back the IDs of the DisabilityCategories
-                    .Select(i => i.DisabilityCategoryId)
-                    .ToList();
 
                 return client;
             }
@@ -180,13 +179,30 @@ namespace SingularityFAAST.Services.Services
         {
             using (var context = new SingularityDBContext())
             {
+
+                //--------------------------------
                 context.Clients.Attach(client);
 
-                var entry = context.Entry(client);  
-
+                var entry = context.Entry(client);
+  
                 entry.State = EntityState.Modified;
 
                 context.SaveChanges();
+                //--------------------------------
+
+
+
+
+                //if (client.DisabilityIds != null && client.DisabilityIds.Any())  // Make new clientDisabilty object from disabilityIDs or do the attach thing like for client?
+                //{
+                //    var clientDisabilities = client.DisabilityIds
+                //        .Select(disabilityId => new ClientDisability
+                //        { ClientId = client.ClientID, DisabilityCategoryId = disabilityId });
+
+                //    context.ClientDisabilities.AddRange(clientDisabilities);
+
+                //    context.SaveChanges();
+                //}
 
             }
         }
