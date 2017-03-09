@@ -128,6 +128,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Properties\PublishProfiles\singularityFAAST - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\EmailTemplate.html" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -180,6 +181,8 @@
     <Content Include="Views\Loan\CheckItem.cshtml" />
     <Content Include="Views\Loan\RenewItem.cshtml" />
     <Content Include="Views\Client\EditClient.cshtml" />
+    <Content Include="Views\Loan\View.cshtml" />
+    <Content Include="Views\Loan\View1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -194,6 +197,10 @@
     <ProjectReference Include="..\SingularityFAAST.Core\SingularityFAAST.Core.csproj">
       <Project>{FD88BACA-7834-4214-A412-A79EBD7BC9FE}</Project>
       <Name>SingularityFAAST.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingularityFAAST.DataAccess\SingularityFAAST.DataAccess.csproj">
+      <Project>{CA39D2C1-BB2A-473A-960B-D45FA9E110E9}</Project>
+      <Name>SingularityFAAST.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\SingularityFAAST.Services\SingularityFAAST.Services.csproj">
       <Project>{8f6a22db-9e94-4f6f-a5d7-fa0b94feaad9}</Project>

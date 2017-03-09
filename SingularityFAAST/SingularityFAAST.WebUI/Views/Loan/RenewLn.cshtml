@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+﻿@using SingularityFAAST.WebUI.Controllers
+@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
 
 @{
     ViewBag.Title = "RenewLn";
@@ -23,7 +24,7 @@
                 <br/>
                 <div class="row">
                     <div class="col-md-4 col-md-offset-4">
-                        @Html.ActionLink("Renew All", "", null, new {@class = "btn btn-primary"})
+                        @Html.ActionLink("Renew All", "RenewAllItems", "Loan", new {loanNumber = @Model.First().LoanNumber}, new {@class = "btn btn-primary"})
                     </div>
                 </div>
                 <br/>

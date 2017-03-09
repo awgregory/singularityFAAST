@@ -17,9 +17,12 @@
         @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new {@class = "form-inline"}))
         {
             <div class="col-md-3">
-                <input type="text" class="form-control" id="LName" name="searchby" placeholder="Search by Client Last Name"/>   @*Search by last name*@  @*Change to button with dropdown for 2?*@
-                <input type="submit" class="btn btn-primary"  name="byName" value='Search'/>
+                <input type="text" class="form-control" id="LName" name="searchby" placeholder="Search by Client Last Name"/> @*Search by last name*@ @*Change to button with dropdown for 2?*@
+                <input type="submit" class="btn btn-primary" name="byName" value='Search'/>
             </div>
+        }
+        @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+        { 
             <div class="col-md-3">
                 <input type="text" class="form-control"  id="LoanNum" name="searchby" placeholder="Search by Loan Number"/>  @*Search by loan Number*@
                 <input type="submit" class="btn btn-primary" name="byNum" value="Search"/>
@@ -142,8 +145,15 @@
 
                                     if ((dateDue <= DateTime.Now.AddDays(7) && dateDue >= DateTime.Now) && (item.IsActive))
                                     {
-                                        <tr>
-                                            <td>@item.LoanNumber</td>
+                                        <tr>        
+                                            <td>
+                                                @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+                                                     {
+                                                         <input type="hidden" value="@item.LoanNumber" name="LoanNumber"/>
+                                                         <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan*@
+                                                     }
+                                                12-DL-@item.LoanNumber
+                                            </td>
                                             <td>@item.DateCreated.AddDays(28).ToString("MMMM dd")</td>
                                         </tr>
                                     }
@@ -156,10 +166,9 @@
             </div>
                 
             @*<div class="col-md-4">*@
-                @*<div class="sidebar">*@
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Overdue Loans</h3>   @*Could this be devices due?*@
+                            <h3 class="panel-title">Overdue Loans</h3>  
                             @*<div class="navbar-collapse navbar-right collapse">*@
                         </div>
                         <div class="panel-body">
@@ -179,8 +188,15 @@
                                     {
                                         if ((item.DateCreated.AddDays(28) < DateTime.Today.AddDays(1)) && (item.IsActive))
                                         {
-                                            <tr>
-                                                <td>@item.LoanNumber</td>
+                                            <tr>       
+                                                <td>
+                                                    @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+                                                         {
+                                                             <input type="hidden" value="@item.LoanNumber" name="LoanNumber"/>
+                                                             <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan*@
+                                                         }
+                                                    12-DL-@item.LoanNumber
+                                                </td> 
                                                 <td>@item.DateCreated.AddDays(28).ToString("MMMM dd")</td>
                                             </tr>
                                         }

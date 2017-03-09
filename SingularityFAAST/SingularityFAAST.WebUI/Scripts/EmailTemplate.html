@@ -1,0 +1,41 @@
+@model SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO
+<!--@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>-->
+    <!--@model IList<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>-->
+        @using SingularityFAAST.Core
+
+        <h1>Device Loan Coming Due</h1>
+        <p>
+            <strong>Loan Number: </strong> @Model.LoanNumber is due within one week.
+        </p>
+        <p>
+            <strong>Client: </strong> @Model.FirstName, @Model.LastName
+        </p>
+        <p>
+            <strong>Phone Number: </strong> @Model.HomePhone
+        </p>
+        <strong>Devices in this Loan: </strong>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Item
+                    </th>
+                    <th>
+                        Due Date
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.InventoryItems){
+                <tr>
+                    <td>
+                        @item.ItemName
+                    </td>
+                    <td>
+                        @item.LoanDate.AddDays(28)
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        Thanks, and have a good day.

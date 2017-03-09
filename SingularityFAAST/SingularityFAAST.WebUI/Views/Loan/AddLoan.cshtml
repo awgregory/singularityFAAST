@@ -1,5 +1,5 @@
-﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
-@*@model SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO*@
+﻿@*@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>*@
+@model IList<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
 @using SingularityFAAST.Core.Entities
 
 @{
@@ -7,187 +7,190 @@
 }
 
 
-    <h2>New Loan</h2>
+<h2>New Loan</h2>
 
-    <br />
-    <div class="container-fluid">
-    
-    
-        @*@Html.AntiForgeryToken()*@
-        
-        @*Date appears, Due date appears*@
-    <b>Today's Date: @DateTime.Now.ToString("MMMM dd, yyyy")
-        <br/>
-        Loan Due Date: @DateTime.Now.AddDays(28).ToString("MMMM dd") </b>
+<br />
+<div class="container-fluid">
 
-        <hr/>
-        
-        <h4>Select Client: </h4>  @*//make this just the return of a search, not a table that has to load at first page loa*@d
-        <div class="row col-md-6">
-            
-            @*search for client by last name, select*@
-            @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new {@class = "form-inline"}))
-            {
-                <div class="col-md-6 form-inline">
-                    <input type="text" class="form-control" id="LastName" name="searchby" placeholder="Search by Client Last Name"/> @*Search by last name*@
-                    <input type="submit" class="btn btn-primary" name="byName" value='Search'/>
-                </div>
-            }
-        </div>
-            <div class="row">
-                <br/><br /><br />
-                <div class="col-md-8">
 
-                    @*show table only when Client is chosen*@
+    @*@Html.AntiForgeryToken()*@
 
-                        <table class="table table-striped table-hover table-condensed">
-                            <thead>
-                            <tr>
-                                <th>
-                                    Select
-                                </th>
-                                <th>
-                                    Client ID
-                                </th>
-                                <th>
-                                    First Name
-                                </th>
-                                <th>
-                                    Last Name
-                                </th>
-                                <th>
-                                    Home Phone
-                                </th>
-                                <th>
-                                    Email
-                                </th>
-                                <th>
-                                    Eligibility
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @{
-                                @*
-                                var list = Model.ToList();
-                                for (int i = 0; i < list.Count; i++)
-                                {*@
+    @*Date appears, Due date appears*@
+    <b>
+        Today's Date: @DateTime.Now.ToString("MMMM dd, yyyy")
+        <br />
+        Loan Due Date: @DateTime.Now.AddDays(28).ToString("MMMM dd")
+    </b>
 
-                                int counter = 0;
-                                foreach (var item in Model)
-                                {
-                                    counter++;
-                                    if (counter < 2)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new {@class = "form-inline"}))
-                                                {
-                                                    <input type="hidden" value="@item.ClientId" name="ClientId"/> @* C# Async method? *@
-                                                    <button type="submit" style="float: left;" value="Select">Select</button> @*Select this client for this new loan*@
-                                                }
-                                            </td>
-                                            <td>
-                                                @item.ClientId
-                                            </td>
-                                            <td>
-                                                @item.FirstName
-                                            </td>
-                                            <td>
-                                                @item.LastName
-                                            </td>
-                                            <td>
-                                                @item.HomePhone
-                                            </td>
-                                            <td>
-                                                @item.Email
-                                            </td>
-                                            <td>
-                                                @item.LoanEligibility
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-                            }
-                            </tbody>
-                        </table>
+    <hr />
 
-                    </div>
-                </div>
+    <h4>Select Client: </h4>
+    <div class="row col-md-6">
 
-            
-
-        <hr/>
-        @using (Html.BeginForm())
+        @*search for client by last name, select*@
+        @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
         {
-            //things wanted in this form:
-            //Type of individual (drop-down)
-            //Primary Purpose (drop-down)
-            //Primary Purpose Decision Area (drop-down)
+            <div class="col-md-6 form-inline">
+                <input type="text" class="form-control" id="LastName" name="searchby" placeholder="Search by Client Last Name" /> @*Search by last name*@
+                <input type="submit" class="btn btn-primary" name="byName" value='Search' />
+            </div>
+        }
+    </div>
+    <div class="row">
+        <br /><br /><br />
+        <div class="col-md-8">
 
-            //Search Inventory
-            //Search By (drop-down is familiar to them) with text box to the right of dd
-            //Select Item in table by button on right of item record (like my other tables)
+            @*This table wants to be shorter and disappear when Client is chosen*@
 
-            //Perhaps + to add second item on this same page
+            <table class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            Select
+                        </th>
+                        <th>
+                            Client ID
+                        </th>
+                        <th>
+                            First Name
+                        </th>
+                        <th>
+                            Last Name
+                        </th>
+                        <th>
+                            Home Phone
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Eligibility
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                @{
+                    //int counter = 0;
+                    foreach (var item in Model)
+                        {
+                        //counter++;
+                        //if (counter < 2)
+                        //{
+                    <tr>
+                        <td>        @*this @using only wants to get the value.  Should this be the start of the BeginForm @using for the entire page instead?*@
+                            @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))  
+                            {
+                                <input type="hidden" value="@item.ClientId" name="ClientId" /> @* C# Async method? *@
+                                <button type="submit" style="float: left;" value="Select">Select</button> @*Select this client for this new loan*@
+                            }
+                        </td>
+                        <td>
+                            @item.ClientId
+                        </td>
+                        <td>
+                            @item.FirstName
+                        </td>
+                        <td>
+                            @item.LastName
+                        </td>
+                        <td>
+                            @item.HomePhone
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td>
+                            @item.LoanEligibility
+                        </td>
+                    </tr>
+                    }
+                    }
+                    @*}*@
+                </tbody>
+            </table>
+
+        </div>
+    </div>
 
 
-            @*@Html.ValidationSummary(true, "", new {@class = "text-danger"})
-            @Html.HiddenFor(model => model.LoanNumber)*@
+
+    <hr />
+    @using (Html.BeginForm())
+    {
+        //things wanted in this form:
+        //Type of individual (drop-down)
+        //Primary Purpose (drop-down)
+        //Primary Purpose Decision Area (drop-down)
+
+        //Search Inventory
+        //Search By (drop-down is familiar to them) with text box to the right of dd
+        //Select Item in table by button on right of item record (like my other tables)
+
+        //Perhaps + to add second item on this same page
 
 
-            <h4>Loan Information: </h4>
-
-            //Type of individual (drop-down)
-            @Html.DropDownListFor(m => m.First().ClientCategoryId, new SelectList(Model.AsEnumerable(), "ClientCategoryId", "Type"), "Type of Individual", new { @class = "btn btn-default" }) ;
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+        @*@Html.HiddenFor(model => model.LoanNumber)*@
 
 
+        <h4>Loan Information: </h4>
+
+        //Type of individual(drop - down)
+  //@Html.DropDownListFor(m => m.First().ClientCategoryID, new SelectList(Model.AsEnumerable(), "ClientCategoryId", "Type"), "Type of Individual", new { @class = "btn btn-default" });
+
+        @*@Html.DropDownListFor(m => m.ClientCategory, Model.ClientCategory.Select(clientCategory => new SelectListItem()
+            {
+                Text = clientCategory,
+                Value = clientCategory,
+                Selected = clientCategory == Model.ClientCategory
+            })*@
+
+        @*@Html.DropDownListFor(m => m.ClientCategoryId, Model.ClientCategorySelectList, "-- Please Select --")
+        @Html.ValidationMessageFor(m => m.LoanNumber)*@
 
 
-       @*<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Type of individual <span class="caret"></span>
-       </button>
-       <ul class="dropdown-menu">
-         <li><a href="#">Type of individual</a></li>
-         <li><a href="#">Another action</a></li>
-         <li><a href="#">Something else here</a></li>
-         <li role="separator" class="divider"></li>
-         <li><a href="#">Separated link</a></li>
-       </ul>*@
+
+        //Type of individual (drop-down)
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Type of individual <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="#">Type of individual</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+        </ul>
 
 
-            //Primary Purpose (drop-down)
-        @Html.DropDownListFor(m => m.First().ClientCategoryId, new SelectList(Model.AsEnumerable(), @*"ClientCategoryId",*@ "Purpose"), "Primary Purpose", new { @class = "btn btn-default" }) ;
+        //Primary Purpose (drop-down)
 
-       @*<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Primary Purpose <span class="caret"></span>
-       </button>
-       <ul class="dropdown-menu">
-         <li><a href="#">Primary Purpose</a></li>
-         <li><a href="#">Another action</a></li>
-         <li><a href="#">Something else here</a></li>
-         <li role="separator" class="divider"></li>
-         <li><a href="#">Separated link</a></li>
-       </ul>*@
-
-           
-            //Primary Purpose Decision Area (drop-down)
-        @Html.DropDownListFor(m => m.First().ClientCategoryId, new SelectList(Model.AsEnumerable(), "ClientCategoryId", "PurposeType"), "Primary Purpose Decision Area", new { @class = "btn btn-default" }) ;
-   
-        @*<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Primary Purpose Decision Area <span class="caret"></span>
-       </button>
-       <ul class="dropdown-menu">
-         <li><a href="#">Action</a></li>
-         <li><a href="#">Another action</a></li>
-         <li><a href="#">Something else here</a></li>
-         <li role="separator" class="divider"></li>
-         <li><a href="#">Separated link</a></li>
-       </ul>*@
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Primary Purpose <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="#">Primary Purpose</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+        </ul>
 
 
-     <br /><br/>
-            <h4>Select Inventory Items: </h4>
+        //Primary Purpose Decision Area (drop-down)
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Primary Purpose Decision Area <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+        </ul>
+
+        <br /><br />
+        <h4>Select Inventory Items: </h4>
             <div class="row col-md-6">
 
                 @*search for item by name, select*@
@@ -199,84 +202,84 @@
                     </div>
                 }
             </div>
-        <br /><br /><br />
+            <br /><br /><br />
             <div class="row">
-        
+
                 <div class="col-md-12">
                     <table class="table table-striped table-hover table-condensed">
                         <thead>
-                        <tr>
-                            <th>
-                                Select
-                            </th>
-                            <th>
-                                Inventory Id
-                            </th>
-                            <th>
-                                Item Name
-                            </th>
-                            <th>
-                                Manufacturer
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                            <th>
-                                Accessories
-                            </th>
-                            <th>
-                                Availability
-                            </th>
-                            <th>
-                                Damages
-                            </th>
-                        </tr>
+                            <tr>
+                                <th>
+                                    Select
+                                </th>
+                                <th>
+                                    Inventory Id
+                                </th>
+                                <th>
+                                    Item Name
+                                </th>
+                                <th>
+                                    Manufacturer
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                                <th>
+                                    Accessories
+                                </th>
+                                <th>
+                                    Availability
+                                </th>
+                                <th>
+                                    Damages
+                                </th>
+                            </tr>
                         </thead>
                         <tbody>
-                   
 
-                        @{
 
-                            int counterInv = 0;
-                            foreach (var item2 in Model)
-                            {
-                                counterInv++;
-                                if (counterInv < 11)
+                            @{
+
+                                int counterInv = 0;
+                                foreach (var item2 in Model)
                                 {
-                                    <tr>
-                                        <td>
-                                            @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new {@class = "form-inline"}))
-                                            {
-                                                <input type="hidden" value="@item2.ClientId" name="ClientId"/> @* C# Async method? *@
-                                                <input type="checkbox" style="float: left;" value="Select"/> @*Select this client for this new loan*@
-                                            }
-                                        </td>
-                                        <td>
-                                            @item2.InventoryItemId
-                                        </td>
-                                        <td>
-                                            @item2.ItemName
-                                        </td>
-                                        <td>
-                                            @item2.Manufacturer
-                                        </td>
-                                        <td>
-                                            @item2.Description
-                                        </td>
-                                        <td>
-                                            @item2.Accessories
-                                        </td>
-                                        <td>
-                                            @item2.Availability
-                                        </td>
-                                        <td>
-                                            @item2.Damages
-                                        </td>
-                                    </tr>
+                                    counterInv++;
+                                    if (counterInv < 11)
+                                    {
+                                        <tr>
+                                            <td>    @*this just wants to record the checkboxes*@
+                                                @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))   
+                                                {
+                                                    <input type="hidden" value="@item2.ClientId" name="ClientId" /> @* C# Async method? *@
+                                                    <input type="checkbox" style="float: left;" value="Select" /> @*Select this client for this new loan*@
+                                                }
+                                            </td>
+                                            <td>
+                                                @item2.InventoryItemId
+                                            </td>
+                                            <td>
+                                                @item2.ItemName
+                                            </td>
+                                            <td>
+                                                @item2.Manufacturer
+                                            </td>
+                                            <td>
+                                                @item2.Description
+                                            </td>
+                                            <td>
+                                                @item2.Accessories
+                                            </td>
+                                            <td>
+                                                @item2.Availability
+                                            </td>
+                                            <td>
+                                                @item2.Damages
+                                            </td>
+                                        </tr>
+                                    }
                                 }
                             }
-                        }
-                       
+
                         </tbody>
                     </table>
 
@@ -284,7 +287,7 @@
             </div>
             <hr />
             <div class="row col-md-7">
-                
+
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title"><b>Your new loan number is #12-DL-32. </b></h4>
@@ -297,10 +300,10 @@
                         <br /><br />
                         <b>Loan is due on @DateTime.Now.AddDays(28).ToString("MMMM dd") </b>
                         <br />
-                        </div>
                     </div>
+                </div>
 
-                    </div>
+            </div>
                     <div class="row form-group">
                         <div class="col-md-10">
                             <input type="submit" value="Create New Loan" class="btn btn-success" />
@@ -308,12 +311,10 @@
                         </div>
                     </div>
 
-                    }
+                                }
 
-                    <div class="row col-md-3">
-                        @Html.ActionLink("Back to List", "Index")
-                    </div>
-                </div>
-                <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-                <script src="~/Scripts/jquery.validate.min.js"></script>
-                <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <div class="row col-md-3">
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
+

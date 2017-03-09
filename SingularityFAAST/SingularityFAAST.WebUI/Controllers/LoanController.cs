@@ -30,56 +30,33 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //GET: Loans by Client Name  
         [HttpPost]
-        public ActionResult Index(SearchByString searchRequest)  //If routing to LoanMasterServices, mine is SearchByString (see below)
+        public ActionResult Index(SearchByString searchRequest)
+            //If routing to LoanMasterServices, mine is SearchByString (see below)
         {
-            //if (searchRequest.byNum == "Search")
-            if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
 
+            int n;
+            if(int.TryParse(searchRequest.SearchBy, out n))
             {
-                IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
-                return View(model);
-            }
-            if (searchRequest.SearchBy.Any(char.IsDigit))
-            {
-                IList<LoansClientsInventoryDTO> model = lm_services.GetLoanByLoanNumber(searchRequest.SearchBy);
-                return View(model);
-            }
-            else
-            {
-                //IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);  //to use Adrian's?
-                IList<LoansClientsInventoryDTO> model = lm_services.GetLoansByClientLastName(searchRequest.SearchBy); //or do this and do split logic in LMServices not here
+                 model = lm_services.GetLoanByLoanNumber(searchRequest.SearchBy);
                 return View(model);
             }
 
+            model = string.IsNullOrWhiteSpace(searchRequest.SearchBy) ? lm_services.GetAllLoans() : lm_services.GetLoansByClientLastName(searchRequest.SearchBy);
+            return View(model);
         }
 
 
-
-        ////GET: Loans by Loan Number  
-        //[HttpPost]
-        //public ActionResult Index(SearchByString searchRequest, string byNum)
-        //{
-        //    //if (lnNum.Any(c => char.IsDigit(c)))                                          
-
-        //    else
-        //    {
-        //        IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
-        //        return View(model);
-        //    }
-        //}
-
-        //[HttpPost]
-        //public ActionResult loanItemsActions(SearchRequest searchRequest)
-        //{
-
-        //}
-
+//--------------------------------------------------------------------------------------------------------------------
 
         //This is the page with the inventory items list in a loan
         [HttpPost]
         public ActionResult ViewItems(string loanNumber)    //loanNumber
         {
             IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);
+
+            //testing email
+            //lm_services.NotifyEmail(loanNumber);
 
             //Remove Item will also show this page:
             //IList<LoansClientsInventoryDTO> model = lm_services.removeItem(viewButton);   Not worked out yet
@@ -100,12 +77,9 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        public ActionResult RenewItem(string loanNumber)
+        public ActionResult RenewItem(string loan)
         {
             //List Item
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
-
-            //process renewal here
 
             return View("RenewItem");
         }
@@ -113,28 +87,42 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        public ActionResult RenewAllItems(string loanNumber)
+        public ActionResult RenewAllItems(LoansClientsInventoryDTO loan)
         {
             //IList<LoansClientsInventoryDTO> model = lm_services.AddAllItemsAsNewLoan(loanNumber);
+            var services = lm_services;
+
+            services.SaveAllItemsAsNewLoan(loan);
 
             return View("Index");
         }
 
-
+//Edit----------------------------------------------------------------------------------------------------------------------------
 
         public ActionResult EditLn(string loanNumber)
         {
-            IList<LoansClientsInventoryDTO> model2 = lm_services.GetAllItems();
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
 
-            IList<LoansClientsInventoryDTO> filteredLoans =
-            model2.Where(loan => string.Equals(loan.LoanNumber, loanNumber, StringComparison.OrdinalIgnoreCase)).ToList();
+            IList<LoansClientsInventoryDTO> filteredLoans = model.Where(loan => string.Equals(loan.LoanNumber, loanNumber, StringComparison.OrdinalIgnoreCase)).ToList();
 
             return View("EditLoan");
         }
 
+        //[HttpPost]
+        //public RedirectToRouteResult EditLoan(LoansClientsInventoryDTO loan)
+        //{
+        //    var services = new LoanMasterServices();
+        //    services.EditLoanMaster(loan);
+
+        //    var services2 = new LoanMasterServices();
+        //    services2.EditLoanDetails(loan);
+
+        //    //    //Returns to Loan Index page
+        //    return RedirectToAction("Index", "Loan");
+        //}
 
 
-
+//CheckIn------------------------------------------------------------------------------------------------------------------------------
 
         //View Page with text boxes & one param passed in
         public ActionResult CheckIn(string inventoryItemId)
@@ -186,27 +174,32 @@ namespace SingularityFAAST.WebUI.Controllers
             return View("CancelLoan");
         }
 
-        
+
+
+//AddLoan-----------------------------------------------------------------------------------------------------------------------------------
 
         //Displays initial AddLoan Page with empty boxes
-        public ViewResult AddLoan(string searchby)
-        {   
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllClients();   
+        public ViewResult AddLoan()  //Loan case does not use loanNum but it might be used by Client use case
+        {
+            //IList<LoansClientsInventoryDTO> model = lm_services.GetAllClients();
 
             IList<LoansClientsInventoryDTO> model2 = lm_services.GetAllItems();
 
+            
             //IList<LoansClientsInventoryDTO> filteredLoans =
             //model2.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
 
             IList<LoansClientsInventoryDTO> list = new List<LoansClientsInventoryDTO>();
-            for (int i = 0; i < 15; i++)
-            {
-                list.Add(new LoansClientsInventoryDTO { ClientCategoryId = i, Type = "Type" + i});  //Don't show the number, only Type name
-            }
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    list.Add(new LoansClientsInventoryDTO { ClientCategoryId = i, Type = "Type" + i });  //Don't show the number, only Type name
+            //}
 
-            return View(list);  //how to get all these lists to the view?
+            //model.ClientCategorySelectList = new SelectList(lm_services.ClientCategory, "ClientCategory", "Name");
 
-            //return View(model);
+            //return View(list);  //how to get all these lists to the view?
+
+            return View(model2);  //model2
 
             //return View();
         }
@@ -216,9 +209,9 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public ActionResult AddLoan(SearchByString searchRequest)  //If routing to LoanMasterServices, mine is SearchByString (see below)
         {
+            
             //if (searchRequest.byNum == "Search")
             if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
-
             {
                 IList<LoansClientsInventoryDTO> model = lm_services.GetAllClients();
                 return View(model);
@@ -237,18 +230,19 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //Called by AddLoan and EditLoan
         //Controls the Add Loan process, routes to Services to update the DB, and then back to Index  - does the actual adding 
-        [HttpPost]
-        public RedirectToRouteResult AddLoan(LoansClientsInventoryDTO loan)
-        {
-        //    var services = new LoanMasterServices();
-        //    services.SaveLoan(loan);
 
-        //    //Returns to Loan Index page
-            return RedirectToAction("Index", "Loan");
-        }
+        //[HttpPost]
+        //public RedirectToRouteResult AddLoan(LoansClientsInventoryDTO loan)
+        //{
+        ////    var services = new LoanMasterServices();
+        ////    services.SaveLoan(loan);
+
+        ////    //Returns to Loan Index page
+        //    return RedirectToAction("Index", "Loan");
+        //}
 
 
-
+//SearchBy------------------------------------------------------------------------------------------------------------------------------------------------
 
 
         //Search classes
@@ -256,7 +250,8 @@ namespace SingularityFAAST.WebUI.Controllers
         public class SearchByString
         {
             public string SearchBy { get; set; }
-            public string SearchByNum { get; set; }
+            public string byNum { get; set; }
+            //public string SearchByNum { get; set; }
         }
 
         public class PassALoanNumber
