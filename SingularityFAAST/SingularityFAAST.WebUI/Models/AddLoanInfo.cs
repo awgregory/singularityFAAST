@@ -1,30 +1,33 @@
-﻿using System;
+﻿using SingularityFAAST.Core.Entities;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SingularityFAAST.WebUI.Models
+namespace SingularityFAAST.WebUI.Models //Core.ViewModels where Adrian's is
 {
-
-    public class GetLoanInfo
+    public class AddLoanInfo
     {
-        [Key, Column(Order = 0)]
-        public int LoanMasterId { get; set; }
+        //Constructor
+        public AddLoanInfo(Client client, IEnumerable<InventoryItem> inventoryItems)  //two params
+        {
+            this.Client = client;       
+            InventoryItem = inventoryItems;
+        }
 
-        public DateTime DateCreated { get; set; }
+        //Client
+        public Client Client { get; set; }  //for the single client 
 
-        [Key, Column(Order = 2)]
-        public int ClientId { get; set; }
-
-        public string FirstName { get; set; }
-
-        public string MiddleInitial { get; set; }
-
-        public string LastName { get; set; }
-
+        //Inventory List
+        public IEnumerable<InventoryItem> InventoryItem { get; set; }   //for the list of available items
     }
+}
+
+// Like the second kind of view model, for wrapping two kinds of domain model classes in one container 
+// Client and sequence of DisabilityCategory objects
+
+// DTO more like first kind, using select properties of other objects
 
 
     //public class Loan

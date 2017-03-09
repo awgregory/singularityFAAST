@@ -9,6 +9,7 @@ using SingularityFAAST.Services.Services;
 using SingularityFAAST.Core.Entities;
 using SingularityFAAST.Core.SearchRequests;
 using SingularityFAAST.DataAccess.Contexts;
+using SingularityFAAST.WebUI.Models;
 
 
 namespace SingularityFAAST.WebUI.Controllers
@@ -16,15 +17,15 @@ namespace SingularityFAAST.WebUI.Controllers
     public class LoanController : Controller
     {
         private readonly LoanMasterServices lm_services = new LoanMasterServices();
-        private readonly ClientServices _clientServices = new ClientServices();  //to use Adrian's? 
+        private readonly ClientServices _clientServices = new ClientServices(); //to use Adrian's? 
 
 
         //GET: All Loans
         [HttpGet]
-        public ActionResult Index()  
+        public ActionResult Index()
         {
-           IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
-           return View(model);
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
+            return View(model);
         }
 
 
@@ -37,13 +38,15 @@ namespace SingularityFAAST.WebUI.Controllers
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
 
             int n;
-            if(int.TryParse(searchRequest.SearchBy, out n))
+            if (int.TryParse(searchRequest.SearchBy, out n))
             {
-                 model = lm_services.GetLoanByLoanNumber(searchRequest.SearchBy);
+                model = lm_services.GetLoanByLoanNumber(searchRequest.SearchBy);
                 return View(model);
             }
 
-            model = string.IsNullOrWhiteSpace(searchRequest.SearchBy) ? lm_services.GetAllLoans() : lm_services.GetLoansByClientLastName(searchRequest.SearchBy);
+            model = string.IsNullOrWhiteSpace(searchRequest.SearchBy)
+                ? lm_services.GetAllLoans()
+                : lm_services.GetLoansByClientLastName(searchRequest.SearchBy);
             return View(model);
         }
 
@@ -52,7 +55,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //This is the page with the inventory items list in a loan
         [HttpPost]
-        public ActionResult ViewItems(string loanNumber)    //loanNumber
+        public ActionResult ViewItems(string loanNumber) //loanNumber
         {
             IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);
 
@@ -63,7 +66,7 @@ namespace SingularityFAAST.WebUI.Controllers
             //IList<LoansClientsInventoryDTO> model = lm_services.removeItem(viewButton);   Not worked out yet
             return View(model);
         }
-        
+
 //RenewMethods - loan and details------------------------------------------------------------------------------------------------------------        
 
 
@@ -91,20 +94,22 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult RenewAllItems(LoansClientsInventoryDTO loan)
         {
             //IList<LoansClientsInventoryDTO> model = lm_services.AddAllItemsAsNewLoan(loanNumber);
-            
+
             lm_services.SaveAllItemsAsNewLoan(loan);
 
             return View("Index");
         }
 
 //Edit----------------------------------------------------------------------------------------------------------------------------
-        
+
         //This displays Edit Loan page
         public ActionResult EditLn(string loanNumber)
         {
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
 
-            IList<LoansClientsInventoryDTO> filteredLoans = model.Where(loan => string.Equals(loan.LoanNumber, loanNumber, StringComparison.OrdinalIgnoreCase)).ToList();
+            IList<LoansClientsInventoryDTO> filteredLoans =
+                model.Where(loan => string.Equals(loan.LoanNumber, loanNumber, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
 
             return View("EditLoan");
         }
@@ -139,15 +144,15 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        
+
 
         public ActionResult CheckItem(string inventoryItemId)
-        {   
+        {
             //View Item
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
 
             //View text boxes for Damages, Notes and ClientOutcome
-           
+
             return View(model);
         }
 
@@ -166,7 +171,7 @@ namespace SingularityFAAST.WebUI.Controllers
             return RedirectToAction("Index", "Loan");
         }
 
-        
+
 
 
         public ActionResult CancelLn()
@@ -183,63 +188,26 @@ namespace SingularityFAAST.WebUI.Controllers
         {
             //IList<LoansClientsInventoryDTO> model = lm_services.GetAllClients();
 
-            IList<LoansClientsInventoryDTO> model2 = lm_services.GetAllItems();
+            var list1 = _clientServices.GetAllClients();
+            var list2 = lm_services.GetAllItems();
 
 
             //IList<LoansClientsInventoryDTO> filteredLoans =
             //model2.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
 
-            IList<LoansClientsInventoryDTO> list = new List<LoansClientsInventoryDTO>();
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    list.Add(new LoansClientsInventoryDTO { ClientCategoryId = i, Type = "Type" + i });  //Don't show the number, only Type name
-            //}
 
-            //model.ClientCategorySelectList = new SelectList(lm_services.ClientCategory, "ClientCategory", "Name");
-
-            //return View(list);  //how to get all these lists to the view?
-
-            return View(model2);  //model2
+            return View(model);
 
             //return View();
-        }
-
-        //test method  //Clearly would be in Services, not here :)
-        public ViewResult Strong()  
-        {
-
-            var n = new SingularityDBContext();
-            LoansClientsInventoryDTO vm = new LoansClientsInventoryDTO();
-                
-
-                vm.Table1Data = from c in n.Clients
-                                select new Client()
-                                {
-                                HomePhone = c.HomePhone,
-                                Email = c.Email,
-                                LastName = c.LastName,
-                                FirstName = c.FirstName,
-                                ClientID = c.ClientID,};
-
-                vm.Table2Data = from k in n.InventoryItems
-                                select new InventoryItem()
-                                {
-                                    InventoryItemId = k.InventoryItemId,
-                                    ItemName = k.ItemName,
-                                    Manufacturer = k.Manufacturer,
-                                    Description = k.Description,
-                                };
-
-                return View(vm);
-            
         }
 
 
         //Displays Client search results on page 
         [HttpPost]
-        public ActionResult AddLoan(SearchByString searchRequest)  //If routing to LoanMasterServices, mine is SearchByString (see below)
+        public ActionResult AddLoan(SearchByString searchRequest)
+            //If routing to LoanMasterServices, mine is SearchByString (see below)
         {
-            
+
             //if (searchRequest.byNum == "Search")
             if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
             {
@@ -249,7 +217,8 @@ namespace SingularityFAAST.WebUI.Controllers
             else
             {
                 //IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);  //to use Adrian's?
-                IList<LoansClientsInventoryDTO> model = lm_services.GetClientsByName(searchRequest.SearchBy); //or do this and do split logic in LMServices not here
+                IList<LoansClientsInventoryDTO> model = lm_services.GetClientsByName(searchRequest.SearchBy);
+                    //or do this and do split logic in LMServices not here
                 return View(model);
             }
 
@@ -289,5 +258,40 @@ namespace SingularityFAAST.WebUI.Controllers
             public string LoanNum { get; set; }
         }
 
+
+
+
+        //test method  //Clearly would be in Services, not here :)
+        public ViewResult Strong()
+        {
+
+            var n = new SingularityDBContext();
+            LoansClientsInventoryDTO vm = new LoansClientsInventoryDTO();
+
+
+            vm.Table1Data = from c in n.Clients
+                select new Client()
+                {
+                    HomePhone = c.HomePhone,
+                    Email = c.Email,
+                    LastName = c.LastName,
+                    FirstName = c.FirstName,
+                    ClientID = c.ClientID,
+                };
+
+            vm.Table2Data = from k in n.InventoryItems
+                select new InventoryItem()
+                {
+                    InventoryItemId = k.InventoryItemId,
+                    ItemName = k.ItemName,
+                    Manufacturer = k.Manufacturer,
+                    Description = k.Description,
+                };
+
+            return View(vm);
+
+        }
+
     }
 }
+
