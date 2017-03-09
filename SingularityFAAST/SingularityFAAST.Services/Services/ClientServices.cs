@@ -175,7 +175,7 @@ namespace SingularityFAAST.Services.Services
 
 
         //Update existing client info
-        public void EditClientDetails(Client client)
+        public void EditClientDetails(Client client, IEnumerable<int> DisabilityIds)
         {
             using (var context = new SingularityDBContext())
             {
@@ -193,16 +193,34 @@ namespace SingularityFAAST.Services.Services
 
 
 
-                //if (client.DisabilityIds != null && client.DisabilityIds.Any())  // Make new clientDisabilty object from disabilityIDs or do the attach thing like for client?
-                //{
-                //    var clientDisabilities = client.DisabilityIds
-                //        .Select(disabilityId => new ClientDisability
-                //        { ClientId = client.ClientID, DisabilityCategoryId = disabilityId });
+                if (DisabilityIds != null && DisabilityIds.Any())  // Make new clientDisabilty object from disabilityIDs or do the attach thing like for client?
+                {
+                    //var clientDisabilities = client.DisabilityIds
+                    //    .Select(disabilityId => new ClientDisability
+                    //    { ClientId = client.ClientID, DisabilityCategoryId = disabilityId });
 
-                //    context.ClientDisabilities.AddRange(clientDisabilities);
+                    //context.ClientDisabilities.AddRange(clientDisabilities);
 
-                //    context.SaveChanges();
-                //}
+                    //context.SaveChanges();
+
+
+
+                    var allClientDisabilities = context.ClientDisabilities.Where(cd => cd.ClientId == client.ClientID);
+
+                    context.ClientDisabilities.RemoveRange(allClientDisabilities);
+
+                    context.SaveChanges();
+
+
+                    var clientDisabilities = DisabilityIds //Access the posted client object's list of DisabilityIds
+                        .Select(DisabilityId => new ClientDisability //Foreach create a new cd object
+                        { ClientId = client.ClientID, DisabilityCategoryId = DisabilityId });
+                    // These get saved to a list and then added to the table
+
+                    context.ClientDisabilities.AddRange(clientDisabilities);
+
+                    context.SaveChanges();
+                }
 
             }
         }

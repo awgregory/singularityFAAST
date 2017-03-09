@@ -97,7 +97,7 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public ActionResult EditClient(Client client, IEnumerable<int> DisabilityIds)   // Model Binder didn't know what to do with the DisabilityIds values until we gave it a parameter that matched the name attribute
         {
-            _clientServices.EditClientDetails(client);  
+            _clientServices.EditClientDetails(client, DisabilityIds);  
 
             var clientId = client.ClientID;
 
@@ -106,7 +106,10 @@ namespace SingularityFAAST.WebUI.Controllers
             
             //sidenote: was working with default return View() before, MVC Convention that it goes back to the original HttpGet which already had the id provided  
         }                               
-                                       
+                              
+        
+
+
         //[HttpPost]
         //public ActionResult Delete(int id)
         //{

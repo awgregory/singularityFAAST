@@ -221,17 +221,18 @@
 
 
 
-    //If referencing the Model from inside the HTMLHelper it's first argument is automatically the Model of the page so it doesn't matter what you call the model (ie x, viewModel, etc)
+    //If referencing the Model from inside the HTMLHelper it's first argument type is always the Model of the page so it doesn't matter what you call the model (ie x, viewModel, etc)
     //If referencing the Model outside HTMLHelper you must use Model 
 
 
-            @*foreach (var disabilityCategory in Model.DisabilityCategories) //ViewModel needed because of loop to list all types 
+            foreach (var disabilityCategory in Model.DisabilityCategories) //ViewModel needed because of loop to list all types 
     {
 
+                @Html.Label(disabilityCategory.DisabilityType)
+                @*<label>@disabilityCategory.DisabilityType</label>*@
 
-                <label>@disabilityCategory.DisabilityType</label>
-
-                //ActionMethod being posted to must have parameter name that matches this attribute name, since we are using the EditClientViewModel in this loop vs Model.Client.DisabilityIds, individually listed in the Method signature 
+                //Cant do an HTMLHelper here
+                //The ActionMethod being posted to must have parameter name that matches this attribute name, since we are using the EditClientViewModel in this loop vs Model.Client.DisabilityIds, individually listed in the Method signature 
                 <input type="checkbox" name="DisabilityIds" value="@disabilityCategory.DisabilityCategoryId"  
                        
                        @if (Model.Client.DisabilityIds.Contains(disabilityCategory.DisabilityCategoryId))
@@ -239,24 +240,37 @@
                            <text> checked="checked" </text>
                        } />
 
-    }*@
+    }
 
+    //-----------CAN DO THE LOOP ABOVE OR THE WAY BELOW BUT BOTH TOGETHER WILL CAUSE PK CONSTRAINT EXCEPTION
 
 
                 <br/>            
-                                                            // This posted value back, do I need viewModel?
-                <div class="form-check">  
+    // This posts back to the stand-alone DisabilityIds seemingly as long as we using a viewModel here (even if we removed the stand-alone DisabilityIds parameter)
+
+    // This happens Even though the DisabilityIds are getting passed to this view in the Client
+
+                @*<div class="form-check">  
                     <label class="form-check-label">
                        
                         <input class="form-check-input" type="checkbox" name="DisabilityIds" value="1"
                 
                         @if (Model.Client.DisabilityIds.Contains(1)) { <text> checked="checked" </text>  } />
+                 
 
                         Cognitive Impairment
                     </label>
                 </div>
 
+                <div class="form-check">
+                    <label class="form-check-label">
 
+                        <input class="form-check-input" type="checkbox" name="DisabilityIds" value="2"
+                               @if (Model.Client.DisabilityIds.Contains(2)) { <text> checked="checked" </text>   } />
+
+                        Hearing Impairment
+                    </label>
+                </div>*@
 
 
 
