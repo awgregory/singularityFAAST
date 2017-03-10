@@ -1,9 +1,6 @@
 ﻿using SingularityFAAST.Core.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SingularityFAAST.WebUI.Models //Core.ViewModels where Adrian's is
 {
