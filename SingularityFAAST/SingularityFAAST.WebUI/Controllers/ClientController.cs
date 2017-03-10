@@ -68,28 +68,19 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-        //[HttpGet]                                     Prior to ClientDisabilities Change
-        //public ActionResult EditClient(int id)
-        //{
-        //    var client = _clientServices.GetClientDetails(id); 
-
-        //    return View(client);
-        //}
-
-
 
 
         //  Returns Edit Client Page
         [HttpGet]
         public ActionResult EditClient(int id)
         {
-            var client = _clientServices.GetClientDetails(id); //gets this Client Object WITH the DisabilityIds Property
+            var client = _clientServices.GetClientDetails(id); //gets the Client Object and populates the DisabilityIds Property with a Linq query
 
-            var disabilityList = _clientServices.GetAllDisabilities(); //*gets list of ALL DisabilityCategory Objects
+            var disabilityList = _clientServices.GetAllDisabilities(); //gets list of all DisabilityCategory Objects
 
-            var viewModel = new EditClientViewModel(client, disabilityList); //*viewmodel from created client and full list
+            var viewModel = new EditClientViewModel(client, disabilityList); 
 
-            return View(viewModel);     //*Return viewModel
+            return View(viewModel);  //Passes the DisabilityIds to view from within the Client Object within the viewModel
         }
 
 

@@ -116,7 +116,12 @@ namespace SingularityFAAST.Services.Services
 
                 context.SaveChanges();
 
-                if (client.DisabilityIds != null && client.DisabilityIds.Any())  // what was the thing that checked for null before Any()? default type for Enum?
+                // No Any() needed null check covers it
+
+                if (client.DisabilityIds != null)
+
+                // what was the thing that checked for null before Any()? default type for Enum?
+
                 {
                     var clientDisabilities = client.DisabilityIds
                         .Select(disabilityId => new ClientDisability    
@@ -132,15 +137,7 @@ namespace SingularityFAAST.Services.Services
 
 
 
-        //public Client GetClientDetails(int id)                        Prior to ClientDisabilities Change
-        //{
-        //    using (var context = new SingularityDBContext())
-        //    {
-        //        var client = context.Clients.FirstOrDefault(x => x.ClientID == id); 
 
-        //        return client;
-        //    }
-        //}
 
 
 
@@ -150,7 +147,6 @@ namespace SingularityFAAST.Services.Services
             using (var context = new SingularityDBContext())
             {
                 var client = context.Clients.FirstOrDefault(x => x.ClientID == id); //default 0 int, The default value for reference and nullable types is null.
-
 
                 
                 client.DisabilityIds = context.ClientDisabilities  //Access the ClientDisabilities Associate table entries
@@ -180,7 +176,7 @@ namespace SingularityFAAST.Services.Services
             using (var context = new SingularityDBContext())
             {
 
-                //--------------------------------
+             
                 context.Clients.Attach(client);
 
                 var entry = context.Entry(client);
@@ -188,36 +184,36 @@ namespace SingularityFAAST.Services.Services
                 entry.State = EntityState.Modified;
 
                 context.SaveChanges();
-                //--------------------------------
+                
 
 
+                if (DisabilityIds != null)  // null check required to cover posting on null DisabilityIds 
 
-
-                if (DisabilityIds != null && DisabilityIds.Any())  // Make new clientDisabilty object from disabilityIDs or do the attach thing like for client?
                 {
-                    //var clientDisabilities = client.DisabilityIds
-                    //    .Select(disabilityId => new ClientDisability
-                    //    { ClientId = client.ClientID, DisabilityCategoryId = disabilityId });
 
-                    //context.ClientDisabilities.AddRange(clientDisabilities);
+                    var oldClientDisabilities = context.ClientDisabilities.Where(cd => cd.ClientId == client.ClientID);
 
-                    //context.SaveChanges();
-
-
-
-                    var allClientDisabilities = context.ClientDisabilities.Where(cd => cd.ClientId == client.ClientID);
-
-                    context.ClientDisabilities.RemoveRange(allClientDisabilities);
+                    context.ClientDisabilities.RemoveRange(oldClientDisabilities);
 
                     context.SaveChanges();
 
 
-                    var clientDisabilities = DisabilityIds //Access the posted client object's list of DisabilityIds
+                    var clientDisabilities = DisabilityIds //Access the IEnumerable<int> of DisabilityIds
                         .Select(DisabilityId => new ClientDisability //Foreach create a new cd object
                         { ClientId = client.ClientID, DisabilityCategoryId = DisabilityId });
-                    // These get saved to a list and then added to the table
+
+                    // After the ClientDisability Ojects are created and added to var, they get added to the table
 
                     context.ClientDisabilities.AddRange(clientDisabilities);
+
+                    context.SaveChanges();
+                }
+
+                else
+                {
+                    var oldClientDisabilities = context.ClientDisabilities.Where(cd => cd.ClientId == client.ClientID);
+
+                    context.ClientDisabilities.RemoveRange(oldClientDisabilities);
 
                     context.SaveChanges();
                 }

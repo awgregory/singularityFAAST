@@ -17,12 +17,12 @@
 
     <div class="row">
 
-        @Html.HiddenFor(x=>x.Client.ClientID)   @*x can be used*@
+        @Html.HiddenFor(x=>x.Client.ClientID)  
                                                                    
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.Title)     @*was: client => client.Title*@
+                @Html.LabelFor(viewModel => viewModel.Client.Title)  
                 @Html.TextBoxFor(viewModel => viewModel.Client.Title, new { @class = "form-control" }) 
             </div>
         </div>
@@ -187,18 +187,7 @@
                         }, new { @class = "form-control" })
 
                
-                            @*<label for="ClientCategoryId">Client Category
-                                <select class="form-control" id="ClientCategoryId" name="ClientCategoryId">
-
-                                    <option value="1">Individual with Disability</option>
-                                    <option value="2">Family Member</option>
-                                    <option value="3">Professional / Representative of Community Living</option>
-                                    <option value="4">Professional / Representative of Education</option>
-                                    <option value="5">Professional / Representative of Technology</option>
-                                    <option value="6">Professional / Representative of Employment</option>
-                                    <option value="7">Professional / Representative of Health, Allied Health, Rehabilitative Services</option>
-                                </select>
-                            </label>*@
+                       
                 </div>
             </div>
 
@@ -221,56 +210,36 @@
 
 
 
-    //If referencing the Model from inside the HTMLHelper it's first argument type is always the Model of the page so it doesn't matter what you call the model (ie x, viewModel, etc)
+    //If referencing the Model from inside the HTMLHelper it's first argument type is always the Model of the page so it doesn't matter what you call it
     //If referencing the Model outside HTMLHelper you must use Model 
+
+
 
 
             foreach (var disabilityCategory in Model.DisabilityCategories) //ViewModel needed because of loop to list all types 
     {
 
                 @Html.Label(disabilityCategory.DisabilityType)
-                @*<label>@disabilityCategory.DisabilityType</label>*@
 
-                //Cant do an HTMLHelper here
-                //The ActionMethod being posted to must have parameter name that matches this attribute name, since we are using the EditClientViewModel in this loop vs Model.Client.DisabilityIds, individually listed in the Method signature 
+        //Cant do an HTMLHelper here, since we are using the ViewModel in this loop.
+        //The ActionMethod being posted to must have parameter name that matches this attribute name
+                                                             
                 <input type="checkbox" name="DisabilityIds" value="@disabilityCategory.DisabilityCategoryId"  
                        
                        @if (Model.Client.DisabilityIds.Contains(disabilityCategory.DisabilityCategoryId))
                        {                                                
                            <text> checked="checked" </text>
                        } />
-
     }
 
-    //-----------CAN DO THE LOOP ABOVE OR THE WAY BELOW BUT BOTH TOGETHER WILL CAUSE PK CONSTRAINT EXCEPTION
-
-
                 <br/>            
-    // This posts back to the stand-alone DisabilityIds seemingly as long as we using a viewModel here (even if we removed the stand-alone DisabilityIds parameter)
 
-    // This happens Even though the DisabilityIds are getting passed to this view in the Client
+    // Note Even though the DisabilityIds are getting passed into this view through the Client Object
+    // This posts them back to the seperate DisabilityIds parameter instead of back to the Client because we 
+    // are using a viewModel here (even if we removed the DisabilityIds parameter from the Post Method)
 
-                @*<div class="form-check">  
-                    <label class="form-check-label">
-                       
-                        <input class="form-check-input" type="checkbox" name="DisabilityIds" value="1"
-                
-                        @if (Model.Client.DisabilityIds.Contains(1)) { <text> checked="checked" </text>  } />
-                 
 
-                        Cognitive Impairment
-                    </label>
-                </div>
 
-                <div class="form-check">
-                    <label class="form-check-label">
-
-                        <input class="form-check-input" type="checkbox" name="DisabilityIds" value="2"
-                               @if (Model.Client.DisabilityIds.Contains(2)) { <text> checked="checked" </text>   } />
-
-                        Hearing Impairment
-                    </label>
-                </div>*@
 
 
 
