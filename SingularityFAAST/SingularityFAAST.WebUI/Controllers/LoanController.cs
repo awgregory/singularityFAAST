@@ -18,6 +18,7 @@ namespace SingularityFAAST.WebUI.Controllers
     {
         private readonly LoanMasterServices lm_services = new LoanMasterServices();
         private readonly ClientServices _clientServices = new ClientServices(); //to use Adrian's? 
+        private readonly InventoryItemServices ii_services = new InventoryItemServices();
 
 
         //GET: All Loans
@@ -190,7 +191,7 @@ namespace SingularityFAAST.WebUI.Controllers
             //IList<LoansClientsInventoryDTO> model = lm_services.GetAllClients();
 
             var list1 = _clientServices.GetAllClients();  //takes id
-            var list2 = lm_services.GetAllItems();
+            var list2 = ii_services.GetAllInventory();
             var model = new AddLoanInfo(list1, list2);
 
             //IList<LoansClientsInventoryDTO> filteredLoans =

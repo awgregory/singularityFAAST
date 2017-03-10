@@ -2,7 +2,8 @@
 @*@model SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>*@
 
 @*@model IList<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>*@
-@model IList<SingularityFAAST.WebUI.Models.AddLoanInfo>
+
+@model SingularityFAAST.WebUI.Models.AddLoanInfo
 
 @{
     ViewBag.Title = "Add Loan";
@@ -71,42 +72,48 @@
                     </tr>
                 </thead>
                 <tbody>
-                @{
-                    //int counter = 0;
-                    foreach (var item in Model)
+                @*@{*@
+                    @*//int counter = 0;
+                    foreach (var item in Model.Client)
                         {
                         //counter++;
                         //if (counter < 2)
-                        //{
+                        //{*@
                     <tr>
                         <td>        @*this @using only wants to get the value.  Should this be the start of the BeginForm @using for the entire page instead?*@
                             @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))  
                             {
-                                <input type="hidden" value="@item.ClientId" name="ClientId" /> @* C# Async method? *@
+                                <input type="hidden" value="@Html.HiddenFor(model => model.Client.ClientID, "ClientIdQblah")" name="ClientId" /> @* @html hidden meant to stand alone*@
                                 <button type="submit" style="float: left;" value="Select">Select</button> @*Select this client for this new loan*@
                             }
                         </td>
                         <td>
-                            @item.ClientId
+                            @Html.DisplayFor(model => model.Client.ClientID)
+                            @*@item.ClientId*@
                         </td>
                         <td>
-                            @item.FirstName
+                            @Html.DisplayFor(model => model.Client.FirstName)
+                            @*@item.FirstName*@
                         </td>
                         <td>
-                            @item.LastName
+                            @Html.DisplayFor(model => model.Client.LastName)
+                            @*@item.LastName*@
                         </td>
                         <td>
-                            @item.HomePhone
+                            @Html.DisplayFor(model => model.Client.HomePhone)
+                            @*@item.HomePhone*@
                         </td>
                         <td>
-                            @item.Email
+                            @Html.DisplayFor(model => model.Client.Email)
+                            @*@item.Email*@
                         </td>
                         <td>
-                            @item.LoanEligibility
+                            @Html.DisplayFor(model => model.Client.LoanEligibility)
+                            @*@item.LoanEligibility*@
                         </td>
                     </tr>
-                    }
-                    }
+                    @*}
+                    }*@
                     @*}*@
                 </tbody>
             </table>
@@ -243,7 +250,7 @@
                             @{
 
                                 int counterInv = 0;
-                                foreach (var item2 in Model)
+                                foreach (var item2 in Model.InventoryItem)
                                 {
                                     counterInv++;
                                     if (counterInv < 11)
@@ -252,8 +259,8 @@
                                             <td>    @*this just wants to record the checkboxes*@
                                                 @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))   
                                                 {
-                                                    <input type="hidden" value="@item2.ClientId" name="ClientId" /> @* C# Async method? *@
-                                                    <input type="checkbox" style="float: left;" value="Select" /> @*Select this client for this new loan*@
+                                                    <input type="hidden" value="@item2.InventoryItemId" name="ItemId" /> @* C# Async method? *@
+                                                    <input type="checkbox" style="float: left;" value="Select" /> 
                                                 }
                                             </td>
                                             <td>

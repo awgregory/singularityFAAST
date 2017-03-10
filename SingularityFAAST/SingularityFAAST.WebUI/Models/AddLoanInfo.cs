@@ -1,5 +1,6 @@
 ﻿using SingularityFAAST.Core.Entities;
 using System.Collections.Generic;
+using SingularityFAAST.Core.DataTransferObjects;
 
 
 namespace SingularityFAAST.WebUI.Models //Core.ViewModels where Adrian's is
@@ -60,4 +61,3 @@ namespace SingularityFAAST.WebUI.Models //Core.ViewModels where Adrian's is
     //    //    new Loan { LoanId= 888, DeviceName= "Motorola Talkabout 2 way radio", LastName="Dubey", FirstName="Denise", LoanEndDate = "11/4/2015", Notes = "", Eligibility = ""},
     //    //};
     //}
-}
