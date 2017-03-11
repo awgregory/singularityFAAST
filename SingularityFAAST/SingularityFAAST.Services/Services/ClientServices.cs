@@ -222,6 +222,17 @@ namespace SingularityFAAST.Services.Services
         }
 
 
+        public void ChangeStatusDeleted(int id)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var client = context.Clients.FirstOrDefault(x => x.ClientID == id);
+
+                client.IsDeleted = true;
+
+                context.SaveChanges();
+            }
+        }
 
     }
 }

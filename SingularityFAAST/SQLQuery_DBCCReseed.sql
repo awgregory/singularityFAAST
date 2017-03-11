@@ -1,0 +1,1 @@
+﻿DBCC CHECKIDENT ('Clients', reseed, 0)

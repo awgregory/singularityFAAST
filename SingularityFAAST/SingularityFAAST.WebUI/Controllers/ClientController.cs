@@ -69,12 +69,11 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
 
-
         //  Returns Edit Client Page
         [HttpGet]
         public ActionResult EditClient(int id)
         {
-            var client = _clientServices.GetClientDetails(id); //gets the Client Object and populates the DisabilityIds Property with a Linq query
+            var client = _clientServices.GetClientDetails(id); //gets the Client Object and populates it's DisabilityIds Property using a Linq query
 
             var disabilityList = _clientServices.GetAllDisabilities(); //gets list of all DisabilityCategory Objects
 
@@ -96,17 +95,19 @@ namespace SingularityFAAST.WebUI.Controllers
 
             
             //sidenote: was working with default return View() before, MVC Convention that it goes back to the original HttpGet which already had the id provided  
-        }                               
-                              
-        
+        }
 
 
-        //[HttpPost]
-        //public ActionResult Delete(int id)
-        //{
 
-        //}
-                                       
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            _clientServices.ChangeStatusDeleted(id);
+
+            return RedirectToAction("Index", "Client");
+        }
+
 
     }
 }

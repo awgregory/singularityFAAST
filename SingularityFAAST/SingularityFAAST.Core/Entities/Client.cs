@@ -8,7 +8,7 @@ namespace SingularityFAAST.Core.Entities
     {
 
         public Client()    //Instance Constructor required as the default instance value for bool (false) was over-riding db default value. db default only comes into play if it is handed a null
-        {
+        {                   // Best practice to be explicit and leave the default at the db level too
             Active = true;
             LoanEligibility = true;
         }

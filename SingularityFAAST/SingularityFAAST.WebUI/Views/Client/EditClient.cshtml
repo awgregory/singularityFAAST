@@ -215,10 +215,10 @@
 
 
 
+    //ViewModel IEnum needed to loop through list all types 
+    foreach (var disabilityCategory in Model.DisabilityCategories)
 
-            foreach (var disabilityCategory in Model.DisabilityCategories) //ViewModel needed because of loop to list all types 
     {
-
                 @Html.Label(disabilityCategory.DisabilityType)
 
         //Cant do an HTMLHelper here, since we are using the ViewModel in this loop.
