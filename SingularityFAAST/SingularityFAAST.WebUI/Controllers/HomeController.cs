@@ -11,8 +11,6 @@ namespace SingularityFAAST.WebUI.Controllers
         {
             return View();
         }
-
-
-
+        
     }
 }

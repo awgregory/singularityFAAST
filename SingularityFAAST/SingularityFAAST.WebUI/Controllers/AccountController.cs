@@ -16,5 +16,8 @@ namespace SingularityFAAST.WebUI.Controllers
        
         //A login method
 
+
+        //Is user logged In?
+
     }
 }

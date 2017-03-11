@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using SingularityFAAST.Core.SearchRequests;
 using System.Web.Mvc;
 using SingularityFAAST.Core.Entities;
 using SingularityFAAST.Services.Services;
@@ -10,6 +8,8 @@ namespace SingularityFAAST.WebUI.Controllers
 {
     public class InventoryItemController : Controller
     {
+        private readonly InventoryItemServices itemServices = new InventoryItemServices();
+
        //This is the inventory home page
         public ActionResult IndexInventory()
         {
@@ -24,10 +24,12 @@ namespace SingularityFAAST.WebUI.Controllers
         {
             return View();
         }
+
+        //Collects data from New Inventory Item form
         [HttpPost]
         public RedirectToRouteResult NewInventoryItem(InventoryItem item)
         {
-            var services = new InventoryItemServices();
+            var services = itemServices;
 
             services.SaveNewItem(item);
 
@@ -68,5 +70,15 @@ namespace SingularityFAAST.WebUI.Controllers
             var model = services.ViewInvOnLoan();
             return View(model);
         }
+
+        ////  Returns Inventory records that match search criteria
+        //[HttpPost]
+        //public ActionResult Index(SearchRequest searchRequest)
+        //{
+
+        //    IList<InventoryItem> model = itemServices.HandlesSearchRequest(searchRequest);
+
+        //    return View(model);
+        //}
     }
 }
