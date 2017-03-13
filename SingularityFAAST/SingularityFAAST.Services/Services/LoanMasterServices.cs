@@ -204,37 +204,43 @@ namespace SingularityFAAST.Services.Services
 
             return filteredLoans;
         }
-        
-        
-        //Unused
-        //Get all Clients associated with Client last name
-        //public IList<LoansClientsInventoryDTO> GetClientsByName(string searchby)
-        //{
-        //    IList<LoansClientsInventoryDTO> allClients = GetAllClients();  //Gets all the loans from the GetAllLoans() method
-        //    IList<LoansClientsInventoryDTO> filteredLoans = allClients.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
 
-        //    return filteredLoans;
+
+
+        //Get all INVENTORYITEMS associated with item name
+        public IList<InventoryItem> GetAllItemsAsInventoryList()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var items = context.InventoryItems;
+
+                var itemList = items.ToList();
+
+                return itemList;
+            }
+        }
+
+
+
+        ////Get one CLIENT associated with Client last name - the Add Loans page
+        //public Client GetClientsByLName(string searchby)
+        //{
+        //    IList<LoansClientsInventoryDTO> allClients = GetAllClients();
+        //    var theClient = allClients.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase));
+        //    var filteredLoans = theClient.Select(p =>
+        //        new Client()
+        //        {
+        //            ClientID = p.ClientId,
+        //            LastName = p.LastName,
+        //            FirstName = p.FirstName,
+        //            HomePhone = p.HomePhone,
+        //            LoanEligibility = p.LoanEligibility
+        //        });  //ToList(); is used
+            
+        //    var selectedClient = filteredLoans.FirstOrDefault();
+        //    return selectedClient;
         //}
 
-
-        //Get all Clients associated with Client last name - the Add Loans page
-        public Client GetClientsByLName(string searchby)
-        {
-            IList<LoansClientsInventoryDTO> allClients = GetAllClients();
-            var theClient = allClients.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase));
-            var filteredLoans = theClient.Select(p =>
-                new Client()
-                {
-                    ClientID = p.ClientId,
-                    LastName = p.LastName,
-                    FirstName = p.FirstName,
-                    HomePhone = p.HomePhone,
-                    LoanEligibility = p.LoanEligibility
-                });  //ToList(); is used
-            
-            var selectedClient = filteredLoans.FirstOrDefault();
-            return selectedClient;
-        }
 
         //Get all Inventory Items associated with LoanNumber
         public IList<LoansClientsInventoryDTO> ViewAllItems(string loanNumber)
@@ -243,6 +249,15 @@ namespace SingularityFAAST.Services.Services
             IList<LoansClientsInventoryDTO> filteredLoans = allItems.Where(loan => string.Equals(loan.LoanNumber, loanNumber)).ToList();
 
             return filteredLoans;
+        }
+
+
+        public IList<InventoryItem> ViewItemsByName(string itemName)
+        {
+            IList<InventoryItem> allItems = GetAllItemsAsInventoryList();
+            IList<InventoryItem> items = allItems.Where(inventory => string.Equals(inventory.ItemName, itemName)).ToList();
+
+            return items;
         }
 
 
@@ -260,12 +275,11 @@ namespace SingularityFAAST.Services.Services
         //    //    allItems.Where(loan => string.Equals(loan.LoanNumber, loanNum, StringComparison.OrdinalIgnoreCase)).ToList();
 
         //    return selectedLoan;
-
         //}
 
 
-//CheckInItems--------------------------------------------------------------------------------------------------------------------------------------------
-        
+        //CheckInItems--------------------------------------------------------------------------------------------------------------------------------------------
+
 
         //1. Updates the CheckIn DB fields -- Must update all three CheckIn s at once for whole loan
         public void CheckInLoanDetails(LoanDetail loan)

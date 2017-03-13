@@ -3,6 +3,7 @@
 
 @*@model IList<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>*@
 
+@using System.Activities.Statements
 @model SingularityFAAST.WebUI.Models.AddLoanInfo
 
 @{
@@ -31,7 +32,7 @@
     <div class="row col-md-6">
 
         @*search for client by last name, select*@
-        @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+        @using (Html.BeginForm("SearchClient", "Loan", FormMethod.Post, new { @class = "form-inline" }))
         {
             <div class="col-md-6 form-inline">
                 <input type="text" class="form-control" id="LastName" name="searchby" placeholder="Search by Client Last Name" /> @*Search by last name*@
@@ -69,46 +70,50 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>  
-                            @*--Or, this is just a checkbox --*@
-                                  
-                            @*this @using only wants to get the value.  Should this be the start of the BeginForm @using for the entire page instead?*@
-                            @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))  
-                            {
-                                @Html.HiddenFor(model => model.Client.ClientID, "ClientIdQblah")
-                                //<input type="hidden" value="@item.ClientId" name="ClientId" />
-                                //<button type="submit" style="float: left;" value="Select">Select</button> @*Select this client for this new loan*@
-                                <input type="hidden" value="@Model.Client.ClientID" name="clientIdNum" /> @* C# Async method? *@
-                                <input type="checkbox" style="float: left;" value="Select" />
-                            }
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.Client.ClientID)
-                            @*@item.ClientId*@
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.Client.FirstName)
-                            @*@item.FirstName*@
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.Client.LastName)
-                            @*@item.LastName*@
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.Client.HomePhone)
-                            @*@item.HomePhone*@
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.Client.Email)
-                            @*@item.Email*@
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.Client.LoanEligibility)
-                            @*@item.LoanEligibility*@
-                        </td>
-                    </tr>
-                </tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @*--Or, this is just a checkbox --*@
+
+                                @*this @using only wants to get the value.  Should this be the start of the BeginForm @using for the entire page instead?*@
+                                @using (Html.BeginForm("SearchInventory", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+                                {
+                                    //@Html.HiddenFor(model => model.Client.ClientID, "ClientIdQblah")
+                                    <input type="hidden" value="@item.ClientId" name="ClientId"/>
+                                    //<button type="submit" style="float: left;" value="Select">Select</button> @*Select this client for this new loan*@
+                                    //<input type="hidden" value="@Model.Client.ClientID" name="clientIdNum" /> @* C# Async method? *@
+                                    <input type="checkbox" style="float: left;" value="Select"/>
+                                }
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(model => model.Client.ClientID)*@
+                                @item.ClientId
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(model => model.Client.FirstName)*@
+                                @item.FirstName
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(model => model.Client.LastName)*@
+                                @item.LastName
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(model => model.Client.HomePhone)*@
+                                @item.HomePhone
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(model => model.Client.Email)*@
+                                @*@item.Email*@
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(model => model.Client.LoanEligibility)*@
+                                @item.LoanEligibility
+                            </td>
+                        </tr>
+                    }
+                
+                    </tbody>
             </table>
 
         </div>

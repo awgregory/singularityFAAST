@@ -8,7 +8,7 @@ using SingularityFAAST.Core.Entities;
 
 namespace SingularityFAAST.Core.DataTransferObjects
 {
-    public class LoansClientsInventoryDTO //: IEnumerable
+    public class LoansClientsInventoryDTO 
     {
         //Loan Master
         public int LoanMasterId { get; set; }
@@ -80,19 +80,9 @@ namespace SingularityFAAST.Core.DataTransferObjects
 
 
         public IEnumerable<string> ClientCategory { get; set; }
-
-        public List<InventoryItem> OrderData { get; set; }
-        public List<Client> OrderDetailData { get; set; }
-
-        //[Display(Name = "Client Category")]
-        //public ClientCategory ClientCategory { get; set; }
-
-
-        //public SelectList ClientCategorySelectList { get; set; } 
-
-        //public SelectList PurposeSelectList { get; set; }
-
-        //public SelectList PurposeTypeSelectList { get; set; }
+        public IEnumerable<int> ClientCategoryID { get; set; }
+        public IQueryable<Client> Table1Data { get; set; }
+        public IQueryable<InventoryItem> Table2Data { get; set; }
 
 
         //public LoansClientsInventoryDTO()
@@ -129,12 +119,6 @@ namespace SingularityFAAST.Core.DataTransferObjects
         //    this.Type = Type;
         //}
 
-
-        public IEnumerable<int> ClientCategoryID { get; set; }
-
-
-        public IQueryable<Client> Table1Data { get; set; }
-        public IQueryable<InventoryItem> Table2Data { get; set; }
 
     }
 }

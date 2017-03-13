@@ -1,21 +1,28 @@
 ﻿using SingularityFAAST.Core.Entities;
 using System.Collections.Generic;
-using SingularityFAAST.Core.DataTransferObjects;
 
 
-namespace SingularityFAAST.WebUI.Models //Core.ViewModels where Adrian's is
+namespace SingularityFAAST.WebUI.Models 
 {
     public class AddLoanInfo
     {
         //Constructor
-        public AddLoanInfo(Client client, IEnumerable<InventoryItem> inventoryItems)  //two params
+        public AddLoanInfo(IEnumerable<Client> clients, IEnumerable<InventoryItem> inventoryItems)
         {
-            this.Client = client;       
+            ClientInfo = clients;
             InventoryItem = inventoryItems;
         }
 
+        //public AddLoanInfo(Client client, IEnumerable<InventoryItem> inventoryItems)  //two params
+        //{
+        //    this.Client = client;       
+        //    InventoryItem = inventoryItems;
+        //}
+
+
         //Client
-        public Client Client { get; set; }  //for the single client 
+        //public Client Client { get; set; }  //for the single client 
+        public IEnumerable<Client> ClientInfo { get; set; }
 
         //Inventory List
         public IEnumerable<InventoryItem> InventoryItem { get; set; }   //for the list of available items
