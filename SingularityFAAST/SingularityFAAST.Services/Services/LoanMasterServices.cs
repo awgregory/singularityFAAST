@@ -13,6 +13,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Web;
+using SingularityFAAST.Services.Services;
 //using RazorEngine;  //for the email template parsing
 //using RazorEngine.Templating;   //for the email template parsing
 
@@ -116,7 +117,6 @@ namespace SingularityFAAST.Services.Services
                             on ld.LoanMasterId equals lm.LoanMasterId
                             join c in context.Clients
                             on lm.ClientId equals c.ClientID
-                            //where lm.LoanNumber.Equals(loanNum)  //put this filter in the call rather than here, so this can be reused
 
                 select new LoansClientsInventoryDTO()
                 {
@@ -144,8 +144,6 @@ namespace SingularityFAAST.Services.Services
         {
             using (var context = new SingularityDBContext())
             {
-                //LoansClientsInventoryDTO dto = new LoansClientsInventoryDTO();
-                //Client client = new Client();
 
                 var clients = from c in context.Clients
                               join l in context.LoanMasters
@@ -175,7 +173,19 @@ namespace SingularityFAAST.Services.Services
 
             }
         }
-        
+
+        public Client GetClientDetails()  //int id
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var client = context.Clients;
+                var clients = client.FirstOrDefault();
+
+                return clients;
+            }
+        }
+
+
 
         // GET all Loans associated with client last name
         public IList<LoansClientsInventoryDTO> GetLoansByClientLastName(string searchby)
@@ -195,15 +205,37 @@ namespace SingularityFAAST.Services.Services
             return filteredLoans;
         }
         
-        //Get all Clients associated with Client last name
-        public IList<LoansClientsInventoryDTO> GetClientsByName(string searchby)
-        {
-            IList<LoansClientsInventoryDTO> allClients = GetAllClients();  //Gets all the loans from the GetAllLoans() method
-            IList<LoansClientsInventoryDTO> filteredLoans = allClients.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
-
-            return filteredLoans;
-        }
         
+        //Unused
+        //Get all Clients associated with Client last name
+        //public IList<LoansClientsInventoryDTO> GetClientsByName(string searchby)
+        //{
+        //    IList<LoansClientsInventoryDTO> allClients = GetAllClients();  //Gets all the loans from the GetAllLoans() method
+        //    IList<LoansClientsInventoryDTO> filteredLoans = allClients.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        //    return filteredLoans;
+        //}
+
+
+        //Get all Clients associated with Client last name - the Add Loans page
+        public Client GetClientsByLName(string searchby)
+        {
+            IList<LoansClientsInventoryDTO> allClients = GetAllClients();
+            var theClient = allClients.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase));
+            var filteredLoans = theClient.Select(p =>
+                new Client()
+                {
+                    ClientID = p.ClientId,
+                    LastName = p.LastName,
+                    FirstName = p.FirstName,
+                    HomePhone = p.HomePhone,
+                    LoanEligibility = p.LoanEligibility
+                });  //ToList(); is used
+            
+            var selectedClient = filteredLoans.FirstOrDefault();
+            return selectedClient;
+        }
+
         //Get all Inventory Items associated with LoanNumber
         public IList<LoansClientsInventoryDTO> ViewAllItems(string loanNumber)
         {

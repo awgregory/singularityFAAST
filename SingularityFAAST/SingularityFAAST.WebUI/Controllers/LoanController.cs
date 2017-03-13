@@ -45,9 +45,7 @@ namespace SingularityFAAST.WebUI.Controllers
                 return View(model);
             }
 
-            model = string.IsNullOrWhiteSpace(searchRequest.SearchBy)
-                ? lm_services.GetAllLoans()
-                : lm_services.GetLoansByClientLastName(searchRequest.SearchBy);
+            model = string.IsNullOrWhiteSpace(searchRequest.SearchBy)? lm_services.GetAllLoans(): lm_services.GetLoansByClientLastName(searchRequest.SearchBy);
             return View(model);
         }
 
@@ -184,49 +182,39 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //AddLoan-----------------------------------------------------------------------------------------------------------------------------------
 
-        //Displays initial AddLoan Page with empty boxes
+        //Displays initial AddLoan Page with empty input boxes
         [HttpGet]
-        public ViewResult AddLoan(int id)   //Loan case does not use loanNum but it might be used by Client use case
+        public ViewResult AddLoan()   //int id  //Loan case does not use loanNum but it might be used by Client use case
         {
-            //IList<LoansClientsInventoryDTO> model = lm_services.GetAllClients();
-
-            var list1 = _clientServices.GetAllClients();  //takes id
+            var list1 = lm_services.GetClientDetails(); //GetAllClients();  //takes id
             var list2 = ii_services.GetAllInventory();
             var model = new AddLoanInfo(list1, list2);
-
-            //IList<LoansClientsInventoryDTO> filteredLoans =
-            //model2.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
             
             return View(model);
-
-            //return View();
         }
 
 
-
-        //Displays Client search results on page 
+        //Displays Client search results on page with all loans 
         [HttpPost]
         public ActionResult AddLoan(SearchByString searchRequest)
-            //If routing to LoanMasterServices, mine is SearchByString (see below)
         {
-
-            //if (searchRequest.byNum == "Search")
             if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
             {
-                IList<LoansClientsInventoryDTO> model = lm_services.GetAllClients();
-                return View(model);
+                var list1 = lm_services.GetClientDetails();
+                var list2 = ii_services.GetAllInventory();
+                var model = new AddLoanInfo(list1, list2);
+                return View(model); 
             }
             else
             {
-                //IList<Client> model = _clientServices.GetClientsByName(searchRequest.SearchByName);  //to use Adrian's?
-                IList<LoansClientsInventoryDTO> model = lm_services.GetClientsByName(searchRequest.SearchBy);
-                    //or do this and do split logic in LMServices not here
-                return View(model);
+                Client list1 = lm_services.GetClientsByLName(searchRequest.SearchBy);
+                var list2 = ii_services.GetAllInventory();
+                var model = new AddLoanInfo(list1, list2);
+                return View(model); 
             }
 
         }
-
-
+        
 
 
         //Called by AddLoan and EditLoan
