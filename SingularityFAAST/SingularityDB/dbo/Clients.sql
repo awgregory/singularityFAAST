@@ -23,6 +23,7 @@
     [LoanEligibility]	BIT				NOT NULL DEFAULT 1 , 
     [Notes]				VARCHAR(MAX)	NULL, 
     [ClientCategoryId] INT NOT NULL,
+	[IsDeleted]			BIT				NOT NULL DEFAULT 0,
 	
 	CONSTRAINT [PK_Clients] PRIMARY KEY ([ClientId]),
 	
