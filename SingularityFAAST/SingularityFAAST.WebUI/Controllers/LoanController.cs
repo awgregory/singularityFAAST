@@ -130,27 +130,26 @@ namespace SingularityFAAST.WebUI.Controllers
 
 //CheckIn------------------------------------------------------------------------------------------------------------------------------
 
-        //View Page with text boxes & one param passed in
+        //This is just the View Page with text boxes & one param passed in. Doesn't do any checking-in
         public ActionResult CheckIn(string inventoryItemId)
         {
-            //View Items in Loan
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
-
-            //View text boxes for Damages, Notes and ClientOutcome
-
+            //View all Items in Loan
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();  //get all for this id
+            
             return View(model);
         }
 
 
 
 
-
+        //From View Items page, this result returns same page but without check-in button for this item 
         public ActionResult CheckItem(string inventoryItemId)
         {
-            //View Item
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
+            //Check in single item
+            //Get input from text boxes for Damages, Notes and ClientOutcome
 
-            //View text boxes for Damages, Notes and ClientOutcome
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
+            //Services method here to change this item to inactive
 
             return View(model);
         }
@@ -163,6 +162,10 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public RedirectToRouteResult CheckInLoan(LoansClientsInventoryDTO loan)
         {
+            //Check in multiple items
+            //Get input from text boxes for Damages, Notes and ClientOutcome
+
+            //Services method here to change all items to inactive:
             //    var services = new LoanMasterServices();
             //    services.SaveLoan(loan);
 
@@ -240,48 +243,8 @@ namespace SingularityFAAST.WebUI.Controllers
         {
             public string SearchBy { get; set; }
             public string byNum { get; set; }
-            //public string SearchByNum { get; set; }
-        }
-
-        public class PassALoanNumber
-        {
-            public string LoanNum { get; set; }
-        }
-
-
-
-
-        //test method  //Clearly would be in Services, not here :)
-        public ViewResult Strong()
-        {
-
-            var n = new SingularityDBContext();
-            LoansClientsInventoryDTO vm = new LoansClientsInventoryDTO();
-
-
-            vm.Table1Data = from c in n.Clients
-                select new Client()
-                {
-                    HomePhone = c.HomePhone,
-                    Email = c.Email,
-                    LastName = c.LastName,
-                    FirstName = c.FirstName,
-                    ClientID = c.ClientID,
-                };
-
-            vm.Table2Data = from k in n.InventoryItems
-                select new InventoryItem()
-                {
-                    InventoryItemId = k.InventoryItemId,
-                    ItemName = k.ItemName,
-                    Manufacturer = k.Manufacturer,
-                    Description = k.Description,
-                };
-
-            return View(vm);
 
         }
-
     }
 }
 
