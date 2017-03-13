@@ -12,6 +12,7 @@ using SingularityFAAST.Core.SearchRequests;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
+    [Authorize]
     public class LoanController : Controller
     {
         private readonly LoanMasterServices lm_services = new LoanMasterServices();

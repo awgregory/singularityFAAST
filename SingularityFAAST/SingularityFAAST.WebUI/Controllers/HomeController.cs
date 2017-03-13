@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         

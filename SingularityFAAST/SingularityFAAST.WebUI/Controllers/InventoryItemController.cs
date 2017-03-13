@@ -6,6 +6,7 @@ using SingularityFAAST.Services.Services;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
+    [Authorize]
     public class InventoryItemController : Controller
     {
         private readonly InventoryItemServices itemServices = new InventoryItemServices();
