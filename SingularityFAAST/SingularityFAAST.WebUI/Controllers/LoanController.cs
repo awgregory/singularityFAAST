@@ -200,7 +200,8 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //Displays Client search results on page with all loans 
         [HttpPost]
-        public ActionResult SearchClient(SearchByString searchRequest)
+        //public ActionResult SearchClient(SearchByString searchRequest)  //for separating both lists into method rather than back to view
+        public ActionResult AddLoan(SearchByString searchRequest)
         {
             //no search term entered
             if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
@@ -218,15 +219,15 @@ namespace SingularityFAAST.WebUI.Controllers
                 var list1 = _clientServices.GetClientByLastName(searchRequest.SearchBy);
                 var list2 = ii_services.GetAllInventory();
                 var model = new AddLoanInfo(list1, list2);
-                //return View(model); 
-                return RedirectToRoute("AddLoan", new { clientid = searchRequest.SearchBy});  //pass to AddLoan above 
+                return View(model); 
+                //return RedirectToRoute("AddLoan", new { clientid = searchRequest.SearchBy});  //pass to AddLoan above 
             }
 
         }
 
         //Displays Inventory search results on page
         [HttpPost]
-        public ActionResult SearchInventory(SearchByString searchRequest, SearchByString byName)
+        public ActionResult SearchInventory(SearchByString searchRequest, SearchByString byName)  //or do AddLoan with the two parms
         {
             //no search term entered
             if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
@@ -244,7 +245,7 @@ namespace SingularityFAAST.WebUI.Controllers
                 var list2 = lm_services.ViewItemsByName(searchRequest.byName);
                 var model = new AddLoanInfo(list1, list2);
                 //return View(model);
-                return RedirectToRoute("AddLoan", new { clientid = searchRequest.SearchBy });  //pass to AddLoan above 
+                return RedirectToRoute("AddTheLoan", new { clientid = searchRequest.SearchBy });  //pass to AddLoan above 
             }
 
         }
@@ -254,7 +255,7 @@ namespace SingularityFAAST.WebUI.Controllers
         //Controls the Add Loan process, routes to Services to update the DB, and then back to Index  - does the actual adding 
 
         //[HttpPost]
-        //public RedirectToRouteResult AddLoan(LoansClientsInventoryDTO loan)
+        //public RedirectToRouteResult AddTheLoan(LoansClientsInventoryDTO loan)
         //{
         ////    var services = new LoanMasterServices();
         ////    services.SaveLoan(loan);

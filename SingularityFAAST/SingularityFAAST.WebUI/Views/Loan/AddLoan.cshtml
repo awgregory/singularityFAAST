@@ -16,9 +16,6 @@
 <br />
 <div class="container-fluid">
 
-
-    @*@Html.AntiForgeryToken()*@
-
     @*Date appears, Due date appears*@
     <b>
         Today's Date: @DateTime.Now.ToString("MMMM dd, yyyy")
@@ -31,8 +28,8 @@
     <h4>Select Client: </h4>
     <div class="row col-md-6">
 
-        @*search for client by last name, select*@
-        @using (Html.BeginForm("SearchClient", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+        @*search for client by last name, select*@     @*SearchClient*@
+        @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))  
         {
             <div class="col-md-6 form-inline">
                 <input type="text" class="form-control" id="LastName" name="searchby" placeholder="Search by Client Last Name" /> @*Search by last name*@
@@ -70,7 +67,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.ClientInfo)
                     {
                         <tr>
                             <td>
@@ -80,7 +77,7 @@
                                 @using (Html.BeginForm("SearchInventory", "Loan", FormMethod.Post, new {@class = "form-inline"}))
                                 {
                                     //@Html.HiddenFor(model => model.Client.ClientID, "ClientIdQblah")
-                                    <input type="hidden" value="@item.ClientId" name="ClientId"/>
+                                    <input type="hidden" value="@item.ClientID" name="ClientId"/>
                                     //<button type="submit" style="float: left;" value="Select">Select</button> @*Select this client for this new loan*@
                                     //<input type="hidden" value="@Model.Client.ClientID" name="clientIdNum" /> @* C# Async method? *@
                                     <input type="checkbox" style="float: left;" value="Select"/>
@@ -88,7 +85,7 @@
                             </td>
                             <td>
                                 @*@Html.DisplayFor(model => model.Client.ClientID)*@
-                                @item.ClientId
+                                @item.ClientID
                             </td>
                             <td>
                                 @*@Html.DisplayFor(model => model.Client.FirstName)*@
@@ -199,13 +196,21 @@
 
         @* Original does: Search By button, InventoryName etc. drop-down, Input box, Search Button. Pulls relevant items from orig. table and displays in table *@
         
-        @*Get the Client Id from above, so when this page is reloaded for inventory search, that is passed into the reloading of the page with the selected inventory item*@
+        @*Get the Client Id from above via controller, so when this page is reloaded for inventory search, only that single client is passed into the reloading of the page with the selected inventory item*@
+        
         @*search for item by name, select*@
         @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new {@class = "form-inline"}))
         {
             <div class="col-md-5  form-inline">
                 <input type="text" class="form-control form-inline" id="ItemName" name="searchby" placeholder="Search by Item Name"/> @*Search by item name*@
                 <input type="submit" class="btn btn-primary" name="byInvName" value='Search'/>
+            </div>
+        }
+        @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+        {
+            <div class="col-md-5  form-inline">
+                @*<input type="hidden" value="@Model.InventoryItem.ItemNumber" name="ItemNumber" />*@  @*foreach this*@
+                <input type="submit" class="btn btn-primary" name="byInvName" value='Add Selected Item'/>
             </div>
         }
     </div>

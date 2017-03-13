@@ -221,7 +221,7 @@ namespace SingularityFAAST.Services.Services
         }
 
 
-
+        ////replaced with List b/c some clients have same name
         ////Get one CLIENT associated with Client last name - the Add Loans page
         //public Client GetClientsByLName(string searchby)
         //{
