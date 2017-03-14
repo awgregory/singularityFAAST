@@ -31,8 +31,8 @@ namespace SingularityFAAST.WebUI.Controllers
                     var username = user.Username;
                     var password = user.Password;
 
-                    var userIsValid = context.UserLogIns.Any(dbUser => dbUser.Username == username
-                                                                && dbUser.Password == password);
+                    var userIsValid = context.UserLogIns.Any(dbUserLogIns => dbUserLogIns.Username == username
+                                                                && dbUserLogIns.Password == password);
 
                     if (userIsValid)
                     {

@@ -12,6 +12,7 @@ namespace SingularityFAAST.DataAccess.Contexts
         public DbSet<ClientCategory> ClientCategories { get; set; }
         public DbSet<User> UserLogIns { get; set; }
         public DbSet<InventoryItem> InventoryItems { get; set; }
+        public DbSet<InventoryItemCategory> InventoryCategories { get; set; }
         public DbSet<LoanMaster> LoanMasters { get; set; }
         public DbSet<LoanDetail> LoanDetails { get; set; }
     }
