@@ -24,19 +24,24 @@ var clientSearch = (function ($) {
     //alerts a result of a method, supplying the parameter
     alert(alertMeOfMyVariable('transient parameter'));
 
+    //runs a function that hits the server searching for a client by a parameter
     getFakeClientsWithOneParameter('toof');
 
+    //dummy function
     function alertMeOfMyVariable(param){
         return (myVariable + ' and some parameter: ' + param);
     }
 
+    //define the server hit
     function getFakeClientsWithOneParameter(sendThis){
+        //just a cleaner way of defining a string variable
         var pathToControllerMethod = "/Loan/SearchFakeClients/";
         var methodArguments = "?searchString=" + sendThis;
 
         $.ajax({
             url: pathToControllerMethod + methodArguments,
             success: function(result) {
+                //success, got something back from the server, MAY be empty, may not
                 alert("check the console and open object up");
                 console.log(result);
             },
