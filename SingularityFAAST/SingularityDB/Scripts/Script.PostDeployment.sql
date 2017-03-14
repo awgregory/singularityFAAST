@@ -10,6 +10,7 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 --:r .\seeds\seedDummyData.sql
+--:r .\seeds\SeedAdminLogInCredentials.sql
 --:r .\seeds\SeedClientCategories.sql
 --:r .\seeds\SeedDisabilityCategories.sql
 --:r .\seeds\SeedClients.sql
