@@ -251,6 +251,24 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
+        #region Nick Code
+        public JsonResult SearchFakeClients(string searchString)
+        {
+            var fakeClients = new List<Client>
+            {
+                new Client{ClientID = 1, FirstName = "Ferglehorn" },
+                new Client{ClientID = 2, FirstName = "Osoltoof" }
+            };
+
+            //search through the fake clients list, checking eaching fake client if their first name contains the search string
+            var filteredClients = fakeClients.Where((fakeClient) => fakeClient.FirstName.Contains(searchString));
+
+            //method demands return type of Json, whose first parameter is DATA, just shove the c# result into this
+            //and javascript on the front end will be happy
+            return Json(filteredClients, JsonRequestBehavior.AllowGet);
+        }
+        #endregion 
+
         //Called by AddLoan and EditLoan
         //Controls the Add Loan process, routes to Services to update the DB, and then back to Index  - does the actual adding 
 
