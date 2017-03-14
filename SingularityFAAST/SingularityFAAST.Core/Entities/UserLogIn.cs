@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SingularityFAAST.Core.Entities
 {
-    public class User
+    public class UserLogIn
     {
         [Key]
         public int UserId { get; set; }

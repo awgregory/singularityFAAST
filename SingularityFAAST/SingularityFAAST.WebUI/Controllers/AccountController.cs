@@ -22,7 +22,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //A login method
         [HttpPost]
-        public ActionResult LogIn(User user, string returnUrl)
+        public ActionResult LogIn(UserLogIn user, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("LogIn", "Account");
         }
     }
 }
