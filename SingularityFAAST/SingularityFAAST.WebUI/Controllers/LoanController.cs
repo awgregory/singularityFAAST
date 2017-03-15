@@ -257,7 +257,13 @@ namespace SingularityFAAST.WebUI.Controllers
             var fakeClients = new List<Client>
             {
                 new Client{ClientID = 1, FirstName = "Ferglehorn" },
-                new Client{ClientID = 2, FirstName = "Osoltoof" }
+                new Client{ClientID = 2, FirstName = "Ergtoof" },
+                new Client{ClientID = 3, FirstName = "Osoltoof" },
+                new Client{ClientID = 4, FirstName = "Atoofol" },
+                new Client{ClientID = 5, FirstName = "Retoofum" },
+                new Client{ClientID = 6, FirstName = "Toofensag" },
+                new Client{ClientID = 7, FirstName = "Hornbreaker" },
+                new Client{ClientID = 8, FirstName = "Ethornisk" },
             };
 
             //search through the fake clients list, checking eaching fake client if their first name contains the search string
