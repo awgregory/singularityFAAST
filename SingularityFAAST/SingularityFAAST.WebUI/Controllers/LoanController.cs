@@ -10,7 +10,7 @@ using SingularityFAAST.Core.Entities;
 using SingularityFAAST.Core.SearchRequests;
 using SingularityFAAST.DataAccess.Contexts;
 using SingularityFAAST.WebUI.Models;
-
+using System.Threading.Tasks;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
@@ -198,31 +198,36 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-        //Displays Client search results on page with all loans 
-        [HttpPost]
-        //public ActionResult SearchClient(SearchByString searchRequest)  //for separating both lists into method rather than back to view
-        public ActionResult AddLoan(SearchByString searchRequest)
-        {
-            //no search term entered
-            if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
-            {
-                //var list1 = lm_services.GetClientDetails();
-                var list1 = _clientServices.GetAllClients();
-                var list2 = ii_services.GetAllInventory();
-                var model = new AddLoanInfo(list1, list2);
-                return View(model); 
-            }
-            else
-            {   
-                //Get Client by last name
-                //Client list1 = lm_services.GetClientsByLName(searchRequest.SearchBy);
-                var list1 = _clientServices.GetClientByLastName(searchRequest.SearchBy);
-                var list2 = ii_services.GetAllInventory();
-                var model = new AddLoanInfo(list1, list2);
-                return View(model); 
-                //return RedirectToRoute("AddLoan", new { clientid = searchRequest.SearchBy});  //pass to AddLoan above 
-            }
+        ////Displays Client search results on page with all loans 
+        //[HttpPost]
+        ////public ActionResult SearchClient(SearchByString searchRequest)  //for separating both lists into method rather than back to view
+        //public ActionResult AddLoan(SearchByString searchRequest)
+        //{
+        //    //no search term entered
+        //    if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
+        //    {
+        //        //var list1 = lm_services.GetClientDetails();
+        //        var list1 = _clientServices.GetAllClients();
+        //        var list2 = ii_services.GetAllInventory();
+        //        var model = new AddLoanInfo(list1, list2);
+        //        return View(model); 
+        //    }
+        //    else
+        //    {   
+        //        //Get Client by last name
+        //        //Client list1 = lm_services.GetClientsByLName(searchRequest.SearchBy);
+        //        var list1 = _clientServices.GetClientByLastName(searchRequest.SearchBy);
+        //        var list2 = ii_services.GetAllInventory();
+        //        var model = new AddLoanInfo(list1, list2);
+        //        return View(model); 
+        //        //return RedirectToRoute("AddLoan", new { clientid = searchRequest.SearchBy});  //pass to AddLoan above 
+        //    }
 
+        //}
+        [HttpPost]
+        public async Task<ActionResult> AddLoan(LoanSubmission loanSubmission)
+        {
+            return null;
         }
 
         //Displays Inventory search results on page

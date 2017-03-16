@@ -9,13 +9,19 @@
 @{
     ViewBag.Title = "Add Loan";
 }
-<script src="~/Scripts/Loans/LoanCreation/ClientSearch.js" type="text/javascript"></script>
 @* and other scripts soon *@
 
 <h2>New Loan</h2>
 
 <br />
 <div class="container-fluid">
+
+    @* Html Hiddens give us form fields that the model binder will still use, but are hidden from the view *@
+    @* whatever you name id's, names, etc, keep them consistent. 
+        keep in mind the 'name' property on these must match the property names on the C# classes used*@
+
+    @Html.Hidden("ClientID", new { id = "clientIdHidden", name="ClientId" })
+    @Html.Hidden("InventoryItemIDs", new { id = "inventoryItemIdsHidden", name="InventoryItemIds"})
 
     @*Date appears, Due date appears*@
     <b>
@@ -275,9 +281,10 @@
 
     </div>
     <div class="row form-group">
+
+
         <div class="col-md-10">
             <input type="submit" value="Create New Loan" class="btn btn-success" />
-
         </div>
     </div>
 
@@ -286,3 +293,5 @@
         @Html.ActionLink("Back to List", "Index")
     </div>
 </div>
+
+<script src="~/Scripts/Loans/LoanCreation/ClientSearch.js" type="text/javascript"></script>
