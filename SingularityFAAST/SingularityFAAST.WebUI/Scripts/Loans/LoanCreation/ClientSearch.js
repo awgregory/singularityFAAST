@@ -27,6 +27,7 @@
     //region ajax identifiers for use inside functions
     var clientSearchButton = $('#clientSearchButton');
     var clientSearchInput = $('#clientSearchInput');
+    // var clientIdHiddenFormInput = $('#clientIdHidden');
 
     var itemSearchButton = $('#itemSearchButton');
 
@@ -34,14 +35,28 @@
     //endregion
 
     //region wire up event handlers
+
+    //search buttons
     clientSearchButton.on('click', function () {
-        // alert(clientSearchInput.val());
         getFakeClientsWithOneParameter(clientSearchInput.val())
     });
+
 
     //endregion
 
     //region functions!
+    function updateClientIdFormValue(e) {
+        //tied to checkboxes - grabs the click event, inspects its data set which we defined as 'data-client-id'
+        var chosenClientId = e.target.dataset.clientId; //even if custom data attribute contains hyphens, this uses camel case
+
+        if (!chosenClientId) //if variable doesn't mean anything: we are invalid/error
+            return; //safely exit doing nothing
+
+        console.log('client id chosen: ' + chosenClientId);
+        //set the hidden form input's value to the clientId extracted from the click event
+        $('#clientIdHidden').val(chosenClientId)
+    }
+
     function getFakeClientsWithOneParameter(sendThis) {
         var pathToControllerMethod = "/Loan/SearchFakeClients/";
         var methodArguments = "?searchString=" + sendThis;
@@ -78,7 +93,10 @@
             for (var i = 0; i < results.length; i++) {
                 table.append(
                     '<tr>' +
-                    '<td>' + 'select box' + '</td>' + //select box
+                    '<td>' +
+                        '<input type="radio" name="radioClientId" data-client-id="' + results[i].ClientID  + '"' +
+                        '</input>' +
+                    '</td>' + //select box -- we will have jquery grab each checkbox created, and put a function on it
                     '<td>' + results[i].ClientID + '</td>' + //client id
                     '<td>' + results[i].FirstName + '</td>' + //first name
                     '<td>' + 'Last Name' + '</td>' + //last name
@@ -89,8 +107,10 @@
                 )
             }
         }
+
+        //once table is built, do we have valid markup to attach to -- assign the functions here!
+        $("input:radio[name=radioClientId]").on('click', updateClientIdFormValue);
     }
 
     //endregion
-    // });
 }(window.jQuery));

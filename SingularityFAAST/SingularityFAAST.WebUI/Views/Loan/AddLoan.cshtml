@@ -20,7 +20,8 @@
     @* whatever you name id's, names, etc, keep them consistent. 
         keep in mind the 'name' property on these must match the property names on the C# classes used*@
 
-    @Html.Hidden("ClientID", new { id = "clientIdHidden", name="ClientId" })
+    @* First parameter will be the name propety - and is what the model binder will use *@
+    @Html.Hidden("ClientID", null, new { id = "clientIdHidden"})
     @Html.Hidden("InventoryItemIDs", new { id = "inventoryItemIdsHidden", name="InventoryItemIds"})
 
     @*Date appears, Due date appears*@
