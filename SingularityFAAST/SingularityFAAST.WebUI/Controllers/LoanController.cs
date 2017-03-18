@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using SingularityFAAST.Core.DataTransferObjects;
 //using SingularityFAAST.DataAccess.Contexts;
@@ -225,6 +226,16 @@ namespace SingularityFAAST.WebUI.Controllers
 
         }
 
+
+
+        [HttpPost]
+        public async Task<ActionResult> AddLoan(LoanSubmission loanSubmission)
+        {
+            return null;
+        }
+
+
+
         //Displays Inventory search results on page
         [HttpPost]
         public ActionResult SearchInventory(SearchByString searchRequest, SearchByString byName)  //or do AddLoan with the two parms
@@ -249,6 +260,31 @@ namespace SingularityFAAST.WebUI.Controllers
             }
 
         }
+        
+
+        #region Nick Code
+        public JsonResult SearchFakeClients(string searchString)
+        {
+            var fakeClients = new List<Client>
+            {
+                new Client{ClientID = 1, FirstName = "Ferglehorn" },
+                new Client{ClientID = 2, FirstName = "Ergtoof" },
+                new Client{ClientID = 3, FirstName = "Osoltoof" },
+                new Client{ClientID = 4, FirstName = "Atoofol" },
+                new Client{ClientID = 5, FirstName = "Retoofum" },
+                new Client{ClientID = 6, FirstName = "Toofensag" },
+                new Client{ClientID = 7, FirstName = "Hornbreaker" },
+                new Client{ClientID = 8, FirstName = "Ethornisk" },
+            };
+
+            //search through the fake clients list, checking eaching fake client if their first name contains the search string
+            var filteredClients = fakeClients.Where((fakeClient) => fakeClient.FirstName.Contains(searchString));
+
+            //method demands return type of Json, whose first parameter is DATA, just shove the c# result into this
+            //and javascript on the front end will be happy
+            return Json(filteredClients, JsonRequestBehavior.AllowGet);
+        }
+        #endregion 
 
 
         //Called by AddLoan and EditLoan
