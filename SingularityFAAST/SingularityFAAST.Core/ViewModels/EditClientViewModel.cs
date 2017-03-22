@@ -11,10 +11,12 @@ namespace SingularityFAAST.Core.ViewModels
     {
         //Constructor
         public EditClientViewModel(Client client,
-        IEnumerable<DisabilityCategory> disabilityCategories)
+        IEnumerable<DisabilityCategory> disabilityCategories,
+        IEnumerable<LoanMaster> associatedLoans)
         {
             this.Client = client;       // this refers to the class which you are currently writing code in
             DisabilityCategories = disabilityCategories;
+            AssociatedLoans = associatedLoans;
         }
 
         //Client
@@ -22,6 +24,10 @@ namespace SingularityFAAST.Core.ViewModels
 
         //DisabilityCategories
         public IEnumerable<DisabilityCategory> DisabilityCategories { get; set; }
+
+        //Loans
+        public IEnumerable<LoanMaster> AssociatedLoans { get; set; }
+
     }
 }
 

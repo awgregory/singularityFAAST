@@ -23,7 +23,18 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
- 
+
+        public IList<LoanMaster> GetAllLoanMasters()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var loans = context.LoanMasters;
+
+                var loanList = loans.ToList();
+
+                return loanList;
+            }
+        }
 
         // Search Function Service
         public IList<Client> HandlesSearchRequest(SearchRequest searchRequest)
@@ -79,7 +90,15 @@ namespace SingularityFAAST.Services.Services
             return filteredClients;
         }
 
-        
+
+        public IEnumerable<LoanMaster> GetLoansByClientId(int id)
+        {
+            IList<LoanMaster> filteredLoans = GetAllLoanMasters().Where(loan => loan.ClientId == id).ToList();
+
+            return filteredLoans;
+        }
+
+
 
         public IList<Client> GetClientById(string searchBy)
         {

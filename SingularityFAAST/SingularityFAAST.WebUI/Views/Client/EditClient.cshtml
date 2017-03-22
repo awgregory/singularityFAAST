@@ -17,22 +17,115 @@
 
     <div class="row">
 
-        @Html.HiddenFor(x=>x.Client.ClientID)  
-                                                                   
+        @Html.HiddenFor(x => x.Client.ClientID)
+
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.Title)  
-                @Html.TextBoxFor(viewModel => viewModel.Client.Title, new { @class = "form-control" }) 
+                @Html.LabelFor(viewModel => viewModel.Client.Title)
+                @Html.TextBoxFor(viewModel => viewModel.Client.Title, new { @class = "form-control" })
             </div>
         </div>
 
 
 
+        
+    </div>
+
+
+    <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.Company)
-                @Html.TextBoxFor(viewModel => viewModel.Client.Company, new { @class = "form-control" })
+                @Html.LabelFor(viewModel => viewModel.Client.FirstName, "First Name *")
+                @Html.TextBoxFor(viewModel => viewModel.Client.FirstName, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.MiddleInitial, "Middle Initial")
+                @Html.TextBoxFor(viewModel => viewModel.Client.MiddleInitial, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.LastName, "Last Name *")
+                @Html.TextBoxFor(viewModel => viewModel.Client.LastName, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.Address1, "Address *")
+                @Html.TextBoxFor(viewModel => viewModel.Client.Address1, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.Address2, "Address")
+                @Html.TextBoxFor(viewModel => viewModel.Client.Address2, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.City)
+                @Html.TextBoxFor(viewModel => viewModel.Client.City, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.StateName, "State Name")
+                @Html.TextBoxFor(viewModel => viewModel.Client.StateName, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.StateCode, "State Code")
+                @Html.TextBoxFor(viewModel => viewModel.Client.StateCode, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.County)
+                @Html.TextBoxFor(viewModel => viewModel.Client.County, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.CountyFIPS)
+                @Html.TextBoxFor(viewModel => viewModel.Client.CountyFIPS, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.Zip)
+                @Html.TextBoxFor(viewModel => viewModel.Client.Zip, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.Email)
+                @Html.TextBoxFor(viewModel => viewModel.Client.Email, new { @class = "form-control" })
             </div>
         </div>
     </div>
@@ -41,121 +134,23 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(viewModel => viewModel.Client.FirstName, "First Name")
-                    @Html.TextBoxFor(viewModel => viewModel.Client.FirstName, new { @class = "form-control" })
+                    @Html.LabelFor(viewModel => viewModel.Client.CellPhone)
+                    @Html.TextBoxFor(viewModel => viewModel.Client.CellPhone, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(viewModel => viewModel.Client.MiddleInitial, "Middle Initial")
-                    @Html.TextBoxFor(viewModel => viewModel.Client.MiddleInitial, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel => viewModel.Client.LastName, "Last Name")
-                    @Html.TextBoxFor(viewModel => viewModel.Client.LastName, new { @class = "form-control" })
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel => viewModel.Client.Address1, "Address")
-                    @Html.TextBoxFor(viewModel => viewModel.Client.Address1, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel => viewModel.Client.Address2, "Address")
-                    @Html.TextBoxFor(viewModel=>viewModel.Client.Address2, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.City)
-                    @Html.TextBoxFor(viewModel=>viewModel.Client.City, new { @class = "form-control" })
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.StateName, "State Name")
-                    @Html.TextBoxFor(viewModel=>viewModel.Client.StateName, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.StateCode, "State Code")
-                    @Html.TextBoxFor(viewModel=>viewModel.Client.StateCode, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.County)
-                    @Html.TextBoxFor(viewModel=>viewModel.Client.County, new { @class = "form-control" })
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.CountyFIPS)
-                    @Html.TextBoxFor(viewModel=>viewModel.Client.CountyFIPS, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.Zip)
-                    @Html.TextBoxFor(viewModel=>viewModel.Client.Zip, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.Email)
-                    @Html.TextBoxFor(viewModel=>viewModel.Client.Email, new { @class = "form-control" })
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.CellPhone)
-                    @Html.TextBoxFor(viewModel=>viewModel.Client.CellPhone, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.HomePhone)
-                    @Html.TextBoxFor(viewModel=>viewModel.Client.HomePhone, new { @class = "form-control" })
+                    @Html.LabelFor(viewModel => viewModel.Client.HomePhone)
+                    @Html.TextBoxFor(viewModel => viewModel.Client.HomePhone, new { @class = "form-control" })
                 </div>
             </div>
 
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.WorkPhone)
-                    @Html.TextBoxFor(viewModel=>viewModel.Client.WorkPhone, new { @class = "form-control" })
+                    @Html.LabelFor(viewModel => viewModel.Client.WorkPhone)
+                    @Html.TextBoxFor(viewModel => viewModel.Client.WorkPhone, new { @class = "form-control" })
                 </div>
             </div>
         </div>
@@ -166,16 +161,12 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.ClientCategoryName, "Client Category") 
-                    
-
-                    
+                    @Html.LabelFor(viewModel => viewModel.Client.ClientCategoryName, "Client Category")
 
 
-                    @*Does it matter to use a dynamically generated label if it has hard text? index radio button is regular*@
 
-                    
-                    @Html.DropDownListFor(viewModel=>viewModel.Client.ClientCategoryId,
+
+                    @Html.DropDownListFor(viewModel => viewModel.Client.ClientCategoryId,
                         new List<SelectListItem> {
                             new SelectListItem { Value = "1", Text = "Individual with Disability" },
                             new SelectListItem { Value = "2", Text = "Family Member" },
@@ -186,71 +177,114 @@
                             new SelectListItem { Value = "7", Text = "Professional / Representative of Health, Allied Health, Rehabilitative Services" }
                         }, new { @class = "form-control" })
 
-               
-                       
+
                 </div>
             </div>
 
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.LoanEligibility, "Loan Eligibility")
-                    @Html.TextBoxFor(viewModel=>viewModel.Client.LoanEligibility, new { @class = "form-control" })
+                    @Html.LabelFor(viewModel => viewModel.Client.LoanEligibility, "Loan Eligibility")
+                    @Html.TextBoxFor(viewModel => viewModel.Client.LoanEligibility, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="form-group">
-                    @Html.LabelFor(viewModel=>viewModel.Client.Notes)
-                    @Html.TextAreaFor(viewModel=>viewModel.Client.Notes, new { @class = "form-control" })
+                    @Html.LabelFor(viewModel => viewModel.Client.Company)
+                    @Html.TextBoxFor(viewModel => viewModel.Client.Company, new { @class = "form-control" })
                 </div>
             </div>
+
+
         </div>
 
 
 
 
     //If referencing the Model from inside the HTMLHelper it's first argument type is always the Model of the page so it doesn't matter what you call it
-    //If referencing the Model outside HTMLHelper you must use Model 
+    //If referencing the Model outside HTMLHelper you must use Model
+
+
+    //Cant do an HTML.DropDownListHelper, as we are using the ViewModel IEnumerable to loop through list
+
+    <div class="row">
+        
+        <div class="col-md-4">
+            
+            <label>Disabilities</label>            
+            <br />
+
+            @foreach (var disabilityCategory in Model.DisabilityCategories)
+            {
+                <div class="form-check">
+
+                    @Html.Label(disabilityCategory.DisabilityType)
+
+                    <input type="checkbox" name="DisabilityIds" value="@disabilityCategory.DisabilityCategoryId"
+                           @if (Model.Client.DisabilityIds.Contains(disabilityCategory.DisabilityCategoryId)) { <text> checked="checked" </text>            } />
+                </div>
+            }
+        </div>
 
 
 
-    //ViewModel IEnum needed to loop through list all types 
-    foreach (var disabilityCategory in Model.DisabilityCategories)
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.Notes)
+                @Html.TextAreaFor(viewModel => viewModel.Client.Notes, new { @class = "form-control" })
+            </div>
+        </div>
 
-    {
-                @Html.Label(disabilityCategory.DisabilityType)
 
-        //Cant do an HTMLHelper here, since we are using the ViewModel in this loop.
-        //The ActionMethod being posted to must have parameter name that matches this attribute name
-                                                             
-                <input type="checkbox" name="DisabilityIds" value="@disabilityCategory.DisabilityCategoryId"  
-                       
-                       @if (Model.Client.DisabilityIds.Contains(disabilityCategory.DisabilityCategoryId))
-                       {                                                
-                           <text> checked="checked" </text>
-                       } />
-    }
 
-                <br/>            
+        <br />
+        <div class="col-md-4">
+            <table class="table table-striped">
+                <tr>
+                    <th>Loan Id</th>
+                    <th>Date Created</th>
+                    <th>View</th>
+                </tr>
+
+
+                @foreach (var associatedLoan in Model.AssociatedLoans)
+                {
+
+                    <tr>
+                        <td>@associatedLoan.LoanMasterId</td>
+                        <td>@associatedLoan.DateCreated</td>
+                        <td>@Html.ActionLink("View", "ViewLoan", "Loan", new { loanId = associatedLoan.LoanMasterId }, null)</td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+
+
+
+    </div>
+
+    //The ActionMethod being posted to must have parameter name that matches this attribute name or object with matching property name
+
 
     // Note Even though the DisabilityIds are getting passed into this view through the Client Object
-    // This posts them back to the seperate DisabilityIds parameter instead of back to the Client because we 
+    // This posts them back to the seperate DisabilityIds parameter instead of back to the Client because we
     // are using a viewModel here (even if we removed the DisabilityIds parameter from the Post Method)
 
 
 
 
+    <br />
 
+    <div class="text-left">
+        <input class="btn btn-primary" type="submit" value="Edit Client" />
+    </div>
 
-            <div class="text-left">
-                <input class="btn btn-primary" type="submit" value="Edit Client" />
-            </div>
+    <br />
 
-            <br />
-
-            <div class="btn btn-default">
-                @Html.ActionLink("Cancel", "Index" )
-            </div>
+        <div class="btn btn-default">
+            @Html.ActionLink("Cancel", "Index")
+        </div>
 
 }
