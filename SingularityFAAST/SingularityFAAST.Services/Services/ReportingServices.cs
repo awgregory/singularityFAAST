@@ -23,17 +23,31 @@ namespace SingularityFAAST.Services.Services
                     .Count(loan => loan.DateCreated >= startDate 
                     && loan.DateCreated <= endDate);
 
+                var timeFramedLoans = context.LoanMasters
+                    .Where(loan => loan.DateCreated >= startDate
+                    && loan.DateCreated <= endDate);
+
+                var query = from loans in timeFramedLoans
+                            join clients in context.Clients 
+                            on loans.ClientId 
+                            equals clients.ClientID select clients;
+
+                var inventoryQuery = from loans in timeFramedLoans
+                                     join inventoryItems in context.InventoryItems
+                                     on loans.ClientId
+                                     equals inventoryItems.InventoryCategoryId
+                                     select inventoryItems;
+
+
                 // Created variables that hold the total amount of loans per type of borrower
 
-                //var borrowerWithDisability = timeFramedLoans.Where(borrower => borrower.ClientCategoryId == 1);
-
-                var borrowerWithDisability = context.Clients.Count(borrower => borrower.ClientCategoryId == 1);
-                var borrowerFamily = context.Clients.Count(borrower => borrower.ClientCategoryId == 2);
-                var borrowerEducation = context.Clients.Count(borrower => borrower.ClientCategoryId == 3);
-                var borrowerEmployment = context.Clients.Count(borrower => borrower.ClientCategoryId == 4);
-                var borrowerHealth = context.Clients.Count(borrower => borrower.ClientCategoryId == 5);
-                var borrowerCommunityLiving = context.Clients.Count(borrower => borrower.ClientCategoryId == 6);
-                var borrowerTechnology = context.Clients.Count(borrower => borrower.ClientCategoryId == 7);
+                var borrowerWithDisability = query.Where(borrower => borrower.ClientCategoryId == 1).Count();
+                var borrowerFamily = query.Where(borrower => borrower.ClientCategoryId == 2).Count();
+                var borrowerEducation = query.Where(borrower => borrower.ClientCategoryId == 3).Count();
+                var borrowerEmployment = query.Where(borrower => borrower.ClientCategoryId == 4).Count();
+                var borrowerHealth = query.Where(borrower => borrower.ClientCategoryId == 5).Count();
+                var borrowerCommunityLiving = query.Where(borrower => borrower.ClientCategoryId == 6).Count();
+                var borrowerTechnology = query.Where(borrower => borrower.ClientCategoryId == 7).Count();
 
                 // Found total amount of loans for all borrowers
                 var totalBorrowers = borrowerWithDisability + borrowerFamily + borrowerEducation +
