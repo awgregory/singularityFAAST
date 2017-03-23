@@ -30,7 +30,7 @@
     // var clientIdHiddenFormInput = $('#clientIdHidden');
 
     var itemSearchButton = $('#itemSearchButton');
-
+    var itemSearchInput = $('#itemSearchInput');
 
     //endregion
 
@@ -40,9 +40,13 @@
     clientSearchButton.on('click', function () {
         getFakeClientsWithOneParameter(clientSearchInput.val())
     });
-
-
+    itemSearchButton.on('click', function () {
+        getInventoryWithOneParameter(itemSearchInput.val())
+    });
+    
     //endregion
+
+
 
     //region functions!
     function updateClientIdFormValue(e) {
@@ -57,8 +61,44 @@
         $('#clientIdHidden').val(chosenClientId)
     }
 
+
+    function updateInventoryIdFormValue(e) {
+        //tied to checkboxes - grabs the click event, inspects its data set which we defined as 'data-client-id'
+        var chosenInventoryId = e.target.dataset.inventoryId; //even if custom data attribute contains hyphens, this uses camel case
+
+        if (!chosenInventoryId) //if variable doesn't mean anything: we are invalid/error
+            return; //safely exit doing nothing
+
+        console.log('item id chosen: ' + chosenInventoryId);
+        //set the hidden form input's value to the clientId extracted from the click event
+        $('#inventoryItemIdsHidden').val(chosenInventoryId)
+    }
+
+
+
+
+
     function getFakeClientsWithOneParameter(sendThis) {
         var pathToControllerMethod = "/Loan/SearchFakeClients/";
+        var methodArguments = "?searchString=" + sendThis;
+
+        $.ajax({
+            url: pathToControllerMethod + methodArguments,
+            success: function(result) {
+                /*
+                 instead of writing a whole load of messy javascript in here
+                 we have a nice simple function call, passing along the result
+                 */
+                buildFakeClientTable(result);
+            },
+            error: function(error) {
+                console.log(error)
+            }
+        })
+    }
+
+    function getInventoryWithOneParameter(sendThis) {
+        var pathToControllerMethod = "/Loan/SearchInventory/";
         var methodArguments = "?searchString=" + sendThis;
 
         $.ajax({
@@ -68,13 +108,16 @@
                  instead of writing a whole load of messy javascript in here
                  we have a nice simple function call, passing along the result
                  */
-                buildFakeClientTable(result);
+                buildInventoryTable(result);
             },
             error: function (error) {
                 console.log(error)
             }
         })
     }
+
+
+
 
     function buildFakeClientTable(results) {
         /*
@@ -102,7 +145,7 @@
                     '<td>' + 'Last Name' + '</td>' + //last name
                     '<td>' + 'home phone' + '</td>' + //home phone
                     '<td>' + 'email' + '</td>' + //email
-                    '<td>' + 'eligibilty' + '</td>' + //eligibility -- will need a ToString() version
+                    '<td>' + 'eligibilty' + '</td>' + //eligibility -- will need a ToString() version otherwise puts box
                     '</tr>'
                 )
             }
@@ -110,6 +153,43 @@
 
         //once table is built, do we have valid markup to attach to -- assign the functions here!
         $("input:radio[name=radioClientId]").on('click', updateClientIdFormValue);
+    }
+    
+    function buildInventoryTable(results) {
+        /*
+         lot of ways to handle table creation, I'll use an example I know works,
+         but is admittedly not the cleanest/nicest way   Sure, that's ok
+         */
+
+        //jQuery reference of table
+        var table = $('#inventorySearchTable');
+        //step 1: clear the table - regardless of content, a new search brings new results
+        table.find("tr:gt(0)").remove();
+
+        //step 2: check if there's any info at all to build a table out of
+        if (results.length > 0) {
+            //build a row for each result - string gore ahead
+            for (var i = 0; i < results.length; i++) {
+                table.append(
+                    '<tr>' +
+                    '<td>' +
+                        '<input type="radio" name="radioInventoryId" data-inventory-id="' + results[i].InventoryItemId + '"' +
+                        '</input>' +
+                    '</td>' + //select box -- we will have jquery grab each checkbox created, and put a function on it
+                    '<td>' + results[i].InventoryItemId + '</td>' + //Inventory id
+                    '<td>' + results[i].ItemName + '</td>' + //Item name
+                    '<td>' + results[i].Manufacturer + '</td>' + //manufacturer
+                    '<td>' + results[i].Description + '</td>' + //description
+                    '<td>' + results[i].Accesories+ '</td>' + //accessories
+                    '<td>' + results[i].Availability + '</td>' + //availability 
+                    '<td>' + results[i].Damages + '</td>' + //damages 
+                    '</tr>'
+                )
+            }
+        }
+
+        //once table is built, do we have valid markup to attach to -- assign the functions here!
+        $("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //updateInventoryIdFormValue
     }
 
     //endregion

@@ -284,8 +284,32 @@ namespace SingularityFAAST.WebUI.Controllers
             //and javascript on the front end will be happy
             return Json(filteredClients, JsonRequestBehavior.AllowGet);
         }
-        #endregion 
+        #endregion
 
+
+        #region Nick Code
+        public JsonResult SearchInventory(string searchString)
+        {
+            var fakeClients = new List<InventoryItem> //change these, obv
+            {
+                new InventoryItem{InventoryItemId = 1, ItemName = "Ferglehorn" },
+                new InventoryItem{InventoryItemId = 2, ItemName = "Ergtoof" },
+                new InventoryItem{InventoryItemId = 3, ItemName = "Osoltoof" },
+                new InventoryItem{InventoryItemId = 4, ItemName = "Atoofol" },
+                new InventoryItem{InventoryItemId = 5, ItemName = "Retoofum" },
+                new InventoryItem{InventoryItemId = 6, ItemName = "Toofensag" },
+                new InventoryItem{InventoryItemId = 7, ItemName = "Hornbreaker" },
+                new InventoryItem{InventoryItemId = 8, ItemName = "Ethornisk" },
+            };
+
+            //search through the fake clients list, checking eaching fake client if their first name contains the search string
+            var filteredClients = fakeClients.Where((fakeClient) => fakeClient.ItemName.Contains(searchString));
+
+            //method demands return type of Json, whose first parameter is DATA, just shove the c# result into this
+            //and javascript on the front end will be happy
+            return Json(filteredClients, JsonRequestBehavior.AllowGet);
+        }
+        #endregion 
 
         //Called by AddLoan and EditLoan
         //Controls the Add Loan process, routes to Services to update the DB, and then back to Index  - does the actual adding 
