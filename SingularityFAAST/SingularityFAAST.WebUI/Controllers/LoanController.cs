@@ -18,10 +18,11 @@ namespace SingularityFAAST.WebUI.Controllers
     public class LoanController : Controller
     {
         private readonly LoanMasterServices lm_services = new LoanMasterServices();
-        private readonly ClientServices _clientServices = new ClientServices(); //to use Adrian's? 
+        private readonly ClientServices _clientServices = new ClientServices(); 
         private readonly InventoryItemServices ii_services = new InventoryItemServices();
 
 
+        #region Index /All Loans
         //GET: All Loans
         [HttpGet]
         public ActionResult Index()
@@ -49,9 +50,11 @@ namespace SingularityFAAST.WebUI.Controllers
             model = string.IsNullOrWhiteSpace(searchRequest.SearchBy)? lm_services.GetAllLoans(): lm_services.GetLoansByClientLastName(searchRequest.SearchBy);
             return View(model);
         }
+#endregion
 
 
-//--------------------------------------------------------------------------------------------------------------------
+
+        #region ViewItem
 
         //This is the page with the inventory items list in a loan
         [HttpPost]
@@ -67,8 +70,12 @@ namespace SingularityFAAST.WebUI.Controllers
             return View(model);
         }
 
-//RenewMethods - loan and details------------------------------------------------------------------------------------------------------------        
+        #endregion
 
+
+
+
+        #region Renew
 
         //This is the page with a box 
         public ActionResult RenewLn(string loanNumber)
@@ -100,7 +107,12 @@ namespace SingularityFAAST.WebUI.Controllers
             return View("Index");
         }
 
-//Edit----------------------------------------------------------------------------------------------------------------------------
+        #endregion
+
+ 
+
+
+        #region Edit
 
         //This displays Edit Loan page
         public ActionResult EditLn(string loanNumber)
@@ -128,8 +140,12 @@ namespace SingularityFAAST.WebUI.Controllers
         //    return RedirectToAction("Index", "Loan");
         //}
 
+        #endregion
 
-//CheckIn------------------------------------------------------------------------------------------------------------------------------
+
+
+
+        #region Check In
 
         //This is just the View Page with text boxes & one param passed in. Doesn't do any checking-in
         public ActionResult CheckIn(string inventoryItemId)
@@ -174,17 +190,22 @@ namespace SingularityFAAST.WebUI.Controllers
             return RedirectToAction("Index", "Loan");
         }
 
+        #endregion
 
 
+
+        #region Cancel Loan
 
         public ActionResult CancelLn()
         {
             return View("CancelLoan");
         }
 
+        #endregion
 
 
-        //AddLoan-----------------------------------------------------------------------------------------------------------------------------------
+
+        #region Add Loan
 
         //Displays initial AddLoan Page with empty input boxes
         [HttpGet]
@@ -234,35 +255,38 @@ namespace SingularityFAAST.WebUI.Controllers
             return null;
         }
 
+        #endregion
 
+
+
+        #region Search
 
         //Displays Inventory search results on page
-        [HttpPost]
-        public ActionResult SearchInventory(SearchByString searchRequest, SearchByString byName)  //or do AddLoan with the two parms
-        {
-            //no search term entered
-            if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
-            {
-                var list1 = _clientServices.GetAllClients();
-                var list2 = ii_services.GetAllInventory();
-                var model = new AddLoanInfo(list1, list2);
-                return View(model);
-            }
-            else
-            {
-                //get Inventory item by name
-                //Client list1 = lm_services.GetClientsByLName(searchRequest.SearchBy);
-                var list1 = _clientServices.GetClientByLastName(searchRequest.SearchBy);
-                var list2 = lm_services.ViewItemsByName(searchRequest.byName);
-                var model = new AddLoanInfo(list1, list2);
-                //return View(model);
-                return RedirectToRoute("AddTheLoan", new { clientid = searchRequest.SearchBy });  //pass to AddLoan above 
-            }
+        //[HttpPost]
+        //public ActionResult SearchInventory(SearchByString searchRequest, SearchByString byName)  //or do AddLoan with the two parms
+        //{
+        //    //no search term entered
+        //    if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
+        //    {
+        //        var list1 = _clientServices.GetAllClients();
+        //        var list2 = ii_services.GetAllInventory();
+        //        var model = new AddLoanInfo(list1, list2);
+        //        return View(model);
+        //    }
+        //    else
+        //    {
+        //        //get Inventory item by name
+        //        //Client list1 = lm_services.GetClientsByLName(searchRequest.SearchBy);
+        //        var list1 = _clientServices.GetClientByLastName(searchRequest.SearchBy);
+        //        var list2 = lm_services.ViewItemsByName(searchRequest.byName);
+        //        var model = new AddLoanInfo(list1, list2);
+        //        //return View(model);
+        //        return RedirectToRoute("AddTheLoan", new { clientid = searchRequest.SearchBy });  //pass to AddLoan above 
+        //    }
 
-        }
+        //}
         
 
-        #region Nick Code
         public JsonResult SearchFakeClients(string searchString)
         {
             var fakeClients = new List<Client>
@@ -284,10 +308,8 @@ namespace SingularityFAAST.WebUI.Controllers
             //and javascript on the front end will be happy
             return Json(filteredClients, JsonRequestBehavior.AllowGet);
         }
-        #endregion
 
 
-        #region Nick Code
         public JsonResult SearchInventory(string searchString)
         {
             var fakeClients = new List<InventoryItem> //change these, obv
@@ -309,7 +331,7 @@ namespace SingularityFAAST.WebUI.Controllers
             //and javascript on the front end will be happy
             return Json(filteredClients, JsonRequestBehavior.AllowGet);
         }
-        #endregion 
+      
 
         //Called by AddLoan and EditLoan
         //Controls the Add Loan process, routes to Services to update the DB, and then back to Index  - does the actual adding 
@@ -325,7 +347,8 @@ namespace SingularityFAAST.WebUI.Controllers
         //}
 
 
-        //SearchBy------------------------------------------------------------------------------------------------------------------------------------------------
+
+        //SearchBy class--------------
 
 
         //Search classes
@@ -336,6 +359,7 @@ namespace SingularityFAAST.WebUI.Controllers
             public string byName { get; set; }
 
         }
+        #endregion
     }
 }
 

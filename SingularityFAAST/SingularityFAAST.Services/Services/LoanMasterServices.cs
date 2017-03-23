@@ -47,9 +47,10 @@ namespace SingularityFAAST.Services.Services
         //    }
         //}
 
-//GetFromDB------------------------------------------------------------------------------------------------------------------------------------
 
-            //Get All Loans in DB
+        #region Get From DB - 3 basic methods
+
+        //Get All Loans in DB
         public IList<LoansClientsInventoryDTO> GetAllLoans()
         {
             using (var context = new SingularityDBContext())
@@ -77,32 +78,6 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
-        //Get All Loans in DB   //this method is a troubleshooting duplicate of the one above
-        public IList<LoansClientsInventoryDTO> GetAllLoansByNum()
-        {
-            using (var context = new SingularityDBContext())
-            {
-                //Get all Loans in DB
-                var loans = from l in context.LoanMasters
-                            join c in context.Clients
-                            on l.ClientId equals c.ClientID
-
-                            //join ld in context.LoanDetails   //union
-                            //on l.LoanMasterId equals ld.LoanMasterId  selects less and repeats because not all loans have loan details, and each detail then appears as a new loan
-
-                            select new LoansClientsInventoryDTO()
-                            {
-                                LoanNumber = l.LoanNumber,
-                                DateCreated = l.DateCreated,
-                                ClientId = c.ClientID,
-                                LastName = c.LastName,
-                                FirstName = c.FirstName,
-                                IsActive = l.IsActive,
-                            };
-
-                return loans.ToList();
-            }
-        }
 
         //Get all Inventory Items associated with LoanNumber
         public IList<LoansClientsInventoryDTO> GetAllItems()  //string loanNum, now filtered in the call instead
@@ -173,7 +148,38 @@ namespace SingularityFAAST.Services.Services
 
             }
         }
+        #endregion
 
+
+
+        //Get All Loans in DB   //this method is a troubleshooting duplicate of the one above
+        public IList<LoansClientsInventoryDTO> GetAllLoansByNum()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                //Get all Loans in DB
+                var loans = from l in context.LoanMasters
+                            join c in context.Clients
+                            on l.ClientId equals c.ClientID
+
+                            //join ld in context.LoanDetails   //union
+                            //on l.LoanMasterId equals ld.LoanMasterId  selects less and repeats because not all loans have loan details, and each detail then appears as a new loan
+
+                            select new LoansClientsInventoryDTO()
+                            {
+                                LoanNumber = l.LoanNumber,
+                                DateCreated = l.DateCreated,
+                                ClientId = c.ClientID,
+                                LastName = c.LastName,
+                                FirstName = c.FirstName,
+                                IsActive = l.IsActive,
+                            };
+
+                return loans.ToList();
+            }
+        }
+
+        
         public Client GetClientDetails()  //int id
         {
             using (var context = new SingularityDBContext())
@@ -242,6 +248,7 @@ namespace SingularityFAAST.Services.Services
         //}
 
 
+
         //Get all Inventory Items associated with LoanNumber
         public IList<LoansClientsInventoryDTO> ViewAllItems(string loanNumber)
         {
@@ -278,8 +285,8 @@ namespace SingularityFAAST.Services.Services
         //}
 
 
-        //CheckInItems--------------------------------------------------------------------------------------------------------------------------------------------
 
+        #region CheckInItems
 
         //1. Updates the CheckIn DB fields -- Must update all three CheckIn s at once for whole loan
         public void CheckInLoanDetails(LoanDetail loan)
@@ -344,8 +351,12 @@ namespace SingularityFAAST.Services.Services
                 context.SaveChanges();
             }
         }
+        #endregion
 
-//SaveAllItems---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+        #region SaveAllItems
 
         //Renews all Items in a loan as a new loan
         public void SaveAllItemsAsNewLoan(LoansClientsInventoryDTO loan)
@@ -378,9 +389,11 @@ namespace SingularityFAAST.Services.Services
 
             }
         }
+        #endregion
 
 
-//EditItems-------------------------------------------------------------------------------------------------------------------------------------
+
+        #region EditItems
 
         public void EditLoanDetails(LoanDetail loan)
         {
@@ -411,10 +424,12 @@ namespace SingularityFAAST.Services.Services
 
             }
         }
+        #endregion
+
 
         
-        
-//EmailNotify----------------------------------------------------------------------------------------------------------------------------------
+
+        #region EmailNotification
         //Poll the DateCreated in LoanMaster every 24 hours. Trigger this email  if ((item.DateCreated.AddDays(28) <= DateTime.Now.AddDays(7) && item.DateCreated.AddDays(28) >= DateTime.Now) && (item.IsActive)) 
         //Add Email Notification
         public void NotifyEmail(string loanNumber)  //or LoanClientsInventoryDTO
@@ -469,6 +484,7 @@ namespace SingularityFAAST.Services.Services
                 }
 
         }
+        #endregion
 
     }
 }

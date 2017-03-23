@@ -24,6 +24,7 @@
      run and works, but it is essentially sealed from public access
      runs a function that hits the server searching for a client by a parameter
      */
+
     //region ajax identifiers for use inside functions
     var clientSearchButton = $('#clientSearchButton');
     var clientSearchInput = $('#clientSearchInput');
@@ -32,7 +33,9 @@
     var itemSearchButton = $('#itemSearchButton');
     var itemSearchInput = $('#itemSearchInput');
 
+    var individualButton = $('#individualButton');  //prob not necessary
     //endregion
+
 
     //region wire up event handlers
 
@@ -44,6 +47,17 @@
         getInventoryWithOneParameter(itemSearchInput.val())
     });
     
+    //get the dropdown box values
+    var indDropdown = $('#individual :selected').text();
+    var purposeDropdown = $('#purpose :selected').text();
+    var purposeTypeDropdown = $('#purposeType :selected').text();
+
+
+    //need to set these hidden form input values in the form submit - so put these there
+    $('#individualHidden').val(indDropdown);
+    $('#purposeHidden').val(purposeDropdown);
+    $('#purposeTypeHidden').val(purposeTypeDropdown);
+
     //endregion
 
 
@@ -58,7 +72,11 @@
 
         console.log('client id chosen: ' + chosenClientId);
         //set the hidden form input's value to the clientId extracted from the click event
-        $('#clientIdHidden').val(chosenClientId)
+        $('#clientIdHidden').val(chosenClientId);
+
+        //Update the info panel
+        var infoPanel = $('#cName');
+        infoPanel.append('<h5>Client ' + chosenClientId + ' is borrowing items: </h5>');
     }
 
 
@@ -70,8 +88,12 @@
             return; //safely exit doing nothing
 
         console.log('item id chosen: ' + chosenInventoryId);
-        //set the hidden form input's value to the clientId extracted from the click event
-        $('#inventoryItemIdsHidden').val(chosenInventoryId)
+        //set the hidden form input's value to the inventoryId extracted from the click event
+        $('#inventoryItemIdsHidden').val(chosenInventoryId);
+
+        //Update the info panel
+        var infoPanel = $('#iItems');
+        infoPanel.append('<h5>' + chosenInventoryId + '</h5>');
     }
 
 
@@ -142,10 +164,10 @@
                     '</td>' + //select box -- we will have jquery grab each checkbox created, and put a function on it
                     '<td>' + results[i].ClientID + '</td>' + //client id
                     '<td>' + results[i].FirstName + '</td>' + //first name
-                    '<td>' + 'Last Name' + '</td>' + //last name
-                    '<td>' + 'home phone' + '</td>' + //home phone
-                    '<td>' + 'email' + '</td>' + //email
-                    '<td>' + 'eligibilty' + '</td>' + //eligibility -- will need a ToString() version otherwise puts box
+                    '<td>' + results[i].LastName + '</td>' + //last name
+                    '<td>' + results[i].HomePhone + '</td>' + //home phone
+                    '<td>' + results[i].Email + '</td>' + //email
+                    '<td>' + results[i].LoanEligibilty + '</td>' + //eligibility -- will need a ToString() version otherwise puts box
                     '</tr>'
                 )
             }
@@ -156,11 +178,6 @@
     }
     
     function buildInventoryTable(results) {
-        /*
-         lot of ways to handle table creation, I'll use an example I know works,
-         but is admittedly not the cleanest/nicest way   Sure, that's ok
-         */
-
         //jQuery reference of table
         var table = $('#inventorySearchTable');
         //step 1: clear the table - regardless of content, a new search brings new results
@@ -187,7 +204,6 @@
                 )
             }
         }
-
         //once table is built, do we have valid markup to attach to -- assign the functions here!
         $("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //updateInventoryIdFormValue
     }

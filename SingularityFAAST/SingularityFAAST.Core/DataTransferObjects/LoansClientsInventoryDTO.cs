@@ -81,44 +81,6 @@ namespace SingularityFAAST.Core.DataTransferObjects
 
         public IEnumerable<string> ClientCategory { get; set; }
         public IEnumerable<int> ClientCategoryID { get; set; }
-        public IQueryable<Client> Table1Data { get; set; }
-        public IQueryable<InventoryItem> Table2Data { get; set; }
-
-
-        //public LoansClientsInventoryDTO()
-        //{
-        //    this.LoanNumber = LoanNumber;
-        //    this.Accessories = Accessories;
-        //    this.Active = Active;
-        //    this.Availability = Availability;
-        //    this.ClientCategoryId = ClientCategoryId;
-        //    this.ClientId = ClientId;
-        //    this.Type = Type;
-        //    this.Damages = Damages;
-        //    this.DateCreated = DateCreated;
-        //    this.DatePurchased = DatePurchased;
-        //    this.Description = Description;
-        //    this.Email = Email;
-        //    this.FirstName = FirstName;
-        //    this.LastName = LastName;
-        //    this.HomePhone = HomePhone;
-        //    this.InventoryCategoryId = InventoryCategoryId;
-        //    this.InventoryItemId = InventoryItemId;
-        //    this.IsActive = IsActive;
-        //    this.ItemName = ItemName;
-        //    this.LoanDate = LoanDate;
-        //    this.LoanDetailId = LoanDetailId;
-        //    this.LoanDuration = LoanDuration;
-        //    this.LoanEligibility = LoanEligibility;
-        //    this.LoanMasterId = LoanMasterId;
-        //    this.Manufacturer = Manufacturer;
-        //    this.MiddleInitial = MiddleInitial;
-        //    this.Notes = Notes;
-        //    this.Purpose = Purpose;
-        //    this.PurposeType = PurposeType;
-        //    this.Type = Type;
-        //}
-
 
     }
 }

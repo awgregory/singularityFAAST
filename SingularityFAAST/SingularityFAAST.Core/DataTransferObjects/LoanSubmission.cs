@@ -14,5 +14,14 @@ namespace SingularityFAAST.Core.DataTransferObjects
         public int ClientId { get; set; }
 
         public IEnumerable<int> InventoryItemIds { get; set; }
+
+
+        //add the 3 values for the 3 drop downs
+        public string Type { get; set; }
+
+        public string Purpose { get; set; }
+
+        public string PurposeType { get; set; }
+
     }
 }
