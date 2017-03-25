@@ -9,7 +9,12 @@
 @{
     ViewBag.Title = "Add Loan";
 }
-@* and other scripts soon *@
+
+<style>
+    .ddinline {
+        display:inline-block;
+    }
+</style>
 
 <h2>New Loan</h2>
 
@@ -39,13 +44,21 @@
     <hr />
 
     <h4>Select Client: </h4>
-    <div class="row col-md-6">
+    <div class="row col-md-12">
 
         @*search for client by last name, select*@     @*SearchClient*@
-        <div class="col-md-6 form-inline">
+        <div class="col-md-3 form-inline">
             <input type="text" class="form-control" id="clientSearchInput" name="searchby" placeholder="Search by Client Last Name" /> @*Search by last name*@
             <input type="submit" class="btn btn-primary" name="byName" value='Search' id="clientSearchButton" />
         </div>
+        
+        @*Need remove client button here*@    @*Currently will reload the page if wanting new client*@
+        @*<div class="col-md-2  form-inline">
+            <input type="hidden" id="clientIdNumber" />   @*foreach this*@
+            @*<input type="submit" class="btn btn-primary" name="byInvName" value='Remove Selected Client' />
+        </div>*@
+        <div class="col-md-3" style ="color: red;" id="clientInfoAlert"></div>
+
     </div>
     <div class="row">
         <br /><br /><br />
@@ -119,7 +132,7 @@
 
     <div class="row col-md-12">
         @*//Type of individual (drop-down)*@
-        <div class="dropdown">
+        <div class="dropdown ddinline col-md-2">
             <button type="button" id="individualButton" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Type of individual <span class="caret"></span>
             </button>
@@ -135,7 +148,7 @@
         </div>
 
         @*//Primary Purpose (drop-down)*@
-        <div class="dropdown">
+        <div class="dropdown ddinline col-md-2">
             <button type="button" id="purposeButton" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Primary Purpose <span class="caret"></span>
             </button>
@@ -148,7 +161,7 @@
         </div>
         
         @*//Primary Purpose Decision Area (drop-down)*@
-        <div class="dropdown">
+        <div class="dropdown ddinline col-md-2">
             <button type="button" id="decisionButton" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Primary Purpose Decision Area <span class="caret"></span>
             </button>
@@ -159,28 +172,34 @@
             </ul>
         </div>
     </div>
-
     <br />
+    <br />
+    <hr/>
     <br />
     <h4>Select Inventory Items: </h4>
-    <div class="row col-md-6">
+    <div class="row col-md-12">
 
         @* Original does: Search By button, InventoryName etc. drop-down, Input box, Search Button. Pulls relevant items from orig. table and displays in table *@
 
-        @*Get the Client Id from above via controller, so when this page is reloaded for inventory search, only that single client is passed into the reloading of the page with the selected inventory item*@
-
         @*search for item by name, select*@
 
-        <div class="col-md-6 form-inline">
+        <div class="col-md-3 form-inline">
             <input type="text" class="form-control" id="itemSearchInput" name="searchby" placeholder="Search by Item Name" /> @*Search by last name*@
             <input type="submit" class="btn btn-primary" name="byName" value='Search' id="itemSearchButton" />
         </div>
-
-        <div class="col-md-5  form-inline">
+        
+        @*Button not needed since AJAX came along and made our lives better*@
+        @*<div class="col-md-5  form-inline">
             @*<input type="hidden" value="@Model.InventoryItem.ItemNumber" name="ItemNumber" />*@  @*foreach this*@
-            <input type="submit" class="btn btn-primary" name="byInvName" value='Add Selected Item' />
+        @*<input type="submit" class="btn btn-primary" name="byInvName" value='Add Selected Item' />
+        </div>*@
+        
+        @*Need remove button here*@ 
+        <div class="col-md-2  form-inline">
+        <input type="hidden" id="ItemNumber" />   @*foreach this*@
+        <input type="submit" class="btn btn-primary" name="byInvName" value='Remove Selected Item' />
         </div>
-
+        <div class="col-md-3" style ="color: red;" id="itemsInfoAlert"></div>
     </div>
     <br />
     <br />
@@ -221,7 +240,6 @@
                 <tbody>
                 </tbody>
             </table>
-
         </div>
     </div>
     <hr />

@@ -48,7 +48,7 @@ namespace SingularityFAAST.Services.Services
         //}
 
 
-        #region Get From DB - 3 basic methods
+        #region Get All From DB - 3 basic methods for Loans, Clients, Inventory
 
         //Get All Loans in DB
         public IList<LoansClientsInventoryDTO> GetAllLoans()
@@ -268,6 +268,13 @@ namespace SingularityFAAST.Services.Services
         }
 
 
+        public Client filterClient(string searchby)
+        {
+            IList<Client> allClients = _clientServices.GetAllClients();
+            var filteredLoans = allClients.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
+            return filteredLoans;
+        }
+
         //This method not necessary!
         //Get all Inventory Items associated with LoanNumber
         //public IList<LoansClientsInventoryDTO> GetAllLoanItems(string loanNum)
@@ -452,8 +459,8 @@ namespace SingularityFAAST.Services.Services
             var body = "Hi, < br > Client<loan.FirstName>, < loan.LastName >, Phone<loan.PhoneNumber>, has a loan due within one week.Loan Number < loan.LoanNumber > has devices < devices > < br > Thanks, FAASTer";
 
                    var fromAddress = new MailAddress("kyoungbe@gmail.com", "FAASTer Inventory System");
-            var toAddress = new MailAddress("kyoungbe@example.com", "FAAST Admin");
-            const string fromPassword = "Ralph2888";
+            var toAddress = new MailAddress("kyoungbe@gmail.com", "FAAST Admin");
+            const string fromPassword = "vvvv2222";
             const string subject = "Device Loan Coming Due";
 
             var smtp = new SmtpClient

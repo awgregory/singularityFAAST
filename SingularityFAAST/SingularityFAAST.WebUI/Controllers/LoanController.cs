@@ -289,20 +289,13 @@ namespace SingularityFAAST.WebUI.Controllers
 
         public JsonResult SearchFakeClients(string searchString)
         {
-            var fakeClients = new List<Client>
-            {
-                new Client{ClientID = 1, FirstName = "Ferglehorn" },
-                new Client{ClientID = 2, FirstName = "Ergtoof" },
-                new Client{ClientID = 3, FirstName = "Osoltoof" },
-                new Client{ClientID = 4, FirstName = "Atoofol" },
-                new Client{ClientID = 5, FirstName = "Retoofum" },
-                new Client{ClientID = 6, FirstName = "Toofensag" },
-                new Client{ClientID = 7, FirstName = "Hornbreaker" },
-                new Client{ClientID = 8, FirstName = "Ethornisk" },
-            };
+
+            //IList<Client> fakeClients = _clientServices.GetAllClients();
+
+            var filteredClients = lm_services.filterClient(searchString);
 
             //search through the fake clients list, checking eaching fake client if their first name contains the search string
-            var filteredClients = fakeClients.Where((fakeClient) => fakeClient.FirstName.Contains(searchString));
+            //var filteredClients = fakeClients.Where((fakeClient) => fakeClient.LastName.Contains(searchString));
 
             //method demands return type of Json, whose first parameter is DATA, just shove the c# result into this
             //and javascript on the front end will be happy
@@ -312,24 +305,10 @@ namespace SingularityFAAST.WebUI.Controllers
 
         public JsonResult SearchInventory(string searchString)
         {
-            var fakeClients = new List<InventoryItem> //change these, obv
-            {
-                new InventoryItem{InventoryItemId = 1, ItemName = "Ferglehorn" },
-                new InventoryItem{InventoryItemId = 2, ItemName = "Ergtoof" },
-                new InventoryItem{InventoryItemId = 3, ItemName = "Osoltoof" },
-                new InventoryItem{InventoryItemId = 4, ItemName = "Atoofol" },
-                new InventoryItem{InventoryItemId = 5, ItemName = "Retoofum" },
-                new InventoryItem{InventoryItemId = 6, ItemName = "Toofensag" },
-                new InventoryItem{InventoryItemId = 7, ItemName = "Hornbreaker" },
-                new InventoryItem{InventoryItemId = 8, ItemName = "Ethornisk" },
-            };
+            IList<InventoryItem> inventoryItems = lm_services.GetAllItemsAsInventoryList();
 
-            //search through the fake clients list, checking eaching fake client if their first name contains the search string
-            var filteredClients = fakeClients.Where((fakeClient) => fakeClient.ItemName.Contains(searchString));
-
-            //method demands return type of Json, whose first parameter is DATA, just shove the c# result into this
-            //and javascript on the front end will be happy
-            return Json(filteredClients, JsonRequestBehavior.AllowGet);
+            var filteredItems = inventoryItems.Where((ii) => ii.ItemName.Contains(searchString));
+            return Json(filteredItems, JsonRequestBehavior.AllowGet);
         }
       
 
@@ -360,6 +339,8 @@ namespace SingularityFAAST.WebUI.Controllers
 
         }
         #endregion
+
+
     }
 }
 

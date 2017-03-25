@@ -1,7 +1,7 @@
 ﻿using SingularityFAAST.Core.Entities;
 using System.Collections.Generic;
 
-
+//Original way to divide AddLoan page into IEnumerable and Client lists - Kathryn
 namespace SingularityFAAST.WebUI.Models 
 {
     public class AddLoanInfo

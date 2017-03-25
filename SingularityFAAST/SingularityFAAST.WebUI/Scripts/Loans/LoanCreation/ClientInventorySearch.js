@@ -33,7 +33,6 @@
     var itemSearchButton = $('#itemSearchButton');
     var itemSearchInput = $('#itemSearchInput');
 
-    var individualButton = $('#individualButton');  //prob not necessary
     //endregion
 
 
@@ -42,9 +41,13 @@
     //search buttons
     clientSearchButton.on('click', function () {
         getFakeClientsWithOneParameter(clientSearchInput.val())
+        //set error message to blank
+        $('#clientInfoAlert').text('')
     });
     itemSearchButton.on('click', function () {
         getInventoryWithOneParameter(itemSearchInput.val())
+        //set error message to blank
+        $('#itemsInfoAlert').text('')
     });
     
     //get the dropdown box values
@@ -53,7 +56,7 @@
     var purposeTypeDropdown = $('#purposeType :selected').text();
 
 
-    //need to set these hidden form input values in the form submit - so put these there
+    //set these hidden form input values in the form submit - so put these there
     $('#individualHidden').val(indDropdown);
     $('#purposeHidden').val(purposeDropdown);
     $('#purposeTypeHidden').val(purposeTypeDropdown);
@@ -65,24 +68,39 @@
     //region functions!
     function updateClientIdFormValue(e) {
         //tied to checkboxes - grabs the click event, inspects its data set which we defined as 'data-client-id'
-        var chosenClientId = e.target.dataset.clientId; //even if custom data attribute contains hyphens, this uses camel case
+        var chosenClientId1 = e.target.dataset.clientId; //even if custom data attribute contains hyphens, this uses camel case
+        var clientName = chosenClientId1.replace(/[0-9]/g);  //removes the digits
+        var chosenClientId = chosenClientId1.replace(/\D/g, '');  //removes the alphas
+
+        if ($('#clientIdHidden').val().trim().length > 0) {
+            console.log('one client already entered')
+            $('#clientInfoAlert').text('Only one client can be chosen.')  //' Please remove first client by using the Remove Selected Client button.')  //this will never need to happen. Must reload page for different client
+            chosenClientId = null
+        }
 
         if (!chosenClientId) //if variable doesn't mean anything: we are invalid/error
             return; //safely exit doing nothing
 
         console.log('client id chosen: ' + chosenClientId);
+        console.log('client id chosen: ' + clientName);
         //set the hidden form input's value to the clientId extracted from the click event
         $('#clientIdHidden').val(chosenClientId);
 
         //Update the info panel
         var infoPanel = $('#cName');
-        infoPanel.append('<h5>Client ' + chosenClientId + ' is borrowing items: </h5>');
+        infoPanel.append('<h5>Client ' + clientName + ' is borrowing items: </h5>');
     }
 
 
     function updateInventoryIdFormValue(e) {
         //tied to checkboxes - grabs the click event, inspects its data set which we defined as 'data-client-id'
         var chosenInventoryId = e.target.dataset.inventoryId; //even if custom data attribute contains hyphens, this uses camel case
+
+        //if ($('#inventoryItemIdsHidden').val().trim().length > 0) {   //incorrect; this is if there is a maximum number of items per loan
+        //    console.log('maximum number of items chosen')
+        //    $('#itemsInfoAlert').text('Only 10 items allowed per loan.')   //check this
+        //    chosenInventoryId = null
+        //}
 
         if (!chosenInventoryId) //if variable doesn't mean anything: we are invalid/error
             return; //safely exit doing nothing
@@ -126,10 +144,6 @@
         $.ajax({
             url: pathToControllerMethod + methodArguments,
             success: function (result) {
-                /*
-                 instead of writing a whole load of messy javascript in here
-                 we have a nice simple function call, passing along the result
-                 */
                 buildInventoryTable(result);
             },
             error: function (error) {
@@ -155,11 +169,11 @@
         //step 2: check if there's any info at all to build a table out of
         if (results.length > 0) {
             //build a row for each result - string gore ahead
-            for (var i = 0; i < results.length; i++) {
+            for (var i = 0; i < results.length ; i++) {    //was   i < results.length   -if less than 11, only shows first 11 if input left blank- what if there are more than 11 with same name?
                 table.append(
                     '<tr>' +
                     '<td>' +
-                        '<input type="radio" name="radioClientId" data-client-id="' + results[i].ClientID + '"' +
+                        '<input type="radio" name="radioClientId" data-client-id="' + results[i].ClientID + results[i].LastName + '"' +   //how to also pass lastName? etc.
                         '</input>' +
                     '</td>' + //select box -- we will have jquery grab each checkbox created, and put a function on it
                     '<td>' + results[i].ClientID + '</td>' + //client id
@@ -167,16 +181,19 @@
                     '<td>' + results[i].LastName + '</td>' + //last name
                     '<td>' + results[i].HomePhone + '</td>' + //home phone
                     '<td>' + results[i].Email + '</td>' + //email
-                    '<td>' + results[i].LoanEligibilty + '</td>' + //eligibility -- will need a ToString() version otherwise puts box
+                    '<td>' + results[i].LoanEligibilty + '</td>' + //eligibility -- will need a ToString() version 
                     '</tr>'
                 )
             }
+        } else {
+            $('#clientInfoAlert').text('No Client found with that last name.')
         }
-
         //once table is built, do we have valid markup to attach to -- assign the functions here!
         $("input:radio[name=radioClientId]").on('click', updateClientIdFormValue);
     }
     
+
+
     function buildInventoryTable(results) {
         //jQuery reference of table
         var table = $('#inventorySearchTable');
@@ -186,7 +203,7 @@
         //step 2: check if there's any info at all to build a table out of
         if (results.length > 0) {
             //build a row for each result - string gore ahead
-            for (var i = 0; i < results.length; i++) {
+            for (var i = 0; i < 11; i++) {        //results.length
                 table.append(
                     '<tr>' +
                     '<td>' +
@@ -203,9 +220,11 @@
                     '</tr>'
                 )
             }
+        } else {
+            $('#itemsInfoAlert').text('No items with that name exist in inventory.')
         }
         //once table is built, do we have valid markup to attach to -- assign the functions here!
-        $("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //updateInventoryIdFormValue
+        $("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results
     }
 
     //endregion
