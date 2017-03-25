@@ -200,13 +200,14 @@
         </div>
 
 
-
-
     //If referencing the Model from inside the HTMLHelper it's first argument type is always the Model of the page so it doesn't matter what you call it
     //If referencing the Model outside HTMLHelper you must use Model
 
 
     //Cant do an HTML.DropDownListHelper, as we are using the ViewModel IEnumerable to loop through list
+
+
+    // Disabilities -------------------------------------------------------------------------------------
 
     <div class="row">
         
@@ -227,19 +228,23 @@
             }
         </div>
 
-
+        @* Notes -------------------------------------------------------------------------------------------*@
 
         <div class="col-md-4">
             <div class="form-group">
+                &#160;
                 @Html.LabelFor(viewModel => viewModel.Client.Notes)
                 @Html.TextAreaFor(viewModel => viewModel.Client.Notes, new { @class = "form-control" })
             </div>
         </div>
 
+        @* Loan History -------------------------------------------------------------------------------------*@
 
-
-        <br />
+        
         <div class="col-md-4">
+
+            <label>&#160;Loan History</label>
+            <br />
             <table class="table table-striped">
                 <tr>
                     <th>Loan Id</th>
