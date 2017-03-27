@@ -1,0 +1,1 @@
+﻿Select IDENT_CURRENT ('Clients')

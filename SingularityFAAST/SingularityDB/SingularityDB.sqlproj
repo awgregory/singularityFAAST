@@ -62,7 +62,6 @@
     <Folder Include="dbo" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\seeds" />
-    <Folder Include="Scripts\seeds\loan" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Clients.sql" />
@@ -73,8 +72,12 @@
     <Build Include="dbo\LoanDetails.sql" />
     <Build Include="dbo\InventoryItems.sql" />
     <Build Include="dbo\InventoryItemCategories.sql" />
-    <Build Include="dbo\InventoryItemSubCategories.sql" />
     <None Include="Scripts\seeds\seedDummyData.sql" />
+    <None Include="Scripts\seeds\SeedInventoryItems.sql" />
+    <Build Include="dbo\UserLogIns.sql" />
+    <None Include="Scripts\seeds\SeedAdminLogInCredentials.sql" />
+    <None Include="Scripts\seeds\seedLoanDetails.sql" />
+    <None Include="Scripts\seeds\seedLoanMaster.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SingularityDB.refactorlog" />
@@ -82,12 +85,11 @@
   <ItemGroup>
     <None Include="local.publish.xml" />
     <None Include="SingularityDB.publish.xml" />
-    <None Include="Scripts\seeds\loan\seedLoanMaster.sql" />
     <None Include="Scripts\seeds\SeedClientCategories.sql" />
     <None Include="Scripts\seeds\SeedDisabilityCategories.sql" />
     <None Include="Scripts\seeds\SeedClientDisabilities.sql" />
     <None Include="Scripts\seeds\SeedClients.sql" />
-    <None Include="Scripts\seeds\loan\seedLoanDetails.sql" />
+    <None Include="Scripts\seeds\SeedInventoryItemCategories.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

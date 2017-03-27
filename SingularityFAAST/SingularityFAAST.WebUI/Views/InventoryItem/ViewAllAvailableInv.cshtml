@@ -96,15 +96,14 @@
             <table class="table table-striped table-responsive">
                 <thead>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.InventoryItemId)</th>
-                        <th>@Html.DisplayNameFor(model => model.ItemName)</th>
-                        <th>@Html.DisplayNameFor(model => model.Location)</th>
-                        <th>@Html.DisplayNameFor(model => model.InventoryCategoryId)</th> @*need to display category name and not just the id*@
-                        <th>@Html.DisplayNameFor(model => model.DatePurchased)</th>
-                        <th>@Html.DisplayNameFor(model => model.Description)</th>
-                        <th>@Html.DisplayNameFor(model => model.SerialNumber)</th>
-                        <th>@Html.DisplayNameFor(model => model.Availability)</th>
-                        @*<th>Link to Item</th>*@
+                        <th>Item Number</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Category</th>
+                        <th>Date Purchased</th>
+                        <th>Description</th>
+                        <th>Serial Number</th>
+                        <th>Availability</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -114,7 +113,7 @@
                             <td>@inventoryItem.InventoryItemId</td>
                             <td>@inventoryItem.ItemName</td>
                             <td>@inventoryItem.Location</td>
-                            <td>@inventoryItem.InventoryCategoryId</td>
+                            <td>@inventoryItem.InventoryCategoryName</td>
                             <td>@inventoryItem.DatePurchased</td>
                             <td>@inventoryItem.Description</td>
                             <td>@inventoryItem.SerialNumber</td>

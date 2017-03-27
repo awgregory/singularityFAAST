@@ -72,10 +72,13 @@
     <Compile Include="Entities\ClientDisability.cs" />
     <Compile Include="Entities\DisabilityCategory.cs" />
     <Compile Include="Entities\InventoryItem.cs" />
+    <Compile Include="Entities\InventoryItemCategory.cs" />
     <Compile Include="Entities\LoanDetail.cs" />
     <Compile Include="Entities\LoanMaster.cs" />
+    <Compile Include="Entities\UserLogIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchRequests\SearchRequest.cs" />
+    <Compile Include="ViewModels\EditClientViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

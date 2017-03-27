@@ -55,7 +55,7 @@
         </div>
 
         <div class="col-md-3">
-            @*Category & Sub Category*@
+            @*Category*@
             <div class="form-group">
                 <label for="Category">Category</label>
                 <select class="form-control" id="Category">
@@ -101,7 +101,6 @@
         @Html.ActionLink("Update Item", "UpdateInventoryItem", null, new { @class = "btn btn-primary" })
         <br/>
         <br/>
-        @* need to add delete functionality *@
-        @*@Html.ActionLink("Delete Item", "MethodAddNewItem", null, new { @class = "btn btn-danger btn-sm" })*@
+        @Html.ActionLink("Delete Item", "", null, new { @class = "btn btn-danger btn-sm" })
     </div>
 </form>
