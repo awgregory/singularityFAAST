@@ -10,24 +10,31 @@ CREATE TABLE #tempUserLogIns (
 	[Password] NVARCHAR(32) NOT NULL
 )
 
-SET IDENTITY_INSERT [dbo].[UserLogIns] ON
-INSERT INTO [dbo].[UserLogIns] ([UserId], [Username], [Password]) VALUES (1, N'Admin', N'passwordpassword')
-SET IDENTITY_INSERT [dbo].[UserLogIns] OFF
+
+
+--SET IDENTITY_INSERT [dbo].[UserLogIns] ON
+
+INSERT INTO #tempUserLogIns ([Username], [Password]) VALUES (N'Admin', N'passwordpassword')
+
+--SET IDENTITY_INSERT [dbo].[UserLogIns] OFF
+
 
 MERGE dbo.UserLogIns AS target 
 USING #tempUserLogIns AS source
 	ON source.UserId = target.UserId 
 
+
 WHEN NOT MATCHED THEN 
-	INSERT (Type)	
-	VALUES (source.Type) 
+	INSERT (Username, Password)	
+	VALUES (source.Username, source.Password) 
 
 
 
 WHEN MATCHED THEN UPDATE 
 SET 
 	
-	target.Type = source.Type;
+	target.Username = source.Username,
+	target.Password = source.Password;
 
 
 DROP TABLE #tempUserLogIns

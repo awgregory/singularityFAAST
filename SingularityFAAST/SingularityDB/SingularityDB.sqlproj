@@ -62,7 +62,6 @@
     <Folder Include="dbo" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\seeds" />
-    <Folder Include="Scripts\seeds\loan" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Clients.sql" />
@@ -77,6 +76,8 @@
     <None Include="Scripts\seeds\SeedInventoryItems.sql" />
     <Build Include="dbo\UserLogIns.sql" />
     <None Include="Scripts\seeds\SeedAdminLogInCredentials.sql" />
+    <None Include="Scripts\seeds\seedLoanDetails.sql" />
+    <None Include="Scripts\seeds\seedLoanMaster.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SingularityDB.refactorlog" />
@@ -84,7 +85,6 @@
   <ItemGroup>
     <None Include="local.publish.xml" />
     <None Include="SingularityDB.publish.xml" />
-    <None Include="Scripts\seeds\loan\seedLoanMaster.sql" />
     <None Include="Scripts\seeds\SeedClientCategories.sql" />
     <None Include="Scripts\seeds\SeedDisabilityCategories.sql" />
     <None Include="Scripts\seeds\SeedClientDisabilities.sql" />
