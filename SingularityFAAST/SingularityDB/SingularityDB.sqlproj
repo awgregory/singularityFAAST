@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -62,7 +62,6 @@
     <Folder Include="dbo" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\seeds" />
-    <Folder Include="Scripts\seeds\loan" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Clients.sql" />
@@ -75,6 +74,10 @@
     <Build Include="dbo\InventoryItemCategories.sql" />
     <None Include="Scripts\seeds\seedDummyData.sql" />
     <None Include="Scripts\seeds\SeedInventoryItems.sql" />
+    <Build Include="dbo\UserLogIns.sql" />
+    <None Include="Scripts\seeds\SeedAdminLogInCredentials.sql" />
+    <None Include="Scripts\seeds\seedLoanDetails.sql" />
+    <None Include="Scripts\seeds\seedLoanMaster.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SingularityDB.refactorlog" />
@@ -82,7 +85,6 @@
   <ItemGroup>
     <None Include="local.publish.xml" />
     <None Include="SingularityDB.publish.xml" />
-    <None Include="Scripts\seeds\loan\seedLoanMaster.sql" />
     <None Include="Scripts\seeds\SeedClientCategories.sql" />
     <None Include="Scripts\seeds\SeedDisabilityCategories.sql" />
     <None Include="Scripts\seeds\SeedClientDisabilities.sql" />
