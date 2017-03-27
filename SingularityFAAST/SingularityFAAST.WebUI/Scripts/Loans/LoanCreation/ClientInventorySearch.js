@@ -20,7 +20,7 @@
      so inside here, we can define functions and variables
      that will essentially be static/private. name variables without worry!
 
-     so clientSearch will exist on the page and everything inside it will have
+     so clientInventorySearch will exist on the page and everything inside it will have
      run and works, but it is essentially sealed from public access
      runs a function that hits the server searching for a client by a parameter
      */
@@ -50,17 +50,6 @@
         $('#itemsInfoAlert').text('')
     });
     
-    //get the dropdown box values
-    var indDropdown = $('#individual :selected').text();
-    var purposeDropdown = $('#purpose :selected').text();
-    var purposeTypeDropdown = $('#purposeType :selected').text();
-
-
-    //set these hidden form input values in the form submit - so put these there
-    $('#individualHidden').val(indDropdown);
-    $('#purposeHidden').val(purposeDropdown);
-    $('#purposeTypeHidden').val(purposeTypeDropdown);
-
     //endregion
 
 
@@ -69,7 +58,7 @@
     function updateClientIdFormValue(e) {
         //tied to checkboxes - grabs the click event, inspects its data set which we defined as 'data-client-id'
         var chosenClientId1 = e.target.dataset.clientId; //even if custom data attribute contains hyphens, this uses camel case
-        var clientName = chosenClientId1.replace(/[0-9]/g);  //removes the digits
+        var clientName = chosenClientId1.replace(/[0-9]/g);  //removes the digits     
         var chosenClientId = chosenClientId1.replace(/\D/g, '');  //removes the alphas
 
         if ($('#clientIdHidden').val().trim().length > 0) {
@@ -82,7 +71,7 @@
             return; //safely exit doing nothing
 
         console.log('client id chosen: ' + chosenClientId);
-        console.log('client id chosen: ' + clientName);
+        //console.log('client id chosen: ' + clientName);
         //set the hidden form input's value to the clientId extracted from the click event
         $('#clientIdHidden').val(chosenClientId);
 
@@ -93,8 +82,11 @@
 
 
     function updateInventoryIdFormValue(e) {
+        console.log(e)
         //tied to checkboxes - grabs the click event, inspects its data set which we defined as 'data-client-id'
         var chosenInventoryId = e.target.dataset.inventoryId; //even if custom data attribute contains hyphens, this uses camel case
+        //var invName = chosenInventoryId.replace(/[0-9]/g);  //removes the digits won't work for this purpose if Amazon "3"g
+        //chosenInventoryId = chosenInventoryId.replace(/\D/g, '');  //removes the alphas
 
         //if ($('#inventoryItemIdsHidden').val().trim().length > 0) {   //incorrect; this is if there is a maximum number of items per loan
         //    console.log('maximum number of items chosen')
@@ -114,6 +106,19 @@
         infoPanel.append('<h5>' + chosenInventoryId + '</h5>');
     }
 
+
+    function updatecheckboxesThreeCategories()
+    {
+        //get the dropdown box values
+        var indDropdown = $('input[name=individ]:checked').val();
+        var purposeDropdown = $('input[name=purp]:checked').val();
+        var purposeTypeDropdown = $('input[name=ppda]:checked').val();
+
+        //set these hidden form input values in the form submit - so put these there
+        $('#individualHidden').val(indDropdown);
+        $('#purposeHidden').val(purposeDropdown);
+        $('#purposeTypeHidden').val(purposeTypeDropdown);
+    }
 
 
 
@@ -173,7 +178,7 @@
                 table.append(
                     '<tr>' +
                     '<td>' +
-                        '<input type="radio" name="radioClientId" data-client-id="' + results[i].ClientID + results[i].LastName + '"' +   //how to also pass lastName? etc.
+                        '<input type="radio" name="radioClientId" data-client-id="' + results[i].ClientID + results[i].FirstName + ' ' + results[i].LastName + '"' +   
                         '</input>' +
                     '</td>' + //select box -- we will have jquery grab each checkbox created, and put a function on it
                     '<td>' + results[i].ClientID + '</td>' + //client id
@@ -203,11 +208,11 @@
         //step 2: check if there's any info at all to build a table out of
         if (results.length > 0) {
             //build a row for each result - string gore ahead
-            for (var i = 0; i < 11; i++) {        //results.length
+            for (var i = 0; i < results.length; i++) {        //results.length     
                 table.append(
                     '<tr>' +
                     '<td>' +
-                        '<input type="radio" name="radioInventoryId" data-inventory-id="' + results[i].InventoryItemId + '"' +
+                        '<input type="radio" name="radioInventoryId" data-inventory-id="' + results[i].InventoryItemId + '"' +  //results[i].ItemName + '"' +   //checkbox
                         '</input>' +
                     '</td>' + //select box -- we will have jquery grab each checkbox created, and put a function on it
                     '<td>' + results[i].InventoryItemId + '</td>' + //Inventory id
@@ -224,7 +229,7 @@
             $('#itemsInfoAlert').text('No items with that name exist in inventory.')
         }
         //once table is built, do we have valid markup to attach to -- assign the functions here!
-        $("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results
+        $("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   //checkbox
     }
 
     //endregion

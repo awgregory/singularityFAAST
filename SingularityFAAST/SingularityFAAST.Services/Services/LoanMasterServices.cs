@@ -213,7 +213,7 @@ namespace SingularityFAAST.Services.Services
 
 
 
-        //Get all INVENTORYITEMS associated with item name
+        //Get all INVENTORYITEMS
         public IList<InventoryItem> GetAllItemsAsInventoryList()
         {
             using (var context = new SingularityDBContext())
@@ -250,6 +250,8 @@ namespace SingularityFAAST.Services.Services
 
 
         //Get all Inventory Items associated with LoanNumber
+
+
         public IList<LoansClientsInventoryDTO> ViewAllItems(string loanNumber)
         {
             IList<LoansClientsInventoryDTO> allItems = GetAllItems();
@@ -268,12 +270,6 @@ namespace SingularityFAAST.Services.Services
         }
 
 
-        public Client filterClient(string searchby)
-        {
-            IList<Client> allClients = _clientServices.GetAllClients();
-            var filteredLoans = allClients.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
-            return filteredLoans;
-        }
 
         //This method not necessary!
         //Get all Inventory Items associated with LoanNumber
@@ -366,7 +362,7 @@ namespace SingularityFAAST.Services.Services
         #region SaveAllItems
 
         //Renews all Items in a loan as a new loan
-        public void SaveAllItemsAsNewLoan(LoansClientsInventoryDTO loan)
+        public void SaveAllItemsAsNewLoan(LoansClientsInventoryDTO loan)  //(LoanSubmission loan)
         {
             using (var context = new SingularityDBContext())
             {

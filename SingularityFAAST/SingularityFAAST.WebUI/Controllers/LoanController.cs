@@ -22,7 +22,7 @@ namespace SingularityFAAST.WebUI.Controllers
         private readonly InventoryItemServices ii_services = new InventoryItemServices();
 
 
-        #region Index /All Loans
+        #region Index /All Loans Page
         //GET: All Loans
         [HttpGet]
         public ActionResult Index()
@@ -30,13 +30,11 @@ namespace SingularityFAAST.WebUI.Controllers
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
             return View(model);
         }
-
-
+        
 
         //GET: Loans by Client Name  
         [HttpPost]
         public ActionResult Index(SearchByString searchRequest)
-            //If routing to LoanMasterServices, mine is SearchByString (see below)
         {
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
 
@@ -47,6 +45,7 @@ namespace SingularityFAAST.WebUI.Controllers
                 return View(model);
             }
 
+            //else
             model = string.IsNullOrWhiteSpace(searchRequest.SearchBy)? lm_services.GetAllLoans(): lm_services.GetLoansByClientLastName(searchRequest.SearchBy);
             return View(model);
         }
@@ -220,40 +219,34 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-        //Displays Client search results on page with all loans 
-        //[HttpPost]
-        ////public ActionResult SearchClient(SearchByString searchRequest)  //for separating both lists into method rather than back to view
-        //public ActionResult AddLoan(SearchByString searchRequest)
-        //{
-        //    //no search term entered
-        //    if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
-        //    {
-        //        //var list1 = lm_services.GetClientDetails();
-        //        var list1 = _clientServices.GetAllClients();
-        //        var list2 = ii_services.GetAllInventory();
-        //        var model = new AddLoanInfo(list1, list2);
-        //        return View(model); 
-        //    }
-        //    else
-        //    {   
-        //        //Get Client by last name
-        //        //Client list1 = lm_services.GetClientsByLName(searchRequest.SearchBy);
-        //        var list1 = _clientServices.GetClientByLastName(searchRequest.SearchBy);
-        //        var list2 = ii_services.GetAllInventory();
-        //        var model = new AddLoanInfo(list1, list2);
-        //        return View(model); 
-        //        //return RedirectToRoute("AddLoan", new { clientid = searchRequest.SearchBy});  //pass to AddLoan above 
-        //    }
-
-        //}
-
-
-
         [HttpPost]
-        public async Task<ActionResult> AddLoan(LoanSubmission loanSubmission)
+        public async Task<ActionResult> AddLoan(LoansClientsInventoryDTO loanSubmission)  //(LoanSubmission loanSubmission)
         {
             return null;
         }
+
+
+        //Called by AddLoan and EditLoan
+        //Controls the Add Loan process, routes to Services to update the DB, and then back to Index  - does the actual adding
+        [HttpPost]
+        public ActionResult AddTheLoan(LoansClientsInventoryDTO loanSubmission)  //(LoanSubmission loanSubmission)
+        {
+            var services = new LoanMasterServices();
+            services.SaveAllItemsAsNewLoan(loanSubmission);
+
+            //Returns to Loan Index page
+            return RedirectToAction("Index", "Loan");
+        }
+
+        //[HttpPost]
+        //public RedirectToRouteResult AddTheLoan(LoansClientsInventoryDTO loan)
+        //{
+        //        var services = new LoanMasterServices();
+        //        services.SaveAllItemsAsNewLoan(loan);
+
+        //    //    //Returns to Loan Index page
+        //    return RedirectToAction("Index", "Loan");
+        //}
 
         #endregion
 
@@ -285,53 +278,30 @@ namespace SingularityFAAST.WebUI.Controllers
         //    }
 
         //}
-        
+
 
         public JsonResult SearchFakeClients(string searchString)
         {
-
-            //IList<Client> fakeClients = _clientServices.GetAllClients();
-
-            var filteredClients = lm_services.filterClient(searchString);
+            IList<Client> fakeClients = _clientServices.GetAllClients();
 
             //search through the fake clients list, checking eaching fake client if their first name contains the search string
             //var filteredClients = fakeClients.Where((fakeClient) => fakeClient.LastName.Contains(searchString));
+            var filteredClients = fakeClients.Where((fakeClient) => string.Equals(fakeClient.LastName, searchString, StringComparison.OrdinalIgnoreCase)).ToList();
 
             //method demands return type of Json, whose first parameter is DATA, just shove the c# result into this
             //and javascript on the front end will be happy
             return Json(filteredClients, JsonRequestBehavior.AllowGet);
         }
 
-
         public JsonResult SearchInventory(string searchString)
         {
             IList<InventoryItem> inventoryItems = lm_services.GetAllItemsAsInventoryList();
-
-            var filteredItems = inventoryItems.Where((ii) => ii.ItemName.Contains(searchString));
+            var filteredItems = inventoryItems.Where((ii) => ii.ItemName.Contains(searchString));       //string.Equals(ii.ItemName, searchString, StringComparison.OrdinalIgnoreCase)).ToList();
             return Json(filteredItems, JsonRequestBehavior.AllowGet);
         }
       
-
-        //Called by AddLoan and EditLoan
-        //Controls the Add Loan process, routes to Services to update the DB, and then back to Index  - does the actual adding 
-
-        //[HttpPost]
-        //public RedirectToRouteResult AddTheLoan(LoansClientsInventoryDTO loan)
-        //{
-        ////    var services = new LoanMasterServices();
-        ////    services.SaveLoan(loan);
-
-        ////    //Returns to Loan Index page
-        //    return RedirectToAction("Index", "Loan");
-        //}
-
-
-
-        //SearchBy class--------------
-
-
+        
         //Search classes
-        //should use SearchRequests files made by Adrian ?  Used by form items
         public class SearchByString
         {
             public string SearchBy { get; set; }
