@@ -50,5 +50,17 @@
                 </tr>
             </tbody>
         </table>
+
+        <table class="table">
+           <tbody>
+           @foreach(var item in Model.categoryCounts)
+            {
+                <tr>
+                    <td>@item.CategoryName</td>
+                    <td>@item.Count</td>
+                </tr>
+            }
+             </tbody>
+        </table>
     
 </div>

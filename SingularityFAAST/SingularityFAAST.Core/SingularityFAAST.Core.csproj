@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="DataTransferObjects\ClientConverter.cs" />
     <Compile Include="DataTransferObjects\LoansClientsInventoryDTO.cs" />
+    <Compile Include="DataTransferObjects\ReportInventoryItemCategoryCount.cs" />
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\ClientCategory.cs" />
     <Compile Include="Entities\ClientDisability.cs" />

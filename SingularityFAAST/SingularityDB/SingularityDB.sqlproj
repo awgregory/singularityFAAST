@@ -63,6 +63,7 @@
     <Folder Include="Scripts" />
     <Folder Include="Scripts\seeds" />
     <Folder Include="Scripts\seeds\loan" />
+    <Folder Include="Scripts\StoredProcedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Clients.sql" />
@@ -75,6 +76,7 @@
     <Build Include="dbo\InventoryItemCategories.sql" />
     <None Include="Scripts\seeds\seedDummyData.sql" />
     <None Include="Scripts\seeds\SeedInventoryItems.sql" />
+    <Build Include="Scripts\StoredProcedures\InventoryItemCategoryCount.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SingularityDB.refactorlog" />

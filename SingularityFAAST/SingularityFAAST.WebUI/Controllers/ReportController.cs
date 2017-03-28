@@ -25,6 +25,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
         public ActionResult ReportFilter(int reportType, DateTime startDate, DateTime endDate)
         {
+
             switch(reportType)
             {
                 case 1:
@@ -36,13 +37,13 @@ namespace SingularityFAAST.WebUI.Controllers
                     
                 case 3:
                     // TO DO add Inventory Reports
-                    RedirectToAction("Index");
-                    break;
+                    return RedirectToAction("Index");
+                    
                 default:
-                    RedirectToAction("Index");
-                    break;
+                    return RedirectToAction("Index");
+                    
             }
-            return RedirectToAction("Index");
+            
         }
 
         #region Loans

@@ -19,13 +19,14 @@ namespace SingularityFAAST.Services.Services
                 var viewModel = new LoanReportViewModel();
 
                 // Created variable that holds the total amount of loans between two dates
-                var numberOfLoans = context.LoanMasters
-                    .Count(loan => loan.DateCreated >= startDate 
-                    && loan.DateCreated <= endDate);
-
                 var timeFramedLoans = context.LoanMasters
-                    .Where(loan => loan.DateCreated >= startDate
-                    && loan.DateCreated <= endDate);
+                                    .Where(loan => loan.DateCreated >= startDate
+                                    && loan.DateCreated <= endDate);
+
+
+                var numberOfLoans = timeFramedLoans.Count();
+
+                
 
                 var query = from loans in timeFramedLoans
                             join clients in context.Clients 
@@ -37,6 +38,7 @@ namespace SingularityFAAST.Services.Services
                                      on loans.ClientId
                                      equals inventoryItems.InventoryCategoryId
                                      select inventoryItems;
+
 
 
                 // Created variables that hold the total amount of loans per type of borrower
@@ -53,6 +55,10 @@ namespace SingularityFAAST.Services.Services
                 var totalBorrowers = borrowerWithDisability + borrowerFamily + borrowerEducation +
                     borrowerEmployment + borrowerHealth + borrowerCommunityLiving + borrowerTechnology;
 
+                // Counts the number of times a category appears
+                var categoryCounts = context.getInventoryItemCategoryCount(startDate, endDate);
+
+
                 // Assigned that value to the view model property
                 viewModel.TotalNumberOfLoans = numberOfLoans;
 
@@ -63,6 +69,8 @@ namespace SingularityFAAST.Services.Services
                 viewModel.NumberOfBorrowerHealth = borrowerHealth;
                 viewModel.NumberOfBorrowerCommunityLiving = borrowerCommunityLiving;
                 viewModel.NumberOfBorrowerTechnology = borrowerTechnology;
+
+                viewModel.categoryCounts = categoryCounts;
 
                 return viewModel;
             }
