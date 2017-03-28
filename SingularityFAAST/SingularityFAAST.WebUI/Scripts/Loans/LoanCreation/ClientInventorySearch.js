@@ -35,6 +35,9 @@
 
     //endregion
 
+    //region - globals(ish)
+    var itemIds = itemIds || [];
+    //endregion
 
     //region wire up event handlers
 
@@ -99,8 +102,10 @@
 
         console.log('item id chosen: ' + chosenInventoryId);
         //set the hidden form input's value to the inventoryId extracted from the click event
-        $('#inventoryItemIdsHidden').val(chosenInventoryId);
-
+        //we need to be appending to a array, then, just before form submission
+        //appoint that array to the form value
+        itemIds.push(chosenInventoryId); //TODO: create separate function that handles this logic
+        console.log(itemIds);
         //Update the info panel
         var infoPanel = $('#iItems');
         infoPanel.append('<h5>' + chosenInventoryId + '</h5>');
@@ -230,7 +235,26 @@
         }
         //once table is built, do we have valid markup to attach to -- assign the functions here!
         $("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   //checkbox
+
+        //Submit - add inventoryItemIds before submission
+        $("form").submit(function (e) {
+            //validate inventoryId array
+            debugger;
+            if (itemIds) {
+                //var hiddenInput = $("input[name='InventoryItemIds']");
+                //hiddenInput.val(itemIds);
+                for (var i = 0; i < itemIds.length; i++) {
+                    $('<input />').attr('type', 'hidden')
+                        .attr('name', 'InventoryItemIds[' + i + ']')
+                        .attr('value', itemIds[i])
+                        .appendTo("form");
+                }
+
+            }
+        })
     }
+
+   
 
     //endregion
 }(window.jQuery));

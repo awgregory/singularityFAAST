@@ -220,20 +220,22 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<ActionResult> AddLoan(LoansClientsInventoryDTO loanSubmission)  //(LoanSubmission loanSubmission)
-        {
-            return null;
-        }
+        //[HttpPost]
+        //public async Task<ActionResult> AddLoan(LoansClientsInventoryDTO loanSubmission)  //(LoanSubmission loanSubmission)
+        //{
+        //    return null;
+        //}
 
 
         //Called by AddLoan and EditLoan
         //Controls the Add Loan process, routes to Services to update the DB, and then back to Index  - does the actual adding
         [HttpPost]
-        public ActionResult AddTheLoan(LoansClientsInventoryDTO loanSubmission)  //(LoanSubmission loanSubmission)
+        //public ActionResult AddTheLoan(LoansClientsInventoryDTO loanSubmission)  //(LoanSubmission loanSubmission)
+        public ActionResult AddTheLoan(LoanSubmission loanSubmission)
         {
             var services = new LoanMasterServices();
-            services.SaveAllItemsAsNewLoan(loanSubmission);
+            //services.SaveAllItemsAsNewLoan(loanSubmission);
+            services.CreateLoan(loanSubmission);
 
             //Returns to Loan Index page
             return RedirectToAction("Index", "Loan");

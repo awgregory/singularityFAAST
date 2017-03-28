@@ -63,16 +63,16 @@ namespace SingularityFAAST.Services.Services
                             //join ld in context.LoanDetails   //union
                             //on l.LoanMasterId equals ld.LoanMasterId  selects less and repeats because not all loans have loan details, and each detail then appears as a new loan
 
-                select new LoansClientsInventoryDTO()
-                {
-                    LoanNumber = l.LoanNumber,
-                    DateCreated = l.DateCreated,
-                    ClientId = c.ClientID,
-                    LastName = c.LastName,
-                    FirstName = c.FirstName,
-                    IsActive = l.IsActive,
-                    //LoanDate = ld.LoanDate
-                };
+                            select new LoansClientsInventoryDTO()
+                            {
+                                LoanNumber = l.LoanNumber,
+                                DateCreated = l.DateCreated,
+                                ClientId = c.ClientID,
+                                LastName = c.LastName,
+                                FirstName = c.FirstName,
+                                IsActive = l.IsActive,
+                                //LoanDate = ld.LoanDate
+                            };
 
                 return loans.ToList();
             }
@@ -93,22 +93,22 @@ namespace SingularityFAAST.Services.Services
                             join c in context.Clients
                             on lm.ClientId equals c.ClientID
 
-                select new LoansClientsInventoryDTO()
-                {
-                    LoanNumber = lm.LoanNumber,
-                    LoanDate = ld.LoanDate,
-                    InventoryItemId = i.InventoryItemId,
-                    ItemName = i.ItemName,
-                    Manufacturer = i.Manufacturer,
-                    Description = i.Description,
-                    Notes = ld.Notes,
-                    HomePhone = c.HomePhone,
-                    Email = c.Email,
-                    Availability = i.Availability,
-                    LastName = c.LastName,
-                    FirstName = c.FirstName,
-                    IsActive = lm.IsActive
-                };
+                            select new LoansClientsInventoryDTO()
+                            {
+                                LoanNumber = lm.LoanNumber,
+                                LoanDate = ld.LoanDate,
+                                InventoryItemId = i.InventoryItemId,
+                                ItemName = i.ItemName,
+                                Manufacturer = i.Manufacturer,
+                                Description = i.Description,
+                                Notes = ld.Notes,
+                                HomePhone = c.HomePhone,
+                                Email = c.Email,
+                                Availability = i.Availability,
+                                LastName = c.LastName,
+                                FirstName = c.FirstName,
+                                IsActive = lm.IsActive
+                            };
 
                 return items.ToList();
             }
@@ -128,20 +128,20 @@ namespace SingularityFAAST.Services.Services
                               join i in context.InventoryItems
                               on ld.InventoryItemId equals i.InventoryItemId
 
-                select new LoansClientsInventoryDTO()
-                {
-                    HomePhone = c.HomePhone,
-                    Email = c.Email,
-                    LastName = c.LastName,
-                    FirstName = c.FirstName,
-                    ClientId = c.ClientID,
-                    LoanEligibility = c.LoanEligibility,
+                              select new LoansClientsInventoryDTO()
+                              {
+                                  HomePhone = c.HomePhone,
+                                  Email = c.Email,
+                                  LastName = c.LastName,
+                                  FirstName = c.FirstName,
+                                  ClientId = c.ClientID,
+                                  LoanEligibility = c.LoanEligibility,
 
-                    InventoryItemId = i.InventoryItemId,
-                    ItemName = i.ItemName,
-                    Manufacturer = i.Manufacturer,
-                    Description = i.Description,
-                };
+                                  InventoryItemId = i.InventoryItemId,
+                                  ItemName = i.ItemName,
+                                  Manufacturer = i.Manufacturer,
+                                  Description = i.Description,
+                              };
                 var clientList = clients.ToList();
 
                 return clientList;
@@ -179,7 +179,7 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
-        
+
         public Client GetClientDetails()  //int id
         {
             using (var context = new SingularityDBContext())
@@ -200,6 +200,63 @@ namespace SingularityFAAST.Services.Services
             IList<LoansClientsInventoryDTO> filteredLoans = allLoans.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
 
             return filteredLoans;
+        }
+
+        public void CreateLoan(LoanSubmission loanSubmission)
+        {
+            //have client id 
+            using (var context = new SingularityDBContext())
+            {
+                var newLoan = new LoanMaster
+                {
+                    ClientId = loanSubmission.ClientId,
+                    DateCreated = DateTime.Now, //can go into the constructor of LoanMaster
+                                                //IsActive = loanSubmission.IsActive //can probably be defaulted
+                    LoanNumber = "00001" //we can create a utility class that auto increments this
+                };
+
+                context.LoanMasters.Add(newLoan);
+
+                context.SaveChanges(); //this line actually writes the record to the db
+
+                //after writing the record the newLoan object will have a populated Id that matches the db
+                //in this way we can add LoanDetails that reference the correct LoanMaster
+
+                //have item Ids
+
+                //we can map over the itemIds enumerable and map a new list of LoanDetails -- functional!
+
+                //LINQ query syntax
+                IEnumerable<LoanDetail> query = from itemId in loanSubmission.InventoryItemIds
+                                                select new LoanDetail
+                                                {
+                                                    InventoryItemId = itemId,
+                                                    LoanMasterId = newLoan.LoanMasterId
+                                                };
+
+                //LINQ method syntax
+                IEnumerable<LoanDetail> methodQuery =
+                    loanSubmission.InventoryItemIds.Select(id => new LoanDetail
+                    {
+                        InventoryItemId = id,
+                        LoanMasterId = newLoan.LoanMasterId,
+                        //other properties that can not be null in the data
+                    });
+
+                //both are viable, sometimes query syntax feels more natural on joins and such
+                //while method syntax can output some nice oneliners.
+                //the point is that we use each item in a collection to create new LoanDetail
+                //entities, mapping the properties we want over to the newly created object.
+
+                //regardless, these queries have only returned something respects IEnumerable contract
+                //we need concrete objects
+
+                List<LoanDetail> loanDetailsList = query.ToList();
+
+                //now we can add a range of loan details to the loan details table
+                context.LoanDetails.AddRange(loanDetailsList);
+                context.SaveChanges();
+            }
         }
 
         //Search by Loan Number (also a string)
@@ -242,7 +299,7 @@ namespace SingularityFAAST.Services.Services
         //            HomePhone = p.HomePhone,
         //            LoanEligibility = p.LoanEligibility
         //        });  //ToList(); is used
-            
+
         //    var selectedClient = filteredLoans.FirstOrDefault();
         //    return selectedClient;
         //}
@@ -295,7 +352,7 @@ namespace SingularityFAAST.Services.Services
         public void CheckInLoanDetails(LoanDetail loan)
         {
             using (var context = new SingularityDBContext())
-            { 
+            {
                 //update LoanDetails each item ClientOutcome
                 //var updateDetail = loan.LoanDetailIds.Select(lmId => new LoanDetail { LoanDetailId = loan.LoanDetailId, ClientOutcome = loan.ClientOutcome, Notes = loan.Notes});
                 //update LoanDetails each item Notes
@@ -367,9 +424,9 @@ namespace SingularityFAAST.Services.Services
             using (var context = new SingularityDBContext())
             {
                 //Table1 - add: LoanMaster-> DateCreated, ClientId, IsActive
-                loan.DateCreated = DateTime.Now;  
+                loan.DateCreated = DateTime.Now;
 
-                var newMaster = loan.LoanMasterIds.Select(lmId => new LoanMaster { LoanMasterId = loan.LoanMasterId, ClientId = loan.ClientId, LoanNumber = loan.LoanNumber,  IsActive = loan.IsActive});   
+                var newMaster = loan.LoanMasterIds.Select(lmId => new LoanMaster { LoanMasterId = loan.LoanMasterId, ClientId = loan.ClientId, LoanNumber = loan.LoanNumber, IsActive = loan.IsActive });
 
                 context.LoanMasters.AddRange(newMaster);
 
@@ -384,7 +441,7 @@ namespace SingularityFAAST.Services.Services
                 //{
                 //    //put the below line in here
                 //}
-                var newDetail = loan.LoanDetailIds.Select(lmId => new LoanDetail { LoanDetailId = loan.LoanDetailId, LoanMasterId = loan.LoanMasterId, InventoryItemId = loan.InventoryItemId, Purpose = loan.Purpose, PurposeType = loan.PurposeType});   
+                var newDetail = loan.LoanDetailIds.Select(lmId => new LoanDetail { LoanDetailId = loan.LoanDetailId, LoanMasterId = loan.LoanMasterId, InventoryItemId = loan.InventoryItemId, Purpose = loan.Purpose, PurposeType = loan.PurposeType });
 
                 context.LoanDetails.AddRange(newDetail);
 
@@ -430,7 +487,7 @@ namespace SingularityFAAST.Services.Services
         #endregion
 
 
-        
+
 
         #region EmailNotification
         //Poll the DateCreated in LoanMaster every 24 hours. Trigger this email  if ((item.DateCreated.AddDays(28) <= DateTime.Now.AddDays(7) && item.DateCreated.AddDays(28) >= DateTime.Now) && (item.IsActive)) 
@@ -454,7 +511,7 @@ namespace SingularityFAAST.Services.Services
             //var body = RazorEngine.Parse(template, model);  // le?    bring in nuget razor engine?
             var body = "Hi, < br > Client<loan.FirstName>, < loan.LastName >, Phone<loan.PhoneNumber>, has a loan due within one week.Loan Number < loan.LoanNumber > has devices < devices > < br > Thanks, FAASTer";
 
-                   var fromAddress = new MailAddress("kyoungbe@gmail.com", "FAASTer Inventory System");
+            var fromAddress = new MailAddress("kyoungbe@gmail.com", "FAASTer Inventory System");
             var toAddress = new MailAddress("kyoungbe@gmail.com", "FAAST Admin");
             const string fromPassword = "vvvv2222";
             const string subject = "Device Loan Coming Due";
