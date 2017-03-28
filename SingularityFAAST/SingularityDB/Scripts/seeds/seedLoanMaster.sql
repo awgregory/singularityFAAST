@@ -14,10 +14,13 @@ CREATE TABLE #tempLoanMasters
 INSERT INTO #tempLoanMasters([DateCreated],[ClientId],[IsActive],[LoanNumber])
      VALUES						(GETDATE(),		1,			1,			00001),
 								(GETDATE(),		1,			1,			00002),
-								(GETDATE(),		1,			1,			00003),
+								(GETDATE(),		1,			0,			00003),
 								(GETDATE(),		2,			1,			00004),
 								(GETDATE(),		3,			1,			00005),
-								(GETDATE(),		4,			1,			00006)
+								(GETDATE(),		4,			0,			00006),
+								(GETDATE(),		2,			1,			00007),
+								(GETDATE(),		3,			1,			00008),
+								(GETDATE(),		4,			1,			00009)
 
 
 MERGE dbo.LoanMasters AS target
