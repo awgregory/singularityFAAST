@@ -57,9 +57,8 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public RedirectToRouteResult AddClient(Client client)  
         {                                                       
-            var services = _clientServices; //why is the global _clientService readonly? why need this line?
-
-            services.SaveClient(client);
+            
+            _clientServices.SaveClient(client);
 
             // Need a Saved Ack here
 
@@ -78,7 +77,9 @@ namespace SingularityFAAST.WebUI.Controllers
 
             var disabilityList = _clientServices.GetAllDisabilities(); //gets list of all DisabilityCategory Objects
 
-            var viewModel = new EditClientViewModel(client, disabilityList); 
+            IEnumerable<LoanMaster> associatedLoans = _clientServices.GetLoansByClientId(id); //GETS LOANS
+
+            var viewModel = new EditClientViewModel(client, disabilityList, associatedLoans);
 
             return View(viewModel);  //Passes the DisabilityIds to view from within the Client Object within the viewModel
         }

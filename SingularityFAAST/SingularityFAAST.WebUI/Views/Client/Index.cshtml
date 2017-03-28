@@ -75,13 +75,8 @@
                         <td>@item.ClientCategoryName</td>
                         <td>@item.Notes</td>
 
-                        <td>
-                        @Html.ActionLink("View/Edit", "EditClient", new { id = item.ClientID })
-
-                        @*@Html.ActionLink("Details", "Details", new { id=item.ClientID })*@
-
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ClientID })
-                    </td>
+                        <td>@Html.ActionLink("View/Edit", "EditClient", new { id = item.ClientID })</td>
+                        <td>@Html.ActionLink("Delete", "Delete", new { id = item.ClientID })</td>
                 </tr>
                 }
             }
