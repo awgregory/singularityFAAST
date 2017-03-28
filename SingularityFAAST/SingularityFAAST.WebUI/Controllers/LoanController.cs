@@ -221,7 +221,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> AddLoan(LoansClientsInventoryDTO loanSubmission)  //(LoanSubmission loanSubmission)
+        public async Task<ActionResult> AddLoan(LoansClientsInventoryDTO loanSubmission)  //(LoanSubmission loanSubmission) 
         {
             return null;
         }
