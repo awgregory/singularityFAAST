@@ -60,9 +60,9 @@
     //region functions!
     function updateClientIdFormValue(e) {
         //tied to checkboxes - grabs the click event, inspects its data set which we defined as 'data-client-id'
-        var chosenClientId1 = e.target.dataset.clientId; //even if custom data attribute contains hyphens, this uses camel case
-        var clientName = chosenClientId1.replace(/[0-9]/g);  //removes the digits     
-        var chosenClientId = chosenClientId1.replace(/\D/g, '');  //removes the alphas
+        var chosenClientId = e.target.dataset.clientId; //even if custom data attribute contains hyphens, this uses camel case
+        //var clientName = chosenClientId1.replace(/[0-9]/g);  //removes the digits     
+        //var chosenClientId = chosenClientId1.replace(/\D/g, '');  //removes the alphas
 
         if ($('#clientIdHidden').val().trim().length > 0) {
             console.log('one client already entered')
@@ -80,12 +80,11 @@
 
         //Update the info panel
         var infoPanel = $('#cName');
-        infoPanel.append('<h5>Client ' + clientName + ' is borrowing items: </h5>');
+        infoPanel.append('<h5>Client ' + chosenClientId + ' is borrowing items: </h5>');
     }
 
 
     function updateInventoryIdFormValue(e) {
-        console.log(e)
         //tied to checkboxes - grabs the click event, inspects its data set which we defined as 'data-client-id'
         var chosenInventoryId = e.target.dataset.inventoryId; //even if custom data attribute contains hyphens, this uses camel case
         //var invName = chosenInventoryId.replace(/[0-9]/g);  //removes the digits won't work for this purpose if Amazon "3"g
@@ -115,12 +114,12 @@
     function updatecheckboxesThreeCategories()
     {
         //get the dropdown box values
-        var indDropdown = $('input[name=individ]:checked').val();
+        //var indDropdown = $('input[name=individ]:checked').val();
         var purposeDropdown = $('input[name=purp]:checked').val();
         var purposeTypeDropdown = $('input[name=ppda]:checked').val();
 
         //set these hidden form input values in the form submit - so put these there
-        $('#individualHidden').val(indDropdown);
+        //$('#individualHidden').val(indDropdown);
         $('#purposeHidden').val(purposeDropdown);
         $('#purposeTypeHidden').val(purposeTypeDropdown);
     }
@@ -182,10 +181,11 @@
             for (var i = 0; i < results.length ; i++) {    //was   i < results.length   -if less than 11, only shows first 11 if input left blank- what if there are more than 11 with same name?
                 table.append(
                     '<tr>' +
-                    '<td>' +
-                        '<input type="radio" name="radioClientId" data-client-id="' + results[i].ClientID + results[i].FirstName + ' ' + results[i].LastName + '"' +   
-                        '</input>' +
-                    '</td>' + //select box -- we will have jquery grab each checkbox created, and put a function on it
+                    //'<td>' +
+                    '<td>' + '<input type="button" class="btn btn-primary" name="addCButton" value="Add" data-client-id="' + results[i].ClientID + '"' + '</input>' + '</td>' + //add
+                        //'<input type="radio" name="radioClientId" data-client-id="' + results[i].ClientID + '"' +  //+results[i].FirstName + ' ' + results[i].LastName + '"' +
+                        //'</input>' +
+                    //'</td>' + //select box -- we will have jquery grab each checkbox created, and put a function on it
                     '<td>' + results[i].ClientID + '</td>' + //client id
                     '<td>' + results[i].FirstName + '</td>' + //first name
                     '<td>' + results[i].LastName + '</td>' + //last name
@@ -199,7 +199,8 @@
             $('#clientInfoAlert').text('No Client found with that last name.')
         }
         //once table is built, do we have valid markup to attach to -- assign the functions here!
-        $("input:radio[name=radioClientId]").on('click', updateClientIdFormValue);
+        //$("input:radio[name=radioClientId]").on('click', updateClientIdFormValue);
+        $("input:button[name=addCButton]").on('click', updateClientIdFormValue);
     }
     
 
@@ -216,10 +217,11 @@
             for (var i = 0; i < results.length; i++) {        //results.length     
                 table.append(
                     '<tr>' +
-                    '<td>' +
-                        '<input type="radio" name="radioInventoryId" data-inventory-id="' + results[i].InventoryItemId + '"' +  //results[i].ItemName + '"' +   //checkbox
-                        '</input>' +
-                    '</td>' + //select box -- we will have jquery grab each checkbox created, and put a function on it
+                    //'<td>' +
+                    '<td>' + '<input type="button" class="btn btn-primary" name="addInvButton" value="Add" data-inventory-id="' + results[i].InventoryItemId + '"' + '</input>' + '</td>' + //add
+                        //'<input type="radio" name="radioInventoryId" data-inventory-id="' + results[i].InventoryItemId + '"' +  //results[i].ItemName + '"' +   //checkbox
+                        //'</input>' +
+                    //'</td>' + //select box -- we will have jquery grab each checkbox created, and put a function on it
                     '<td>' + results[i].InventoryItemId + '</td>' + //Inventory id
                     '<td>' + results[i].ItemName + '</td>' + //Item name
                     '<td>' + results[i].Manufacturer + '</td>' + //manufacturer
