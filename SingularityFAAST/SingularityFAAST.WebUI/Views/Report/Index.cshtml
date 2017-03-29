@@ -4,7 +4,7 @@
 
     //TODO
     var beginDateString = DateTime.UtcNow.AddDays(-30).ToString("yyyy-MM-dd");
-    var endDateString = "";
+    var endDateString = DateTime.UtcNow;
 }
 
 
@@ -14,7 +14,7 @@
 
 @using (Html.BeginForm("ReportFilter", "Report", FormMethod.Post))
 {
-    <h4 class="has-error" hidden="hidden">Error: Please Enter Valid Dates</h4>
+    <h4 class="has-error" id="error-text" style="color: red; display: none;">Error: Please Enter Valid Dates</h4>
     <h3>Enter Report Range</h3>
     <div>
         Start Date: <input type="date" name="StartDate" id="startDate" value="@(beginDateString)" />     
@@ -30,16 +30,11 @@
         <input type="radio" name="ReportType" value="3" /> Inventory Report <br />
     </div>
     <br />
-    <button type="submit" class="btn btn-primary" onclick="errorHandling()" id="submitLoanReport">Submit</button>
+    <button type="submit" class="btn btn-primary" id="submitLoanReport">Submit</button>
 
     <p id="message"></p>
 
-@section scripts {
     <script src="~/Scripts/Reports/ReportRange.js"></script>
-}
-
-
-        
 
     @*<script>
         function errorHandling() 
