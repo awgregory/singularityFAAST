@@ -264,10 +264,8 @@
 
         @* First parameter will be the name propety - and is what the model binder will use *@
         @Html.Hidden("ClientId", null, new { id = "clientIdHidden" })
-        @*@Html.Hidden("InventoryItemIds", new { id = "inventoryItemIdsHidden", name = "InventoryItemIds" })*@
 
-        @*The three dropdown values*@
-        @*@Html.Hidden("Type", null, new { id = "individualHidden" })*@
+        @*The two checkbox values*@
         @Html.Hidden("Purpose", null, new { id = "purposeHidden" })
         @Html.Hidden("PurposeType", null, new { id = "purposeTypeHidden" })
         <input type="submit" value="Create New Loan" class="btn btn-success"/>

@@ -3,7 +3,7 @@
 	[LoanDetailId] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
     [LoanMasterId] INT NOT NULL,
 
-	[LoanDate] DATE NOT NULL, 
+	[LoanDate] DATETIME NOT NULL, 
     [LoanDuration] INT NOT NULL DEFAULT 28, 
     [InventoryItemId] INT NOT NULL,
 	[Purpose] VARCHAR(80) NOT NULL,

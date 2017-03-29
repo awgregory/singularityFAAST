@@ -18,7 +18,7 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.*
     <div class="col-md-12">
         
         @*@Html.ActionLink("Renew Entire Loan", "RenewLn", null, new {@class = "btn btn-primary"})*@ @*Currently, this creates a new loan for the month.  !Or--New LoanMasterId is made but same Loan Number is kept!*@
-        @using (Html.BeginForm("RenewLn", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+        @using (Html.BeginForm("RenewLn", "Loan", FormMethod.Post, new { @class = "form-inline col-md-1" }))
         {
             //<input type="hidden" value="@LoansClientsInventoryDTO.LoanNumber" name="LoanNumber" />
             <input type="submit" class="btn btn-primary" name="rnwLoan" value='Renew Loan' />
@@ -27,7 +27,7 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.*
 
         @* test code button.  bottom one is original *@
         @*@Html.ActionLink("Edit Loan", "EditLn", null, new {@class = "btn btn-primary"})*@ @*Pass the Loan number to auto-populate details on EditLn*@
-        @using (Html.BeginForm("EditLn", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+        @using (Html.BeginForm("EditLn", "Loan", FormMethod.Post, new {@class = "form-inline col-md-1"}))
         {
             //<input type="hidden" value="@LoansClientsInventoryDTO.LoanNumber" name="LoanNumber" />
             <input type="submit" class="btn btn-primary" name="edtLoan" value='Edit Loan'/>
