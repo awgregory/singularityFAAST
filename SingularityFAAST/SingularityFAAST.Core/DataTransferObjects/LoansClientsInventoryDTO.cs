@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web.Mvc;
+using SingularityFAAST.Core.Entities;
 
 namespace SingularityFAAST.Core.DataTransferObjects
 {
-    public class LoansClientsInventoryDTO
+    public class LoansClientsInventoryDTO 
     {
         //Loan Master
         public int LoanMasterId { get; set; }
@@ -13,6 +18,8 @@ namespace SingularityFAAST.Core.DataTransferObjects
         public bool IsActive { get; set; }
 
         public string LoanNumber { get; set; }
+
+        public IEnumerable<int> LoanMasterIds { get; set; }
 
 
         //LoanDetail
@@ -24,7 +31,15 @@ namespace SingularityFAAST.Core.DataTransferObjects
 
         public int InventoryItemId { get; set; }
 
+        public string ClientOutcome { get; set; }
+
         public string Notes { get; set; }
+
+        public string Purpose { get; set; }
+
+        public string PurposeType { get; set; }
+
+        public IEnumerable<int> LoanDetailIds { get; set; }
 
 
         //Client
@@ -44,9 +59,11 @@ namespace SingularityFAAST.Core.DataTransferObjects
 
         public bool LoanEligibility { get; set; }
 
+        public int ClientCategoryId { get; set; }
+
+
 
         //Inventory
-        [Key]
         public DateTime DatePurchased { get; set; }
         public int InventoryCategoryId { get; set; }
         public string ItemName { get; set; }
@@ -55,7 +72,15 @@ namespace SingularityFAAST.Core.DataTransferObjects
         public string Description { get; set; }
         public string Damages { get; set; }
         public string Accessories { get; set; }
+        public IEnumerable<int> InventoryItemIds { get; set; }
+        public List<InventoryItem> InventoryItems { get; set; }
 
+        //ClientCategories
+        public string Type { get; set; }
+
+
+        public IEnumerable<string> ClientCategory { get; set; }
+        public IEnumerable<int> ClientCategoryID { get; set; }
 
     }
 }

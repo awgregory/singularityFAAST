@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,6 +8,7 @@ namespace SingularityFAAST.Core.Entities
     public class LoanMaster
     {
         [Key, Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int LoanMasterId { get; set; }
 
         public DateTime DateCreated { get; set; }
@@ -18,5 +20,6 @@ namespace SingularityFAAST.Core.Entities
 
         public string LoanNumber { get; set; }
 
+        //public IEnumerable<int> LoanMasterIds { get; set; }
     }
 }
