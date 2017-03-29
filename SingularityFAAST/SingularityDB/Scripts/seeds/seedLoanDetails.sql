@@ -18,14 +18,18 @@ CREATE TABLE #tempLoanDetails
 --LoanDetailId is auto
 INSERT INTO #tempLoanDetails([LoanMasterId],[LoanDate],[LoanDuration],[InventoryItemId],[Purpose],[PurposeType],[ClientOutcome],[Notes])
      VALUES
-		   (1,GETDATE(),28,1,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs','two charger cords & one charger'),
-		   (2,GETDATE(),28,2,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs','Ms. Sowada checked out item for client whose name is John Kinsler. They are from Brooks Rehab.'),
-		   (3,GETDATE(),28,3,'Assist in decision making (device trial or evaluation)','Employment','AT will meet needs','AT left message with client at phone number and emailed her at jaydensamir@gmail.com to return iPAD on 8/31/16'),
-		   (4,GETDATE(),28,4,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs',''),
-		   (5,GETDATE(),28,5,'Assist in decision making (device trial or evaluation)','Community Living','AT will meet needs','client also has Bug Vibrator'),
-		   (6,GETDATE(),28,6,'Assist in decision making (device trial or evaluation)','Community Living','AT will meet needs','client wears a metal suit'),
-		   (6,GETDATE(),28,7,'Assist in decision making (device trial or evaluation)','Community Living','AT will meet needs','client wears a metal suit'),
-		   (6,GETDATE(),28,8,'Assist in decision making (device trial or evaluation)','Community Living','AT will meet needs','client wears a metal suit')
+		   (1,N'2017-01-21 00:00:00',28,1,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs','two charger cords & one charger'),
+		   (2,N'2017-03-01 00:00:00',28,2,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs','Ms. Sowada checked out item for client whose name is John Kinsler. They are from Brooks Rehab.'),
+		   (3,N'2016-06-12 00:00:00',28,3,'Assist in decision making (device trial or evaluation)','Employment','AT will meet needs','AT left message with client at phone number and emailed her at jaydensamir@gmail.com to return iPAD on 8/31/16'),
+		   (3,N'2016-06-12 00:00:00',28,9,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs',''),
+		   (4,N'2017-03-22 00:00:00',28,4,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs',''),
+		   (5,N'2017-02-23 00:00:00',28,5,'Assist in decision making (device trial or evaluation)','Community Living','AT will meet needs','client also has Bug Vibrator'),
+		   (6,N'2016-08-17 00:00:00',28,6,'Assist in decision making (device trial or evaluation)','Community Living','AT will meet needs','client wears a metal suit'),
+		   (6,N'2016-08-17 00:00:00',28,7,'Assist in decision making (device trial or evaluation)','Community Living','AT will meet needs','client wears a metal suit'),
+		   (6,N'2016-08-17 00:00:00',28,8,'Assist in decision making (device trial or evaluation)','Community Living','AT will meet needs','client wears a metal suit'),
+		   (7,N'2017-02-23 00:00:00',28,10,'Assist in decision making (device trial or evaluation)','Employment','AT will meet needs',''),
+		   (8,N'2017-03-24 00:00:00',28,11,'Assist in decision making (device trial or evaluation)','Community Living','AT will meet needs',''),
+		   (9,N'2017-03-17 00:00:00',28,13,'Assist in decision making (device trial or evaluation)','Education','AT will meet needs','')
 
 
 MERGE dbo.LoanDetails AS target
