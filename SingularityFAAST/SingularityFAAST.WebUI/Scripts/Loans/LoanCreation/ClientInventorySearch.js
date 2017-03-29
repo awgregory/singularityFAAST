@@ -33,12 +33,6 @@
     var itemSearchButton = $('#itemSearchButton');
     var itemSearchInput = $('#itemSearchInput');
 
-    //get the checkbox values
-    var purposeDropdown = $('input[name=purp]:checked').val();
-    var purposeTypeDropdown = $('input[name=ppda]:checked').val();
-    $('#purposeHidden').val(purposeDropdown);
-    $('#purposeTypeHidden').val(purposeTypeDropdown);
-    console.log(purposeDropdown);
 
     //endregion
 
@@ -59,7 +53,9 @@
         //set error message to blank
         $('#itemsInfoAlert').text('')
     });
-    
+
+    $("input:radio[name=purp]").on('click', updatecheckboxesThreeCategories);
+    $("input:radio[name=ppda]").on('click', updatecheckboxesThreeCategories);
     //endregion
 
 
@@ -120,15 +116,17 @@
     }
 
 
-    //function updatecheckboxesThreeCategories()
-    //{
-    //    //set these hidden form input values in the form submit - so put these there
-    //    //$('#individualHidden').val(indDropdown);
-    //    $('#purposeHidden').val(purposeDropdown);
-    //    $('#purposeTypeHidden').val(purposeTypeDropdown);
-    //}
+    function updatecheckboxesThreeCategories() {
+        //get the checkbox values
 
+        var purposeDropdown = $('input[name=purp]:checked').val();
+        var purposeTypeDropdown = $('input[name=ppda]:checked').val();
 
+        $('#purposeHidden').val(purposeDropdown);
+        $('#purposeTypeHidden').val(purposeTypeDropdown);
+        console.log(purposeDropdown);
+        console.log(purposeTypeDropdown);
+    }
 
 
     function getFakeClientsWithOneParameter(sendThis) {
@@ -137,14 +135,14 @@
 
         $.ajax({
             url: pathToControllerMethod + methodArguments,
-            success: function(result) {
+            success: function (result) {
                 /*
                  instead of writing a whole load of messy javascript in here
                  we have a nice simple function call, passing along the result
                  */
                 buildFakeClientTable(result);
             },
-            error: function(error) {
+            error: function (error) {
                 console.log(error)
             }
         })
@@ -206,7 +204,7 @@
         //$("input:radio[name=radioClientId]").on('click', updateClientIdFormValue);
         $("input:button[name=addCButton]").on('click', updateClientIdFormValue);
     }
-    
+
 
 
     function buildInventoryTable(results) {
@@ -230,7 +228,7 @@
                     '<td>' + results[i].ItemName + '</td>' + //Item name
                     '<td>' + results[i].Manufacturer + '</td>' + //manufacturer
                     '<td>' + results[i].Description + '</td>' + //description
-                    '<td>' + results[i].Accesories+ '</td>' + //accessories
+                    '<td>' + results[i].Accesories + '</td>' + //accessories
                     '<td>' + results[i].Availability + '</td>' + //availability 
                     '<td>' + results[i].Damages + '</td>' + //damages 
                     '</tr>'
@@ -241,8 +239,9 @@
         }
         //once table is built, do we have valid markup to attach to -- assign the functions here!
         //$("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   //checkbox
+        updatecheckboxesThreeCategories()
         $("input:button[name=addInvButton]").on('click', updateInventoryIdFormValue);
-        
+
         //Submit - add inventoryItemIds before submission
         $("form").submit(function (e) {
             //validate inventoryId array
@@ -260,7 +259,7 @@
         })
     }
 
-   
+
 
     //endregion
 }(window.jQuery));
