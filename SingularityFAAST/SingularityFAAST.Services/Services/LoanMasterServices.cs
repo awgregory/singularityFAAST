@@ -213,12 +213,14 @@ namespace SingularityFAAST.Services.Services
                     ClientId = loanSubmission.ClientId,
                     DateCreated = DateTime.Now, //can go into the constructor of LoanMaster
                                                 //IsActive = loanSubmission.IsActive //can probably be defaulted
-                    LoanNumber = "00001" //we can create a utility class that auto increments this
+                    LoanNumber = "00001", //we can create a utility class that auto increments this
                 };
 
                 context.LoanMasters.Add(newLoan);
 
                 context.SaveChanges(); //this line actually writes the record to the db
+
+                //////works up to here.......
 
                 //after writing the record the newLoan object will have a populated Id that matches the db
                 //in this way we can add LoanDetails that reference the correct LoanMaster
@@ -232,7 +234,9 @@ namespace SingularityFAAST.Services.Services
                                                 select new LoanDetail
                                                 {
                                                     InventoryItemId = itemId,
-                                                    LoanMasterId = newLoan.LoanMasterId
+                                                    LoanMasterId = newLoan.LoanMasterId,
+                                                    Purpose = loanSubmission.Purpose,
+                                                    PurposeType = loanSubmission.PurposeType
                                                 };
 
                 //LINQ method syntax
@@ -240,7 +244,9 @@ namespace SingularityFAAST.Services.Services
                     loanSubmission.InventoryItemIds.Select(id => new LoanDetail
                     {
                         InventoryItemId = id,
-                        LoanMasterId = newLoan.LoanMasterId,
+                        LoanMasterId = newLoan.LoanMasterId
+                        //LoanDate = DateTime.Now,
+                        //LoanDuration defaults to 28
                         //other properties that can not be null in the data
                     });
 

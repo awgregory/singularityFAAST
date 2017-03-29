@@ -122,7 +122,8 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.*
                                             <button type="submit" style="float: left" name="viewButton" value="1"><i class="fa fa-times fa-lg text-danger"></i></button> @*remove item*@
                                         }
                                         @*If Item not available (because it's checked out) ----what if it's checked out by another person?? will still appear*@
-                                        @if ((!item.Availability) && (item.IsActive))
+                                        @*(!item.Availability) &&*@
+                                        @if (item.IsActive)   
                                         {
                                             using (Html.BeginForm("CheckItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                             {
@@ -140,7 +141,8 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.*
                                 <td>
                                     <div style="width: 110px;">
                                         12-IN-@item.InventoryItemId
-                                        @if ((item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)) && (!item.Availability))
+                                        @*&& (!item.Availability)*@
+                                        @if ((item.LoanDate.AddDays(29) < DateTime.Today.AddDays(1)))  
                                         {
                                             <i class="fa fa-exclamation-circle fa-lg text-danger"></i>
                                         }

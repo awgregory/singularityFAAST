@@ -37,7 +37,7 @@ VALUES
 (N'2016-06-27 00:00:00', 1, N'iPad 16G WIFI', N'Apple', CAST(500.00 AS Decimal(18, 2)), CAST(500.00 AS Decimal(18, 2)), NULL, N'Northeast Regional Center', 0, 1, N'KB01213001', N'An Apple Tablet', NULL, NULL),
 (N'2016-06-27 00:00:00', 1, N'iPad 2 16G WIFI', N'Apple', CAST(600.00 AS Decimal(18, 2)), CAST(600.00 AS Decimal(18, 2)), NULL, N'Northeast Regional Center', 0, 0, N'KB98391817', N'An Apple Tablet', NULL, N'Broken'),
 (N'2017-02-23 00:00:00', 3, N'Amazon Echo', N'Amazon', CAST(177.99 AS Decimal(18, 2)), CAST(177.99 AS Decimal(18, 2)), NULL, N'Northeast Regional Center', 1, 1, N'B0F0071560940029', NULL, NULL, NULL),
-(N'2016-12-23 00:00:00', 6, N'Adjustable Foot Rest', N'Info gri[', CAST(80.00 AS Decimal(18, 2)), CAST(80.00 AS Decimal(18, 2)), NULL, N'Northeast Regional Center', 1, 1, N'83779893', NULL, NULL, NULL),
+(N'2016-12-23 00:00:00', 6, N'Adjustable Foot Rest', N'Info grip', CAST(80.00 AS Decimal(18, 2)), CAST(80.00 AS Decimal(18, 2)), NULL, N'Northeast Regional Center', 1, 1, N'83779893', NULL, NULL, NULL),
 (N'2016-07-25 00:00:00', 7, N'Green Weighted Vest', N'Ablenet', CAST(17.00 AS Decimal(18, 2)), CAST(17.00 AS Decimal(18, 2)), N'vest-O-Matic 1000', N'Northeast Regional Center', 0, 1, N'12344', N'A weight vest', NULL, NULL),
 (N'2016-09-29 00:00:00', 9, N'Garmin 50 GPS w/ Dash Holder, charger', N'Garmin', CAST(127.99 AS Decimal(18, 2)), CAST(127.99 AS Decimal(18, 2)), NULL, N'Northeast Regional Center', 1, 1, N'KB04232012', N'A Garmin Navigation System', N'Charging Cable and Suction Cup Mount', N'Small Chip on the GPS body, device still functional')
 

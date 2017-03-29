@@ -55,6 +55,9 @@
                                 Date Created
                             </th>
                             <th>
+                                Date Due
+                            </th>
+                            <th>
                                 Client ID
                             </th>
                             <th>
@@ -89,13 +92,16 @@
                                 </td>
                                 <td>
                                     12-DL-@item.LoanNumber              @*|| (item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)))) Gets overdue *items* in loan*@
-                                    @if ((item.DateCreated.AddDays(28) < DateTime.Today.AddDays(1)) && (item.IsActive))
+                                    @if ((item.DateCreated.AddDays(29) < DateTime.Today.AddDays(1)) && (item.IsActive))
                                     {
                                         <i class="fa fa-exclamation-circle fa-lg text-danger"></i>
                                     }
                                 </td>
                                 <td>
                                     @item.DateCreated.ToString("MMMM dd, yyyy")
+                                </td>
+                                <td>
+                                    @item.DateCreated.AddDays(28).ToString("MMMM dd")
                                 </td>
                                 <td>
                                     @item.ClientId
@@ -140,7 +146,7 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        var dateDue = item.DateCreated.AddDays(28);
+                                        var dateDue = item.DateCreated.AddDays(29);
                                         var dateC = item.DateCreated;
 
                                         if ((dateDue <= DateTime.Now.AddDays(7) && dateDue >= DateTime.Now) && (item.IsActive))
@@ -186,7 +192,7 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    if ((item.DateCreated.AddDays(28) < DateTime.Today.AddDays(1)) && (item.IsActive))
+                                    if ((item.DateCreated.AddDays(29) < DateTime.Today.AddDays(1)) && (item.IsActive))
                                     {
                                         <tr>
                                             <td>

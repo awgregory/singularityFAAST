@@ -33,6 +33,10 @@
     var itemSearchButton = $('#itemSearchButton');
     var itemSearchInput = $('#itemSearchInput');
 
+    //get the checkbox values
+    var purposeDropdown = $('input[name=purp]:checked').val();
+    var purposeTypeDropdown = $('input[name=ppda]:checked').val();
+
     //endregion
 
     //region - globals(ish)
@@ -100,29 +104,26 @@
             return; //safely exit doing nothing
 
         console.log('item id chosen: ' + chosenInventoryId);
+
         //set the hidden form input's value to the inventoryId extracted from the click event
         //we need to be appending to a array, then, just before form submission
         //appoint that array to the form value
         itemIds.push(chosenInventoryId); //TODO: create separate function that handles this logic
         console.log(itemIds);
+
         //Update the info panel
         var infoPanel = $('#iItems');
-        infoPanel.append('<h5>' + chosenInventoryId + '</h5>');
+        infoPanel.append('<h5>Item #' + chosenInventoryId + '</h5>');
     }
 
 
-    function updatecheckboxesThreeCategories()
-    {
-        //get the dropdown box values
-        //var indDropdown = $('input[name=individ]:checked').val();
-        var purposeDropdown = $('input[name=purp]:checked').val();
-        var purposeTypeDropdown = $('input[name=ppda]:checked').val();
-
-        //set these hidden form input values in the form submit - so put these there
-        //$('#individualHidden').val(indDropdown);
-        $('#purposeHidden').val(purposeDropdown);
-        $('#purposeTypeHidden').val(purposeTypeDropdown);
-    }
+    //function updatecheckboxesThreeCategories()
+    //{
+    //    //set these hidden form input values in the form submit - so put these there
+    //    //$('#individualHidden').val(indDropdown);
+    //    $('#purposeHidden').val(purposeDropdown);
+    //    $('#purposeTypeHidden').val(purposeTypeDropdown);
+    //}
 
 
 
@@ -236,8 +237,9 @@
             $('#itemsInfoAlert').text('No items with that name exist in inventory.')
         }
         //once table is built, do we have valid markup to attach to -- assign the functions here!
-        $("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   //checkbox
-
+        //$("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   //checkbox
+        $("input:button[name=addInvButton]").on('click', updateInventoryIdFormValue);
+        
         //Submit - add inventoryItemIds before submission
         $("form").submit(function (e) {
             //validate inventoryId array
@@ -251,8 +253,10 @@
                         .attr('value', itemIds[i])
                         .appendTo("form");
                 }
-
             }
+            $('#purposeHidden').val(purposeDropdown);
+            $('#purposeTypeHidden').val(purposeTypeDropdown);
+            console.log(purposeDropdown);
         })
     }
 
