@@ -36,6 +36,9 @@
     //get the checkbox values
     var purposeDropdown = $('input[name=purp]:checked').val();
     var purposeTypeDropdown = $('input[name=ppda]:checked').val();
+    $('#purposeHidden').val(purposeDropdown);
+    $('#purposeTypeHidden').val(purposeTypeDropdown);
+    console.log(purposeDropdown);
 
     //endregion
 
@@ -254,9 +257,6 @@
                         .appendTo("form");
                 }
             }
-            $('#purposeHidden').val(purposeDropdown);
-            $('#purposeTypeHidden').val(purposeTypeDropdown);
-            console.log(purposeDropdown);
         })
     }
 
