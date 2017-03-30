@@ -245,7 +245,7 @@ namespace SingularityFAAST.Services.Services
                     {
                         InventoryItemId = id,
                         LoanMasterId = newLoan.LoanMasterId
-                        //LoanDate = DateTime.Now,
+                        LoanDate = DateTime.Now,
                         //LoanDuration defaults to 28
                         //other properties that can not be null in the data
                     });

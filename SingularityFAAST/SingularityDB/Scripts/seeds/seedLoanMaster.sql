@@ -6,7 +6,7 @@ CREATE TABLE #tempLoanMasters
 	[LoanMasterId] INT NOT NULL IDENTITY(1,1),
     [DateCreated] DATETIME NOT NULL, 
 	[ClientID] INT NOT NULL, 
-    [IsActive] BIT DEFAULT 1 NOT NULL, 
+    [IsActive] BIT DEFAULT (1) NOT NULL, 
 	[LoanNumber] VARCHAR(20) NOT NULL
 )
 
