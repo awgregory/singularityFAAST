@@ -16,6 +16,7 @@ namespace SingularityFAAST.Core.Entities
         [Key, Column(Order = 2)]
         public int ClientId { get; set; }
 
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public bool IsActive { get; set; }
 
         public string LoanNumber { get; set; }

@@ -193,6 +193,21 @@ namespace SingularityFAAST.Services.Services
         }
 
 
+        //Get most recent loan number
+        public string LoanIncrement()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var loan = (from l in context.LoanMasters
+                            orderby l.LoanMasterId descending  
+                            select l.LoanNumber).Take(1);   
+                var addNumber = string.Join("", loan.Where(char.IsDigit));
+                int lastNum = Int32.Parse(addNumber);
+                lastNum = lastNum + 1;  
+                return lastNum.ToString();
+            }
+        }
+
 
         // GET all Loans associated with client last name
         public IList<LoansClientsInventoryDTO> GetLoansByClientLastName(string searchby)
@@ -208,19 +223,18 @@ namespace SingularityFAAST.Services.Services
             //have client id 
             using (var context = new SingularityDBContext())
             {
+                var loanNumIncrement = LoanIncrement();
                 var newLoan = new LoanMaster
                 {
                     ClientId = loanSubmission.ClientId,
                     DateCreated = DateTime.Now, //can go into the constructor of LoanMaster
                                                 //IsActive = loanSubmission.IsActive //can probably be defaulted
-                    LoanNumber = "00001", //we can create a utility class that auto increments this
+                    LoanNumber = loanNumIncrement  //we can create a utility class that auto increments this - see above
                 };
 
                 context.LoanMasters.Add(newLoan);
 
                 context.SaveChanges(); //this line actually writes the record to the db
-
-                //////works up to here.......
 
                 //after writing the record the newLoan object will have a populated Id that matches the db
                 //in this way we can add LoanDetails that reference the correct LoanMaster
@@ -244,8 +258,8 @@ namespace SingularityFAAST.Services.Services
                     loanSubmission.InventoryItemIds.Select(id => new LoanDetail
                     {
                         InventoryItemId = id,
-                        LoanMasterId = newLoan.LoanMasterId
-                        LoanDate = DateTime.Now,
+                        LoanMasterId = newLoan.LoanMasterId,
+                        //LoanDate = DateTime.Now       //commenting this out works only when LoanDate is type DATE not DATETIME
                         //LoanDuration defaults to 28
                         //other properties that can not be null in the data
                     });

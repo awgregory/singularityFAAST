@@ -14,8 +14,10 @@ namespace SingularityFAAST.Core.Entities
         [Key, Column(Order =1)]
         public int LoanMasterId { get; set; }
 
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime LoanDate { get; set; }
 
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int LoanDuration { get; set; }
 
         [Key, Column(Order = 4)]

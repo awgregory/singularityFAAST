@@ -16,8 +16,7 @@ namespace SingularityFAAST.Core.DataTransferObjects
         public IEnumerable<int> InventoryItemIds { get; set; }
 
 
-        //add the 3 values for the 3 drop downs
-        public string Type { get; set; }   //or change these
+        //add the values for the 2 checkbox lists
 
         public string Purpose { get; set; }
 
