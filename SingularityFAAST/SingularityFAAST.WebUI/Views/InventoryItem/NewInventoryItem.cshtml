@@ -24,7 +24,7 @@
             @*Inventory Number*@
             <div class="form-group">
                 <label for="InventoryNumber">Inventory Number</label>
-                <Input disabled="disabled" type="text" class="form-control" value="@Model.ReturnNextInventoryNumber" id="InventoryNumber">
+                <Input disabled="disabled" type="text" class="form-control" @*value="@Model.ReturnNextInventoryNumber()"*@ id="InventoryNumber">
             </div>
 
             @*Serial Number*@
@@ -67,13 +67,18 @@
             @*Category*@
             <div class="form-group">
                 <label for="Category">Category</label>
-                <select class="form-control" id="Category" required>
+                <select class="form-control" id="InventoryCategoryId" required>
                     <option disabled selected> -- select and option -- </option>
-                    <option>Hearing</option>
-                    <option>Eyesight</option>
-                    <option>Technology</option>
-                    <option>Toys</option>
-                    <option>Communication/Speech</option>
+                    <option value="1">Computers and Related Technology</option>
+                    <option value="2">Daily Living</option>
+                    <option value="3">Environmental Adaptations</option>
+                    <option value="4">Hearing</option>
+                    <option value="5">Learing, Cognition, and Development</option>
+                    <option value="6">Mobility, Seating, and Positioning</option>
+                    <option value="7">Recreational, Sports, and Leisure</option>
+                    <option value="8">Speech Communication</option>
+                    <option value="9">Vehicle Mods and Transport</option>
+                    <option value="10">Vision</option>
                 </select>
             </div>
 
@@ -113,6 +118,10 @@
 
 
         <div>
+            <br/>
             @Html.ActionLink("Create Item", "NewInventoryItem", null, new { @class = "btn btn-primary" })
+            <br />
+            <br />
+            @Html.ActionLink("Cancel New Item", "InventoryIndex", null, new { @class = "btn btn-warning btn-sm" })
         </div>
 }

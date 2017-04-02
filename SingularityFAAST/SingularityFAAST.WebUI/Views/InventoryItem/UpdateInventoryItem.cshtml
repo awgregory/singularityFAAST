@@ -15,19 +15,19 @@
             @*Item Name*@
             <div class="form-group">
                 <label for="ItemName">Item Name</label>
-                <Input type="text" class="form-control" id="ItemName">
+                <Input type="text" class="form-control" id="ItemName" required>
             </div>
 
             @*Inventory Number*@
             <div class="form-group">
                 <label for="InventoryNumber">Inventory Number</label>
-                <Input type="text" class="form-control" id="InventoryNumber">
+                <Input disabled="disabled" type="text" class="form-control" value="NEEDS FIXING" id="InventoryNumber">
             </div>
 
             @*Serial Number*@
             <div class="form-group">
-                <label for="ItemNumber">Item Number</label>
-                <Input type="text" class="form-control" id="ItemNumber">
+                <label for="ItemNumber">SerialNumber</label>
+                <Input type="text" class="form-control" id="SerialNumber">
             </div>
 
             @*Retail Cost*@
@@ -40,6 +40,12 @@
             <div class="form-group">
                 <label for="CostPaid">Cost Paid</label>
                 <Input type="text" class="form-control" id="CostPaid">
+            </div>
+
+            @*Model Name*@
+            <div class="form-group">
+                <label for="ModelName">Model Name</label>
+                <Input type="text" class="form-control" id="ModelName">
             </div>
 
             @*Location*@
@@ -58,20 +64,25 @@
             @*Category*@
             <div class="form-group">
                 <label for="Category">Category</label>
-                <select class="form-control" id="Category">
-                    <option disabled selected value> -- select and option -- </option>
-                    <option>Hearing</option>
-                    <option>Eyesight</option>
-                    <option>Technology</option>
-                    <option>Toys</option>
-                    <option>Communication/Speech</option>
+                <select class="form-control" id="InventoryCategoryId" required>
+                    <option disabled selected> -- select and option -- </option>
+                    <option value="1">Computers and Related Technology</option>
+                    <option value="2">Daily Living</option>
+                    <option value="3">Environmental Adaptations</option>
+                    <option value="4">Hearing</option>
+                    <option value="5">Learing, Cognition, and Development</option>
+                    <option value="6">Mobility, Seating, and Positioning</option>
+                    <option value="7">Recreational, Sports, and Leisure</option>
+                    <option value="8">Speech Communication</option>
+                    <option value="9">Vehicle Mods and Transport</option>
+                    <option value="10">Vision</option>
                 </select>
             </div>
 
             @*Purchase Date*@
             <div class="form-group">
-                <label for="PurchaseDate">Purchase Date</label>
-                <Input type="text" class="form-control" id="PurchaseDate">
+                <label for="DatePurchased">Date Purchased</label>
+                <Input type="datetime" class="form-control" id="DatePurchased" required>
             </div>
 
             @*Description*@
@@ -88,19 +99,28 @@
                 <textarea rows="4" class="form-control" id="Accessories"></textarea>
             </div>
 
-            @*Additional Files
-    <div class="form-control">
-        <label for ="AdditionalFiles">Additional Files</label>
-    </div>*@
+            @*Damages*@
+            <div class="form-group">
+                <label for="Damages">Damages</label>
+                <textarea rows="4" class="form-control" id="Damages"></textarea>
+            </div>
+
+            @*@*Additional Files
+                <div class="form-control">
+                    <label for="AdditionalFiles">Additional Files</label>
+                </div>*@
         </div>
     </div>
 
-    
 
     <div>
-        @Html.ActionLink("Update Item", "UpdateInventoryItem", null, new { @class = "btn btn-primary" })
-        <br/>
-        <br/>
-        @Html.ActionLink("Delete Item", "", null, new { @class = "btn btn-danger btn-sm" })
+        <br />
+        @Html.ActionLink("Update Item", "UpdateInventoryItem", null, new { @class = "btn btn-primary btn-lg" })
+        <br />
+        <br />
+        @Html.ActionLink("Cancel Update", "InventoryIndex", null, new { @class = "btn btn-warning btn-md" })
+        <br />
+        <br />
+        @Html.ActionLink("Delete Item", "DeleteInventoryItem", null, new { @class = "btn btn-danger btn-sm" })
     </div>
 </form>
