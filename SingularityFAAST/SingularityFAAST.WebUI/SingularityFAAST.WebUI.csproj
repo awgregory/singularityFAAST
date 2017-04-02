@@ -196,7 +196,6 @@
     <Content Include="Views\Loan\ViewItems.cshtml" />
     <Content Include="Views\Loan\AddLoan.cshtml" />
     <Content Include="Views\Loan\CheckItem.cshtml" />
-    <Content Include="Views\Loan\RenewItem.cshtml" />
     <Content Include="Views\Client\EditClient.cshtml" />
     <Content Include="Scripts\jquery-ui-1.12.1.custom\package.json" />
     <None Include="Web.Debug.config">

@@ -95,7 +95,7 @@ namespace SingularityFAAST.Services.Services
                             on lm.ClientId equals c.ClientID
 
                             select new LoansClientsInventoryDTO()
-                            {   
+                            {
                                 LoanMasterId = lm.LoanMasterId,
                                 LoanNumber = lm.LoanNumber,
                                 LoanDate = ld.LoanDate,
@@ -199,11 +199,11 @@ namespace SingularityFAAST.Services.Services
             using (var context = new SingularityDBContext())
             {
                 var loan = (from l in context.LoanMasters
-                            orderby l.LoanMasterId descending  
-                            select l.LoanNumber).Take(1);   
+                            orderby l.LoanMasterId descending
+                            select l.LoanNumber).Take(1);
                 var addNumber = string.Join("", loan.Where(char.IsDigit));
                 int lastNum = Int32.Parse(addNumber);
-                lastNum = lastNum + 1;  
+                lastNum = lastNum + 1;
                 return lastNum.ToString();
             }
         }
@@ -290,7 +290,7 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
-#endregion
+        #endregion
 
 
         //Search by Loan Number (also a string)
@@ -414,7 +414,7 @@ namespace SingularityFAAST.Services.Services
         #endregion
 
 
-        
+
         #region CheckInLoan
 
         //Renews all Items in a loan as a new loan
@@ -424,19 +424,19 @@ namespace SingularityFAAST.Services.Services
             {
 
                 var query2 = from item in context.LoanDetails
-                    where item.InventoryItemId == loan.InventoryItemId
-                    select item;
+                             where item.InventoryItemId == loan.InventoryItemId
+                             select item;
 
-              //Details - may have multiple deets, so for each loan detail, update
-              //var query1 = (from itemId in loan.InventoryItemIds
-              //                where itemId == loan.InventoryItemId
-              //              //select itemId).ToList();
-              //              select new LoanDetail
-              //              {
-              //                  InventoryItemId = itemId,
-              //                  ClientOutcome = loan.ClientOutcome,
-              //                  Notes = loan.Notes
-              //              });
+                //Details - may have multiple deets, so for each loan detail, update
+                //var query1 = (from itemId in loan.InventoryItemIds
+                //                where itemId == loan.InventoryItemId
+                //              //select itemId).ToList();
+                //              select new LoanDetail
+                //              {
+                //                  InventoryItemId = itemId,
+                //                  ClientOutcome = loan.ClientOutcome,
+                //                  Notes = loan.Notes
+                //              });
 
                 List<LoanDetail> loanDetailsList = query2.ToList();
                 foreach (var iItem in loanDetailsList)
@@ -487,35 +487,35 @@ namespace SingularityFAAST.Services.Services
 
         #region EditItems
 
-        public void EditLoanDetails(LoanDetail loan)
-        {
-            using (var context = new SingularityDBContext())
-            {
-                context.LoanDetails.Attach(loan);
+        //public void EditLoanDetails(LoanDetail loan)
+        //{
+        //    using (var context = new SingularityDBContext())
+        //    {
+        //        context.LoanDetails.Attach(loan);
 
-                var entry = context.Entry(loan);
+        //        var entry = context.Entry(loan);
 
-                entry.State = EntityState.Modified;
+        //        entry.State = EntityState.Modified;
 
-                context.SaveChanges();
+        //        context.SaveChanges();
 
-            }
-        }
+        //    }
+        //}
 
-        public void EditLoanMaster(LoanMaster loan)
-        {
-            using (var context = new SingularityDBContext())
-            {
-                context.LoanMasters.Attach(loan);
+        //public void EditLoanMaster(LoanMaster loan)
+        //{
+        //    using (var context = new SingularityDBContext())
+        //    {
+        //        context.LoanMasters.Attach(loan);
 
-                var entry = context.Entry(loan);
+        //        var entry = context.Entry(loan);
 
-                entry.State = EntityState.Modified;
+        //        entry.State = EntityState.Modified;
 
-                context.SaveChanges();
+        //        context.SaveChanges();
 
-            }
-        }
+        //    }
+        //}
         #endregion
 
 

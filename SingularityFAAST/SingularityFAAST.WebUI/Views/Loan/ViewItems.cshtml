@@ -12,25 +12,31 @@
 
 <br />
 @*How to RenewItems, yet not make whole loan overdue (while having item that is for another 28 days), or affect monthly count of loans made?  <br/>
-When Item or Entire Loan is renewed, it should count as new loan for the month.*@ 
+    When Item or Entire Loan is renewed, it should count as new loan for the month.*@
 
 <div class="row">
     <div class="col-md-12">
-        
+
         @*@Html.ActionLink("Renew Entire Loan", "RenewLn", null, new {@class = "btn btn-primary"})*@ @*Currently, this creates a new loan for the month.  !Or--New LoanMasterId is made but same Loan Number is kept!*@
         @using (Html.BeginForm("RenewLn", "Loan", FormMethod.Post, new { @class = "form-inline col-md-1" }))
         {
-            //<input type="hidden" value="@LoansClientsInventoryDTO.LoanNumber" name="LoanNumber" />
+            foreach(var i in Model)
+            {
+                <input type="hidden" value="@i.LoanMasterId" name="LoanMasterId" />
+            }
             <input type="submit" class="btn btn-primary" name="rnwLoan" value='Renew Loan' />
         }
-        
+
 
         @* test code button.  bottom one is original *@
         @*@Html.ActionLink("Edit Loan", "EditLn", null, new {@class = "btn btn-primary"})*@ @*Pass the Loan number to auto-populate details on EditLn*@
-        @using (Html.BeginForm("EditLn", "Loan", FormMethod.Post, new {@class = "form-inline col-md-1"}))
+        @using (Html.BeginForm("EditLoan", "Loan", FormMethod.Post, new { @class = "form-inline col-md-1" }))
         {
-            //<input type="hidden" value="@LoansClientsInventoryDTO.LoanNumber" name="LoanNumber" />
-            <input type="submit" class="btn btn-primary" name="edtLoan" value='Edit Loan'/>
+            foreach (var i in Model)
+            {
+                <input type="hidden" value="@i.LoanMasterId" name="LoanMasterId" />
+            }
+            <input type="submit" class="btn btn-primary" name="edtLoan" value='Edit Loan' />
         }
 
     </div>
@@ -38,139 +44,140 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.*
 <br />
 <div class="row">
     <div class="col-md-12">
-        <div class="col-md-6 ">   @*make this a list group (see bootstrap components) *@
+        <div class="col-md-6 ">
+            @*make this a list group (see bootstrap components) *@
             <h5><i class="fa fa-times fa-lg text-danger"></i> Select any item to remove it from the loan. </h5>
             <h5><i class="fa fa-check fa-lg text-info"></i> Select any active item to check in. If this does not appear, the item has been checked in.</h5>
             <h5><i class="fa fa-refresh fa-lg text-success"></i> Select any item to renew it.</h5>
             <br />
             <h5><i class="fa fa-exclamation-circle fa-lg text-danger"></i> Indicates an overdue item.</h5>
-            <br/>
+            <br />
         </div>
     </div>
 
 </div>
 @*<div class="row col-md-12">
-<h3 >Information for Loan:</h3>
-    </div>*@
-    <div class="row">
-        <h4>
-            @foreach (LoansClientsInventoryDTO item in Model)
+    <h3 >Information for Loan:</h3>
+        </div>*@
+<div class="row">
+    <h4>
+        @foreach (LoansClientsInventoryDTO item in Model)
             {
-                <span class="col-md-1">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
+            <span class="col-md-1">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
                 <span class="col-md-2">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
                 <span class="col-md-2">Phone: @Html.DisplayFor(x => item.HomePhone)  </span>
                 <span class="col-md-3">Email: @Html.DisplayFor(x => item.Email)</span>
-                break;  //or will print client for each item in client loan
-            }
+            break;  //or will print client for each item in client loan
+        }
 
-        </h4>
-    </div>
+    </h4>
+</div>
 
-    <hr />
+<hr />
 
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-striped table-hover table-condensed">
-                    <thead>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            Select
+                        </th>
+                        <th>
+                            Item ID
+                        </th>
+                        <th>
+                            Item Name
+                        </th>
+                        <th>
+                            Manufacturer
+                        </th>
+                        <th>
+                            Date Loaned
+                        </th>
+                        <th>
+                            Date Due
+                        </th>
+                        <th>
+                            Notes
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
                         <tr>
-                            <th>
-                                Select
-                            </th>
-                            <th>
-                                Item ID
-                            </th>
-                            <th>
-                                Item Name
-                            </th>
-                            <th>
-                                Manufacturer
-                            </th>
-                            <th>
-                                Date Loaned
-                            </th>
-                            <th>
-                                Date Due
-                            </th>
-                            <th>
-                                Notes
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                            <td>
+                                <div style="width: 100px;">
+                                    @*@Html.ActionLink("Select", "", new {id = item.LoanId})*@ @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
+                                    @*@Html.RadioButton("selectNum", false)*@
 
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    <div style="width: 100px;">
-                                        @*@Html.ActionLink("Select", "", new {id = item.LoanId})*@ @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
-                                        @*@Html.RadioButton("selectNum", false)*@
-                                        
-                                        @*Remove Item from loan*@
-                                        @using (Html.BeginForm("CancelItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                        {
-                                            <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
+                                    @*Remove Item from loan*@
+                                    @using (Html.BeginForm("CancelItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                    {
+                                        <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
                                             <button type="submit" style="float: left" name="viewButton" value="1"><i class="fa fa-times fa-lg text-danger"></i></button> @*remove item*@
-                                        }
-                                        
-                                        @*Checkin Item on its own*@
-                                        @*If Item not available (because it's checked out) ----what if it's checked out by another person?? will still appear*@
-                                        @*(!item.Availability) &&*@
-                                        @if (item.IsActive)   
-                                        {
-                                            using (Html.BeginForm("CheckItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                            {
-                                                <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
-                                                <button type="submit" style="float: left" name="checkButton" value="1"><i class="fa fa-check fa-lg text-info"></i></button> @*check in the item, record client outcome, damages etc.*@
-                                            }
-                                        }
-                                        
-                                        @*Renew Item (this creates new loan with just this item)*@
-                                        @using (Html.BeginForm("RenewItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                    }
+
+                                    @*Checkin Item on its own*@
+                                    @*If Item not available (because it's checked out) ----what if it's checked out by another person?? will still appear*@
+                                    @*(!item.Availability) &&*@
+                                    @if (item.IsActive)
+                                    {
+                                        using (Html.BeginForm("CheckItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                         {
                                             <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
+                                                <button type="submit" style="float: left" name="checkButton" value="1"><i class="fa fa-check fa-lg text-info"></i></button> @*check in the item, record client outcome, damages etc.*@
+                                        }
+                                    }
+
+                                    @*Renew Item (this creates new loan with just this item)*@
+                                    @using (Html.BeginForm("RenewItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                    {
+                                        <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
                                             <button type="submit" name="viewButton" value="2"><i class="fa fa-refresh fa-lg text-success"></i></button> @*renew item (create new loan)*@
-                                        }
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="width: 110px;">
-                                        12-IN-@item.InventoryItemId
-                                        @*&& (!item.Availability)*@
-                                        @if ((item.LoanDate.AddDays(29) < DateTime.Today.AddDays(1)))  
-                                        {
-                                            <i class="fa fa-exclamation-circle fa-lg text-danger"></i>
-                                        }
-                                    </div>
-                                </td>
-                                <td>
-                                    @item.ItemName
-                                </td>
-                                <td>
-                                    @item.Manufacturer
-                                </td>
-                                <td>
-                                    @item.LoanDate.ToString("MMMM dd yyyy")  @*Date item added to loan - may be the same day loan was created*@
-                                </td>
-                                <td>
-                                    @item.LoanDate.AddDays(28).ToString("MMMM dd yyyy") @* + 28 days *@
-                                </td>
-                                <td>
-                                    <div style="width: 300px;">
-                                        @item.Notes
-                                    </div>
-                                </td>
-                            </tr>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 110px;">
+                                    12-IN-@item.InventoryItemId
+                                    @*&& (!item.Availability)*@
+                                    @if ((item.LoanDate.AddDays(29) < DateTime.Today.AddDays(1)))
+                                    {
+                                        <i class="fa fa-exclamation-circle fa-lg text-danger"></i>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                @item.ItemName
+                            </td>
+                            <td>
+                                @item.Manufacturer
+                            </td>
+                            <td>
+                                @item.LoanDate.ToString("MMMM dd yyyy")  @*Date item added to loan - may be the same day loan was created*@
+                            </td>
+                            <td>
+                                @item.LoanDate.AddDays(28).ToString("MMMM dd yyyy") @* + 28 days *@
+                            </td>
+                            <td>
+                                <div style="width: 300px;">
+                                    @item.Notes
+                                </div>
+                            </td>
+                        </tr>
 
-                        }
+                    }
 
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
-        <p>
-            @Html.ActionLink("Back to List", "Index", null, null)
-        </p>
     </div>
+    <p>
+        @Html.ActionLink("Back to List", "Index", null, null)
+    </p>
+</div>
