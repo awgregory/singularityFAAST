@@ -92,6 +92,9 @@ namespace SingularityFAAST.WebUI.Controllers
         {
             //passed string LoanNumber
             //process renewal here (is checkin of loan and then add new loan)
+            //1. check in items
+            //2. create new loan with new loan object so creates new loan number
+            //3. use id to fill in loan with loan details
 
             //IList<LoansClientsInventoryDTO> model = lm_services.AddAllItemsAsNewLoan(loanNumber);
             //lm_services.SaveAllItemsAsNewLoan();

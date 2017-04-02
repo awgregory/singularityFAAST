@@ -614,6 +614,7 @@ namespace SingularityFAAST.Services.Services
         #region EmailNotification
         //Poll the DateCreated in LoanMaster every 24 hours. Trigger this email  if ((item.DateCreated.AddDays(28) <= DateTime.Now.AddDays(7) && item.DateCreated.AddDays(28) >= DateTime.Now) && (item.IsActive)) 
         //Add Email Notification
+        //use Windows service running on vm Windows rt 
         public void NotifyEmail(string loanNumber)  //or LoanClientsInventoryDTO
         {
             var template = File.ReadAllText(HttpContext.Current.Server.MapPath("~/SingularityFAAST.WebUI/Views/Loan/EmailTemplate.html"));
@@ -633,9 +634,9 @@ namespace SingularityFAAST.Services.Services
             //var body = RazorEngine.Parse(template, model);  // le?    bring in nuget razor engine?
             var body = "Hi, < br > Client<loan.FirstName>, < loan.LastName >, Phone<loan.PhoneNumber>, has a loan due within one week.Loan Number < loan.LoanNumber > has devices < devices > < br > Thanks, FAASTer";
 
-            var fromAddress = new MailAddress("kyoungbe@gmail.com", "FAASTer Inventory System");
+            var fromAddress = new MailAddress("faasterEmailNotification@gmail.com", "FAASTer Inventory System");
             var toAddress = new MailAddress("kyoungbe@gmail.com", "FAAST Admin");
-            const string fromPassword = "vvvv2222";
+            const string fromPassword = "faastemail";
             const string subject = "Device Loan Coming Due";
 
             var smtp = new SmtpClient
