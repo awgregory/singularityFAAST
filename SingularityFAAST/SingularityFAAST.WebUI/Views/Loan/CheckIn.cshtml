@@ -4,62 +4,94 @@
     ViewBag.Title = "CheckIn";
 }
 
-This page checks in an entire loan at once. It updates the value LoanMasters.IsActive to False, and for each Item in loan sets Availability to True.  And record client outcome, damages etc.
-Notify on overdue loans.
+<h2>Loan Check-In</h2>
+@using (Html.BeginForm("CheckInLoan", "Loan", FormMethod.Post, new { @class = "" }))
+{
+    <div>
+        <hr />
+        <div class="row">
+            <h4>
+                @foreach (var item in Model)
+                {
+                    <span class="col-md-1">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
+                    <span class="col-md-2">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
+                    <span class="col-md-2">Phone: @Html.DisplayFor(x => item.HomePhone)  </span>
+                    <span class="col-md-3">Email: @Html.DisplayFor(x => item.Email)</span>
+                    break; //or will print client for each item in client loan
+                }
+            </h4>
 
-<h2>Loan Check In</h2>
+        </div>
+        <br />
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <input type="hidden" value="@item.LoanMasterId" name="LoanMasterId" />
+                <dl class="dl-horizontal">
+                    <dt>
+                        Item Number:
+                    </dt>
 
-<div>
-    <h4>Loan</h4>
-    <hr />
-    @*<h3>Your Loan is checked in</h3>*@
-    @foreach (var item in Model)
-    {
+                    <dd>
+                        @item.InventoryItemId
+                    </dd>
+                    <dt>
+                        Item:
+                    </dt>
 
-        <dl class="dl-horizontal">
-            <dt>
-                Device
-            </dt>
+                    <dd>
+                        @item.ItemName
+                    </dd>
 
-            <dd>
-                @item.LoanNumber
-            </dd>
+                    <dt>
+                        Item Loan End Date:
+                    </dt>
 
-            <dt>
-                Last Name
-            </dt>
+                    <dd>
+                        @item.LoanDate.AddDays(29).ToString("MMMM dd, yyyy")
+                    </dd>
+                </dl>
+                <br />
+                <div class="row">
+                    <label for="damages">Item Damages:</label>
 
-            <dd>
-                @item.LastName)
-            </dd>
-
-            <dt>
-                First Name
-            </dt>
-
-            <dd>
-                @item.FirstName)
-            </dd>
-
-            <dt>
-                Loan End Date
-            </dt>
-
-            <dd>
-                @item.DateCreated.AddDays(28).ToString("MMMM dd, yyyy"))
-            </dd>
-        </dl>
-    }
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Check-In Device" class="btn btn-default" />
+                    <input type="text" name="Damages" id="damages" />
+                </div>
+            }
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-2" id="decision">
+                <h5>Client Outcome</h5>
+                <div class="radio">
+                    <label><input type="radio" name="clientOutcome" value="AT will meet needs">AT will meet needs</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="clientOutcome" value="Non-Respondant">Non-Respondant</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="clientOutcome" value="No decision made">No decision made</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="clientOutcome" value="AT will not meet needs">AT will not meet needs</label>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <label for="notes">Notes on the Loan:</label>
+            <input type="text" name="Notes" id="notes" />
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-2 col-md-10">
+                <input type="submit" value="Check-In Loan" class="btn btn-primary" />
+            </div>
         </div>
     </div>
-</div>
-
+}
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Loans List", "Index")
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
