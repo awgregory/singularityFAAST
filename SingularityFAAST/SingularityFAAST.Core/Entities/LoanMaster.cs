@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,6 +20,11 @@ namespace SingularityFAAST.Core.Entities
 
         public string LoanNumber { get; set; }
 
+        public bool IsDeleted { get; set; }
+
+        public string ClientOutcome { get; set; }
+
+        public string LoanNotes { get; set; }
         //public IEnumerable<int> LoanMasterIds { get; set; }
     }
 }

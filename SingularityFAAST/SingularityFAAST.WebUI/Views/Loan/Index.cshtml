@@ -36,6 +36,7 @@
             <div class="col-md-4">
                 <i class="fa fa-search-plus fa-lg"></i> Select any loan to edit, renew or cancel. <br />
                 <i class="fa fa-check text-info fa-lg"></i> Select any active loan to check-in. <br />
+                @*<i class="fa fa-times text-info fa-lg"></i> Mark Loan Delete / Mistaken <br />*@
                 <i class="fa fa-exclamation-circle fa-lg text-danger"></i> Indicates a loan or item in loan is overdue.
             </div>
         </div>
@@ -80,6 +81,7 @@
                                         <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
                                         <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button>  @*View items in Loan*@
                                     }
+                                    
                                     @if (item.IsActive)
                                     {
                                         using (Html.BeginForm("CheckIn", "Loan", FormMethod.Post, new { @class = "form-inline" }))
@@ -88,7 +90,9 @@
                                             <button type="submit" style="float: none"><i class="fa fa-check text-info fa-md"></i></button>  @*Check in Entire loan*@
                                         }
                                     }
-
+                                    <button>
+                                        @Html.ActionLink("Delete Loan", "DeleteLoan", new { loanNumber = item.LoanNumber })
+                                    </button>
                                 </td>
                                 <td>
                                     12-DL-@item.LoanNumber              @*|| (item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)))) Gets overdue *items* in loan*@

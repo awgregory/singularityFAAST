@@ -15,6 +15,7 @@ using System.Net.Mime;
 using System.Security.Policy;
 using System.Web;
 using SingularityFAAST.Services.Services;
+using System.Data.SqlClient;
 //using RazorEngine;  //for the email template parsing
 //using RazorEngine.Templating;   //for the email template parsing
 
@@ -60,7 +61,7 @@ namespace SingularityFAAST.Services.Services
                 var loans = from c in context.Clients
                             join l in context.LoanMasters
                             on c.ClientID equals l.ClientId
-
+                            where l.IsDeleted == false
                             //join ld in context.LoanDetails   //union
                             //on l.LoanMasterId equals ld.LoanMasterId  selects less and repeats because not all loans have loan details, and each detail then appears as a new loan
 
@@ -93,6 +94,8 @@ namespace SingularityFAAST.Services.Services
                             on ld.LoanMasterId equals lm.LoanMasterId
                             join c in context.Clients
                             on lm.ClientId equals c.ClientID
+
+                            where lm.IsDeleted == false
 
                             select new LoansClientsInventoryDTO()
                             {
@@ -130,6 +133,8 @@ namespace SingularityFAAST.Services.Services
                               join i in context.InventoryItems
                               on ld.InventoryItemId equals i.InventoryItemId
 
+                              where l.IsDeleted == false
+
                               select new LoansClientsInventoryDTO()
                               {
                                   HomePhone = c.HomePhone,
@@ -166,6 +171,8 @@ namespace SingularityFAAST.Services.Services
                             //join ld in context.LoanDetails   //union
                             //on l.LoanMasterId equals ld.LoanMasterId  selects less and repeats because not all loans have loan details, and each detail then appears as a new loan
 
+                            where l.IsDeleted == false
+
                             select new LoansClientsInventoryDTO()
                             {
                                 LoanNumber = l.LoanNumber,
@@ -180,6 +187,25 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
+        public void DeleteLoanByLoanNumber(string loanNumber)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var loanToDelete = context.LoanMasters.FirstOrDefault(
+                    loanMaster => 
+                        string.Equals(loanMaster.LoanNumber, loanNumber.ToString())
+                    );
+
+                if (loanToDelete != null)
+                    loanToDelete.IsDeleted = true;
+
+                context.SaveChanges();
+
+                var itemIds = GetInventoryItemIdsByLoanNumber(loanNumber);
+
+                MarkInventoryItemsAsAvailable(context, itemIds);
+            }
+        }
 
         public Client GetClientDetails()  //int id
         {
@@ -417,6 +443,34 @@ namespace SingularityFAAST.Services.Services
 
         #region CheckInLoan
 
+        public void CheckInLoan_Nick(CheckInWholeLoanDTO checkInDTO)
+        {
+            var loanNumber = checkInDTO.LoanNumber;
+
+            using (var context = new SingularityDBContext())
+            {
+                var loan = context.LoanMasters.FirstOrDefault(
+                    lm => string.Equals(lm.LoanNumber, loanNumber));
+
+                if (loan != null)
+                {
+                    loan.IsActive = false;
+
+                    loan.ClientOutcome = checkInDTO.ClientOutcome;
+                    loan.LoanNotes = checkInDTO.LoanNotes;
+                    //do not worry about item damages for now
+                }
+
+                context.SaveChanges();
+
+                var itemIds = GetInventoryItemIdsByLoanNumber(loanNumber);
+
+                MarkInventoryItemsAsAvailable(context, itemIds);
+
+                
+            }
+        }
+
         //Renews all Items in a loan as a new loan
         public void CheckLoan(LoansClientsInventoryDTO loan)  //(LoanSubmission loan)
         {
@@ -614,5 +668,31 @@ namespace SingularityFAAST.Services.Services
         }
         #endregion
 
+        private IEnumerable<int> GetInventoryItemIdsByLoanNumber(string loanNumber)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var storedProcedureName = "dbo.GetInventoryItemsByLoanNumber @loanNumber";
+                var pLoanNumber = new SqlParameter("@loanNumber", loanNumber);
+
+                return context.Database.SqlQuery<int>(
+                    storedProcedureName, pLoanNumber).ToList();
+            }
+        }
+
+        private void MarkInventoryItemsAsAvailable(SingularityDBContext context, 
+            IEnumerable<int> itemIds)
+        {
+            foreach (var itemId in itemIds)
+            {
+                var item = context.InventoryItems.FirstOrDefault(
+                    i => i.InventoryItemId == itemId);
+
+                if (item != null)
+                    item.Availability = true;
+
+                context.SaveChanges();
+            }
+        }
     }
 }

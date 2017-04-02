@@ -283,6 +283,12 @@
                 //    ($('#submitInfoAlert').text("Client and items are required."))
                 //    return;
                 //}
+
+                //find name of primary purpose decision Radio Buttons
+
+                //ensure something is checked
+
+                //if none checked pop alert / PREVENT form submission
             })
         
     }

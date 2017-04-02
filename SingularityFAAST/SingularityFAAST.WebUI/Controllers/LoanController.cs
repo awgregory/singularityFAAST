@@ -168,7 +168,18 @@ namespace SingularityFAAST.WebUI.Controllers
             //Get input from text boxes for Damages, Notes and ClientOutcome
 
             //var services = new LoanMasterServices();
-            lm_services.CheckLoan(loan);
+            //lm_services.CheckLoan(loan);
+
+            //TODO: rewire as necessary
+            var dto = new CheckInWholeLoanDTO()
+            {
+                ClientOutcome = loan.ClientOutcome,
+                ItemDamages = loan.Damages,
+                LoanNotes = loan.Notes,
+                LoanNumber = loan.LoanNumber
+            };
+
+            lm_services.CheckInLoan_Nick(dto);
 
 
             //    //Returns to Loan Index page
@@ -200,6 +211,15 @@ namespace SingularityFAAST.WebUI.Controllers
 
         #endregion
 
+        #region Delete Loan - Mark entirely deleted
+        public ActionResult DeleteLoan(string loanNumber)
+        {
+            lm_services.DeleteLoanByLoanNumber(loanNumber);
+
+            return RedirectToAction("Index");
+        }
+
+        #endregion
 
 
         #region Cancel Loan or Single Item
@@ -250,9 +270,9 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult AddTheLoan(LoanSubmission loanSubmission)
         {
             var services = new LoanMasterServices();
+
             services.CreateLoan(loanSubmission);
 
-            //Returns to Loan Index page
             return RedirectToAction("Index", "Loan");
         }
 
