@@ -35,7 +35,7 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.*
 
     </div>
 </div>
-    <br />
+<br />
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-6 ">   @*make this a list group (see bootstrap components) *@
@@ -47,14 +47,6 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.*
             <br/>
         </div>
     </div>
-
-           
-    @*@Html.ActionLink("Renew Item", "RenewLoan", null, new { @class = "btn btn-default" })*@ @*RenewLoan*@
-            
-    @*@Html.ActionLink("Remove Item", "CancelLn", null, new { @class = "btn btn-default" }) @*CancelLoan  *@
-          
-    @*@Html.ActionLink("Check-In Item", "CheckIn", null, new { @class = "btn btn-default" }) @*CheckinItem*@ @*And record client outcome, damages etc.*@
-        
 
 </div>
 @*<div class="row col-md-12">
@@ -115,12 +107,15 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.*
                                     <div style="width: 100px;">
                                         @*@Html.ActionLink("Select", "", new {id = item.LoanId})*@ @*Could be checkbox. Not a link, just selects, for one of three possible functions*@
                                         @*@Html.RadioButton("selectNum", false)*@
-
-                                        @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                        
+                                        @*Remove Item from loan*@
+                                        @using (Html.BeginForm("CancelItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                         {
                                             <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
                                             <button type="submit" style="float: left" name="viewButton" value="1"><i class="fa fa-times fa-lg text-danger"></i></button> @*remove item*@
                                         }
+                                        
+                                        @*Checkin Item on its own*@
                                         @*If Item not available (because it's checked out) ----what if it's checked out by another person?? will still appear*@
                                         @*(!item.Availability) &&*@
                                         @if (item.IsActive)   
@@ -131,7 +126,9 @@ When Item or Entire Loan is renewed, it should count as new loan for the month.*
                                                 <button type="submit" style="float: left" name="checkButton" value="1"><i class="fa fa-check fa-lg text-info"></i></button> @*check in the item, record client outcome, damages etc.*@
                                             }
                                         }
-                                        @using (Html.BeginForm("AddLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                        
+                                        @*Renew Item (this creates new loan with just this item)*@
+                                        @using (Html.BeginForm("RenewItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                         {
                                             <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
                                             <button type="submit" name="viewButton" value="2"><i class="fa fa-refresh fa-lg text-success"></i></button> @*renew item (create new loan)*@

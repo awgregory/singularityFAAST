@@ -1,17 +1,76 @@
-﻿
+﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+
 @{
-    Layout = null;
+    ViewBag.Title = "CheckInItem";
 }
 
-<!DOCTYPE html>
+<h2>Loan Check-In</h2>
+@using (Html.BeginForm("CheckItemIn", "Loan", FormMethod.Post, new { @class = "" }))
+{
+    <div>
+        <hr />
+        <div class="row">
+            <h4>
+                @foreach (var item in Model)
+                {
+                    <span class="col-md-1">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
+                    <span class="col-md-2">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
+                    <span class="col-md-2">Phone: @Html.DisplayFor(x => item.HomePhone)  </span>
+                    <span class="col-md-3">Email: @Html.DisplayFor(x => item.Email)</span>
+                    break; //or will print client for each item in client loan
+                }
+            </h4>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>CheckItem</title>
-</head>
-<body>
-    <div> 
+        </div>
+        <br />
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <input type="hidden" value="@item.LoanMasterId" name="LoanMasterId" />
+                <dl class="dl-horizontal">
+                    <dt>
+                        Item Number:
+                    </dt>
+
+                    <dd>
+                        @item.InventoryItemId
+                    </dd>
+                    <dt>
+                        Item:
+                    </dt>
+
+                    <dd>
+                        @item.ItemName
+                    </dd>
+
+                    <dt>
+                        Item Loan End Date:
+                    </dt>
+
+                    <dd>
+                        @item.LoanDate.AddDays(29).ToString("MMMM dd, yyyy")
+                    </dd>
+                </dl>
+                <br />
+                <div class="row">
+                    <label for="damages">Item Damages:</label>
+                    <input type="text" name="Damages" id="damages" />
+                </div>
+            }
+        </div>
+        <br />
+        <br />
+        <div class="form-group">
+            <div class="col-md-2 col-md-10">
+                <input type="submit" value="Check-In Item" class="btn btn-default" />
+            </div>
+        </div>
     </div>
-</body>
-</html>
+}
+<div>
+    @Html.ActionLink("Back to Loans List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

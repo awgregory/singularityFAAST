@@ -75,12 +75,5 @@ namespace SingularityFAAST.Core.DataTransferObjects
         public IEnumerable<int> InventoryItemIds { get; set; }
         public List<InventoryItem> InventoryItems { get; set; }
 
-        //ClientCategories
-        public string Type { get; set; }
-
-
-        public IEnumerable<string> ClientCategory { get; set; }
-        public IEnumerable<int> ClientCategoryID { get; set; }
-
     }
 }

@@ -78,7 +78,7 @@
                                     @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                     {
                                         <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                                            <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button>  @*View items in Loan*@
+                                        <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button>  @*View items in Loan*@
                                     }
                                     @if (item.IsActive)
                                     {
@@ -101,7 +101,7 @@
                                     @item.DateCreated.ToString("MMMM dd, yyyy")
                                 </td>
                                 <td>
-                                    @item.DateCreated.AddDays(28).ToString("MMMM dd")
+                                    @item.DateCreated.AddDays(29).ToString("MMMM dd")
                                 </td>
                                 <td>
                                     @item.ClientId
@@ -158,7 +158,7 @@
                                                         <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
                                                         <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan*@
                                                     }
-                                                    12-DL-@item.LoanNumber
+                                                    12-DL-@item.LoanNumber  @*DL is device loan. what is 12?*@
                                                 </td>
                                                 <td>@item.DateCreated.AddDays(28).ToString("MMMM dd")</td>
                                             </tr>
@@ -199,7 +199,7 @@
                                                 @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                                 {
                                                     <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                                                            <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan*@
+                                                    <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan*@
                                                 }
                                                 12-DL-@item.LoanNumber
                                             </td>

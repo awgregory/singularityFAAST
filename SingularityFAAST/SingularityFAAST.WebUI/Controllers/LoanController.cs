@@ -77,39 +77,40 @@ namespace SingularityFAAST.WebUI.Controllers
 
         #region Renew
 
-        //This is the page with a box 
-        public ActionResult RenewLn(string loanNumber)
+        //This loads the page with a box, from View Items page top button 
+        public ActionResult RenewLn(int inventoryId)
         {
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
-            //process renewal here
+            IList<LoansClientsInventoryDTO> model = lm_services.ViewItemsById(inventoryId);
 
-            return View("RenewLn");
+            return View(model);
+        }
+
+
+        //This is executed when click yes in page with the box
+        public ActionResult RenewAllItems(string loan)
+        {
+            //passed string LoanNumber
+            //process renewal here (is checkin of loan and then add new loan)
+
+            //IList<LoansClientsInventoryDTO> model = lm_services.AddAllItemsAsNewLoan(loanNumber);
+            //lm_services.SaveAllItemsAsNewLoan();
+
+            return RedirectToAction("Index", "Loan");
         }
 
 
         //This renews an individual item from View Items page
-        public ActionResult RenewItem(string loan)
+        public ActionResult RenewItem(int id)
         {
-            //List Item
+            //process renewal here (is checkin of single item and then add new loan)
+            //no further pages, routes back to Index
 
-            return View("RenewItem");
-        }
-
-
-
-        //This is executed when click yes in page with a box
-        public ActionResult RenewAllItems(LoansClientsInventoryDTO loan)
-        {
-            //IList<LoansClientsInventoryDTO> model = lm_services.AddAllItemsAsNewLoan(loanNumber);
-
-            lm_services.SaveAllItemsAsNewLoan(loan);
-
-            return View("Index");
+            return RedirectToAction("Index", "Loan");
         }
 
         #endregion
 
- 
+
 
 
         #region Edit
@@ -147,60 +148,72 @@ namespace SingularityFAAST.WebUI.Controllers
 
         #region Check In
 
-        //This is just the View Page with text boxes & one param passed in. Doesn't do any checking-in
-        public ActionResult CheckIn(string inventoryItemId)
+        //Whole Loan Page
+        //This is the View Page with text boxes & one param passed in. Doesn't do any checking-in
+        public ActionResult CheckIn(string loanNumber)
         {
             //View all Items in Loan
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();  //get all for this id
-            
+            //IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();  //get all for this id
+            IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);
+         
             return View(model);
         }
-
-
-
-
-        //From View Items page, this result returns same page but without check-in button for this item 
-        public ActionResult CheckItem(string inventoryItemId)
-        {
-            //Check in single item
-            //Get input from text boxes for Damages, Notes and ClientOutcome
-
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
-            //Services method here to change this item to inactive
-
-            return View(model);
-        }
-
-
-
-
-        //Called by CheckIn and CheckItem
-        //Controls the CheckIn process, routes to Services to update the DB, and then back to Index
+        
+        //Whole Loan
+        //Executes the CheckIn process, routes to Services to update the DB, and then back to Index  //RedirectToRouteResult
         [HttpPost]
-        public RedirectToRouteResult CheckInLoan(LoansClientsInventoryDTO loan)
+        public ActionResult CheckInLoan(LoansClientsInventoryDTO loan)
         {
             //Check in multiple items
             //Get input from text boxes for Damages, Notes and ClientOutcome
 
-            //Services method here to change all items to inactive:
-            //    var services = new LoanMasterServices();
-            //    services.SaveLoan(loan);
+            //var services = new LoanMasterServices();
+            lm_services.CheckLoan(loan);
+
 
             //    //Returns to Loan Index page
             return RedirectToAction("Index", "Loan");
         }
 
+
+
+        //Single Item
+        //1. Displays check-in page with single item
+        public ActionResult CheckItem(int itemId)
+        {
+            //Show single item on load
+            IList<LoansClientsInventoryDTO> model = lm_services.ViewItemsById(itemId);
+           
+            return View(model);
+        }
+
+        //Single Item
+        //2. Executes single item checkin, routes back to Index 
+        public ActionResult CheckItemIn(LoansClientsInventoryDTO loan)
+        {
+            //Check in single item
+            lm_services.CheckInLoanInventoryItem(loan);
+
+            return RedirectToAction("Index", "Loan");
+        }
+
+
         #endregion
 
 
 
-        #region Cancel Loan
+        #region Cancel Loan or Single Item
 
         public ActionResult CancelLn()
         {
             return View("CancelLoan");
         }
 
+
+        public ActionResult CancelItem()
+        {
+            return View("CancelLoan");
+        }
         #endregion
 
 
@@ -234,22 +247,11 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult AddTheLoan(LoanSubmission loanSubmission)
         {
             var services = new LoanMasterServices();
-            //services.SaveAllItemsAsNewLoan(loanSubmission);
             services.CreateLoan(loanSubmission);
 
             //Returns to Loan Index page
             return RedirectToAction("Index", "Loan");
         }
-
-        //[HttpPost]
-        //public RedirectToRouteResult AddTheLoan(LoansClientsInventoryDTO loan)
-        //{
-        //        var services = new LoanMasterServices();
-        //        services.SaveAllItemsAsNewLoan(loan);
-
-        //    //    //Returns to Loan Index page
-        //    return RedirectToAction("Index", "Loan");
-        //}
 
         #endregion
 
@@ -257,35 +259,9 @@ namespace SingularityFAAST.WebUI.Controllers
 
         #region Search
 
-        //Displays Inventory search results on page
-        //[HttpPost]
-        //public ActionResult SearchInventory(SearchByString searchRequest, SearchByString byName)  //or do AddLoan with the two parms
-        //{
-        //    //no search term entered
-        //    if (string.IsNullOrWhiteSpace(searchRequest.SearchBy))
-        //    {
-        //        var list1 = _clientServices.GetAllClients();
-        //        var list2 = ii_services.GetAllInventory();
-        //        var model = new AddLoanInfo(list1, list2);
-        //        return View(model);
-        //    }
-        //    else
-        //    {
-        //        //get Inventory item by name
-        //        //Client list1 = lm_services.GetClientsByLName(searchRequest.SearchBy);
-        //        var list1 = _clientServices.GetClientByLastName(searchRequest.SearchBy);
-        //        var list2 = lm_services.ViewItemsByName(searchRequest.byName);
-        //        var model = new AddLoanInfo(list1, list2);
-        //        //return View(model);
-        //        return RedirectToRoute("AddTheLoan", new { clientid = searchRequest.SearchBy });  //pass to AddLoan above 
-        //    }
-
-        //}
-
-
         public JsonResult SearchFakeClients(string searchString)
         {
-            IList<Client> fakeClients = _clientServices.GetAllClients();
+            IList <Client> fakeClients = _clientServices.GetAllClients();
 
             //search through the fake clients list, checking eaching fake client if their first name contains the search string
             //var filteredClients = fakeClients.Where((fakeClient) => fakeClient.LastName.Contains(searchString));

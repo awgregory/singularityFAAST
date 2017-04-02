@@ -54,8 +54,8 @@
         $('#itemsInfoAlert').text('')
     });
 
-    $("input:radio[name=purp]").on('click', updatecheckboxesThreeCategories);
-    $("input:radio[name=ppda]").on('click', updatecheckboxesThreeCategories);
+    //$("input:radio[name=purp]").on('click', updatecheckboxesThreeCategories);
+    //$("input:radio[name=ppda]").on('click', updatecheckboxesThreeCategories);
     //endregion
 
 
@@ -118,14 +118,17 @@
 
     function updatecheckboxesThreeCategories() {
         //get the checkbox values
-
         var purposeDropdown = $('input[name=purp]:checked').val();
         var purposeTypeDropdown = $('input[name=ppda]:checked').val();
-
+        if ((purposeDropdown || purposeTypeDropdown) == null) {
+            $('#purposeInfoAlert').text("Both Purpose and Purpose Type are required.")
+            return;
+        }
         $('#purposeHidden').val(purposeDropdown);
         $('#purposeTypeHidden').val(purposeTypeDropdown);
         console.log(purposeDropdown);
         console.log(purposeTypeDropdown);
+        
     }
 
 
@@ -164,6 +167,23 @@
     }
 
 
+    
+    //Autocomplete
+    //function log(message) {
+    //    $("<div>").text(message).prependTo("#log");
+    //    $("#log").scrollTop(0);
+    //}
+
+    //$("#clientSearchInput").autocomplete({
+    //    source: "/Loan/SearchInventory/" + "?searchString=" + sendThis,  //how do I pass in the value when this is not in its own function?  Then use the .json example from jquery ui
+    //    minLength: 2,
+    //    //select: function( event, ui ) {
+    //    //    log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+    //    //}
+    //});
+
+
+        
 
 
     function buildFakeClientTable(results) {
@@ -239,27 +259,34 @@
         }
         //once table is built, do we have valid markup to attach to -- assign the functions here!
         //$("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   //checkbox
-        updatecheckboxesThreeCategories()
+
         $("input:button[name=addInvButton]").on('click', updateInventoryIdFormValue);
 
         //Submit - add inventoryItemIds before submission
-        $("form").submit(function (e) {
-            //validate inventoryId array
-            debugger;
-            if (itemIds) {
-                //var hiddenInput = $("input[name='InventoryItemIds']");
-                //hiddenInput.val(itemIds);
-                for (var i = 0; i < itemIds.length; i++) {
-                    $('<input />').attr('type', 'hidden')
-                        .attr('name', 'InventoryItemIds[' + i + ']')
-                        .attr('value', itemIds[i])
-                        .appendTo("form");
+        $("form")
+            .submit(function(e) {
+                //validate inventoryId array
+                //debugger;
+                if (itemIds) {
+                    //var hiddenInput = $("input[name='InventoryItemIds']");
+                    //hiddenInput.val(itemIds);
+                    for (var i = 0; i < itemIds.length; i++) {
+                        $('<input />')
+                            .attr('type', 'hidden')
+                            .attr('name', 'InventoryItemIds[' + i + ']')
+                            .attr('value', itemIds[i])
+                            .appendTo("form");
+                    }
                 }
-            }
-        })
+                updatecheckboxesThreeCategories()
+                //if ($('#clientIdHidden').val().trim().length == null || itemIds == null) {
+                //    ($('#submitInfoAlert').text("Client and items are required."))
+                //    return;
+                //}
+            })
+        
     }
-
-
 
     //endregion
 }(window.jQuery));
+

@@ -33,12 +33,12 @@
 
     @* First parameter will be the name propety - and is what the model binder will use *@
     @*@Html.Hidden("ClientID", null, new { id = "clientIdHidden" })
-        @Html.Hidden("InventoryItemIDs", new { id = "inventoryItemIdsHidden", name = "InventoryItemIds" })*@
+    @Html.Hidden("InventoryItemIDs", new { id = "inventoryItemIdsHidden", name = "InventoryItemIds" })*@
 
     @*The three dropdown values*@
     @*@Html.Hidden("Type", null, new { id = "individualHidden" })
-        @Html.Hidden("Purpose", null, new { id = "purposeHidden" })
-        @Html.Hidden("PurposeType", null, new { id = "purposeTypeHidden" })*@
+    @Html.Hidden("Purpose", null, new { id = "purposeHidden" })
+    @Html.Hidden("PurposeType", null, new { id = "purposeTypeHidden" })*@
 
 
     @*Date appears, Due date appears*@
@@ -56,8 +56,10 @@
 
             @*search for client by last name, select*@
             <div class="col-md-3 form-inline">
-                <input type="text" class="form-control" id="clientSearchInput" name="searchby" placeholder="Search by Client Last Name" /> @*Search by last name*@
-                <input type="submit" class="btn btn-primary" name="byName" value='Search' id="clientSearchButton" />
+                <div class="ui-widget">
+                    <input type="text" class="form-control" id="clientSearchInput" name="searchby" placeholder="Search by Client Last Name" /> @*Search by last name*@
+                    <input type="submit" class="btn btn-primary" name="byName" value='Search' id="clientSearchButton" />
+                </div>
             </div>
 
             @*Need remove client button here*@    @*Currently must reload the page if wanting new client*@
@@ -111,25 +113,6 @@
             <div class="col-md-12">
                 <h4>Loan Information: </h4>
 
-                @*Why is this here?  Isn't this set in the client area?*@
-                @*<div class="col-md-3" id="individual">
-                        <h5>Type of individual</h5>
-                        <div class="radio"><label><input type="radio" name="individ" value="1">Individual with Disability</label>
-                        </div>
-                        <div class="radio"><label><input type="radio" name="individ" value="2">Family Guardian or Authorized Rep</label>
-                        </div>
-                        <div class="radio"><label><input type="radio" name="individ" value="3">Reps of Education</label>
-                        </div>
-                        <div class="radio"><label><input type="radio" name="individ" value="4">Reps of Employment</label>
-                        </div>
-                        <div class="radio"><label><input type="radio" name="individ" value="5">Reps of Community Living</label>
-                        </div>
-                        <div class="radio"><label><input type="radio" name="individ" value="6">Reps of Technology</label>
-                        </div>
-                        <div class="radio"><label><input type="radio" name="individ" value="7">Health Allied Health and Rehab</label>
-                        </div>
-                    </div>*@
-
                 <div class="col-md-5" id="purpose">
                     <h5>Primary Purpose</h5>
                     <div class="radio">
@@ -163,7 +146,8 @@
     </div>
 
     <div id="sectionThree">
-
+        @*Error message*@
+        <div class="col-md-3" style="color: red;" id="purposeInfoAlert"></div>
         <div class="row">
             <div class="col-md-12">
                 <h4>Select Inventory Items: </h4>
@@ -172,12 +156,6 @@
                     <input type="text" class="form-control" id="itemSearchInput" name="searchby" placeholder="Search by Item Name" /> @*Search by last name*@
                     <input type="submit" class="btn btn-primary" name="byName" value='Search' id="itemSearchButton" />
                 </div>
-
-                @*Button not needed since AJAX came along and made our lives better*@
-                @*<div class="col-md-5  form-inline">
-                    @*<input type="hidden" value="@Model.InventoryItem.ItemNumber" name="ItemNumber" />*@ @*foreach this*@
-                    @*<input type="submit" class="btn btn-primary" name="byInvName" value='Add Selected Item' />
-                        </div>*@
 
                     @*Need remove button*@
                     @*<div class="col-md-2  form-inline">
@@ -262,17 +240,18 @@
                     @* whatever you name id's, names, etc, keep them consistent.
                         keep in mind the 'name' property on these must match the property names on the C# classes used*@
 
-        @* First parameter will be the name propety - and is what the model binder will use *@
-        @Html.Hidden("ClientId", null, new { id = "clientIdHidden" })
+                    @* First parameter will be the name propety - and is what the model binder will use *@
+                    @Html.Hidden("ClientId", null, new { id = "clientIdHidden" })
 
-        @*The two checkbox values*@
-        @Html.Hidden("Purpose", null, new { id = "purposeHidden" })
-        @Html.Hidden("PurposeType", null, new { id = "purposeTypeHidden" })
-        <input type="submit" value="Create New Loan" class="btn btn-success"/>
-        }
-    </div>
-</div>
+                    @*The two checkbox values*@
+                    @Html.Hidden("Purpose", null, new { id = "purposeHidden" })
+                    @Html.Hidden("PurposeType", null, new { id = "purposeTypeHidden" })
+                    <input type="submit" value="Create New Loan" class="btn btn-success"/>
+                }
 
+            </div>
+            <div class="col-md-3" style="color: red;" id="submitInfoAlert"></div>
+            </div>
         <div class="row col-md-3">
             @Html.ActionLink("Back to List", "Index")
         </div>

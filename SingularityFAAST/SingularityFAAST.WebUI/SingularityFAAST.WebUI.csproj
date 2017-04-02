@@ -111,6 +111,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\OFL.txt" />
     <Content Include="Global.asax" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
@@ -128,10 +129,21 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\DaysOne-Regular.ttf" />
     <None Include="Properties\PublishProfiles\singularityFAAST - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\AUTHORS.txt" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\external\jquery\jquery.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\index.html" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.css" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.min.css" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.structure.css" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.structure.min.css" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\LICENSE.txt" />
     <Content Include="Scripts\Loans\LoanCreation\ClientInventorySearch.js" />
-    <Content Include="Scripts\EmailTemplate.html" />
+    <Content Include="Views\Loan\EmailTemplate.html" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -186,6 +198,7 @@
     <Content Include="Views\Loan\CheckItem.cshtml" />
     <Content Include="Views\Loan\RenewItem.cshtml" />
     <Content Include="Views\Client\EditClient.cshtml" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\package.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
