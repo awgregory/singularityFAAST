@@ -3,6 +3,7 @@ using SingularityFAAST.Core.SearchRequests;
 using System.Web.Mvc;
 using SingularityFAAST.Core.Entities;
 using SingularityFAAST.Services.Services;
+using System;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
@@ -14,21 +15,37 @@ namespace SingularityFAAST.WebUI.Controllers
        //This is the inventory home page
         public ActionResult IndexInventory()
         {
-            var services = new InventoryItemServices();
-            var model = services.GetAllInventory();
+            var model = itemServices.GetAllInventory();
             return View(model);
         }
 
 
-        //add inventory view
-        public ViewResult NewInventoryItem()
+
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //NewInventoryItem methods
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+        //allows two return types to be passed into and returned by NewInventoryItem (int & IList<>)
+        public Tuple<int, IList<InventoryItem>> ReturnTuple(int itemCount, IList<InventoryItem> model)
         {
-            return View();
+            return Tuple.Create(itemCount, model);
+        }
+
+        //New Item Creation
+        //pushes next Inventory Item number into form
+        [HttpGet]
+        public ActionResult NewInventoryItem()
+        {
+            int itemCount = itemServices.ReturnNextInventoryNumber();
+            IList<InventoryItem> model = itemServices.GetAllInventory();
+            
+            return View(ReturnTuple(itemCount, model));//returns two types
+            //return View(model);
         }
 
         //Collects data from New Inventory Item form
         [HttpPost]
-        public RedirectToRouteResult NewInventoryItem(InventoryItem item)
+        public ActionResult NewInventoryItem(InventoryItem item)
         {
             var services = itemServices;
 
@@ -36,13 +53,23 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return RedirectToAction("IndexInventory", "InventoryItem");
         }
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+
+
+        
+        //``````````````````````````````````````````
+        //UpdateInventoryItem methods
+        //``````````````````````````````````````````
 
         //update inventory item view
         public ActionResult UpdateInventoryItem()
         {
             return View();
         }
+
+        //post method for updating item after user makes changes
+        //  -->Redirects user to InventoryIndex
         [HttpPost]
         public RedirectToRouteResult UpdateInventoryItem(InventoryItem item)
         {
@@ -52,9 +79,10 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return RedirectToAction("IndexInventory", "InventoryItem");
         }
+        //``````````````````````````````````````````
 
-        //don't remember why I had this, but I'll keep it just in case
-        //public RedirectToRouteResult UpdateInventoryItem(InventoryItem item)
+
+
 
         //returns view for All Available Inventory
         public ActionResult ViewAllAvailableInv()
@@ -73,13 +101,13 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
         ////  Returns Inventory records that match search criteria
-        //[HttpPost]
-        //public ActionResult Index(SearchRequest searchRequest)
-        //{
+        [HttpPost]
+        public ActionResult Index(SearchRequest searchRequest)
+        {
 
-        //    IList<InventoryItem> model = itemServices.HandlesSearchRequest(searchRequest);
+            IList<InventoryItem> model = itemServices.HandlesSearchRequest(searchRequest);
 
-        //    return View(model);
-        //}
+            return View(model);
+        }
     }
 }

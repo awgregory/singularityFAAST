@@ -30,8 +30,6 @@
 
                     @* button for creating a new inventory item *@
                     @Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new { @class = "btn btn-primary" })
-                    @* button for editing a current inventory item *@
-                    @Html.ActionLink("Edit Inventory Item", "UpdateInventoryItem", "InventoryItem", null, new { @class = "btn btn-primary" })
                 </div>
 
                 @* quick sort *@
@@ -105,6 +103,7 @@
                             <th>Description</th>
                             <th>Serial Number</th>
                             <th>Availability</th>
+                            <th>Edit Item</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -119,7 +118,7 @@
                                 <td>@inventoryItem.Description</td>
                                 <td>@inventoryItem.SerialNumber</td>
                                 <td>@inventoryItem.Availability</td>
-                                @*needs to be a link to a specific item pulled by the item name associated with it.*@
+                                <td>@Html.ActionLink("Edit", "UpdateInventoryItem", new { id = inventoryItem.InventoryItemId })</td>
                             </tr>
                         }
                     </tbody>

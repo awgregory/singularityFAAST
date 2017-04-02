@@ -22,15 +22,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-4">
-                @*this row holds buttons for navigating available views*@
-
-                @*all inventory*@
-                @*<td style="padding-right: 10px; padding-bottom: 10px">@Html.ActionLink("All", "ViewAllInventory", null, new {@class = "btn btn-primary"})</td>*@
-
                 @* button for creating a new inventory item *@
                 @Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new {@class = "btn btn-primary"})
-                @* button for editing a current inventory item *@
-                @Html.ActionLink("Edit Inventory Item", "UpdateInventoryItem", "InventoryItem", null, new {@class = "btn btn-primary"})
             </div>
 
             @* quick sort *@
@@ -47,7 +40,7 @@
             @* search bar *@
             <div class="col-md-4">
                 <div class="form-inline">
-                    <input type="text" class="form-control" placeholder="Search Inventory" style="width: 60%;"/>
+                    <input type="text" class="form-control" id="searchby" placeholder="Search by Item #" style="width: 60%;"/>
                     @Html.ActionLink("Search", null, null, new {@class = "btn btn-primary"})
                 </div>
             </div>
@@ -104,13 +97,13 @@
                     <th>Description</th>
                     <th>Serial Number</th>
                     <th>Availability</th>
+                    <th>Edit Item</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach (var inventoryItem in Model)
                 {
-                    <a href="UpdateInventoryItem.cshtml">
-                        <tr>
+                         <tr>
                             <td>@inventoryItem.InventoryItemId</td>
                             <td>@inventoryItem.ItemName</td>
                             <td>@inventoryItem.Location</td>
@@ -119,9 +112,8 @@
                             <td>@inventoryItem.Description</td>
                             <td>@inventoryItem.SerialNumber</td>
                             <td>@inventoryItem.Availability</td>
-                            @*needs to be a link to a specific item pulled by the item name associated with it.*@
+                            <td>@Html.ActionLink("Edit", "UpdateInventoryItem", new { id = inventoryItem.InventoryItemId })</td>
                         </tr>
-                    </a>
                 }
                 </tbody>
             </table>

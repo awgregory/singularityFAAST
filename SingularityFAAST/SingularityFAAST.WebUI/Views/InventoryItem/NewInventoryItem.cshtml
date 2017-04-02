@@ -10,26 +10,27 @@
 
 <h1>New Item</h1>
 
-<form>
+@using (Html.BeginForm())
+{
     <div class="row">
 
         <div class="col-md-3">
             @*Item Name*@
             <div class="form-group">
                 <label for="ItemName">Item Name</label>
-                <Input type="text" class="form-control" id="ItemName">
+                <Input type="text" class="form-control" id="ItemName" required>
             </div>
 
             @*Inventory Number*@
             <div class="form-group">
                 <label for="InventoryNumber">Inventory Number</label>
-                <Input type="text" class="form-control" id="InventoryNumber">
+                <Input disabled="disabled" type="text" class="form-control" value="@Model.ReturnNextInventoryNumber" id="InventoryNumber">
             </div>
 
             @*Serial Number*@
             <div class="form-group">
-                <label for="ItemNumber">Item Number</label>
-                <Input type="text" class="form-control" id="ItemNumber">
+                <label for="ItemNumber">SerialNumber</label>
+                <Input type="text" class="form-control" id="SerialNumber">
             </div>
 
             @*Retail Cost*@
@@ -42,6 +43,12 @@
             <div class="form-group">
                 <label for="CostPaid">Cost Paid</label>
                 <Input type="text" class="form-control" id="CostPaid">
+            </div>
+
+            @*Model Name*@
+            <div class="form-group">
+                <label for="ModelName">Model Name</label>
+                <Input type="text" class="form-control" id="ModelName">
             </div>
 
             @*Location*@
@@ -60,8 +67,8 @@
             @*Category*@
             <div class="form-group">
                 <label for="Category">Category</label>
-                <select class="form-control" id="Category">
-                    <option disabled selected value> -- select and option -- </option>
+                <select class="form-control" id="Category" required>
+                    <option disabled selected> -- select and option -- </option>
                     <option>Hearing</option>
                     <option>Eyesight</option>
                     <option>Technology</option>
@@ -72,8 +79,8 @@
 
             @*Purchase Date*@
             <div class="form-group">
-                <label for="PurchaseDate">Purchase Date</label>
-                <Input type="text" class="form-control" id="PurchaseDate">
+                <label for="DatePurchased">Date Purchased</label>
+                <Input type="datetime" class="form-control" id="DatePurchased" required>
             </div>
 
             @*Description*@
@@ -90,6 +97,12 @@
                 <textarea rows="4" class="form-control" id="Accessories"></textarea>
             </div>
 
+        @*Damages*@
+            <div class="form-group">
+                <label for="Damages">Damages</label>
+                <textarea rows="4" class="form-control" id="Damages"></textarea>
+            </div>
+
         @*@*Additional Files
             <div class="form-control">
                 <label for="AdditionalFiles">Additional Files</label>
@@ -97,9 +110,9 @@
         </div>
     </div>
 
-    
+
 
         <div>
             @Html.ActionLink("Create Item", "NewInventoryItem", null, new { @class = "btn btn-primary" })
         </div>
-</form>
+}
