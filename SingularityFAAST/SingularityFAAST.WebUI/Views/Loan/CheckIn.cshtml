@@ -26,7 +26,7 @@
         <div class="row">
             @foreach (var item in Model)
             {
-                <input type="hidden" value="@item.LoanMasterId" name="LoanMasterId" />
+                <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
                 <dl class="dl-horizontal">
                     <dt>
                         Item Number:
@@ -51,15 +51,17 @@
                         @item.LoanDate.AddDays(29).ToString("MMMM dd, yyyy")
                     </dd>
                 </dl>
-                <br />
+                
                 <div class="row">
                     <label for="damages">Item Damages:</label>
 
                     <input type="text" name="Damages" id="damages" />
                 </div>
+                break;
             }
         </div>
         <br />
+        <br/>
         <div class="row">
             <div class="col-md-2" id="decision">
                 <h5>Client Outcome</h5>

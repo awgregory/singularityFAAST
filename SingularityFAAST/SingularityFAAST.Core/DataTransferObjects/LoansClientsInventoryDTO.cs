@@ -21,6 +21,10 @@ namespace SingularityFAAST.Core.DataTransferObjects
 
         public IEnumerable<int> LoanMasterIds { get; set; }
 
+        public string ClientOutcome { get; set; }
+
+        public string LoanNotes { get; set; }
+
 
         //LoanDetail
         public int LoanDetailId { get; set; }
@@ -30,10 +34,6 @@ namespace SingularityFAAST.Core.DataTransferObjects
         public int LoanDuration { get; set; }
 
         public int InventoryItemId { get; set; }
-
-        public string ClientOutcome { get; set; }
-
-        public string Notes { get; set; }
 
         public string Purpose { get; set; }
 

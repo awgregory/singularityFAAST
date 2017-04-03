@@ -15,6 +15,8 @@ namespace SingularityFAAST.Core.DataTransferObjects
 
         public IEnumerable<int> InventoryItemIds { get; set; }
 
+        public bool IsActive { get; set; }
+
 
         //add the values for the 2 checkbox lists
 

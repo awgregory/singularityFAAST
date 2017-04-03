@@ -81,6 +81,7 @@
     <None Include="Scripts\seeds\seedLoanDetails.sql" />
     <None Include="Scripts\seeds\seedLoanMaster.sql" />
     <Build Include="Stored Procedures\Loans\GetInventoryItemsByLoanNumber.sql" />
+    <Build Include="Stored Procedures\Loans\GetLoanNumberByInventoryItemId.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SingularityDB.refactorlog" />
