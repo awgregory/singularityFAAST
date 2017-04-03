@@ -42,6 +42,22 @@ namespace SingularityFAAST.Services.Services
          }
         //-----------------------------------------------------------
 
+        //Deletes Item - used in Update Inventory Items form <<<<<<<<<<<<
+        public void DeleteItem(InventoryItem item)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                context.InventoryItems.Attach(item);
+
+                var entry = context.Entry(item);
+
+                entry.State = EntityState.Deleted;
+
+                context.SaveChanges();
+            }
+        }
+        //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 
         //edit existing item>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         public void EditExistingItem(InventoryItem item)
@@ -164,22 +180,6 @@ namespace SingularityFAAST.Services.Services
                 }
                 
             }
-        }
-
-
-        public void DeleteItem(InventoryItem item)
-        {
-            using (var context = new SingularityDBContext())
-            {
-                context.InventoryItems.Attach(item);
-
-                var entry = context.Entry(item);
-
-                entry.State = EntityState.Modified;
-
-                context.SaveChanges();
-            }
-
         }
     }
 }
