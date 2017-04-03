@@ -20,7 +20,7 @@ namespace SingularityFAAST.Services.Services
             using (var context = new SingularityDBContext())
             {
                 var inventory = context.InventoryItems;
-
+                
                 var inventoryList = inventory.ToList();
 
                 return inventoryList;
@@ -127,7 +127,7 @@ namespace SingularityFAAST.Services.Services
         //takes in inventory NUMBER (entered as string)
         //      -->input is converted to int
         //              -->items with a matching Inventory Id # are returned
-        public IList<InventoryItem> GetItemByInventoryNumber(string searchBy)
+        private IList<InventoryItem> GetItemByInventoryNumber(string searchBy)
         {
             IList<InventoryItem> allItems = GetAllInventory();
 
@@ -164,6 +164,22 @@ namespace SingularityFAAST.Services.Services
                 }
                 
             }
+        }
+
+
+        public void DeleteItem(InventoryItem item)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                context.InventoryItems.Attach(item);
+
+                var entry = context.Entry(item);
+
+                entry.State = EntityState.Modified;
+
+                context.SaveChanges();
+            }
+
         }
     }
 }

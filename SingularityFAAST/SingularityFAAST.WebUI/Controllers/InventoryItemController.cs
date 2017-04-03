@@ -24,13 +24,7 @@ namespace SingularityFAAST.WebUI.Controllers
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         //NewInventoryItem methods
         //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-        //allows two return types to be passed into and returned by NewInventoryItem (int & IList<>)
-        public Tuple<int, IList<InventoryItem>> ReturnTuple(int itemCount, IList<InventoryItem> model)
-        {
-            return Tuple.Create(itemCount, model);
-        }
-
+        
         //New Item Creation
         //pushes next Inventory Item number into form
         [HttpGet]
@@ -39,7 +33,7 @@ namespace SingularityFAAST.WebUI.Controllers
             int itemCount = itemServices.ReturnNextInventoryNumber();
             IList<InventoryItem> model = itemServices.GetAllInventory();
             
-            return View(ReturnTuple(itemCount, model));//returns two types
+            return View(model);//returns two types
             //return View(model);
         }
 

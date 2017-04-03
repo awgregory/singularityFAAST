@@ -2,6 +2,9 @@
      
     Hope Haven - FAAST Inventory System
     Jonathan Ebert - 11/22/16*@
+
+@model SingularityFAAST.Core.ViewModels.InventoryItemsViewModel
+
 @{
     ViewBag.Title = "Edit Item";
 }
@@ -21,7 +24,7 @@
             @*Inventory Number*@
             <div class="form-group">
                 <label for="InventoryNumber">Inventory Number</label>
-                <Input disabled="disabled" type="text" class="form-control" value="NEEDS FIXING" id="InventoryNumber">
+                <Input disabled="disabled" type="text" class="form-control" value="@Model.ReturnNextInventoryNumber" id="InventoryNumber">
             </div>
 
             @*Serial Number*@

@@ -1,12 +1,12 @@
-﻿@using SingularityFAAST.WebUI.Models
+﻿@*New Inventory Item page
+    Hope Haven - FAAST Inventory System
+    Jonathan Ebert*@
+
+@model SingularityFAAST.Core.ViewModels.InventoryItemsViewModel
 
 @{
     ViewBag.Title = "NewInventoryItem";
 }
-
-@*New Inventory Item page
-    Hope Haven - FAAST Inventory System
-    Jonathan Ebert*@
 
 <h1>New Item</h1>
 
@@ -24,7 +24,7 @@
             @*Inventory Number*@
             <div class="form-group">
                 <label for="InventoryNumber">Inventory Number</label>
-                <Input disabled="disabled" type="text" class="form-control" @*value="@Model.ReturnNextInventoryNumber()"*@ id="InventoryNumber">
+                <Input disabled="disabled" type="text" class="form-control" value="@Model.ReturnNextInventoryNumber" id="InventoryNumber">
             </div>
 
             @*Serial Number*@
