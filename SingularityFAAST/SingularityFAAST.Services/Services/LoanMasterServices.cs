@@ -2,19 +2,12 @@
 using SingularityFAAST.Core.DataTransferObjects;
 using SingularityFAAST.DataAccess.Contexts;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Data.Entity;
-using System.Data.Entity.Core.Common.CommandTrees;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Net.Mime;
-using System.Security.Policy;
 using System.Web;
-using SingularityFAAST.Services.Services;
 using System.Data.SqlClient;
 //using RazorEngine;  //for the email template parsing
 //using RazorEngine.Templating;   //for the email template parsing
