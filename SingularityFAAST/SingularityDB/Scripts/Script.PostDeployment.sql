@@ -9,12 +9,17 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
---:r .\seeds\seedDummyData.sql
---:r .\seeds\SeedAdminLogInCredentials.sql
---:r .\seeds\SeedClientCategories.sql
---:r .\seeds\SeedDisabilityCategories.sql
---:r .\seeds\SeedClients.sql
---:r .\seeds\SeedClientDisabilities.sql
---:r .\seeds\loan\seedLoanDetails.sql
---:r .\seeds\SeedInventoryItemCategories.sql
---:r .\seeds\SeedInventoryItems.sql
+
+:r .\seeds\SeedAdminLogInCredentials.sql
+
+:r .\seeds\SeedClientCategories.sql
+:r .\seeds\SeedDisabilityCategories.sql
+:r .\seeds\SeedClients.sql
+:r .\seeds\SeedClientDisabilities.sql
+
+:r .\seeds\SeedInventoryItemCategories.sql
+:r .\seeds\SeedInventoryItems.sql
+
+
+:r .\seeds\seedLoanMaster.sql
+:r .\seeds\seedLoanDetails.sql

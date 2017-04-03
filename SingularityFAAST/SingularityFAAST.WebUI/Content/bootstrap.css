@@ -261,6 +261,10 @@ th {
   }
 }
 @font-face {
+    font-family: "Days One";
+    src: url(../fonts/DaysOne-Regular.ttf);
+}
+@font-face {
   font-family: 'Glyphicons Halflings';
 
   src: url('../fonts/glyphicons-halflings-regular.eot');

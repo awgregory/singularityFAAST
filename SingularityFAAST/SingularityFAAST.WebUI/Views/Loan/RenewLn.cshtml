@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+﻿@using SingularityFAAST.WebUI.Controllers
+@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
 
 @{
     ViewBag.Title = "RenewLn";
@@ -6,7 +7,7 @@
 
 @*View Devices in Loan should go to its own page that lists each item with the ability to renew individually *@
 @* This page gets Loan number and passes it to RenewItems *@
-<br/>
+<br />
 <div class="row">
     <div class="col-md-5 col-md-offset-3">
         <div class="panel panel-info">
@@ -16,33 +17,42 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
-                        Would you like to renew all items in this loan for 28 days?
-                        Loan#  item.LoanNumber here
+                        <h4>Would you like to renew all items in this loan for 28 days?</h4>
+                        <br />
+                        @foreach (var i in Model)
+                        {
+                            <h5>
+                                Loan# @i.LoanNumber
+                            </h5>
+                            break;
+                        }
+
                     </div>
                 </div>
-                <br/>
+                <br />
+                @foreach (var i in Model)
+                {
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            @Html.ActionLink("Renew All", "RenewAllItems", "Loan", new { loanMasterId = @i.LoanMasterId }, new { @class = "btn btn-primary" })
+                        </div>   @*new { loanMasterId = @Model.First().LoanMasterId },*@
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            @Html.ActionLink("Return to Loan Details to View Items", "ViewItems", "Loan", new { loanNumber = @i.LoanNumber }, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                }
+                <br />
+                <br />
+                <br />
                 <div class="row">
                     <div class="col-md-4 col-md-offset-4">
-                        @Html.ActionLink("Renew All", "", null, new {@class = "btn btn-primary"})
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-2">
-                        @Html.ActionLink("View Loan Details to Renew Items", "RenewItems", null, new { @class = "btn btn-default" })  
-                    </div>
-                </div>
-                <br/>
-                <br/>
-                <br/>
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        @Html.ActionLink("Cancel", "", null, new {@class = "btn btn-primary"})
+                        @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-primary" })
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
