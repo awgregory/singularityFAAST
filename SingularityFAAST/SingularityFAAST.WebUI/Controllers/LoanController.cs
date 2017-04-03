@@ -29,6 +29,7 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult Index()
         {
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
+            model = model.OrderByDescending(loan => loan.DateCreated).ToList();
             return View(model);
         }
 
@@ -178,11 +179,11 @@ namespace SingularityFAAST.WebUI.Controllers
             {
                 ClientOutcome = loan.ClientOutcome,
                 ItemDamages = loan.Damages,
-                LoanNotes = loan.Notes,
+                LoanNotes = loan.LoanNotes,
                 LoanNumber = loan.LoanNumber
             };
 
-            lm_services.CheckInLoan_Nick(dto);
+            lm_services.CheckInLoan_Nick(loan);
 
 
             //    //Returns to Loan Index page
@@ -190,7 +191,7 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-
+        //Are either of these used?
         //Single Item
         //1. Displays check-in page with single item
         public ActionResult CheckItem(LoansClientsInventoryDTO loan)
@@ -225,18 +226,11 @@ namespace SingularityFAAST.WebUI.Controllers
         #endregion
 
 
-        #region Cancel Loan or Single Item
-
-        public ActionResult CancelLn(LoansClientsInventoryDTO loan)  //use inventoryItemId
-        {
-            //process delete here, return to Index
-            return RedirectToAction("Index", "Loan");
-        }
-
-
+        #region Delete Single Item
         public ActionResult CancelItem(LoansClientsInventoryDTO loan)  //use inventoryItemId
         {
             //process delete here, return to Index
+            lm_services.RemoveSingleItemFromLoanByLoanNumber(loan.LoanNumber);
             return RedirectToAction("Index", "Loan");
         }
 
@@ -284,14 +278,15 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         #region Search
-
+        //the following two methods are used by ClientInventorySearch.js
         public JsonResult SearchFakeClients(string searchString)
         {
             IList<Client> fakeClients = _clientServices.GetAllClients();
 
             //search through the fake clients list, checking eaching fake client if their first name contains the search string
             //var filteredClients = fakeClients.Where((fakeClient) => fakeClient.LastName.Contains(searchString));
-            var filteredClients = fakeClients.Where((fakeClient) => string.Equals(fakeClient.LastName, searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+            var filteredClients = fakeClients.Where(fakeClient => //fakeClient.LastName.ToLower().Contains(searchString)).ToList();
+            string.Equals(fakeClient.LastName, searchString, StringComparison.OrdinalIgnoreCase)).ToList();
 
             //method demands return type of Json, whose first parameter is DATA, just shove the c# result into this
             //and javascript on the front end will be happy
@@ -301,7 +296,7 @@ namespace SingularityFAAST.WebUI.Controllers
         public JsonResult SearchInventory(string searchString)
         {
             IList<InventoryItem> inventoryItems = lm_services.GetAllItemsAsInventoryList();
-            var filteredItems = inventoryItems.Where((ii) => ii.ItemName.Contains(searchString));       //string.Equals(ii.ItemName, searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+            var filteredItems = inventoryItems.Where(ii => ii.ItemName.ToLower().Contains(searchString) && ii.Availability);       //string.Equals(ii.ItemName, searchString, StringComparison.OrdinalIgnoreCase)).ToList();
             return Json(filteredItems, JsonRequestBehavior.AllowGet);
         }
 

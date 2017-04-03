@@ -99,6 +99,15 @@
         //    chosenInventoryId = null
         //}
 
+        if (itemIds) {
+            for (var i = 0; i < itemIds.length; i++) {
+                if (chosenInventoryId == itemIds[i]) {
+                    $('#itemsInfoAlert').text('Item can be added only once.')
+                    return;
+                }
+            }
+        }
+
         if (!chosenInventoryId) //if variable doesn't mean anything: we are invalid/error
             return; //safely exit doing nothing
 
@@ -128,7 +137,7 @@
         $('#purposeTypeHidden').val(purposeTypeDropdown);
         console.log(purposeDropdown);
         console.log(purposeTypeDropdown);
-        
+
     }
 
 
@@ -167,7 +176,7 @@
     }
 
 
-    
+
     //Autocomplete
     //function log(message) {
     //    $("<div>").text(message).prependTo("#log");
@@ -183,7 +192,7 @@
     //});
 
 
-        
+
 
 
     function buildFakeClientTable(results) {
@@ -236,7 +245,7 @@
         //step 2: check if there's any info at all to build a table out of
         if (results.length > 0) {
             //build a row for each result - string gore ahead
-            for (var i = 0; i < results.length; i++) {        //results.length     
+            for (var i = 0; i < results.length; i++) {        //results.length 
                 table.append(
                     '<tr>' +
                     //'<td>' +
@@ -264,7 +273,7 @@
 
         //Submit - add inventoryItemIds before submission
         $("form")
-            .submit(function(e) {
+            .submit(function (e) {
                 //validate inventoryId array
                 //debugger;
                 if (itemIds) {
@@ -290,7 +299,7 @@
 
                 //if none checked pop alert / PREVENT form submission
             })
-        
+
     }
 
     //endregion
