@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using SingularityFAAST.Core.Entities;
 using SingularityFAAST.Services.Services;
 using System;
+using SingularityFAAST.Core.ViewModels;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
@@ -31,9 +32,15 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult NewInventoryItem()
         {
             int itemCount = itemServices.ReturnNextInventoryNumber();
-            IList<InventoryItem> model = itemServices.GetAllInventory();
-            
-            return View(model);//returns two types
+            IList<InventoryItem> items = itemServices.GetAllInventory();
+
+            var model = new InventoryItemsViewModel()
+            {
+                InventoryItems = items,
+                ReturnNextInventoryNumber = itemCount
+            };
+
+            return View(model);//returns both the ItemCount and the IList<>
             //return View(model);
         }
 

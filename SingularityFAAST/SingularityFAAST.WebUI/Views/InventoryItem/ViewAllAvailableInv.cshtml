@@ -1,4 +1,4 @@
-﻿@Model SingularityFAAST.Core.ViewModels.InventoryItemsViewModel
+﻿@model IEnumerable<SingularityFAAST.Core.Entities.InventoryItem>
 
 @*View All Inventory Available
      -shows ONLY those inventory items that are currently Available
@@ -28,7 +28,7 @@
                 @*<td style="padding-right: 10px; padding-bottom: 10px">@Html.ActionLink("All", "ViewAllInventory", null, new {@class = "btn btn-primary"})</td>*@
 
                 @* button for creating a new inventory item *@
-                @Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new { @class = "btn btn-primary" })
+                @Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new { @class = "btn btn-primary btn-lg" })
             </div>
 
             @* quick sort *@
