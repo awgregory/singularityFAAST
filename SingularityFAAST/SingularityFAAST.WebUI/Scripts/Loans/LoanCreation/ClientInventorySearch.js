@@ -33,6 +33,8 @@
     var itemSearchButton = $('#itemSearchButton');
     var itemSearchInput = $('#itemSearchInput');
 
+    var itemRemoveButton = $('#itemRemoveButton');
+    var itemRemoveInput = $('#itemRemoveInput');
 
     //endregion
 
@@ -52,6 +54,11 @@
         getInventoryWithOneParameter(itemSearchInput.val())
         //set error message to blank
         $('#itemsInfoAlert').text('')
+    });
+
+    itemRemoveButton.on('click', function () {
+        removeItemFromLoan(itemRemoveInput.val())
+        //set error message to blank
     });
 
     //$("input:radio[name=purp]").on('click', updatecheckboxesThreeCategories);
@@ -175,7 +182,20 @@
         })
     }
 
+    function removeItemFromLoan(sendThis) {
+        var pathToControllerMethod = "/Loan/DeleteIteminEdit/";  //change to CancelItem
+        var methodArguments = "?searchString=" + sendThis;
 
+        $.ajax({
+            url: pathToControllerMethod + methodArguments,
+            success: function () {
+                return;
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
 
     //Autocomplete
     //function log(message) {

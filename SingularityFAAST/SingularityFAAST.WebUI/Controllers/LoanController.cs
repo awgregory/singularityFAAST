@@ -135,13 +135,13 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //This executes the loan editing when you click yes on Edit Loan page
         [HttpPost]
-        public RedirectToRouteResult UpdateLoan(LoansClientsInventoryDTO loan)  //or use AddLoanInfo model
+        public ActionResult UpdateLoan(LoansClientsInventoryDTO loan)  //or use AddLoanInfo model
         {
             var services = new LoanMasterServices();
             //services.EditLoanMaster(loan);
             //services.EditLoanDetails(loan);
 
-            //    //Returns to Loan Index page
+            //Returns to Loan Index page
             return RedirectToAction("Index", "Loan");
         }
 
@@ -211,8 +211,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return RedirectToAction("Index", "Loan");
         }
-
-
+        
         #endregion
 
         #region Delete Loan - Mark entirely deleted
@@ -226,11 +225,12 @@ namespace SingularityFAAST.WebUI.Controllers
         #endregion
 
 
-        #region Delete Single Item
+        #region Delete Single Item - actually removes it from loan, no record left of its addition
         public ActionResult CancelItem(LoansClientsInventoryDTO loan)  //use inventoryItemId
         {
             //process delete here, return to Index
-            lm_services.RemoveSingleItemFromLoanByLoanNumber(loan.LoanNumber);
+            //lm_services.RemoveSingleItemFromLoanByLoanNumber(loan.LoanNumber);
+            lm_services.RemoveSingleItemFromLoanByLoanNumber(loan.InventoryItemId);
             return RedirectToAction("Index", "Loan");
         }
 
@@ -258,6 +258,7 @@ namespace SingularityFAAST.WebUI.Controllers
         //{
         //    return null;
         //}
+
 
 
         //Called by AddLoan and EditLoan
@@ -298,6 +299,11 @@ namespace SingularityFAAST.WebUI.Controllers
             IList<InventoryItem> inventoryItems = lm_services.GetAllItemsAsInventoryList();
             var filteredItems = inventoryItems.Where(ii => ii.ItemName.ToLower().Contains(searchString) && ii.Availability);       //string.Equals(ii.ItemName, searchString, StringComparison.OrdinalIgnoreCase)).ToList();
             return Json(filteredItems, JsonRequestBehavior.AllowGet);
+        }
+
+        public void DeleteIteminEdit(int searchstring)
+        {
+            lm_services.RemoveSingleItemFromLoanByLoanNumber(searchstring);
         }
 
 

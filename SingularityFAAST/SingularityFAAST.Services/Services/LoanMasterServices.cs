@@ -105,7 +105,8 @@ namespace SingularityFAAST.Services.Services
                                 Availability = i.Availability,
                                 LastName = c.LastName,
                                 FirstName = c.FirstName,
-                                IsActive = lm.IsActive
+                                IsActive = lm.IsActive,
+                                ClientId = c.ClientID
                             };
 
                 return items.ToList();
@@ -199,22 +200,35 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
-        public void RemoveSingleItemFromLoanByLoanNumber(string loanNumber)  //not correct yet
+
+        public void RemoveSingleItemFromLoanByLoanNumber(int invItem) //int invItem)  //not correct yet   
         {
             using (var context = new SingularityDBContext())
             {
-                var itemToRemove = context.LoanDetails.FirstOrDefault(
-                    inventoryItem => string.Equals(inventoryItem.InventoryItemId, loanNumber.ToString())  //join loandetails
-                    );
+                //get inventoryitem from loan number
+                //var itemToRemove = context.LoanDetails.FirstOrDefault(
+                //    loandetail => string.Equals(loandetail., invItem)  //join
+                //    );
 
-                if (itemToRemove != null)
-                    //itemToRemove.Availability = true;
+                //if (itemToRemove != null)
+                //    itemToRemove.Availability = true;
 
-                    context.SaveChanges();
+                    //context.SaveChanges();
+               
+                //get inv item to available
+                var loanNumber = from ld in context.LoanDetails
+                    join lm in context.LoanMasters
+                    on ld.LoanMasterId equals lm.LoanMasterId
+                    where ld.InventoryItemId == invItem
+                    select lm.LoanNumber;
 
-                var itemIds = GetInventoryItemIdsByLoanNumber(loanNumber);
-
+                var itemIds = GetInventoryItemIdsByLoanNumber(loanNumber.ToString());
                 MarkInventoryItemsAsAvailable(context, itemIds);
+                
+                //remove the loan detail itself
+                context.LoanDetails.Remove();
+                context.SaveChanges();
+
             }
         }
 
@@ -546,6 +560,8 @@ namespace SingularityFAAST.Services.Services
         //{
         //    using (var context = new SingularityDBContext())
         //    {
+        //Update lm- purpose type and purpose, ld- removal of any items- ii set availability true, ld - add inventory items- ii set availability false
+
         //        context.LoanDetails.Attach(loan);
 
         //        var entry = context.Entry(loan);
@@ -557,58 +573,44 @@ namespace SingularityFAAST.Services.Services
         //    }
         //}
 
-        //public void EditLoanMaster(LoanMaster loan)
-        //{
-        //    using (var context = new SingularityDBContext())
-        //    {
-        //        context.LoanMasters.Attach(loan);
-
-        //        var entry = context.Entry(loan);
-
-        //        entry.State = EntityState.Modified;
-
-        //        context.SaveChanges();
-
-        //    }
-        //}
         #endregion
 
 
         #region SaveAllItems
 
         //Renews all Items in a loan as a new loan
-        public void SaveAllItemsAsNewLoan(LoansClientsInventoryDTO loan)  //(LoanSubmission loan)
-        {
-            using (var context = new SingularityDBContext())
-            {
-                //Table1 - add: LoanMaster-> DateCreated, ClientId, IsActive
-                loan.DateCreated = DateTime.Now;
-                loan.IsActive = true;
+        //public void SaveAllItemsAsNewLoan(LoansClientsInventoryDTO loan)  //(LoanSubmission loan)
+        //{
+        //    using (var context = new SingularityDBContext())
+        //    {
+        //        //Table1 - add: LoanMaster-> DateCreated, ClientId, IsActive
+        //        loan.DateCreated = DateTime.Now;
+        //        loan.IsActive = true;
 
-                //var newMaster = loan.LoanMasterIds.Select(lmId => new LoanMaster { LoanMasterId = loan.LoanMasterId, ClientId = loan.ClientId, LoanNumber = loan.LoanNumber,  IsActive = loan.IsActive});   
-                var newMaster = loan.LoanMasterIds.Select(lmId => new LoanMaster { ClientId = loan.ClientId, IsActive = loan.IsActive });
+        //        //var newMaster = loan.LoanMasterIds.Select(lmId => new LoanMaster { LoanMasterId = loan.LoanMasterId, ClientId = loan.ClientId, LoanNumber = loan.LoanNumber,  IsActive = loan.IsActive});   
+        //        var newMaster = loan.LoanMasterIds.Select(lmId => new LoanMaster { ClientId = loan.ClientId, IsActive = loan.IsActive });
 
-                context.LoanMasters.AddRange(newMaster);
+        //        context.LoanMasters.AddRange(newMaster);
 
-                context.SaveChanges();
+        //        context.SaveChanges();
 
 
-                //Table2 - add: Details -> LoanNumber, LoanDate, InventoryItemId, Purpose, PurposeType
-                loan.LoanDate = DateTime.Now;
+        //        //Table2 - add: Details -> LoanNumber, LoanDate, InventoryItemId, Purpose, PurposeType
+        //        loan.LoanDate = DateTime.Now;
 
-                //for each item in InventoryItemId[], keep same LoanNumber.  
-                //foreach (var VARIABLE in COLLECTION)
-                //{
-                //    //put the below line in here
-                //}
-                var newDetail = loan.LoanDetailIds.Select(lmId => new LoanDetail { LoanDetailId = loan.LoanDetailId, LoanMasterId = loan.LoanMasterId, InventoryItemId = loan.InventoryItemId, Purpose = loan.Purpose, PurposeType = loan.PurposeType });
+        //        //for each item in InventoryItemId[], keep same LoanNumber.  
+        //        //foreach (var VARIABLE in COLLECTION)
+        //        //{
+        //        //    //put the below line in here
+        //        //}
+        //        var newDetail = loan.LoanDetailIds.Select(lmId => new LoanDetail { LoanDetailId = loan.LoanDetailId, LoanMasterId = loan.LoanMasterId, InventoryItemId = loan.InventoryItemId, Purpose = loan.Purpose, PurposeType = loan.PurposeType });
 
-                context.LoanDetails.AddRange(newDetail);
+        //        context.LoanDetails.AddRange(newDetail);
 
-                context.SaveChanges();
+        //        context.SaveChanges();
 
-            }
-        }
+        //    }
+        //}
         #endregion
 
 
