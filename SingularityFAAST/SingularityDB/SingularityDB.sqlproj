@@ -92,6 +92,7 @@
     <None Include="Scripts\seeds\SeedClientDisabilities.sql" />
     <None Include="Scripts\seeds\SeedClients.sql" />
     <None Include="Scripts\seeds\SeedInventoryItemCategories.sql" />
+    <None Include="local.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

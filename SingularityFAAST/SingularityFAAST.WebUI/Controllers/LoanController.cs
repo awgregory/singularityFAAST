@@ -78,7 +78,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
         #region Renew
 
-        //This loads the page with a box, from View Items page top button 
+        
         public ActionResult RenewLn(LoansClientsInventoryDTO loan)
         {
             IList<LoansClientsInventoryDTO> allItems = lm_services.GetAllItems();
@@ -88,13 +88,37 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-        //This is executed when click yes in page with the box
-        public ActionResult RenewAllItems(LoansClientsInventoryDTO loan) //(string loan)
+
+        [HttpGet]
+        public ActionResult CheckInRenewal(string loanNumber)
         {
-            //passed string LoanNumber
-            //process renewal here (is checkin of loan and then add new loan)
-            //1. check in items
+            IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public ActionResult CheckInRenewal(LoansClientsInventoryDTO loan)
+        {
+            
+            //1. Close loan, save outcomes, check in items
+            lm_services.RenewLoan(loan);
+
             //2. create new loan with new loan object so creates new loan number
+
+            // The DTO needs to send all of the data needed here   Left Off <---------------------
+            var submission = new LoanSubmission()
+            {
+                ClientId = loan.ClientId,
+                InventoryItemIds = loan.InventoryItemIds,
+                IsActive = loan.IsActive,
+                Purpose = loan.Purpose,
+                PurposeType = loan.PurposeType
+            };
+            
+            lm_services.CreateLoan(submission);
+
             //3. use id to fill in loan with loan details
 
             //IList<LoansClientsInventoryDTO> model = lm_services.AddAllItemsAsNewLoan(loanNumber);
@@ -102,6 +126,19 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return RedirectToAction("Index", "Loan");
         }
+
+
+        //RenewLn.cshtm needs to pass the Id to CheckInRenewal First then collect up the input for the loan
+        public ActionResult RenewAllItems(LoansClientsInventoryDTO loan) 
+        {
+     
+            //IList<LoansClientsInventoryDTO> model = lm_services.AddAllItemsAsNewLoan(loanNumber);
+            //lm_services.SaveAllItemsAsNewLoan();
+
+            return RedirectToAction("Index", "Loan");
+        }
+
+
 
 
         //This renews an individual item from View Items page
@@ -154,7 +191,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //Whole Loan 
         //This is the View Page with text boxes & one param passed in. Doesn't do any checking-in
-        public ActionResult CheckIn(LoansClientsInventoryDTO loan)
+        public ActionResult CheckIn(LoansClientsInventoryDTO loan)   // Only gets LoanNumber passed in
         {
             //View all Items in Loan
             //IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();  //get all for this id

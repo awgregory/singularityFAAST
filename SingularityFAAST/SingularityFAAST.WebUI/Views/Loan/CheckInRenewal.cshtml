@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
 
 @{
-    ViewBag.Title = "CheckIn";
+    ViewBag.Title = "CheckInRenewal";
 }
 
-<h3>Loan Check-In</h3>
+<h3>Enter Outcomes of Prior Loan</h3>
 
-@using (Html.BeginForm("CheckInLoan", "Loan", FormMethod.Post, new { @class = "" }))
+
+@using (Html.BeginForm("CheckInRenewal", "Loan", FormMethod.Post, new { @class = "" }))
 {
     <div>
         <hr />
@@ -15,7 +16,7 @@
                 @foreach (var item in Model)
                 {
                     <span class="col-md-4">Client: @item.FirstName @item.LastName, Loan# @item.LoanNumber</span>
-
+                   
                     break; //or will print client for each item in client loan
                 }
             </h5>
@@ -60,7 +61,7 @@
 
                 <div class="col-md-8">
                     <div class="form-group">
-                        <label for="damages">Item Notes:</label>
+                        <label for="damages">Item Damages:</label>
 
                         <input type="text" name="Damages" id="damages" />
                     </div>
@@ -70,7 +71,6 @@
             }
         </div>
         <br />
-
 
 
 
@@ -95,26 +95,24 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="notes">Loan Notes:</label>
-                    <input type="text" name="Notes" id="notes" />
+                    <input type="text" name="LoanNotes" id="notes" />
                 </div>
             </div>
-        </div>
+            </div>
         <br />
 
 
 
-        <div class="form-group">           
-                <input type="submit" value="Check-In Loan" class="btn btn-primary" />          
-        </div>
-
         <div class="form-group">
-            @Html.ActionLink("Back to Loans List", "Index")
+            
+                <input type="submit" value="Continue" class="btn btn-primary" />
+            
         </div>
     </div>
 }
 
 
-
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

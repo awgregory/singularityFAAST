@@ -14,34 +14,43 @@
             <div class="panel-heading">
                 <h3 class="col-md-offset-4">Renew Loan</h3>
             </div>
+
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
-                        <h4>Would you like to renew all items in this loan for 28 days?</h4>
+                        <h4>Would you like to renew this loan?</h4>
+                        <h5>You will be given a chance to Edit the items.</h5>
                         <br />
                         @foreach (var i in Model)
                         {
                             <h5>
-                                Loan# @i.LoanNumber
+                                Client: @i.FirstName @i.LastName, Loan# @i.LoanNumber
                             </h5>
                             break;
                         }
 
                     </div>
+
                 </div>
                 <br />
-                    <div class="row">
-                        <div class="col-md-4 col-md-offset-4">
-                            @foreach (var i in Model)
-                            {
-                            @Html.ActionLink("Renew All", "RenewAllItems", "Loan", new {loanMasterId = @i.LoanMasterId}, new {@class = "btn btn-primary form-inline"})
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        @foreach (var i in Model)
+                        {
+                            <div class="form-group">
+                                @Html.ActionLink("Renew", "CheckInRenewal", "Loan", new { loanNumber = @i.LoanNumber }, new { @class = "btn btn-primary form-inline" })
+                            </div>
 
-                            @Html.ActionLink("Cancel", "Index", null, new {@class = "btn btn-primary form-inline"})
+                            <div class="form-group">
+                                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-primary form-inline" })
+                            </div>
                             break;
-                            }
-                        </div>
+                        }
+
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
