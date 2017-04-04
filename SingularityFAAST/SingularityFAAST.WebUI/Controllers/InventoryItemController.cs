@@ -67,9 +67,9 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //update inventory item view
         [HttpGet]
-        public ActionResult UpdateInventoryItem()
+        public ActionResult UpdateInventoryItem(InventoryItem itemIncomming)
         {
-            return View();
+            return View(itemIncomming);
         }
         
 
@@ -78,9 +78,7 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public RedirectToRouteResult UpdateInventoryItem(InventoryItem item)
         {
-            var services = new InventoryItemServices();
-
-            services.EditExistingItem(item);
+            itemServices.EditExistingItem(item);
 
             return RedirectToAction("IndexInventory", "InventoryItem");
         }
