@@ -26,7 +26,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.FirstName, "First Name *")
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required="required" })
             </div>
         </div>
 
@@ -40,7 +40,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.LastName, "Last Name *")
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", required = "required" })
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.Address1, "Address *")
-                @Html.TextBoxFor(m => m.Address1, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Address1, new { @class = "form-control", required = "required" })
             </div>
         </div>
 
@@ -63,8 +63,8 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(client => client.City)
-                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                @Html.LabelFor(client => client.City, "City *")
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control", required = "required" })
             </div>
         </div>
     </div>
@@ -75,8 +75,8 @@
         <div class="col-md-4">
             <div class="form-group">
                 @*<label for="StateName">State Name</label>*@
-                @Html.LabelFor(client => client.StateName, "State Name")
-                @Html.TextBoxFor(m => m.StateName, new { @class = "form-control" })
+                @Html.LabelFor(client => client.StateName, "State Name *")
+                @Html.TextBoxFor(m => m.StateName, new { @class = "form-control", required = "required" })
             </div>
         </div>
 
@@ -107,8 +107,8 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(client => client.Zip)
-                @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
+                @Html.LabelFor(client => client.Zip, "Zip *")
+                @Html.TextBoxFor(m => m.Zip, new { @class = "form-control", required = "required" })
             </div>
         </div>
 
@@ -166,7 +166,7 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(client => client.LoanEligibility, "Loan Eligibility")
+                @Html.LabelFor(client => client.LoanEligibility, "Loan Eligibility (Defaults to true)")
                 @Html.TextBoxFor(m => m.LoanEligibility, new { @class = "form-control" })
             </div>
         </div>
@@ -314,6 +314,12 @@
         <div class="btn btn-default">
             @Html.ActionLink("Cancel", "Index")
         </div>
+
 }
+
+<br />
+@* message displays back to user when there are errors with the login *@
+@Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning" }) 
+
 
 

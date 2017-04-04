@@ -57,10 +57,18 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public RedirectToRouteResult AddClient(Client client)  
         {                                                       
-            
-            _clientServices.SaveClient(client);
+            if (ModelState.IsValid)
+            {
+                _clientServices.SaveClient(client);
 
-            // Need a Saved Ack here
+                // Need a Saved Ack here
+                
+            }
+
+            else
+            {
+                ModelState.AddModelError("", "Please Enter All Required Information");
+            }
 
             return RedirectToAction("Index", "Client");
         }

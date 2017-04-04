@@ -74,7 +74,7 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.City)
+                @Html.LabelFor(viewModel => viewModel.Client.City, "City *")
                 @Html.TextBoxFor(viewModel => viewModel.Client.City, new { @class = "form-control" })
             </div>
         </div>
@@ -85,7 +85,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.StateName, "State Name")
+                @Html.LabelFor(viewModel => viewModel.Client.StateName, "State Name *")
                 @Html.TextBoxFor(viewModel => viewModel.Client.StateName, new { @class = "form-control" })
             </div>
         </div>
@@ -117,7 +117,7 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.Zip)
+                @Html.LabelFor(viewModel => viewModel.Client.Zip, "Zip *")
                 @Html.TextBoxFor(viewModel => viewModel.Client.Zip, new { @class = "form-control" })
             </div>
         </div>
