@@ -14,6 +14,7 @@ namespace SingularityFAAST.Services.Services
 {
     public class InventoryItemServices
     {
+        #region GetAllInventory
         //gets all inventory items and passes it to the InventoryItemController
         public IList<InventoryItem> GetAllInventory()
         {
@@ -26,9 +27,10 @@ namespace SingularityFAAST.Services.Services
                 return inventoryList;
             }
         }
+        #endregion
 
-
-        //add new inventory item-------------------------------------
+        #region SaveNewItem
+        //add new inventory item
         public void SaveNewItem(InventoryItem item)
         {
             using (var context = new SingularityDBContext())
@@ -40,9 +42,10 @@ namespace SingularityFAAST.Services.Services
                 context.SaveChanges();
              }
          }
-        //-----------------------------------------------------------
+        #endregion
 
-        //Deletes Item - used in Update Inventory Items form <<<<<<<<<<<<
+        #region DeleteItem
+        //Deletes Item - used in Update Inventory Items form
         public void DeleteItem(InventoryItem item)
         {
             using (var context = new SingularityDBContext())
@@ -56,9 +59,9 @@ namespace SingularityFAAST.Services.Services
                 context.SaveChanges();
             }
         }
-        //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        #endregion
 
-
+        #region EditExistingItem
         //edit existing item>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         public void EditExistingItem(InventoryItem item)
         {
@@ -73,9 +76,9 @@ namespace SingularityFAAST.Services.Services
                 context.SaveChanges();
             }
         }
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        #endregion
 
-
+        #region View Available Inventory
         //returns all inventory items that are currently available
         public IList<InventoryItem> ViewAvailableInv()
         {
@@ -88,7 +91,9 @@ namespace SingularityFAAST.Services.Services
                 return inventoryList;
             }
         }
+        #endregion
 
+        #region View Inventory On Loan
         //returns all inventory items that are currently on loan/not available
         public IList<InventoryItem> ViewInvOnLoan()
         {
@@ -101,10 +106,10 @@ namespace SingularityFAAST.Services.Services
                 return inventoryList;
             }
         }
+        #endregion
 
-        //**********************************************************
-        //All Search Request code
-        //**********************************************************
+        #region All Search Request code
+        
         public IList<InventoryItem> HandlesSearchRequest(SearchRequest searchRequest)
         {
             IList<InventoryItem> filteredItems;
@@ -152,12 +157,12 @@ namespace SingularityFAAST.Services.Services
 
             return filteredItems;
         }
-        //*************************************************************
+        #endregion
 
-        
+        #region ReturnNextInventoryNumber
         //Used for [HttpGet] method "NewInventoryItem" in Inventory Controller
-            //Return Greatest Inventory Number to Display in "NewInventoryItem"...
-            //...as the next inventory number to be assigned to the new item being created
+        //Return Greatest Inventory Number to Display in "NewInventoryItem"...
+        //...as the next inventory number to be assigned to the new item being created
         public int ReturnNextInventoryNumber()
         {
             using (var context = new SingularityDBContext())
@@ -181,5 +186,6 @@ namespace SingularityFAAST.Services.Services
                 
             }
         }
+        #endregion
     }
 }

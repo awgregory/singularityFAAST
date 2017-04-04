@@ -17,14 +17,16 @@
         <div class="col-md-3">
             @*Item Name*@
             <div class="form-group">
-                <label for="ItemName">Item Name</label>
-                <Input type="text" class="form-control" id="ItemName" value="@Model." required>
+                <label for="ItemName"><a data-toggle="tooltip" data-placement="bottom" title="Required">Item Name *</a></label>
+                <Input type="text" class="form-control" id="ItemName" required>
             </div>
 
             @*Inventory Number*@
             <div class="form-group">
                 <label for="InventoryNumber">Inventory Number</label>
-                <Input disabled="disabled" type="text" class="form-control" value="@Model.ReturnNextInventoryNumber" id="InventoryNumber">
+                <a data-toggle="tooltip" data-placement="bottom" title="This has been entered for you.">
+                    <Input disabled="disabled" type="text" class="form-control" value="@Model.ReturnNextInventoryNumber" id="InventoryNumber">
+                </a>
             </div>
 
             @*Serial Number*@
@@ -35,14 +37,14 @@
 
             @*Retail Cost*@
             <div class="form-group">
-                <label for="RetailCost">Retail Cost</label>
-                <Input type="text" class="form-control" id="RetailCost">
+                <label for="RetailCost"><a data-toggle="tooltip" data-placement="bottom" title="Required">Retail Cost</a></label>
+                <Input type="text" class="form-control" id="RetailCost" placeholder="ex. 100.00">
             </div>
 
             @*Cost Paid*@
             <div class="form-group">
-                <label for="CostPaid">Cost Paid</label>
-                <Input type="text" class="form-control" id="CostPaid">
+                <label for="CostPaid"><a data-toggle="tooltip" data-placement="bottom" title="Required">Cost Paid</a></label>
+                <Input type="text" class="form-control" id="CostPaid" placeholder="ex. 100.00">
             </div>
 
             @*Model Name*@
@@ -66,7 +68,7 @@
         <div class="col-md-3">
             @*Category*@
             <div class="form-group">
-                <label for="Category">Category</label>
+                <label for="Category"><a data-toggle="tooltip" data-placement="bottom" title="Required">Category *</a></label>
                 <select class="form-control" id="InventoryCategoryId" required>
                     <option disabled selected> -- select and option -- </option>
                     <option value="1">Computers and Related Technology</option>
@@ -84,8 +86,8 @@
 
             @*Purchase Date*@
             <div class="form-group">
-                <label for="DatePurchased">Date Purchased</label>
-                <Input type="datetime" class="form-control" id="DatePurchased" required>
+                <label for="DatePurchased"><a data-toggle="tooltip" data-placement="bottom" title="Required">Date Purchased *</a></label>
+                <Input type="datetime" class="form-control" id="DatePurchased" placeholder="ex. mm/dd/yyyy" required>
             </div>
 
             @*Description*@
@@ -93,6 +95,25 @@
                 <label for="Description">Description</label>
                 <textarea rows="4" class="form-control" id="Description"></textarea>
             </div>
+
+            @* Availability *@
+            <div class="form-group">
+                <label for="Availability"><a data-toggle="tooltip" data-placement="bottom" title="Required">Availability *</a></label>
+                <div class="radio radio-inline">
+                    <label><input type="radio" name="Available" id="1" />Yes</label>
+                    <label><input type="radio" name="Available" id="0" />No</label>
+                </div>
+            </div>
+
+            @* Active *@
+            <div class="form-group">
+                <label for="Active">Active</label>
+                <div class="radio radio-inline">
+                    <label><input type="radio" name="Active" id="1" />Yes</label>
+                    <label><input type="radio" name="Active" id="0" />No</label>
+                </div>
+            </div>
+
         </div>
 
         <div class="col-md-2">
@@ -109,20 +130,26 @@
             </div>
 
             @*@*Additional Files
-                <div class="form-control">
-                    <label for="AdditionalFiles">Additional Files</label>
-                </div>*@
+            <div class="form-control">
+                <label for="AdditionalFiles">Additional Files</label>
+            </div>*@
         </div>
     </div>
 
 
     <div>
         <br />
-        @Html.ActionLink("Update Item", "UpdateInventoryItem", null, new { @class = "btn btn-primary btn-lg" })
+        @* Submit Form Button *@
+        <button class="btn btn-primary btn-lg" type="submit">Update Item</button>
         <br />
+        @* message displays back to user when there are errors with the login *@
+        @Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning" })  @* Have Not Checked for Accurate Location on web page yet *@
+
         <br />
         @Html.ActionLink("Cancel Update", "IndexInventory", null, new { @class = "btn btn-warning btn-md" })
         <br />
+
+
         <br />
         @Html.ActionLink("Delete Item", "DeleteInventoryItem", null, new { @class = "btn btn-danger btn-sm" })
     </div>

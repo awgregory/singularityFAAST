@@ -13,19 +13,16 @@ namespace SingularityFAAST.WebUI.Controllers
     {
         private readonly InventoryItemServices itemServices = new InventoryItemServices();
 
-       //This is the inventory home page
+
+        #region IndexInventory
         public ActionResult IndexInventory()
         {
             var model = itemServices.GetAllInventory();
             return View(model);
         }
+        #endregion
 
-
-
-        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        //NewInventoryItem methods
-        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        
+        #region New Item Creation methods
         //New Item Creation
         //pushes next Inventory Item number into form
         [HttpGet]
@@ -46,28 +43,35 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //Collects data from New Inventory Item form
         [HttpPost]
-        public ActionResult NewInventoryItem(InventoryItem item)
+        public RedirectToRouteResult NewInventoryItem(InventoryItem item)
         {
-            var services = itemServices;
+            if (ModelState.IsValid)//Adding Validation to the Submission on a new inventory item
+            {
+             var services = itemServices;
 
-            services.SaveNewItem(item);
+             services.SaveNewItem(item);
 
-            return RedirectToAction("IndexInventory", "InventoryItem");
+             return RedirectToAction("IndexInventory", "InventoryItem");
+            }
+            else
+            {
+                ModelState.AddModelError(null, "Please Enter All The Required Information");//the returned error message
+            }
+
+            return RedirectToAction("NewInventoryItem"); //returns the user to the view with the item
         }
-        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           
+        #endregion
 
-
-
-        
-        //``````````````````````````````````````````
-        //UpdateInventoryItem methods
-        //``````````````````````````````````````````
+        #region UpdateInventoryItem Methods
 
         //update inventory item view
+        [HttpGet]
         public ActionResult UpdateInventoryItem()
         {
             return View();
         }
+        
 
         //post method for updating item after user makes changes
         //  -->Redirects user to InventoryIndex
@@ -80,28 +84,28 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return RedirectToAction("IndexInventory", "InventoryItem");
         }
-        //``````````````````````````````````````````
+        #endregion
 
-
-
-
-        //returns view for All Available Inventory
+        #region All AVAILABLE Inventory
         public ActionResult ViewAllAvailableInv()
         {
             var services = new InventoryItemServices();
             var model = services.ViewAvailableInv();
             return View(model);
         }
+        #endregion
 
-        //returns view for All Inventory on Loan
+        #region All Inventory ON LOAN
         public ActionResult ViewAllOnLoanInv()
         {
             var services = new InventoryItemServices();
             var model = services.ViewInvOnLoan();
             return View(model);
         }
+        #endregion
 
-        ////  Returns Inventory records that match search criteria
+        #region Search Requests 
+        //Returns Inventory records that match search criteria
         [HttpPost]
         public ActionResult Index(SearchRequest searchRequest)
         {
@@ -110,5 +114,6 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return View(model);
         }
+        #endregion
     }
 }
