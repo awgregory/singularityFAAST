@@ -4,7 +4,7 @@
 
     //TODO
     var beginDateString = DateTime.UtcNow.AddDays(-30).ToString("yyyy-MM-dd");
-    var endDateString = DateTime.UtcNow;
+    var endDateString = DateTime.UtcNow.ToString("yyyy-MM-dd");
 }
 
 
@@ -32,7 +32,7 @@
     <br />
     <button type="submit" class="btn btn-primary" id="submitLoanReport">Submit</button>
 
-    <p id="message"></p>
+    
 
     <script src="~/Scripts/Reports/ReportRange.js"></script>
 

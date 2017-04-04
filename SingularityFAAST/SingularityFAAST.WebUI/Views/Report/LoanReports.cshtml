@@ -51,7 +51,14 @@
             </tbody>
         </table>
 
+    <h4>Types of Devices Loaned</h4>
         <table class="table">
+            <thead>
+                <tr>
+                    <th>Type of AT Device</th>
+                    <th>Number</th>
+                </tr>
+            </thead>
            <tbody>
            @foreach(var item in Model.categoryCounts)
             {
@@ -62,5 +69,7 @@
             }
              </tbody>
         </table>
+    <br />
+    <h4>Number of loans with the purpose of assisting in decision making: @Model.purposeDecisionMaking</h4>
     
 </div>

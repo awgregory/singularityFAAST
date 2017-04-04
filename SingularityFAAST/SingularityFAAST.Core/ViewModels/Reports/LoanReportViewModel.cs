@@ -20,8 +20,13 @@ namespace SingularityFAAST.Core.ViewModels.Reports
         public int NumberOfBorrowerHealth { get; set; }
         public int NumberOfBorrowerCommunityLiving { get; set; }
         public int NumberOfBorrowerTechnology { get; set; }
+        public int NumberOfTotalBorrowers { get; set; }
 
         // Create variable for the counts of InventoryItemCateogory
         public IList<ReportInventoryItemCategoryCount> categoryCounts { get; set; }
+
+        // Create variable for the count for each purpose type
+        public int purposeDecisionMaking { get; set; }
+
     }
 }

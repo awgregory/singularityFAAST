@@ -4,7 +4,7 @@ using System.Linq;
 using SingularityFAAST.Core.Entities;
 using SingularityFAAST.DataAccess.Contexts;
 using SingularityFAAST.Core.ViewModels.Reports;
-
+    
 namespace SingularityFAAST.Services.Services
 {
     public class ReportingServices
@@ -40,6 +40,14 @@ namespace SingularityFAAST.Services.Services
                                      select inventoryItems;
 
 
+                var loanDetailQuery = from loans in timeFramedLoans
+                                      join loanDetails in context.LoanDetails
+                                      on loans.LoanMasterId
+                                      equals loanDetails.LoanMasterId
+                                      select loanDetails;
+
+
+
 
                 // Created variables that hold the total amount of loans per type of borrower
 
@@ -58,6 +66,8 @@ namespace SingularityFAAST.Services.Services
                 // Counts the number of times a category appears
                 var categoryCounts = context.getInventoryItemCategoryCount(startDate, endDate);
 
+                // Counts the number of times purpose types appear
+                var purposeAssistDecisionMaking = loanDetailQuery.Where(purpose => purpose.PurposeType.Equals("Assist in decision making")).Count();
 
                 // Assigned that value to the view model property
                 viewModel.TotalNumberOfLoans = numberOfLoans;
@@ -71,6 +81,8 @@ namespace SingularityFAAST.Services.Services
                 viewModel.NumberOfBorrowerTechnology = borrowerTechnology;
 
                 viewModel.categoryCounts = categoryCounts;
+
+                viewModel.purposeDecisionMaking = purposeAssistDecisionMaking;
 
                 return viewModel;
             }

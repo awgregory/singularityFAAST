@@ -15,7 +15,8 @@
             var start = new Date(startDate).getTime();
             var end = new Date(endDate).getTime();
 
-            if (true) { //replace this with the proper logic
+            if (start > end) { //replace this with the proper logic
+
                 console.log('condition hit')
                 errorText.show();
                 e.preventDefault(); //e is the event originating from submit button click
