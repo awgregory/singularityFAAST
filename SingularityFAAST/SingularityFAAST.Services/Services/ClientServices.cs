@@ -73,8 +73,22 @@ namespace SingularityFAAST.Services.Services
         {
             IList<Client> allClients = GetAllClients();
 
-            IList<Client> filteredClients = allClients.Where(client =>
-                string.Equals(client.LastName, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            IList<Client> filteredClients = allClients.Where(c => c.LastName.Contains(searchBy)).ToList();
+
+
+
+
+            //IList<Client> filteredClients = allClients.Where(c => c.LastName.IndexOf(searchBy, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+
+
+            //IList<Client> filteredClients = allClients.Where(client => searchBy.Contains(StringComparison.OrdinalIgnoreCase(client.LastName))).ToList();
+
+
+            //IList<Client> filteredClients = allClients.Where(client =>
+            //    string.Equals(client.LastName, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+
+
 
             return filteredClients;
         }
