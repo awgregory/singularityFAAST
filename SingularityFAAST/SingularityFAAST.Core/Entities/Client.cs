@@ -7,8 +7,8 @@ namespace SingularityFAAST.Core.Entities
     public class Client
     {
 
-        public Client()
-        {
+        public Client()    //Instance Constructor required as the default instance value for bool (false) was over-riding db default value. db default only comes into play if it is handed a null
+        {                   // Best practice to be explicit and leave the default at the db level too
             Active = true;
             LoanEligibility = true;
         }
@@ -62,15 +62,16 @@ namespace SingularityFAAST.Core.Entities
 
         public int ClientCategoryId { get; set; }
 
+        public bool IsDeleted { get; set; }
 
         //Data Annotations Display would still require logic, DisplayFor is more static for single values
         public string ClientCategoryName   
         {
             get
             {
-                string clientCategory;
+                string clientCategory;  
 
-                switch (ClientCategoryId)
+                switch (ClientCategoryId) /*When the view accesses one Client of it's model List, it also has ClientCategoryID*/
                 {
                     case 1:
                         clientCategory = "Individual with Disability";
@@ -106,7 +107,7 @@ namespace SingularityFAAST.Core.Entities
             }
         }
 
-
+        
 
 
     }

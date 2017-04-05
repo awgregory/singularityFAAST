@@ -7,10 +7,11 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Chewy|Days+One|Orbitron|Poiret+One" rel="stylesheet">
+
     <link rel="stylesheet" href="~/Content/font-awesome.min.css">
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     
 </head>
 
@@ -32,8 +33,7 @@
             <div class="navbar-collapse collapse">
                 @*needs to be reactive to log in credentials*@
                 <ul class="nav navbar-nav navbar-right">
-                    @Html.ActionLink("Log In", "LogIn" , "Account", new { area = "" }, new { @class = "navbar-brand", style = "margin-right: 30px;" })
-
+                    @Html.ActionLink("Logout", "LogOff", "Account", new { area = "" }, new { @class = "navbar-brand", style = "margin-right: 60px;" })
                 </ul>
             </div>
         </div>

@@ -23,9 +23,20 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
- 
 
+        public IList<LoanMaster> GetAllLoanMasters()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var loans = context.LoanMasters;
 
+                var loanList = loans.ToList();
+
+                return loanList;
+            }
+        }
+
+        // Search Function Service
         public IList<Client> HandlesSearchRequest(SearchRequest searchRequest)
         {
             IList<Client> filteredClients;
@@ -68,6 +79,7 @@ namespace SingularityFAAST.Services.Services
             return filteredClients;
         }
 
+
         private IList<Client> GetClientByFirstName(string searchBy)
         {
             IList<Client> allClients = GetAllClients();
@@ -78,7 +90,15 @@ namespace SingularityFAAST.Services.Services
             return filteredClients;
         }
 
-        
+
+        public IEnumerable<LoanMaster> GetLoansByClientId(int id)
+        {
+            IList<LoanMaster> filteredLoans = GetAllLoanMasters().Where(loan => loan.ClientId == id).ToList();
+
+            return filteredLoans;
+        }
+
+
 
         public IList<Client> GetClientById(string searchBy)
         {
@@ -111,11 +131,16 @@ namespace SingularityFAAST.Services.Services
             {
                 client.DateCreated = DateTime.Now;  // Manipulating the client object is done before saving to Db
 
-                context.Clients.Add(client);
+                context.Clients.Add(client);  
 
                 context.SaveChanges();
 
-                if (client.DisabilityIds != null && client.DisabilityIds.Any())  // Review the If statement
+                // No Any() needed null check covers it
+
+                if (client.DisabilityIds != null)
+
+                // what was the thing that checked for null before Any()? default type for Enum?
+
                 {
                     var clientDisabilities = client.DisabilityIds
                         .Select(disabilityId => new ClientDisability    
@@ -129,36 +154,104 @@ namespace SingularityFAAST.Services.Services
         }
 
 
-        // Left off here
 
+
+
+
+
+
+        
         public Client GetClientDetails(int id)
         {
             using (var context = new SingularityDBContext())
             {
-                var client = context.Clients.FirstOrDefault(x => x.ClientID == id); 
+                var client = context.Clients.FirstOrDefault(x => x.ClientID == id); //default 0 int, The default value for reference and nullable types is null.
+
+                
+                client.DisabilityIds = context.ClientDisabilities  //Access the ClientDisabilities Associate table entries
+                    .Where(cd => cd.ClientId == client.ClientID) //filter down to entries that match this ClientID                
+                    .Select(i => i.DisabilityCategoryId) //give me back the DisabilityCategoryId property for these entries
+                    .ToList();  // They become the IEnumerable<int> DisabilityIds property values for this Client instance 
+
 
                 return client;
             }
         }
 
 
-        //Update existing client info
-        public void EditClientDetails(Client client)
+        //new helper method in services
+        public IList<DisabilityCategory> GetAllDisabilities()
         {
             using (var context = new SingularityDBContext())
             {
+                return context.DisabilityCategories.ToList();
+            }
+        }
+
+
+        //Update existing client info
+        public void EditClientDetails(Client client, IEnumerable<int> DisabilityIds)
+        {
+            using (var context = new SingularityDBContext())
+            {
+
+             
                 context.Clients.Attach(client);
 
-                var entry = context.Entry(client);  
-
+                var entry = context.Entry(client);
+  
                 entry.State = EntityState.Modified;
 
                 context.SaveChanges();
+                
+
+
+                if (DisabilityIds != null)  // null check required to cover posting on null DisabilityIds 
+
+                {
+
+                    var oldClientDisabilities = context.ClientDisabilities.Where(cd => cd.ClientId == client.ClientID);
+
+                    context.ClientDisabilities.RemoveRange(oldClientDisabilities);
+
+                    context.SaveChanges();
+
+
+                    var clientDisabilities = DisabilityIds //Access the IEnumerable<int> of DisabilityIds
+                        .Select(DisabilityId => new ClientDisability //Foreach create a new cd object
+                        { ClientId = client.ClientID, DisabilityCategoryId = DisabilityId });
+
+                    // After the ClientDisability Ojects are created and added to var, they get added to the table
+
+                    context.ClientDisabilities.AddRange(clientDisabilities);
+
+                    context.SaveChanges();
+                }
+
+                else
+                {
+                    var oldClientDisabilities = context.ClientDisabilities.Where(cd => cd.ClientId == client.ClientID);
+
+                    context.ClientDisabilities.RemoveRange(oldClientDisabilities);
+
+                    context.SaveChanges();
+                }
 
             }
         }
 
 
+        public void ChangeStatusDeleted(int id)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var client = context.Clients.FirstOrDefault(x => x.ClientID == id);
+
+                client.IsDeleted = true;
+
+                context.SaveChanges();
+            }
+        }
 
     }
 }

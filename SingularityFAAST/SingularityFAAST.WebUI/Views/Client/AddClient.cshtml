@@ -10,234 +10,310 @@
 {
 
 
-        
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.Title)
-                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-                </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Title)
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
             </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.FirstName, "First Name *")
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.MiddleInitial, "Middle Initial")
+                @Html.TextBoxFor(m => m.MiddleInitial, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.LastName, "Last Name *")
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Address1, "Address *")
+                @Html.TextBoxFor(m => m.Address1, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Address2, "Address")
+                @Html.TextBoxFor(m => m.Address2, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.City)
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
 
 
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.Company)
-                    @Html.TextBoxFor(m => m.Company, new { @class = "form-control" })
-                </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @*<label for="StateName">State Name</label>*@
+                @Html.LabelFor(client => client.StateName, "State Name")
+                @Html.TextBoxFor(m => m.StateName, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.StateCode, "State Code")
+                @Html.TextBoxFor(m => m.StateCode, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.County)
+                @Html.TextBoxFor(m => m.County, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.CountyFIPS)
+                @Html.TextBoxFor(m => m.CountyFIPS, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Zip)
+                @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.CellPhone)
+                @Html.TextBoxFor(m => m.CellPhone, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.HomePhone)
+                @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control" })
             </div>
         </div>
 
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.FirstName,"First Name")
-                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.WorkPhone)
+                @Html.TextBoxFor(m => m.WorkPhone, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="ClientCategoryId">Client Category</label>
+
+                <select class="form-control" id="ClientCategoryId" name="ClientCategoryId">
+                    <option value="1">Individual with Disability</option>
+                    <option value="2">Family Member</option>
+                    <option value="3">Professional / Representative of Community Living</option>
+                    <option value="4">Professional / Representative of Education</option>
+                    <option value="5">Professional / Representative of Technology</option>
+                    <option value="6">Professional / Representative of Employment</option>
+                    <option value="7">Professional / Representative of Health, Allied Health, Rehabilitative Services</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.LoanEligibility, "Loan Eligibility")
+                @Html.TextBoxFor(m => m.LoanEligibility, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Company)
+                @Html.TextBoxFor(m => m.Company, new { @class = "form-control" })
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="row">
+
+
+        @*Disabilities Start Here*@
+
+
+        <div class="col-md-4">
+            
+            <label>Disabilities</label>
+            <br />
+           
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="1">
+                    Cognitive Impairment
+                </label>
             </div>
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.MiddleInitial, "Middle Initial")
-                    @Html.TextBoxFor(m => m.MiddleInitial, new { @class = "form-control" })
-                </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="2">
+                    Hearing Impairment
+                </label>
             </div>
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.LastName, "Last Name")
-                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="3">
+                    Visual Impairment
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="4">
+                    Deaf-Blind
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="5">
+                    Learning Disability
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="6">
+                    No Impairment
+                </label>
+            </div>
+       
+
+           
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="7">
+                    Dexterity Impairment
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="8">
+                    Mobility Impairment
+                </label>
+            </div>
+
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="9">
+                    Spinal Cord Injury
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="10">
+                    Elderly
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="11">
+                    Speech/Language Impairment
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="12">
+                    Traumatic Brain Injury
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="13">
+                    Other
+                </label>
             </div>
         </div>
 
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.Address1, "Address")
-                    @Html.TextBoxFor(m => m.Address1, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.Address2, "Address")
-                    @Html.TextBoxFor(m => m.Address2, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.City)
-                    @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
-                </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Notes)
+                @Html.TextAreaFor(client => client.Notes, new { @class = "form-control" })
             </div>
         </div>
 
+    </div>
 
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @*<label for="StateName">State Name</label>*@
-                    @Html.LabelFor(client => client.StateName, "State Name")
-                    @Html.TextBoxFor(m => m.StateName, new { @class = "form-control" })
-                </div>
-            </div>
+        <br />
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.StateCode, "State Code")
-                    @Html.TextBoxFor(m => m.StateCode, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.County)
-                    @Html.TextBoxFor(m => m.County, new { @class = "form-control" })
-                </div>
-            </div>
+        <div class="text-left">
+            <input class="btn btn-primary" type="submit" value="Add Client" />
         </div>
 
+        <br />
 
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.CountyFIPS)
-                    @Html.TextBoxFor(m => m.CountyFIPS, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.Zip)
-                    @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.Email)
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                </div>
-            </div>
+        <div class="btn btn-default">
+            @Html.ActionLink("Cancel", "Index")
         </div>
-
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.CellPhone)
-                    @Html.TextBoxFor(m => m.CellPhone, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.HomePhone)
-                    @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control" })
-                </div>
-            </div>
-
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.WorkPhone)
-                    @Html.TextBoxFor(m => m.WorkPhone, new { @class = "form-control" })
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="ClientCategoryId">Client Category</label>
-
-                    <select class="form-control" id="ClientCategoryId" name="ClientCategoryId">
-                        <option value="1">Individual with Disability</option>
-                        <option value="2">Family Member</option>
-                        <option value="3">Professional / Representative of Community Living</option>
-                        <option value="4">Professional / Representative of Education</option>
-                        <option value="5">Professional / Representative of Technology</option>
-                        <option value="6">Professional / Representative of Employment</option>
-                        <option value="7">Professional / Representative of Health, Allied Health, Rehabilitative Services</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.LoanEligibility, "Loan Eligibility")
-                    @Html.TextBoxFor(m => m.LoanEligibility, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(client => client.Notes)
-                    @Html.TextAreaFor(client => client.Notes, new { @class = "form-control" })
-                </div>
-            </div>
-        </div>
-
-
-        
-            <label>Client Disabilities</label>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="1"> Cognitive Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="2"> Hearing Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="3"> Visual Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="4"> Deaf-Blind
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="5"> Learning Disability
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="6"> No Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="7"> Dexterity Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="8"> Mobility Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="9"> Spinal Cord Injury
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="10"> Elderly
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="11"> Speech/Language Impairment
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="12"> Traumatic Brain Injury
-                </label>
-                <label>
-                    <input type="checkbox" name="DisabilityIds" value="13"> Other
-                </label>
-            </div>
-
-
-            <div class="text-left">
-                <input class="btn btn-primary" type="submit" value="Add Client" />
-            </div>
-
-            }
+}
 
 
