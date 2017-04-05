@@ -26,7 +26,10 @@ namespace SingularityFAAST.Core.ViewModels.Reports
         public IList<ReportInventoryItemCategoryCount> categoryCounts { get; set; }
 
         // Create variable for the count for each purpose type
-        public int purposeDecisionMaking { get; set; }
+        public int PurposeDecisionMaking { get; set; }
+        public int PurposeServeAsLoaner { get; set; }
+        public int PurposeShortTerm { get; set; }
+        public int PurposeConductTraining { get; set; }
 
     }
 }

@@ -68,11 +68,15 @@ namespace SingularityFAAST.Services.Services
 
                 // Counts the number of times purpose types appear
                 var purposeAssistDecisionMaking = loanDetailQuery.Where(purpose => purpose.PurposeType.Equals("Assist in decision making")).Count();
+                var purposeServeAsLoaner = loanDetailQuery.Where(purpose => purpose.Purpose.Equals("Serve as loaner during device repair or while waiting for funding")).Count();
+                var purposeShortTerm = loanDetailQuery.Where(purpose => purpose.Purpose.Equals("Provide and accomodation on a short-term basis for a time-limited event/situation")).Count();
+                var purposeConductTraining = loanDetailQuery.Where(purpose => purpose.Purpose.Equals("Conduct training, self-education or other professional development activity")).Count();
+                var totalPurpose = purposeAssistDecisionMaking + purposeServeAsLoaner + purposeShortTerm + purposeConductTraining;
+                
+                // Assigned values to the view model property
+                viewModel.TotalNumberOfLoans = numberOfLoans; // total number of loans
 
-                // Assigned that value to the view model property
-                viewModel.TotalNumberOfLoans = numberOfLoans;
-
-                viewModel.NumberOfDeviceBorrowerWithDisability = borrowerWithDisability;
+                viewModel.NumberOfDeviceBorrowerWithDisability = borrowerWithDisability;  // Borrower Types
                 viewModel.NumberOfBorrowerFamily = borrowerFamily;
                 viewModel.NumberOfBorrowerEducation = borrowerEducation;
                 viewModel.NumberOfBorrowerEmployment = borrowerEmployment;
@@ -80,9 +84,12 @@ namespace SingularityFAAST.Services.Services
                 viewModel.NumberOfBorrowerCommunityLiving = borrowerCommunityLiving;
                 viewModel.NumberOfBorrowerTechnology = borrowerTechnology;
 
-                viewModel.categoryCounts = categoryCounts;
+                viewModel.categoryCounts = categoryCounts; // The list of different categories of inventory
 
-                viewModel.purposeDecisionMaking = purposeAssistDecisionMaking;
+                viewModel.PurposeDecisionMaking = purposeAssistDecisionMaking; // Purpose Types
+                viewModel.PurposeServeAsLoaner = purposeServeAsLoaner;
+                viewModel.PurposeShortTerm = purposeShortTerm;
+                viewModel.PurposeConductTraining = purposeConductTraining;
 
                 return viewModel;
             }
