@@ -56,19 +56,25 @@ namespace SingularityFAAST.WebUI.Controllers
         //  Collects form data from AddClient page and saves it
         [HttpPost]
         public RedirectToRouteResult AddClient(Client client)  
-        {                                                       
-            if (ModelState.IsValid)
-            {
-                _clientServices.SaveClient(client);
+        {
+            _clientServices.SaveClient(client);
 
-                // Need a Saved Ack here
-                
-            }
+            #region ModelStateValidation
+            //if (ModelState.IsValid)
+            //{
+            //    _clientServices.SaveClient(client);
 
-            else
-            {
-                ModelState.AddModelError("", "Please Enter All Required Information");
-            }
+            //    //Need a Saved Ack here
+            //}
+
+            //else
+            //{
+            //    ModelState.AddModelError("", "Please Enter All Required Information");
+
+            //    return RedirectToAction("AddClient", "Client");
+            //}
+            #endregion
+
 
             return RedirectToAction("Index", "Client");
         }
