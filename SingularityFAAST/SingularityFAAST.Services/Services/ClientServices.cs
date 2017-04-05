@@ -80,6 +80,7 @@ namespace SingularityFAAST.Services.Services
             #region Search code options
             //Can't use StringComparison.OrdinalIgnoreCase in Contains()
 
+            //SO#444798
             //IList<Client> filteredClients = allClients.Where(c => c.LastName.IndexOf(searchBy, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
 
             //Original
@@ -119,7 +120,7 @@ namespace SingularityFAAST.Services.Services
 
             int x = 0;
 
-            if (Int32.TryParse(searchBy, out x))
+            if (Int32.TryParse(searchBy, out x))  
             {
                 filteredClients = allClients.Where(c =>
                 c.ClientID.Equals(x)).ToList();
@@ -146,7 +147,7 @@ namespace SingularityFAAST.Services.Services
 
             if (Int32.TryParse(searchBy, out x))    
             {
-                filteredClients = allClients.Take(0).ToList();
+                filteredClients = allClients.Take(0).ToList();  // Create fake client 'Invalid Input' to return? 
             }
 
             else
