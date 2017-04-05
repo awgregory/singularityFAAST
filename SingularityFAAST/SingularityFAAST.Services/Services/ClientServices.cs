@@ -74,20 +74,18 @@ namespace SingularityFAAST.Services.Services
             IList<Client> allClients = GetAllClients();
 
 
-            IList<Client> filteredClients = allClients.Where(c => c.LastName.Contains(searchBy)).ToList();
+            IList<Client> filteredClients = allClients.Where(c => 
+                c.LastName.ToLower().Contains(searchBy.ToLower())).ToList();
 
-
-
+            #region Search code options
+            //Can't use StringComparison.OrdinalIgnoreCase in Contains()
 
             //IList<Client> filteredClients = allClients.Where(c => c.LastName.IndexOf(searchBy, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
 
-
-            //IList<Client> filteredClients = allClients.Where(client => searchBy.Contains(StringComparison.OrdinalIgnoreCase(client.LastName))).ToList();
-
-
+            //Original
             //IList<Client> filteredClients = allClients.Where(client =>
             //    string.Equals(client.LastName, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
-
+            #endregion
 
 
             return filteredClients;
@@ -98,13 +96,13 @@ namespace SingularityFAAST.Services.Services
         {
             IList<Client> allClients = GetAllClients();
 
-            IList<Client> filteredClients = allClients.Where(client =>
-                string.Equals(client.FirstName, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+            IList<Client> filteredClients = allClients.Where(c =>
+                c.FirstName.ToLower().Contains(searchBy.ToLower())).ToList();
 
             return filteredClients;
         }
 
-
+        // Need to implement
         public IEnumerable<LoanMaster> GetLoansByClientId(int id)
         {
             IList<LoanMaster> filteredLoans = GetAllLoanMasters().Where(loan => loan.ClientId == id).ToList();
@@ -129,8 +127,12 @@ namespace SingularityFAAST.Services.Services
         {
             IList<Client> allClients = GetAllClients();
 
-            IList<Client> filteredClients = allClients.Where(client =>
-                string.Equals(client.Email, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            //IList<Client> filteredClients = allClients.Where(client =>
+            //    string.Equals(client.Email, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            IList<Client> filteredClients = allClients.Where(c =>
+                c.Email.ToLower().Contains(searchBy.ToLower())).ToList();
 
             return filteredClients;
         }
