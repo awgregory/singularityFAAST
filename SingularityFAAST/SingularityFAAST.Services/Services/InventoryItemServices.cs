@@ -29,6 +29,59 @@ namespace SingularityFAAST.Services.Services
         }
         #endregion
 
+        #region View Available Inventory
+        //returns all inventory items that are currently available
+        public IList<InventoryItem> ViewAvailableInv()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                IList<InventoryItem> allitems = GetAllInventory(); //gets full list of inventory items from db
+
+                IList<InventoryItem> AvailableItems = allitems.Where(item => item.Availability = true).ToList(); //filters out items which have an availability of True (or 1)
+
+                return AvailableItems;
+            }
+        }
+        #endregion
+
+        #region View Inventory On Loan
+        //returns all inventory items that are currently on loan/not available
+        public IList<InventoryItem> ViewInvOnLoan()
+        {
+            //**************
+            //NEEDS FIXIN
+            //**************
+
+            //using (var context = new SingularityDBContext())
+            //{
+            //    IList<InventoryItem> allitems = GetAllInventory(); //gets full list of inventory items from db
+
+            //    IList<InventoryItem> ItemsOnLoan = allitems.Where(item => item.Availability = true).ToList(); //filters out items which have an availability of True (or 1)
+
+            //    return ItemsOnLoan;
+            //}
+
+            //Using the code to get all inventory as a temporary placeholder
+            using (var context = new SingularityDBContext())
+            {
+                var inventory = context.InventoryItems;
+
+                var inventoryList = inventory.ToList();
+
+                return inventoryList;
+            }
+        }
+        #endregion
+
+        #region Return Item Id number for Update Item
+        //public InventoryItem ReturnInventoryItemInteger(int id)
+        //{
+        //    var IdInt = id;
+            
+        //    return (IdInt);
+        //}
+        #endregion
+
         #region SaveNewItem
         //add new inventory item
         public void SaveNewItem(InventoryItem item)
@@ -74,36 +127,6 @@ namespace SingularityFAAST.Services.Services
                 entry.State = EntityState.Modified;
 
                 context.SaveChanges();
-            }
-        }
-        #endregion
-
-        #region View Available Inventory
-        //returns all inventory items that are currently available
-        public IList<InventoryItem> ViewAvailableInv()
-        {
-            using (var context = new SingularityDBContext())
-            {
-                var inventory = context.InventoryItems;
-
-                var inventoryList = inventory.ToList();
-
-                return inventoryList;
-            }
-        }
-        #endregion
-
-        #region View Inventory On Loan
-        //returns all inventory items that are currently on loan/not available
-        public IList<InventoryItem> ViewInvOnLoan()
-        {
-            using (var context = new SingularityDBContext())
-            {
-                var inventory = context.InventoryItems;
-
-                var inventoryList = inventory.ToList();
-
-                return inventoryList;
             }
         }
         #endregion
@@ -159,6 +182,7 @@ namespace SingularityFAAST.Services.Services
         }
         #endregion
 
+        //needs fixin - medium priority
         #region ReturnNextInventoryNumber
         //Used for [HttpGet] method "NewInventoryItem" in Inventory Controller
         //Return Greatest Inventory Number to Display in "NewInventoryItem"...
@@ -171,7 +195,8 @@ namespace SingularityFAAST.Services.Services
 
                 IList<InventoryItem> allItems = GetAllInventory();
                 var itemCount = allItems.Count;
-
+                //need to add a segment that actually checks the id # of the last item
+                //  --> This proposed fix should fix any un-aligned numbers
                 if(allItems.Count > 0)
                 {
                     var InventoryNumber = itemCount + 1;

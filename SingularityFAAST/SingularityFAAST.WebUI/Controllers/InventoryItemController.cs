@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿//Jon Ebert -2017
+//Inventory Item Controller
+
+using System.Collections.Generic;
 using SingularityFAAST.Core.SearchRequests;
 using System.Web.Mvc;
 using SingularityFAAST.Core.Entities;
@@ -18,6 +21,23 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult IndexInventory()
         {
             var model = itemServices.GetAllInventory();
+            return View(model);
+        }
+        #endregion
+
+        #region All AVAILABLE Inventory
+        public ActionResult ViewAllAvailableInv()
+        {
+            var model = itemServices.ViewAvailableInv();
+            return View(model);
+        }
+        #endregion
+
+        #region All Inventory ON LOAN
+        public ActionResult ViewAllOnLoanInv()
+        {
+            var services = new InventoryItemServices();
+            var model = services.ViewInvOnLoan();
             return View(model);
         }
         #endregion
@@ -47,15 +67,13 @@ namespace SingularityFAAST.WebUI.Controllers
         {
             if (ModelState.IsValid)//Adding Validation to the Submission on a new inventory item
             {
-             var services = itemServices;
-
-             services.SaveNewItem(item);
+             itemServices.SaveNewItem(item);
 
              return RedirectToAction("IndexInventory", "InventoryItem");
             }
             else
             {
-                ModelState.AddModelError(null, "Please Enter All The Required Information");//the returned error message
+                ModelState.AddModelError("", "Please Enter All Required Information");//the returned error message
             }
 
             return RedirectToAction("NewInventoryItem"); //returns the user to the view with the item
@@ -66,39 +84,32 @@ namespace SingularityFAAST.WebUI.Controllers
         #region UpdateInventoryItem Methods
 
         //update inventory item view
-        [HttpGet]
-        public ActionResult UpdateInventoryItem(InventoryItem itemIncomming)
-        {
-            return View(itemIncomming);
-        }
+        //[HttpGet]
+        //public ActionResult UpdateInventoryItem(int item)
+        //{
+        //    var x = itemServices.ReturnInventoryItemInteger(); //create new service for update item that passes 
+
+        //    return View(x);
+        //}
         
 
         //post method for updating item after user makes changes
         //  -->Redirects user to InventoryIndex
         [HttpPost]
-        public RedirectToRouteResult UpdateInventoryItem(InventoryItem item)
+        public RedirectToRouteResult UpdateInventoryItem(InventoryItem item) //needs modelState validation
         {
-            itemServices.EditExistingItem(item);
+            if (ModelState.IsValid)
+            {
+              itemServices.EditExistingItem(item);
 
             return RedirectToAction("IndexInventory", "InventoryItem");
-        }
-        #endregion
+            }
+            else
+            {
+                ModelState.AddModelError("", "Please Enter All Required Information");//the returned error message
+            }
 
-        #region All AVAILABLE Inventory
-        public ActionResult ViewAllAvailableInv()
-        {
-            var services = new InventoryItemServices();
-            var model = services.ViewAvailableInv();
-            return View(model);
-        }
-        #endregion
-
-        #region All Inventory ON LOAN
-        public ActionResult ViewAllOnLoanInv()
-        {
-            var services = new InventoryItemServices();
-            var model = services.ViewInvOnLoan();
-            return View(model);
+          return RedirectToAction("UpdateInventoryItem"); //returns the user to the view with the item
         }
         #endregion
 

@@ -21,49 +21,49 @@
             @* Item Name *@
             <div class="form-group">
                 <label for="ItemName"><a data-toggle="tooltip" data-placement="bottom" title="Required">Item Name *</a></label>
-                <Input type="text" class="form-control" id="ItemName" required>
+                <Input type="text" class="form-control" name="ItemName" required>
             </div>
 
             @* Inventory Number *@
             <div class="form-group">
                 <label for="InventoryNumber">Inventory Number</label>
                 <a data-toggle="tooltip" data-placement="bottom" title="This has been entered for you.">
-                    <Input disabled="disabled" type="text" class="form-control" value="@Model.ReturnNextInventoryNumber" id="InventoryNumber">
+                    <Input disabled="disabled" type="text" class="form-control" value="@Model.ReturnNextInventoryNumber" name="InventoryNumber">
                 </a>
             </div>
 
             @* Serial Number *@
             <div class="form-group">
                 <label for="ItemNumber">SerialNumber</label>
-                <Input type="text" class="form-control" id="SerialNumber">
+                <Input type="text" class="form-control" name="SerialNumber">
             </div>
 
             @* Retail Cost *@
             <div class="form-group">
-                <label for="RetailCost"><a data-toggle="tooltip" data-placement="bottom" title="Required">Retail Cost</a></label>
-                <Input type="text" class="form-control" id="RetailCost" placeholder="ex. 100.00">
+                <label for="RetailCost"><a data-toggle="tooltip" data-placement="bottom" title="Required">Retail Cost *</a></label>
+                <Input type="number" class="form-control" name="RetailCost" placeholder="ex. 100.00" required>
             </div>
 
             @* Cost Paid *@
             <div class="form-group">
-                <label for="CostPaid"><a data-toggle="tooltip" data-placement="bottom" title="Required">Cost Paid</a></label>
-                <Input type="text" class="form-control" id="CostPaid" placeholder="ex. 100.00">
+                <label for="CostPaid"><a data-toggle="tooltip" data-placement="bottom" title="Required">Cost Paid *</a></label>
+                <Input type="number" class="form-control" name="CostPaid" placeholder="ex. 100.00">
             </div>
 
             @* Model Name *@
             <div class="form-group">
                 <label for="ModelName">Model Name</label>
-                <Input type="text" class="form-control" id="ModelName">
+                <Input type="text" class="form-control" name="ModelName">
             </div>
 
             @* Location *@
             <div class="form-group">
                 <label for="Location">Location</label>
-                <select class="form-control" id="Location">
-                    <option>Jacksonville</option>
-                    <option>Tampa</option>
+                <select class="form-control" name="Location">
+                    <option>Northeast Regional Center</option>
+                    @*<option>Tampa</option>
                     <option>Gainesville</option>
-                    <option>Miami</option>
+                    <option>Miami</option>*@
                 </select>
             </div>
         </div>
@@ -72,7 +72,7 @@
             @* Category *@
             <div class="form-group">
                 <label for="Category"><a data-toggle="tooltip" data-placement="bottom" title="Required">Category *</a></label>
-                <select class="form-control" id="InventoryCategoryId" required>
+                <select class="form-control" name="InventoryCategoryId" required>
                     <option disabled selected> -- select and option -- </option>
                     <option value="1">Computers and Related Technology</option>
                     <option value="2">Daily Living</option>
@@ -90,21 +90,21 @@
             @* Purchase Date *@
             <div class="form-group">
                 <label for="DatePurchased"><a data-toggle="tooltip" data-placement="bottom" title="Required">Date Purchased *</a></label>
-                <Input type="datetime" class="form-control" id="DatePurchased" placeholder="ex. mm/dd/yyyy" required>
+                <Input type="datetime" class="form-control" name="DatePurchased" placeholder="ex. mm/dd/yyyy" required>
             </div>
 
             @* Description *@
             <div class="form-group">
                 <label for="Description">Description</label>
-                <textarea rows="4" class="form-control" id="Description"></textarea>
+                <textarea rows="4" class="form-control" name="Description"></textarea>
             </div>
 
             @* Availability *@
             <div class="form-group">
                 <label for="Availability"><a data-toggle="tooltip" data-placement="bottom" title="Required">Availability *</a></label>
                 <div class="radio radio-inline">
-                    <label><input type="radio" name="Available" id="1" checked="checked" />Yes</label>
-                    <label><input type="radio" name="Available" id="0" />No</label>
+                    <label><input type="radio" name="Available" checked="checked"  value="1"/>Yes</label>
+                    <label><input type="radio" name="Available" value="0" />No</label>
                 </div>
             </div>
 
@@ -112,8 +112,8 @@
             <div class="form-group">
                 <label for="Active">Active</label>
                     <div class="radio radio-inline">
-                        <label><input type="radio" name="Active" id="1" checked="checked"/>Yes</label>
-                        <label><input type="radio" name="Active" id="0" />No</label>
+                        <label><input type="radio" name="Active" checked="checked" value="1"/>Yes</label>
+                        <label><input type="radio" name="Active" value="0" />No</label>
                     </div>
             </div>
 
@@ -123,13 +123,13 @@
         @* Accessories *@
             <div class="form-group">
                 <label for="Accessories">Accessories</label>
-                <textarea rows="4" class="form-control" id="Accessories"></textarea>
+                <textarea rows="4" class="form-control" name="Accessories"></textarea>
             </div>
 
         @* Damages *@
             <div class="form-group">
                 <label for="Damages">Damages</label>
-                <textarea rows="4" class="form-control" id="Damages"></textarea>
+                <textarea rows="4" class="form-control" name="Damages"></textarea>
             </div>
 
         @*@*Additional Files
