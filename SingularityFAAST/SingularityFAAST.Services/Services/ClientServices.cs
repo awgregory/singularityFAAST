@@ -115,9 +115,23 @@ namespace SingularityFAAST.Services.Services
         public IList<Client> GetClientById(string searchBy)
         {
             IList<Client> allClients = GetAllClients();
+            IList<Client> filteredClients;
 
-            IList<Client> filteredClients = allClients.Where(client =>
-                client.ClientID == (Convert.ToInt32(searchBy))).ToList();
+            int x = 0;
+
+            if (Int32.TryParse(searchBy, out x))
+            {
+                filteredClients = allClients.Where(c =>
+                c.ClientID.Equals(x)).ToList();
+            }
+
+            else
+            {
+                filteredClients = allClients.Take(0).ToList();
+            }
+
+            //filteredClients = allClients.Where(client =>
+            //    client.ClientID == (Convert.ToInt32(searchBy))).ToList(); Throws format exception if string entered
 
             return filteredClients;
         }
@@ -126,15 +140,25 @@ namespace SingularityFAAST.Services.Services
         private IList<Client> GetClientByEmail(string searchBy)
         {
             IList<Client> allClients = GetAllClients();
+            IList<Client> filteredClients;
 
+            int x = 0;
 
-            //IList<Client> filteredClients = allClients.Where(client =>
-            //    string.Equals(client.Email, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (Int32.TryParse(searchBy, out x))    
+            {
+                filteredClients = allClients.Take(0).ToList();
+            }
 
-            IList<Client> filteredClients = allClients.Where(c =>
-                c.Email.ToLower().Contains(searchBy.ToLower())).ToList();
+            else
+            {
+                filteredClients = allClients.Where(c =>
+                    //c.Email.ToLower().Contains(searchBy.ToLower())).ToList();   Returns NullException
+
+                    string.Equals(c.Email, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
 
             return filteredClients;
+
         }
 
 

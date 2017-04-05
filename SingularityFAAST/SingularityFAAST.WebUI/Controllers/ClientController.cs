@@ -46,6 +46,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         //  Returns Add New Client Page
+
         public ViewResult AddClient()
         {
             return View();
