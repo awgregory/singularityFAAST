@@ -7,7 +7,8 @@
 
 <div class="container">
     <br />
-    <p>Total number of loans: @Model.TotalNumberOfLoans</p>
+    <h4>Total number of loans: @Model.TotalNumberOfLoans </h4>
+    <br />
     <br />
 
     <h4>Number of Device Loans by Type of Borrower</h4>
@@ -16,7 +17,7 @@
             <thead>
                 <tr>
                     <th>Type of Individual or Entity</th>
-                    <th>Number of Device Borrowers</th>
+                    <th>Number of Borrowers</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,6 +51,8 @@
                 </tr>
             </tbody>
         </table>
+    <br />
+    <br />
 
     <h4>Types of Devices Loaned</h4>
         <table class="table">
@@ -70,6 +73,34 @@
              </tbody>
         </table>
     <br />
-    <h4>Number of loans with the purpose of assisting in decision making: @Model.PurposeDecisionMaking</h4>
+    <br />
+    <h4><bold>Device Loans by Type of Purpose</bold></h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Primary Purpose of Device Loan</th>
+                <th>Number of Loans</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Assist in decision making (device trial or evaluation)</td>
+                <td>@Model.PurposeDecisionMaking</td>
+            </tr>
+            <tr>
+                <td>Serve as loaner during device repair or while waiting for funding</td>
+                <td>@Model.PurposeServeAsLoaner</td>
+            </tr>
+            <tr>
+                <td>Provide and accomodation on a short-term basis for a time-limited event/situation</td>
+                <td>@Model.PurposeShortTerm</td>
+            </tr>
+            <tr>
+                <td>Conduct training, self-education or other professional development activity</td>
+                <td>@Model.PurposeConductTraining</td>
+            </tr>
+        </tbody>
+    </table>
+   
     
 </div>

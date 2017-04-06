@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 
     //TODO
-    var beginDateString = DateTime.UtcNow.AddDays(-30).ToString("yyyy-MM-dd");
+    var beginDateString = DateTime.UtcNow.AddDays(-28).ToString("yyyy-MM-dd");
     var endDateString = DateTime.UtcNow.ToString("yyyy-MM-dd");
 }
 
@@ -25,9 +25,7 @@
 
     <h3>Choose Report Type</h3>
     <div>
-        <input type="radio" name="ReportType" value="1"/> Loans Report <br />
-        <input type="radio" name="ReportType" value="2" /> Client Report <br />
-        <input type="radio" name="ReportType" value="3" /> Inventory Report <br />
+        <input type="radio" name="ReportType" value="1" checked="checked"/> Loans Report <br />
     </div>
     <br />
     <button type="submit" class="btn btn-primary" id="submitLoanReport">Submit</button>
@@ -35,24 +33,5 @@
     
 
     <script src="~/Scripts/Reports/ReportRange.js"></script>
-
-    @*<script>
-        function errorHandling() 
-        {
-            var message, startDate, endDate;
-            message = document.getElementById("message");
-            startDate = document.getElementById("startDate").value;
-            endDate = document.getElementById("endDate").value;
-            try 
-            {
-                if (startDate == "" || endDate == "" ) throw "Please enter a value for start date or end date";
-                if ((startDate > @DateTime.UtcNow) || (endDate > @DateTime.UtcNow)) throw "Cannot create a report on that date";
-            }
-            catch(err)
-            {
-                message.innerHTML = err;
-            }
-        }
-    </script>*@
 }
 

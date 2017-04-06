@@ -67,7 +67,7 @@ namespace SingularityFAAST.Services.Services
                 var categoryCounts = context.getInventoryItemCategoryCount(startDate, endDate);
 
                 // Counts the number of times purpose types appear
-                var purposeAssistDecisionMaking = loanDetailQuery.Where(purpose => purpose.PurposeType.Equals("Assist in decision making")).Count();
+                var purposeAssistDecisionMaking = loanDetailQuery.Where(purpose => purpose.Purpose.Equals("Assist in decision making (device trial or evaluation)")).Count();
                 var purposeServeAsLoaner = loanDetailQuery.Where(purpose => purpose.Purpose.Equals("Serve as loaner during device repair or while waiting for funding")).Count();
                 var purposeShortTerm = loanDetailQuery.Where(purpose => purpose.Purpose.Equals("Provide and accomodation on a short-term basis for a time-limited event/situation")).Count();
                 var purposeConductTraining = loanDetailQuery.Where(purpose => purpose.Purpose.Equals("Conduct training, self-education or other professional development activity")).Count();
