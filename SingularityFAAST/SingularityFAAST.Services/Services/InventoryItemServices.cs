@@ -74,12 +74,14 @@ namespace SingularityFAAST.Services.Services
         #endregion
 
         #region Return Item Id number for Update Item
-        //public InventoryItem ReturnInventoryItemInteger(int id)
-        //{
-        //    var IdInt = id;
-            
-        //    return (IdInt);
-        //}
+        //input: Id # from a specific item number
+        //returns InventoryItem object
+        public IList<InventoryItem> ReturnInventoryItemInteger(int itemId)
+        {
+            IList<InventoryItem> item = GetItemByIdByInt(itemId);
+
+            return (item);
+        }
         #endregion
 
         #region SaveNewItem
@@ -144,7 +146,7 @@ namespace SingularityFAAST.Services.Services
                     break;
 
                 case 2:
-                    filteredItems = GetItemByInventoryNumber(searchRequest.SearchBy);
+                    filteredItems = GetItemByIdByString(searchRequest.SearchBy);
                     break;
 
                 default:
@@ -170,15 +172,29 @@ namespace SingularityFAAST.Services.Services
 
         //takes in inventory NUMBER (entered as string)
         //      -->input is converted to int
-        //              -->items with a matching Inventory Id # are returned
-        private IList<InventoryItem> GetItemByInventoryNumber(string searchBy)
+        //              -->item with a matching Inventory Id # are returned
+        private IList<InventoryItem> GetItemByIdByString(string searchBy)
         {
             IList<InventoryItem> allItems = GetAllInventory();
 
-            IList<InventoryItem> filteredItems = allItems.Where(item =>
+            IList<InventoryItem> filteredItem = allItems.Where(item =>
                 item.InventoryItemId == (Convert.ToInt32(searchBy))).ToList();
 
-            return filteredItems;
+            return filteredItem;
+        }
+
+
+        //takes in inventory NUMBER (entered as int)
+        //      -->input is converted to int
+        //              -->items with a matching Inventory Id # are returned
+        private IList<InventoryItem> GetItemByIdByInt(int searchBy)
+        {
+            IList<InventoryItem> allItems = GetAllInventory();
+
+            IList<InventoryItem> filteredItem = allItems.Where(item =>
+                item.InventoryItemId == (searchBy)).ToList();
+
+            return filteredItem;
         }
         #endregion
 

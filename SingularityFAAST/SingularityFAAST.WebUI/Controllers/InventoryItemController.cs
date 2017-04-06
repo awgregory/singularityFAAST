@@ -78,20 +78,20 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return RedirectToAction("NewInventoryItem"); //returns the user to the view with the item
         }
-           
+
         #endregion
 
         #region UpdateInventoryItem Methods
 
         //update inventory item view
-        //[HttpGet]
-        //public ActionResult UpdateInventoryItem(int item)
-        //{
-        //    var x = itemServices.ReturnInventoryItemInteger(); //create new service for update item that passes 
+        [HttpGet]
+        public ActionResult UpdateInventoryItem(int id)
+        {
+            var item = itemServices.ReturnInventoryItemInteger(id); //create new service for update item that passes 
 
-        //    return View(x);
-        //}
-        
+            return View(item);
+        }
+
 
         //post method for updating item after user makes changes
         //  -->Redirects user to InventoryIndex
