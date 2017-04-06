@@ -16,7 +16,7 @@ CREATE TABLE #tempInventoryItems
     [ModelName]				 VARCHAR(50)		NULL, 
     [Location]				 VARCHAR(50)		NULL, 
     [Availability]			 BIT				NOT NULL,
-	[Active]				 BIT				NULL,
+	[Active]				 BIT				NOT NULL,
 	[SerialNumber]			 VARCHAR(35)		NULL , 
     [Description]			 VARCHAR(MAX)		NULL, 
     [Accessories]			 VARCHAR(150)		NULL,

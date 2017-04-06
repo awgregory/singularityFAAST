@@ -11,6 +11,7 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult Index()
         {
             return View();
+
         }
         
     }
