@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SingularityFAAST.Core.ViewModels
 {
-    public class InventoryItemsViewModel
+    public class NewInventoryItemViewModel
     {
         public IEnumerable<InventoryItem> InventoryItems { get; set; }
 

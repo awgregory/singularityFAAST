@@ -2,7 +2,7 @@
     Hope Haven - FAAST Inventory System
     Jonathan Ebert *@
 
-@model SingularityFAAST.Core.ViewModels.InventoryItemsViewModel
+@model SingularityFAAST.Core.ViewModels.NewInventoryItemViewModel
 
 @{
     ViewBag.Title = "NewInventoryItem";
@@ -47,7 +47,7 @@
             @* Cost Paid *@
             <div class="form-group">
                 <label for="CostPaid"><a data-toggle="tooltip" data-placement="bottom" title="Required">Cost Paid *</a></label>
-                <Input type="number" class="form-control" name="CostPaid" placeholder="ex. 100.00">
+                <Input type="number" class="form-control" name="PricePaid" placeholder="ex. 100.00" required>
             </div>
 
             @* Model Name *@
@@ -60,6 +60,7 @@
             <div class="form-group">
                 <label for="Location">Location</label>
                 <select class="form-control" name="Location">
+                    <option disabled="disabled"> -- select and option --</option>
                     <option>Northeast Regional Center</option>
                     @*<option>Tampa</option>
                     <option>Gainesville</option>

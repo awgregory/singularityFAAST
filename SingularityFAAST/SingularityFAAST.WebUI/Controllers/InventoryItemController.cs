@@ -51,7 +51,7 @@ namespace SingularityFAAST.WebUI.Controllers
             int itemCount = itemServices.ReturnNextInventoryNumber();
             IList<InventoryItem> items = itemServices.GetAllInventory();
 
-            var model = new InventoryItemsViewModel()
+            var model = new NewInventoryItemViewModel()
             {
                 InventoryItems = items,
                 ReturnNextInventoryNumber = itemCount
@@ -88,8 +88,12 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult UpdateInventoryItem(int id)
         {
             var item = itemServices.ReturnInventoryItemInteger(id); //create new service for update item that passes 
-
-            return View(item);
+            var model = new UpdateInventoryItemViewModel()//new view model specific to the update item form
+            {
+                InventoryItems = item,
+                NextInventoryNumber = id
+            };
+            return View(model);
         }
 
 

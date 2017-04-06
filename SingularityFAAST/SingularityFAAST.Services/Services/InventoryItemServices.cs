@@ -76,9 +76,9 @@ namespace SingularityFAAST.Services.Services
         #region Return Item Id number for Update Item
         //input: Id # from a specific item number
         //returns InventoryItem object
-        public IList<InventoryItem> ReturnInventoryItemInteger(int itemId)
+        public InventoryItem ReturnInventoryItemInteger(int itemId)
         {
-            IList<InventoryItem> item = GetItemByIdByInt(itemId);
+            InventoryItem item = GetItemByIdByInt(itemId);
 
             return (item);
         }
@@ -187,12 +187,12 @@ namespace SingularityFAAST.Services.Services
         //takes in inventory NUMBER (entered as int)
         //      -->input is converted to int
         //              -->items with a matching Inventory Id # are returned
-        private IList<InventoryItem> GetItemByIdByInt(int searchBy)
+        private InventoryItem GetItemByIdByInt(int searchBy)
         {
             IList<InventoryItem> allItems = GetAllInventory();
 
-            IList<InventoryItem> filteredItem = allItems.Where(item =>
-                item.InventoryItemId == (searchBy)).ToList();
+            InventoryItem filteredItem = allItems.FirstOrDefault(item =>
+                item.InventoryItemId == (searchBy));
 
             return filteredItem;
         }

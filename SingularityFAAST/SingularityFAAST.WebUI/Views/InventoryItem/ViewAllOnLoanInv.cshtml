@@ -103,6 +103,7 @@
                             <th>Description</th>
                             <th>Serial Number</th>
                             <th>Availability</th>
+                            <th>Active</th>
                             <th>Edit Item</th>
                         </tr>
                     </thead>
@@ -118,6 +119,7 @@
                                 <td>@inventoryItem.Description</td>
                                 <td>@inventoryItem.SerialNumber</td>
                                 <td>@inventoryItem.Availability</td>
+                                <td>@inventoryItem.Active</td>
                                 <td>@Html.ActionLink("Edit", "UpdateInventoryItem", new { id = inventoryItem.InventoryItemId })</td>
                             </tr>
                         }
