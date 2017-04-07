@@ -16,7 +16,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.Title)
-                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control", maxlength = "20" })
             </div>
         </div>
     </div>
@@ -26,21 +26,21 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.FirstName, "First Name *")
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required ="required", maxlength = "50" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.MiddleInitial, "Middle Initial")
-                @Html.TextBoxFor(m => m.MiddleInitial, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.MiddleInitial, new { @class = "form-control", maxlength = "1" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.LastName, "Last Name *")
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", required = "required", maxlength = "50" })
             </div>
         </div>
     </div>
@@ -50,21 +50,21 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.Address1, "Address *")
-                @Html.TextBoxFor(m => m.Address1, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Address1, new { @class = "form-control", required = "required", maxlength = "200" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.Address2, "Address")
-                @Html.TextBoxFor(m => m.Address2, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Address2, new { @class = "form-control", maxlength = "200" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(client => client.City)
-                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                @Html.LabelFor(client => client.City, "City *")
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control", required = "required", maxlength = "50" })
             </div>
         </div>
     </div>
@@ -75,22 +75,22 @@
         <div class="col-md-4">
             <div class="form-group">
                 @*<label for="StateName">State Name</label>*@
-                @Html.LabelFor(client => client.StateName, "State Name")
-                @Html.TextBoxFor(m => m.StateName, new { @class = "form-control" })
+                @Html.LabelFor(client => client.StateName, "State Name *")
+                @Html.TextBoxFor(m => m.StateName, new { @class = "form-control", required = "required", maxlength = "30" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.StateCode, "State Code")
-                @Html.TextBoxFor(m => m.StateCode, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.StateCode, new { @class = "form-control", maxlength = "2" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.County)
-                @Html.TextBoxFor(m => m.County, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.County, new { @class = "form-control", maxlength = "50" })
             </div>
         </div>
     </div>
@@ -101,21 +101,21 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.CountyFIPS)
-                @Html.TextBoxFor(m => m.CountyFIPS, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.CountyFIPS, new { @class = "form-control", maxlength = "10" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(client => client.Zip)
-                @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
+                @Html.LabelFor(client => client.Zip, "Zip *")
+                @Html.TextBoxFor(m => m.Zip, new { @class = "form-control", required = "required", maxlength = "10" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.Email)
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", maxlength = "100", type = "email" })
             </div>
         </div>
     </div>
@@ -125,14 +125,14 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.CellPhone)
-                @Html.TextBoxFor(m => m.CellPhone, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.CellPhone, new { @class = "form-control", maxlength = "20" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.HomePhone)
-                @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control", maxlength = "20" })
             </div>
         </div>
 
@@ -140,7 +140,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.WorkPhone)
-                @Html.TextBoxFor(m => m.WorkPhone, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.WorkPhone, new { @class = "form-control", maxlength = "30" })
             </div>
         </div>
     </div>
@@ -165,16 +165,32 @@
         </div>
 
         <div class="col-md-4">
+
             <div class="form-group">
-                @Html.LabelFor(client => client.LoanEligibility, "Loan Eligibility")
-                @Html.TextBoxFor(m => m.LoanEligibility, new { @class = "form-control" })
+                <label>Eligible for Loan?</label>
+                <div class="radio mb-2 mr-sm-2 mb-sm-0">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="LoanEligibility" value="True" checked> True
+                    </label>
+
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="LoanEligibility" value="False"> False
+                    </label>
+                </div> 
             </div>
+
+
+            @*<div class="form-group">
+                @Html.LabelFor(client => client.LoanEligibility, "Eligible for Loan? (Default is true)")
+                @Html.TextBoxFor(m => m.LoanEligibility, new { @class = "form-control" })
+            </div>*@
+
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.Company)
-                @Html.TextBoxFor(m => m.Company, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Company, new { @class = "form-control", maxlength = "50" })
             </div>
         </div>
 
@@ -314,6 +330,12 @@
         <div class="btn btn-default">
             @Html.ActionLink("Cancel", "Index")
         </div>
+
 }
+
+<br />
+@* message displays back to user when there are errors with the login *@
+@Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning" }) 
+
 
 
