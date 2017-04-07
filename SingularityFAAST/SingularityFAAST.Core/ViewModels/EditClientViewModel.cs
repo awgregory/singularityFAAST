@@ -28,8 +28,7 @@ namespace SingularityFAAST.Core.ViewModels
 
         //Loans
         public IEnumerable<LoanMaster> AssociatedLoans { get; set; }
-
-        //public IEnumerable<bool> LoanEligibilityCategories { get; set; }
+        
 
     }
 }

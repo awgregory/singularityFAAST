@@ -22,13 +22,13 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.Title)
-                @Html.TextBoxFor(viewModel => viewModel.Client.Title, new { @class = "form-control" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.Title, new { @class = "form-control", maxlength = "20" })
             </div>
         </div>
 
 
 
-        
+
     </div>
 
 
@@ -36,21 +36,21 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.FirstName, "First Name *")
-                @Html.TextBoxFor(viewModel => viewModel.Client.FirstName, new { @class = "form-control", required = "required" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.FirstName, new { @class = "form-control", required = "required", maxlength = "50" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.MiddleInitial, "Middle Initial")
-                @Html.TextBoxFor(viewModel => viewModel.Client.MiddleInitial, new { @class = "form-control" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.MiddleInitial, new { @class = "form-control", maxlength = "1" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.LastName, "Last Name *")
-                @Html.TextBoxFor(viewModel => viewModel.Client.LastName, new { @class = "form-control", required = "required" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.LastName, new { @class = "form-control", required = "required", maxlength = "50" })
             </div>
         </div>
     </div>
@@ -60,21 +60,21 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.Address1, "Address *")
-                @Html.TextBoxFor(viewModel => viewModel.Client.Address1, new { @class = "form-control", required = "required" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.Address1, new { @class = "form-control", required = "required", maxlength = "200" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.Address2, "Address")
-                @Html.TextBoxFor(viewModel => viewModel.Client.Address2, new { @class = "form-control" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.Address2, new { @class = "form-control", maxlength = "200" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.City, "City *")
-                @Html.TextBoxFor(viewModel => viewModel.Client.City, new { @class = "form-control", required = "required" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.City, new { @class = "form-control", required = "required", maxlength = "50" })
             </div>
         </div>
     </div>
@@ -85,21 +85,21 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.StateName, "State Name *")
-                @Html.TextBoxFor(viewModel => viewModel.Client.StateName, new { @class = "form-control", required = "required" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.StateName, new { @class = "form-control", required = "required", maxlength = "30" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.StateCode, "State Code")
-                @Html.TextBoxFor(viewModel => viewModel.Client.StateCode, new { @class = "form-control" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.StateCode, new { @class = "form-control", maxlength = "2" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.County)
-                @Html.TextBoxFor(viewModel => viewModel.Client.County, new { @class = "form-control" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.County, new { @class = "form-control", maxlength = "50" })
             </div>
         </div>
     </div>
@@ -110,62 +110,60 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.CountyFIPS)
-                @Html.TextBoxFor(viewModel => viewModel.Client.CountyFIPS, new { @class = "form-control" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.CountyFIPS, new { @class = "form-control", maxlength = "10" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.Zip, "Zip *")
-                @Html.TextBoxFor(viewModel => viewModel.Client.Zip, new { @class = "form-control", required = "required" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.Zip, new { @class = "form-control", required = "required", maxlength = "10" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(viewModel => viewModel.Client.Email)
-                @Html.TextBoxFor(viewModel => viewModel.Client.Email, new { @class = "form-control" })
+                @Html.TextBoxFor(viewModel => viewModel.Client.Email, new { @class = "form-control", maxlength = "100", type = "email" })
             </div>
         </div>
     </div>
 
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel => viewModel.Client.CellPhone)
-                    @Html.TextBoxFor(viewModel => viewModel.Client.CellPhone, new { @class = "form-control" })
-                </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.CellPhone)
+                @Html.TextBoxFor(viewModel => viewModel.Client.CellPhone, new { @class = "form-control", maxlength = "20" })
             </div>
+        </div>
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel => viewModel.Client.HomePhone)
-                    @Html.TextBoxFor(viewModel => viewModel.Client.HomePhone, new { @class = "form-control" })
-                </div>
-            </div>
-
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel => viewModel.Client.WorkPhone)
-                    @Html.TextBoxFor(viewModel => viewModel.Client.WorkPhone, new { @class = "form-control" })
-                </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.HomePhone)
+                @Html.TextBoxFor(viewModel => viewModel.Client.HomePhone, new { @class = "form-control", maxlength = "20" })
             </div>
         </div>
 
 
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.WorkPhone)
+                @Html.TextBoxFor(viewModel => viewModel.Client.WorkPhone, new { @class = "form-control", maxlength = "30" })
+            </div>
+        </div>
+    </div>
 
-        <div class="row">
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel => viewModel.Client.ClientCategoryName, "Client Category")
 
 
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.ClientCategoryName, "Client Category")
 
 
-                    @Html.DropDownListFor(viewModel => viewModel.Client.ClientCategoryId,
+                @Html.DropDownListFor(viewModel => viewModel.Client.ClientCategoryId,
                         new List<SelectListItem> {
                             new SelectListItem { Value = "1", Text = "Individual with Disability" },
                             new SelectListItem { Value = "2", Text = "Family Member" },
@@ -175,59 +173,42 @@
                             new SelectListItem { Value = "6", Text = "Professional / Representative of Employment" },
                             new SelectListItem { Value = "7", Text = "Professional / Representative of Health, Allied Health, Rehabilitative Services" }
                         }, new { @class = "form-control" })
-                </div>
             </div>
-
-            <div class="col-md-4">
-                <label>Eligible for Loan?</label>
-                
-                @*<div class="form-group">
-                    @Html.LabelFor(viewModel => viewModel.Client.LoanEligibility, "True")
-                    @Html.RadioButtonFor(viewModel => viewModel.Client.LoanEligibility, new { @class = "form-check-input" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(viewModel => viewModel.Client.LoanEligibility, "False")
-                    @Html.RadioButtonFor(viewModel => viewModel.Client.LoanEligibility, new { @class = "form-check-input" })
-                </div>*@
-
-
-                <div class="form-group">
-
-                    <div class="radio mb-2 mr-sm-2 mb-sm-0">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="LoanEligibility" value="@Model.Client.LoanEligibility"
-                           @if (Model.Client.LoanEligibility)
-                           { 
-                               <text> checked="checked" </text> 
-                           } />    
-                           
-                           
-                           True
-                        </label>
-
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="LoanEligibility" value="@Model.Client.LoanEligibility"
-                            @if (!Model.Client.LoanEligibility)
-                            { 
-                               <text> checked="checked" </text> 
-                            } />     
-                            False
-                        </label>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(viewModel => viewModel.Client.Company)
-                    @Html.TextBoxFor(viewModel => viewModel.Client.Company, new { @class = "form-control" })
-                </div>
-            </div>
-
-
         </div>
+
+        <div class="col-md-4">
+            <label>Eligible for Loan?</label>
+
+            @*Click on label broke for False but Cant mix regular label with html.Radiobutton for*@
+            @*SO-2559208*@
+            <div class="form-group"> 
+
+                    @*<label class="radio-inline"> True *@
+                    @Html.LabelFor(model => model.Client.LoanEligibility, "True", new { @class = "radio-inline" })
+                    @Html.RadioButtonFor(model => model.Client.LoanEligibility, "True", new { @class = "form-check-input" })
+                    @*</label>*@
+
+                    @*<label class="radio-inline"> False*@
+                    @Html.LabelFor(model => model.Client.LoanEligibility, "False", new { @class = "radio-inline" })
+                    @Html.RadioButtonFor(model => model.Client.LoanEligibility, "False", new { @class = "form-check-input" })
+                    @*</label>*@       
+          </div>
+
+            @*<fieldset>
+                <legend>Eligible for Loan?</legend>
+            </fieldset>*@
+            
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.Company)
+                @Html.TextBoxFor(viewModel => viewModel.Client.Company, new { @class = "form-control", maxlength = "50" })
+            </div>
+        </div>
+
+
+    </div>
 
 
     //If referencing the Model from inside the HTMLHelper it's first argument type is always the Model of the page so it doesn't matter what you call it
@@ -240,10 +221,10 @@
     // Disabilities -------------------------------------------------------------------------------------
 
     <div class="row">
-        
+
         <div class="col-md-4">
-            
-            <label>Disabilities</label>            
+
+            <label>Disabilities</label>
             <br />
 
             @foreach (var disabilityCategory in Model.DisabilityCategories)
@@ -253,7 +234,7 @@
                     @Html.Label(disabilityCategory.DisabilityType)
 
                     <input type="checkbox" name="DisabilityIds" value="@disabilityCategory.DisabilityCategoryId"
-                           @if (Model.Client.DisabilityIds.Contains(disabilityCategory.DisabilityCategoryId)) { <text> checked="checked" </text>            } />
+                           @if (Model.Client.DisabilityIds.Contains(disabilityCategory.DisabilityCategoryId)) { <text> checked="checked" </text>              } />
                 </div>
             }
         </div>
@@ -270,7 +251,7 @@
 
         @* Loan History -------------------------------------------------------------------------------------*@
 
-        
+
         <div class="col-md-4">
 
             <label>&#160;Loan History</label>
@@ -318,8 +299,12 @@
 
     <br />
 
-        <div class="btn btn-default">
-            @Html.ActionLink("Cancel", "Index")
-        </div>
+    <div class="btn btn-default">
+        @Html.ActionLink("Cancel", "Index")
+    </div>
+
+    <script>
+        $("#commentForm").validate();
+    </script>
 
 }
