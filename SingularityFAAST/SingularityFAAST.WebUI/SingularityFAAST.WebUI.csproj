@@ -151,6 +151,7 @@
     <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.structure.css" />
     <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.structure.min.css" />
     <Content Include="Scripts\jquery-ui-1.12.1.custom\LICENSE.txt" />
+    <Content Include="Scripts\Loans\EditLoan.js" />
     <Content Include="Scripts\Loans\LoanCreation\ClientInventorySearch.js" />
     <Content Include="Views\Loan\EmailTemplate.html" />
     <Content Include="Scripts\jquery-1.10.2.js" />

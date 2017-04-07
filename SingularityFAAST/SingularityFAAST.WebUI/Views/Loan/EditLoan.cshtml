@@ -276,7 +276,7 @@
                 @Html.Hidden("ClientId", null, new { id = "clientIdHiddenHere" })
                 @Html.Hidden("LoanMasterId", null, new { id = "loanMasterIdHidden" })
                 @Html.Hidden("InventoryItemId", null, new { id = "inventoryItemHiddenHere" }) @*Though, these aren't being altered so don't need to include them.*@
-                @Html.Hidden("LoanNumber", null, new { id = "clientIdHiddenHere" })
+                @Html.Hidden("LoanNumber", null, new { id = "LoanNumIdHiddenHere" })
                 @*The two checkbox values*@
                 @Html.Hidden("Purpose", null, new { id = "purposeHidden" })
                 @Html.Hidden("PurposeType", null, new { id = "purposeTypeHidden" })
@@ -293,5 +293,5 @@
 </div>
 
 
-<script src="~/Scripts/Loans/LoanCreation/ClientInventorySearch.js" type="text/javascript"></script>
+<script src="~/Scripts/Loans/EditLoan.js" type="text/javascript"></script>
 

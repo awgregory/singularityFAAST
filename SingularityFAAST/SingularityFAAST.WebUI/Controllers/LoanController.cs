@@ -134,14 +134,12 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-        //This executes the loan editing when you click yes on Edit Loan page
+        //This executes the loan editing when you click submit on Edit Loan page
         [HttpPost]
-        public ActionResult UpdateLoan(LoansClientsInventoryDTO loan)  //or use AddLoanInfo model
+        public ActionResult UpdateLoan(LoansClientsInventoryDTO loan)  
         {
-            var services = new LoanMasterServices();
-            //services.EditLoanMaster(loan);
-            //services.EditLoanDetails(loan);
-
+            lm_services.EditLoan(loan);
+            
             //Returns to Loan Index page
             return RedirectToAction("Index", "Loan");
         }

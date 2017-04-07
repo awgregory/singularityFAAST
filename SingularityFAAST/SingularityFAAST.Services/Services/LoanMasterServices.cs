@@ -3,7 +3,6 @@ using SingularityFAAST.Core.DataTransferObjects;
 using SingularityFAAST.DataAccess.Contexts;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -205,6 +204,7 @@ namespace SingularityFAAST.Services.Services
 
         public int RemoveSingleItemFromLoanByLoanNumber(int invItem)
         {
+            int loanIdpassed = 0;
             using (var context = new SingularityDBContext())
             {
                 var loanNumber = GetLoanNumberByInventoryItemId(invItem);
@@ -222,27 +222,33 @@ namespace SingularityFAAST.Services.Services
                         i => i.InventoryItemId == invItem);
 
                     if (item != null)
-                        item.Availability = true;
-
-                    context.SaveChanges();
-
-                    //remove the loan detail itself
-                    var loanIds = new LoanDetail()
                     {
-                        LoanDetailId = loanId.LoanDetailId
-                    };
-
-                    //context.LoanDetails.Attach(id);
-                    context.LoanDetails.Remove(loanIds);
-
+                        item.Availability = true;
+                    }
                     context.SaveChanges();
-                    return loanId.LoanMasterId;
-                }
-                else   //if only one item in loan, and it's about to be deleted
-                {
-                    //CheckInLoan_Nick(loan);
 
-                    //var query = context.LoanMasters.FirstOrDefault(lm => Equals(lm.LoanMasterId == loanId.LoanMasterId));
+                    //remove Loan Detail with item, from Loan
+                    context.LoanDetails.Remove(loanId);
+                    context.SaveChanges();
+
+                    loanIdpassed = loanId.LoanMasterId;
+
+                }
+                else   //if there's only one item in loan, and it's about to be deleted
+                {
+                    //CheckInLoan_Nick(loan); - no because this is a delete when a mistake has been made. Item may never have left the building.
+
+                    //remove the loan detail with that item from the loan
+                    var loanId2 = (from ld in context.LoanDetails
+                                   join lm in context.LoanMasters
+                                   on ld.LoanMasterId equals lm.LoanMasterId
+                                   where lm.IsActive == true && (ld.InventoryItemId == invItem)
+                                   select ld).FirstOrDefault();
+
+                    context.LoanDetails.Remove(loanId2);
+                    context.SaveChanges();
+
+                    //update Loan information in LoanMaster
                     var query = (from lm in context.LoanMasters
                                  where lm.LoanMasterId == loanId.LoanMasterId
                                  select lm).FirstOrDefault();
@@ -250,35 +256,26 @@ namespace SingularityFAAST.Services.Services
                     if (query != null)
                     {
                         query.IsActive = false;
-                        //is not changing to false.  LoanMaster.cs has [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-
-                        //query.ClientOutcome = loan.ClientOutcome;
-                        //query.LoanNotes = loan.LoanNotes;
-                        //do not worry about item damages for now
+                        query.IsDeleted = true;
                     }
-
                     context.SaveChanges();
 
+                    //Update inventory item availability
                     var itemIds2 = GetInventoryItemIdsByLoanNumber(query.LoanNumber);
-
                     MarkInventoryItemsAsAvailable(context, itemIds2);
 
-                    return loanId.LoanMasterId;
+                    //pass value back for page load
+                    loanIdpassed = loanId2.LoanMasterId;
                 }
+                return loanIdpassed;
             }
         }
+
 
         public void RemoveSingleItemFromLoanByItemEdit(string loanNum)
         {
             using (var context = new SingularityDBContext())
             {
-                //var loanNum = GetLoanNumberByInventoryItemId(inventoryId);
-                //var loanNumber = from ld in context.LoanDetails
-                //    join lm in context.LoanMasters
-                //    on ld.LoanMasterId equals lm.LoanMasterId
-                //    where ld.InventoryItemId == invItem
-                //    select lm.LoanNumber;
-
                 var itemIds = GetInventoryItemIdsByLoanNumber(loanNum);
 
                 if (itemIds.Count() > 1)
@@ -287,7 +284,6 @@ namespace SingularityFAAST.Services.Services
                     if (itemIds != null)
                     {
                         MarkInventoryItemsAsAvailable(context, itemIds);
-                        //appears to be marking all items in loan as available
                     }
                     var loanId = (from ld in context.LoanDetails
                                   join lm in context.LoanMasters
@@ -302,7 +298,6 @@ namespace SingularityFAAST.Services.Services
                 }
                 else
                 {
-                    //CheckInLoan_Nick(loan);
                     var loanNumber = loanNum;
 
                     var query = context.LoanMasters.FirstOrDefault(
@@ -311,11 +306,6 @@ namespace SingularityFAAST.Services.Services
                     if (query != null)
                     {
                         query.IsActive = false;
-                        //is not changing to false.  LoanMaster.cs has [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-
-                        //query.ClientOutcome = loan.ClientOutcome;
-                        //query.LoanNotes = loan.LoanNotes;
-                        //do not worry about item damages for now
                     }
 
                     context.SaveChanges();
@@ -518,24 +508,22 @@ namespace SingularityFAAST.Services.Services
         #region CheckInSingleItem
 
         //Updates the Inventory CheckIn DB fields 
-        public void CheckInLoanInventoryItem(LoansClientsInventoryDTO loan) //Edit InventoryItem
+        public void CheckInLoanInventoryItem(LoansClientsInventoryDTO loan) 
         {
             using (var context = new SingularityDBContext())
             {
                 var loanNum = loan.LoanNumber;
 
-                //var loanNum = GetLoanNumberByInventoryItemId(inventoryId);
                 var itemIds = GetInventoryItemIdsByLoanNumber(loanNum);
 
                 //itemIds is IEnumerable<int>
-
+                //Update Item
                 if (itemIds.Count() > 1)
                 {
-                    var inventoryItemid = loan.InventoryItemId;
-
-                    var itemId = context.InventoryItems.FirstOrDefault(
-                        ii => int.Equals(ii.InventoryItemId, inventoryItemid));
-
+                    var itemId = (from ii in context.InventoryItems
+                        where ii.InventoryItemId == loan.InventoryItemId
+                        select ii).FirstOrDefault();
+                    
                     if (itemId != null)
                     {
                         itemId.Availability = true;
@@ -546,7 +534,7 @@ namespace SingularityFAAST.Services.Services
                 }
                 else
                 {
-                    //CheckInLoan_Nick(loan);
+                    //CheckInLoan
                     var loanNumber = loan.LoanNumber;
 
                     var query = context.LoanMasters.FirstOrDefault(
@@ -555,11 +543,6 @@ namespace SingularityFAAST.Services.Services
                     if (query != null)
                     {
                         query.IsActive = false;
-                        //is not changing to false.  LoanMaster.cs has [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-
-                        //query.ClientOutcome = loan.ClientOutcome;
-                        //query.LoanNotes = loan.LoanNotes;
-                        //do not worry about item damages for now
                     }
 
                     context.SaveChanges();
@@ -675,29 +658,44 @@ namespace SingularityFAAST.Services.Services
 
 
 
-        #region EditItems
+        #region Edit Loan
 
-        //public void EditLoanDetails(LoanDetail loan)
-        //{
-        //    using (var context = new SingularityDBContext())
-        //    {
-        //Update lm- purpose type and purpose, ld- removal of any items- ii set availability true, ld - add inventory items- ii set availability false
+        public void EditLoan(LoansClientsInventoryDTO loanSubmission)
+        {
+            //have client id 
+            using (var context = new SingularityDBContext())
+            {
+                IEnumerable<LoanDetail> query = from itemId in loanSubmission.InventoryItemIds
+                                                select new LoanDetail
+                                                {
+                                                    InventoryItemId = itemId,
+                                                    LoanMasterId = loanSubmission.LoanMasterId,
+                                                    Purpose = loanSubmission.Purpose,
+                                                    PurposeType = loanSubmission.PurposeType
+                                                };
+                List<LoanDetail> loanDetailsList = query.ToList();
 
-        //        context.LoanDetails.Attach(loan);
+                //now we can add a range of loan details to the loan details table
+                context.LoanDetails.AddRange(loanDetailsList);
+                context.SaveChanges();
 
-        //        var entry = context.Entry(loan);
 
-        //        entry.State = EntityState.Modified;
-
-        //        context.SaveChanges();
-
-        //    }
-        //}
+                var loanNumber = (from l in context.LoanDetails
+                                 join lm in context.LoanMasters
+                                 on l.LoanMasterId equals lm.LoanMasterId
+                                 where lm.LoanMasterId == loanSubmission.LoanMasterId
+                                 select lm.LoanNumber).FirstOrDefault();
+                    
+                ////Update Inventory Items' Availability
+                var itemIds = GetInventoryItemIdsByLoanNumber(loanNumber);
+                MarkInventoryItemsAsNotAvailable(context, itemIds);
+            }
+        }
 
         #endregion
 
 
-        #region SaveAllItems
+        #region Unused - SaveAllItems
 
         //Renews all Items in a loan as a new loan
         //public void SaveAllItemsAsNewLoan(LoansClientsInventoryDTO loan)  //(LoanSubmission loan)
