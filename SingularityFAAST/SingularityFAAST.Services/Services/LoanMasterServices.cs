@@ -3,6 +3,7 @@ using SingularityFAAST.Core.DataTransferObjects;
 using SingularityFAAST.DataAccess.Contexts;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -75,7 +76,7 @@ namespace SingularityFAAST.Services.Services
 
 
         //Get all Inventory Items associated with LoanNumber
-        public IList<LoansClientsInventoryDTO> GetAllItems()  //string loanNum, now filtered in the call instead
+        public IList<LoansClientsInventoryDTO> GetAllItems() //string loanNum, now filtered in the call instead
         {
             using (var context = new SingularityDBContext())
             {
@@ -148,6 +149,7 @@ namespace SingularityFAAST.Services.Services
 
             }
         }
+
         #endregion
 
 
@@ -186,8 +188,8 @@ namespace SingularityFAAST.Services.Services
             {
                 var loanToDelete = context.LoanMasters.FirstOrDefault(
                     loanMaster =>
-                        string.Equals(loanMaster.LoanNumber, loanNumber.ToString())
-                    );
+                            string.Equals(loanMaster.LoanNumber, loanNumber.ToString())
+                );
 
                 if (loanToDelete != null)
                     loanToDelete.IsDeleted = true;
@@ -201,38 +203,132 @@ namespace SingularityFAAST.Services.Services
         }
 
 
-        public void RemoveSingleItemFromLoanByLoanNumber(int invItem) //int invItem)  //not correct yet   
+        public int RemoveSingleItemFromLoanByLoanNumber(int invItem)
         {
             using (var context = new SingularityDBContext())
             {
-                //get inventoryitem from loan number
-                //var itemToRemove = context.LoanDetails.FirstOrDefault(
-                //    loandetail => string.Equals(loandetail., invItem)  //join
-                //    );
+                var loanNumber = GetLoanNumberByInventoryItemId(invItem);
+                var itemIds = GetInventoryItemIdsByLoanNumber(loanNumber.FirstOrDefault());
+                var loanId = (from ld in context.LoanDetails
+                              join lm in context.LoanMasters
+                              on ld.LoanMasterId equals lm.LoanMasterId
+                              where lm.IsActive == true && (ld.InventoryItemId == invItem)
+                              select ld).FirstOrDefault();  //where (ld.InventoryItemId == invItem) && 
 
-                //if (itemToRemove != null)
-                //    itemToRemove.Availability = true;
+                //if there is more than one item in the loan, check in
+                if (itemIds.Count() > 1)
+                {
+                    var item = context.InventoryItems.FirstOrDefault(
+                        i => i.InventoryItemId == invItem);
 
-                    //context.SaveChanges();
-               
-                //get inv item to available
-                var loanNumber = from ld in context.LoanDetails
-                    join lm in context.LoanMasters
-                    on ld.LoanMasterId equals lm.LoanMasterId
-                    where ld.InventoryItemId == invItem
-                    select lm.LoanNumber;
+                    if (item != null)
+                        item.Availability = true;
 
-                var itemIds = GetInventoryItemIdsByLoanNumber(loanNumber.ToString());
-                MarkInventoryItemsAsAvailable(context, itemIds);
-                
-                //remove the loan detail itself
-                context.LoanDetails.Remove();
-                context.SaveChanges();
+                    context.SaveChanges();
 
+                    //remove the loan detail itself
+                    var loanIds = new LoanDetail()
+                    {
+                        LoanDetailId = loanId.LoanDetailId
+                    };
+
+                    //context.LoanDetails.Attach(id);
+                    context.LoanDetails.Remove(loanIds);
+
+                    context.SaveChanges();
+                    return loanId.LoanMasterId;
+                }
+                else   //if only one item in loan, and it's about to be deleted
+                {
+                    //CheckInLoan_Nick(loan);
+
+                    //var query = context.LoanMasters.FirstOrDefault(lm => Equals(lm.LoanMasterId == loanId.LoanMasterId));
+                    var query = (from lm in context.LoanMasters
+                                 where lm.LoanMasterId == loanId.LoanMasterId
+                                 select lm).FirstOrDefault();
+
+                    if (query != null)
+                    {
+                        query.IsActive = false;
+                        //is not changing to false.  LoanMaster.cs has [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+
+                        //query.ClientOutcome = loan.ClientOutcome;
+                        //query.LoanNotes = loan.LoanNotes;
+                        //do not worry about item damages for now
+                    }
+
+                    context.SaveChanges();
+
+                    var itemIds2 = GetInventoryItemIdsByLoanNumber(query.LoanNumber);
+
+                    MarkInventoryItemsAsAvailable(context, itemIds2);
+
+                    return loanId.LoanMasterId;
+                }
             }
         }
 
-        public Client GetClientDetails()  //int id
+        public void RemoveSingleItemFromLoanByItemEdit(string loanNum)
+        {
+            using (var context = new SingularityDBContext())
+            {
+                //var loanNum = GetLoanNumberByInventoryItemId(inventoryId);
+                //var loanNumber = from ld in context.LoanDetails
+                //    join lm in context.LoanMasters
+                //    on ld.LoanMasterId equals lm.LoanMasterId
+                //    where ld.InventoryItemId == invItem
+                //    select lm.LoanNumber;
+
+                var itemIds = GetInventoryItemIdsByLoanNumber(loanNum);
+
+                if (itemIds.Count() > 1)
+                {
+                    //get inv item to available
+                    if (itemIds != null)
+                    {
+                        MarkInventoryItemsAsAvailable(context, itemIds);
+                        //appears to be marking all items in loan as available
+                    }
+                    var loanId = (from ld in context.LoanDetails
+                                  join lm in context.LoanMasters
+                                  on ld.LoanMasterId equals lm.LoanMasterId
+                                  where lm.LoanNumber == loanNum
+                                  select ld).FirstOrDefault();
+
+
+                    //remove the loan detail itself
+                    context.LoanDetails.Remove(loanId);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    //CheckInLoan_Nick(loan);
+                    var loanNumber = loanNum;
+
+                    var query = context.LoanMasters.FirstOrDefault(
+                        lm => string.Equals(lm.LoanNumber, loanNumber));
+
+                    if (query != null)
+                    {
+                        query.IsActive = false;
+                        //is not changing to false.  LoanMaster.cs has [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+
+                        //query.ClientOutcome = loan.ClientOutcome;
+                        //query.LoanNotes = loan.LoanNotes;
+                        //do not worry about item damages for now
+                    }
+
+                    context.SaveChanges();
+
+                    var itemIds2 = GetInventoryItemIdsByLoanNumber(loanNumber);
+
+                    MarkInventoryItemsAsAvailable(context, itemIds2);
+                }
+            }
+        }
+
+
+        public Client GetClientDetails() //int id
         {
             using (var context = new SingularityDBContext())
             {
@@ -250,8 +346,8 @@ namespace SingularityFAAST.Services.Services
             using (var context = new SingularityDBContext())
             {
                 var loan = (from l in context.LoanMasters
-                            orderby l.LoanMasterId descending
-                            select l.LoanNumber).Take(1);
+                            orderby l.DateCreated descending
+                            select l.LoanNumber).Take(1).Single();
                 var addNumber = string.Join("", loan.Where(char.IsDigit));
                 int lastNum = Int32.Parse(addNumber);
                 lastNum = lastNum + 1;
@@ -263,14 +359,17 @@ namespace SingularityFAAST.Services.Services
         // GET all Loans associated with client last name
         public IList<LoansClientsInventoryDTO> GetLoansByClientLastName(string searchby)
         {
-            IList<LoansClientsInventoryDTO> allLoans = GetAllLoans();  //Gets all the loans from the GetAllLoans() method
-            IList<LoansClientsInventoryDTO> filteredLoans = allLoans.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
+            IList<LoansClientsInventoryDTO> allLoans = GetAllLoans(); //Gets all the loans from the GetAllLoans() method
+            IList<LoansClientsInventoryDTO> filteredLoans =
+                allLoans.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
 
             return filteredLoans;
         }
 
 
         #region AddLoan
+
         public void CreateLoan(LoanSubmission loanSubmission)
         {
             //have client id 
@@ -282,8 +381,8 @@ namespace SingularityFAAST.Services.Services
                 {
                     ClientId = loanSubmission.ClientId,
                     DateCreated = DateTime.Now, //can go into the constructor of LoanMaster  -- haven't done this yet
-                                                //IsActive = loanSubmission.IsActive //can probably be defaulted
-                    LoanNumber = loanNumIncrement,  //we can create a utility class that auto increments this - see above
+                    //IsActive = loanSubmission.IsActive //can probably be defaulted
+                    LoanNumber = loanNumIncrement, //we can create a utility class that auto increments this - see above
                     IsActive = true
                 };
 
@@ -335,7 +434,8 @@ namespace SingularityFAAST.Services.Services
 
                 ////Update Inventory Items' Availability
                 var itemIds = GetInventoryItemIdsByLoanNumber(newLoan.LoanNumber);
-                MarkInventoryItemsAsNotAvailable(context, itemIds);  //or does this need to be like context.LoanDetails.AddRange(loanDetailsList);
+                MarkInventoryItemsAsNotAvailable(context, itemIds);
+                //or does this need to be like context.LoanDetails.AddRange(loanDetailsList);
 
             }
         }
@@ -346,8 +446,11 @@ namespace SingularityFAAST.Services.Services
         //Search by Loan Number (also a string)
         public IList<LoansClientsInventoryDTO> GetLoanByLoanNumber(string searchby)
         {
-            IList<LoansClientsInventoryDTO> allLoans = GetAllLoansByNum();  //Gets all the loans from the GetAllLoans() method
-            IList<LoansClientsInventoryDTO> filteredLoans = allLoans.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase)).ToList();
+            IList<LoansClientsInventoryDTO> allLoans = GetAllLoansByNum();
+            //Gets all the loans from the GetAllLoans() method
+            IList<LoansClientsInventoryDTO> filteredLoans =
+                allLoans.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
 
             return filteredLoans;
         }
@@ -367,13 +470,26 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
+        public IList<Client> GetAllClientsAsInventoryList()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var items = context.Clients;
+
+                var itemList = items.ToList();
+
+                return itemList;
+            }
+        }
+
 
 
         //Get all Inventory Items associated with LoanNumber
         public IList<LoansClientsInventoryDTO> ViewAllItems(string loanNumber)
         {
             IList<LoansClientsInventoryDTO> allItems = GetAllItems();
-            IList<LoansClientsInventoryDTO> filteredLoans = allItems.Where(loan => string.Equals(loan.LoanNumber, loanNumber)).ToList();
+            IList<LoansClientsInventoryDTO> filteredLoans =
+                allItems.Where(loan => string.Equals(loan.LoanNumber, loanNumber)).ToList();
 
             return filteredLoans;
         }
@@ -382,7 +498,8 @@ namespace SingularityFAAST.Services.Services
         public IList<InventoryItem> ViewItemsByName(string itemName)
         {
             IList<InventoryItem> allItems = GetAllItemsAsInventoryList();
-            IList<InventoryItem> items = allItems.Where(inventory => string.Equals(inventory.ItemName, itemName)).ToList();
+            IList<InventoryItem> items =
+                allItems.Where(inventory => string.Equals(inventory.ItemName, itemName)).ToList();
 
             return items;
         }
@@ -391,28 +508,30 @@ namespace SingularityFAAST.Services.Services
         public IList<LoansClientsInventoryDTO> ViewItemsById(int itemId)
         {
             IList<LoansClientsInventoryDTO> allItems = GetAllItems();
-            IList<LoansClientsInventoryDTO> items = allItems.Where(inventory => int.Equals(inventory.InventoryItemId, itemId)).ToList();
+            IList<LoansClientsInventoryDTO> items =
+                allItems.Where(inventory => int.Equals(inventory.InventoryItemId, itemId)).ToList();
 
             return items;
         }
 
 
         #region CheckInSingleItem
+
         //Updates the Inventory CheckIn DB fields 
-        public void CheckInLoanInventoryItem(LoansClientsInventoryDTO loan)  //Edit InventoryItem
+        public void CheckInLoanInventoryItem(LoansClientsInventoryDTO loan) //Edit InventoryItem
         {
             using (var context = new SingularityDBContext())
             {
                 var loanNum = loan.LoanNumber;
 
                 //var loanNum = GetLoanNumberByInventoryItemId(inventoryId);
-                var itemIds = GetInventoryItemIdsByLoanNumber(loanNum);  
+                var itemIds = GetInventoryItemIdsByLoanNumber(loanNum);
 
                 //itemIds is IEnumerable<int>
 
                 if (itemIds.Count() > 1)
                 {
-                    var inventoryItemid = loan.InventoryItemId; 
+                    var inventoryItemid = loan.InventoryItemId;
 
                     var itemId = context.InventoryItems.FirstOrDefault(
                         ii => int.Equals(ii.InventoryItemId, inventoryItemid));
@@ -431,11 +550,12 @@ namespace SingularityFAAST.Services.Services
                     var loanNumber = loan.LoanNumber;
 
                     var query = context.LoanMasters.FirstOrDefault(
-                    lm => string.Equals(lm.LoanNumber, loanNumber));
+                        lm => string.Equals(lm.LoanNumber, loanNumber));
 
                     if (query != null)
                     {
-                        query.IsActive = false;  //is not changing to false.  LoanMaster.cs has [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+                        query.IsActive = false;
+                        //is not changing to false.  LoanMaster.cs has [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 
                         //query.ClientOutcome = loan.ClientOutcome;
                         //query.LoanNotes = loan.LoanNotes;
@@ -450,6 +570,7 @@ namespace SingularityFAAST.Services.Services
                 }
             }
         }
+
         #endregion
 
 
@@ -611,16 +732,20 @@ namespace SingularityFAAST.Services.Services
 
         //    }
         //}
+
         #endregion
 
 
         #region EmailNotification
+
         //Poll the DateCreated in LoanMaster every 24 hours. Trigger this email  if ((item.DateCreated.AddDays(28) <= DateTime.Now.AddDays(7) && item.DateCreated.AddDays(28) >= DateTime.Now) && (item.IsActive)) 
         //Add Email Notification
         //use Windows service running on vm Windows rt 
-        public void NotifyEmail(string loanNumber)  //or LoanClientsInventoryDTO
+        public void NotifyEmail(string loanNumber) //or LoanClientsInventoryDTO
         {
-            var template = File.ReadAllText(HttpContext.Current.Server.MapPath("~/SingularityFAAST.WebUI/Views/Loan/EmailTemplate.html"));
+            var template =
+                File.ReadAllText(
+                    HttpContext.Current.Server.MapPath("~/SingularityFAAST.WebUI/Views/Loan/EmailTemplate.html"));
 
             IList<LoansClientsInventoryDTO> model = ViewAllItems(loanNumber);
 
@@ -635,7 +760,8 @@ namespace SingularityFAAST.Services.Services
             //};
 
             //var body = RazorEngine.Parse(template, model);  // le?    bring in nuget razor engine?
-            var body = "Hi, < br > Client<loan.FirstName>, < loan.LastName >, Phone<loan.PhoneNumber>, has a loan due within one week.Loan Number < loan.LoanNumber > has devices < devices > < br > Thanks, FAASTer";
+            var body =
+                "Hi, < br > Client<loan.FirstName>, < loan.LastName >, Phone<loan.PhoneNumber>, has a loan due within one week.Loan Number < loan.LoanNumber > has devices < devices > < br > Thanks, FAASTer";
 
             var fromAddress = new MailAddress("faasterEmailNotification@gmail.com", "FAASTer Inventory System");
             var toAddress = new MailAddress("kyoungbe@gmail.com", "FAAST Admin");
@@ -666,10 +792,11 @@ namespace SingularityFAAST.Services.Services
                 catch (Exception ex)
                 {
                     Console.WriteLine("Exception caught in CreateMessageWithAttachment(): {0}",
-                                ex.ToString());
+                        ex.ToString());
                 }
 
         }
+
         #endregion
 
         private IEnumerable<int> GetInventoryItemIdsByLoanNumber(string loanNumber)
@@ -696,8 +823,7 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
-        private void MarkInventoryItemsAsAvailable(SingularityDBContext context,
-            IEnumerable<int> itemIds)
+        private void MarkInventoryItemsAsAvailable(SingularityDBContext context, IEnumerable<int> itemIds)
         {
             foreach (var itemId in itemIds)
             {
@@ -713,7 +839,7 @@ namespace SingularityFAAST.Services.Services
 
 
         private void MarkInventoryItemsAsNotAvailable(SingularityDBContext context,
-           IEnumerable<int> itemIds)
+            IEnumerable<int> itemIds)
         {
             foreach (var itemId in itemIds)
             {

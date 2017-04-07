@@ -252,6 +252,7 @@
         //once table is built, do we have valid markup to attach to -- assign the functions here!
         //$("input:radio[name=radioClientId]").on('click', updateClientIdFormValue);
         $("input:button[name=addCButton]").on('click', updateClientIdFormValue);   //, function(){$(this).css('color: gray')});
+        $("input:button[name=addCButton]").click(function() { $(this).css('background:gray') });
     }
 
 
