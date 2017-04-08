@@ -92,10 +92,12 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpGet]
         public ActionResult CheckInRenewal(string loanNumber)
         {
-            IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);
-
+            IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);  
+                                     
+            
+            
             return View(model);
-        }
+        } 
 
 
         [HttpPost]
@@ -107,7 +109,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
             //2. create new loan with new loan object so creates new loan number
 
-            // The DTO needs to send all of the data needed here   Left Off <---------------------
+            // The DTO needs to send all of the data needed here   
             var submission = new LoanSubmission()
             {
                 ClientId = loan.ClientId,

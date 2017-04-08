@@ -9,6 +9,8 @@
 
 @using (Html.BeginForm("CheckInRenewal", "Loan", FormMethod.Post, new { @class = "" }))
 {
+
+
     <div>
         <hr />
         <div class="row">
@@ -20,10 +22,11 @@
                     break; //or will print client for each item in client loan
                 }
             </h5>
-
         </div>
         <br />
 
+        
+        @*Need to do this section like EditClient for the Disabilities,  OR BYPASS listing?*@
 
 
         <div class="row">
@@ -31,7 +34,10 @@
             {
 
                 <div class="col-md-4">
+
                     <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
+                    <input type="hidden" value="@item.ClientId" name="ClientId" />
+
                     <dl class="dl-horizontal">
                         <dt>
                             Item Number:
@@ -59,6 +65,8 @@
                 </div>
 
 
+                //Damages would not be recorded until item final checkin
+
                 <div class="col-md-8">
                     <div class="form-group">
                         <label for="damages">Item Damages:</label>
@@ -67,12 +75,14 @@
                     </div>
                 </div>
 
-                break;
+                //break;
             }
         </div>
+
+
+
+
         <br />
-
-
 
         <div class="row">
             <div class="col-md-4" id="decision">

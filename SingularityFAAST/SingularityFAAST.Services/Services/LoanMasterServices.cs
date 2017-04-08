@@ -101,6 +101,7 @@ namespace SingularityFAAST.Services.Services
                             {
                                 LoanMasterId = lm.LoanMasterId,
                                 LoanNumber = lm.LoanNumber,
+                                ClientId = c.ClientID,
                                 LoanDate = ld.LoanDate,
                                 InventoryItemId = i.InventoryItemId,
                                 ItemName = i.ItemName,
@@ -264,7 +265,7 @@ namespace SingularityFAAST.Services.Services
 
 
         #region AddLoan
-        public void CreateLoan(LoanSubmission loanSubmission)
+        public void CreateLoan(LoanSubmission loanSubmission)  //InventoryItemIds not passing
         {
             //have client id 
             using (var context = new SingularityDBContext())
@@ -277,7 +278,8 @@ namespace SingularityFAAST.Services.Services
                     DateCreated = DateTime.Now, //can go into the constructor of LoanMaster  -- haven't done this yet
                                                 //IsActive = loanSubmission.IsActive //can probably be defaulted
                     LoanNumber = loanNumIncrement,  //we can create a utility class that auto increments this - see above
-                    IsActive = true
+                    IsActive = true,
+                    IsDeleted = false
                 };
 
                 context.LoanMasters.Add(newLoan);
