@@ -255,11 +255,6 @@
 
             @using (Html.BeginForm("UpdateLoan", "Loan", FormMethod.Post, new { @class = "" }))
             {
-                @* Html Hiddens give us form fields that the model binder will still use, but are hidden from the view *@
-                @* whatever you name id's, names, etc, keep them consistent.
-                    keep in mind the 'name' property on these must match the property names on the C# classes used*@
-
-                @* First parameter will be the name propety - and is what the model binder will use *@
                 @Html.Hidden("ClientId", null, new { id = "clientIdHiddenHere" })
                 @Html.Hidden("LoanMasterId", null, new { id = "loanMasterIdHidden" })
                 @Html.Hidden("InventoryItemId", null, new { id = "inventoryItemHiddenHere" }) @*Though, these aren't being altered so don't need to include them.*@
