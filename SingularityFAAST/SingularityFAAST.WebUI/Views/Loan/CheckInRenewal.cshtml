@@ -42,10 +42,9 @@
                     <th>Item Number</th>
                     <th>Item Name</th>
                     <th>End Date</th>
-                    <th>Damages</th>
+                    @*<th>Damages</th>*@
 
-                    <th>View/Edit</th>
-                    <th>Delete</th>
+                    <th>Check Item In</th>
                 </tr>
 
 
@@ -56,11 +55,10 @@
                         <td>@item.ItemName</td>
                         <td>@item.LoanDate.AddDays(29).ToString("MMMM dd, yyyy")</td>
 
-                        <td><input type="text" name="Damages" id="damages" value="@item.Damages" /></td>
-                        @*<td>@Html.TextBoxFor(@item => item.Damages, new { @class = "form-control" })</td>*@
+                        @*<td><input type="text" name="Damages" id="damages" value="@item.Damages" /></td>*@
+                        @*<td>@Html.TextBoxFor(item = item.Damages, new { @class = "form-control" })</td>*@
 
-                        <td>@Html.ActionLink("View/Edit", "EditClient", new { id = item.InventoryItemId })</td>
-                        <td>@Html.ActionLink("Delete", "Delete", new { id = item.InventoryItemId })</td>
+                        <td>@Html.ActionLink("Remove", "CheckItem", new { inventoryItemId = item.InventoryItemId })</td>
                     </tr>
                 }
             </table>
