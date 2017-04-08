@@ -115,6 +115,16 @@ namespace SingularityFAAST.WebUI.Controllers
 
           return RedirectToAction("UpdateInventoryItem"); //returns the user to the view with the item
         }
+
+        //post method for updating item after user makes changes
+        //  -->Redirects user to InventoryIndex
+        [HttpPost]
+        public RedirectToRouteResult DeleteInventoryItem(InventoryItem item) //needs modelState validation
+        {
+                itemServices.DeleteItem(item);
+
+                return RedirectToAction("IndexInventory", "InventoryItem");
+        }
         #endregion
 
         #region Search Requests 

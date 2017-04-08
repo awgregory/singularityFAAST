@@ -1,6 +1,36 @@
 ﻿//Jon Ebert - 2017
 //Inventory Item Services
 
+#region BUGS
+//     _______
+//    |       |
+// ___|       |___
+//    |  O O  |      ______
+//    |   >   |     | Bugs |
+//    |__ 0 __|     | -Jon | <-- Sign/Bug Swatter
+// ______| |______  |______|
+//|  _         _  |    ||
+//| | |   I   | | |    ||
+//| | |  Hate | | |___ ||
+//| | |  Bugs | |_____|_}
+//|_| |       | 
+//{_} |_______|
+//    |       |
+//    |   ||  |
+//    |   ||  |
+//    |   ||  |
+//    |   ||  |
+//    |   ||  |
+//   [____||____]
+//
+//Items that need fixin - HIGH PRIORITY
+//      1). Update and Delete Items not working:
+//              --> Both get hung up on "context.SaveChanges();"
+//      2). Return Next Inventory Number:
+//              --> Needs to be fixed to use ID and not just Database count
+#endregion
+
+
 using SingularityFAAST.DataAccess.Contexts;
 using SingularityFAAST.Core.SearchRequests;
 using SingularityFAAST.Core.Entities;
@@ -198,7 +228,6 @@ namespace SingularityFAAST.Services.Services
         }
         #endregion
 
-        //needs fixin - medium priority
         #region ReturnNextInventoryNumber
         //Used for [HttpGet] method "NewInventoryItem" in Inventory Controller
         //Return Greatest Inventory Number to Display in "NewInventoryItem"...
@@ -228,5 +257,7 @@ namespace SingularityFAAST.Services.Services
             }
         }
         #endregion
+
+        
     }
 }
