@@ -50,7 +50,7 @@
 <br />
 <div class="row">
     <div class="col-md-12">
-        <div class="col-md-6 ">
+        <div class="col-md-10 ">
             @*make this a list group (see bootstrap components) *@
             <h5><i class="fa fa-times fa-lg text-danger"></i> Select any item to remove it from the loan. </h5>
             <h5><i class="fa fa-check fa-lg text-info"></i> Select any active item to check in. If this does not appear, the item has been checked in.</h5>
@@ -69,9 +69,9 @@
     <h4>
         @foreach (LoansClientsInventoryDTO item in Model)
             {
-            <span class="col-md-1">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
-            <span class="col-md-2">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
-                <span class="col-md-2">Phone: @Html.DisplayFor(x => item.CellPhone)  </span>
+            <span class="col-md-2">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
+            <span class="col-md-3">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
+                <span class="col-md-3">Phone: @Html.DisplayFor(x => item.CellPhone)  </span>
                 <span class="col-md-3">Email: @Html.DisplayFor(x => item.Email)</span>
             break;  //or will print client for each item in client loan
         }
@@ -104,7 +104,7 @@
                             Item Date Due
                         </th>
                         <th>
-                            Notes
+                            Notes on the Loan
                         </th>
                     </tr>
                 </thead>

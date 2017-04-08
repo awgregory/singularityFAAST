@@ -106,7 +106,9 @@ namespace SingularityFAAST.Services.Services
                                 LastName = c.LastName,
                                 FirstName = c.FirstName,
                                 IsActive = lm.IsActive,
-                                ClientId = c.ClientID
+                                ClientId = c.ClientID,
+                                ClientOutcome = lm.ClientOutcome,
+                                Damages = i.Damages
                             };
 
                 return items.ToList();
@@ -575,7 +577,7 @@ namespace SingularityFAAST.Services.Services
 
                     loan.ClientOutcome = checkInDTO.ClientOutcome;
                     loan.LoanNotes = checkInDTO.LoanNotes;
-                    //do not worry about item damages for now
+                    //loan.Damages = checkInDTO.Damages;
                 }
 
                 context.SaveChanges();

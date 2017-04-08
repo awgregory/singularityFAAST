@@ -174,9 +174,6 @@ namespace SingularityFAAST.WebUI.Controllers
             //Check in multiple items
             //Get input from text boxes for Damages, Notes and ClientOutcome
 
-            //var services = new LoanMasterServices();
-            //lm_services.CheckLoan(loan);
-
             //TODO: rewire as necessary
             var dto = new CheckInWholeLoanDTO()
             {

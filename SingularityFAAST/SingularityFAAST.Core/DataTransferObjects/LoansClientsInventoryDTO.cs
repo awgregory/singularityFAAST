@@ -25,6 +25,8 @@ namespace SingularityFAAST.Core.DataTransferObjects
 
         public string LoanNotes { get; set; }
 
+        public bool IsDeleted { get; set; }
+
 
         //LoanDetail
         public int LoanDetailId { get; set; }

@@ -32,7 +32,7 @@ USING #tempLoanMasters AS source
 
 
 WHEN NOT MATCHED THEN 
-	INSERT (DateCreated, ClientID, IsActive, LoanNumber, IsDeleted)
+	INSERT (DateCreated, ClientID, IsActive, LoanNumber, IsDeleted, ClientOutcome, LoanNotes)
 	VALUES (source.DateCreated, source.ClientID, source.IsActive, source.LoanNumber, source.IsDeleted, source.ClientOutcome, source.LoanNotes)
 
 
