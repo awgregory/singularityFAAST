@@ -8,4 +8,4 @@ AS
 		ON LM.LoanMasterId = LD.LoanMasterId
 	WHERE LD.InventoryItemId = @inventoryItemId
 
-RETURN 0
+RETURN 0 

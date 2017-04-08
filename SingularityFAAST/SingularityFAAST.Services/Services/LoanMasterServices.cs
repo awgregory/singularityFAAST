@@ -16,31 +16,29 @@ namespace SingularityFAAST.Services.Services
 {
     public class LoanMasterServices
     {
-        //Original, using only Loan Master
-
-        //public IList<LoanMaster> GetAllLoans()   
-        //{
-        //    using (var context = new SingularityDBContext())
-        //    {
-        //        var loans = context.LoanMasters;
-
-        //        var loanList = loans.ToList();
-
-        //        return loanList;
-        //    }
-        //}
-
-        //public IList<LoansClientsInventoryDTO> GetAllofEverything()
-        //{
-        //    using (var context = new SingularityDBContext())
-        //    {
-        //        LoansClientsInventoryDTO orderView = new LoansClientsInventoryDTO();
-        //        orderView.OrderData = (from i in context.InventoryItems select i).ToList();
-        //        orderView.OrderDetailData = (from c in context.Clients select c).ToList();
-
-        //        return orderView;
-        //    }
-        //}
+        #region BUGS
+        //     _______
+        //    |       |
+        // ___|       |___
+        //    |  O O  |      ______
+        //    |   >   |     | Bugs |
+        //    |__ 0 __|     | X X  |
+        // ______| |______  |______|
+        //|  _         _  |    ||
+        //| | |       | | |    ||
+        //| | |       | | |___ ||
+        //| | |       | |_____|_}
+        //|_| |       | 
+        //{_} |_______|
+        //    |       |
+        //    |   ||  |
+        //    |   ||  |
+        //    |   ||  |
+        //    |   ||  |
+        //    |   ||  |
+        //   [____||____]
+        //needs fixin - medium priority
+        #endregion
 
 
         #region Get All From DB - 3 basic methods for Loans, Clients, Inventory
@@ -66,6 +64,8 @@ namespace SingularityFAAST.Services.Services
                                 LastName = c.LastName,
                                 FirstName = c.FirstName,
                                 IsActive = l.IsActive,
+                                CellPhone = c.CellPhone,
+                                Email = c.Email
                                 //LoanDate = ld.LoanDate
                             };
 
@@ -99,8 +99,8 @@ namespace SingularityFAAST.Services.Services
                                 ItemName = i.ItemName,
                                 Manufacturer = i.Manufacturer,
                                 Description = i.Description,
-                                LoanNotes = ld.Notes,
-                                HomePhone = c.HomePhone,
+                                LoanNotes = lm.LoanNotes,
+                                CellPhone = c.CellPhone,
                                 Email = c.Email,
                                 Availability = i.Availability,
                                 LastName = c.LastName,
@@ -131,7 +131,7 @@ namespace SingularityFAAST.Services.Services
 
                               select new LoansClientsInventoryDTO()
                               {
-                                  HomePhone = c.HomePhone,
+                                  CellPhone = c.CellPhone,
                                   Email = c.Email,
                                   LastName = c.LastName,
                                   FirstName = c.FirstName,
@@ -527,7 +527,7 @@ namespace SingularityFAAST.Services.Services
                     if (itemId != null)
                     {
                         itemId.Availability = true;
-                        itemId.Damages = loan.Damages;
+                        //itemId.Damages = loan.Damages;
                         //do not worry about item damages for now
                     }
                     context.SaveChanges();

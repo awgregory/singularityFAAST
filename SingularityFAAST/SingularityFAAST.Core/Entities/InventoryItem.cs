@@ -18,6 +18,8 @@ namespace SingularityFAAST.Core.Entities
         public string Location { get; set; }
         public bool Availability { get; set; }
         public string SerialNumber { get; set; }
+
+        [DisplayFormat(NullDisplayText = "", ApplyFormatInEditMode = true)]
         public string Description { get; set; }
         public string Accessories { get; set; }
         public string Damages { get; set; }

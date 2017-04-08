@@ -25,6 +25,7 @@ namespace SingularityFAAST.Core.Entities
         public string ClientOutcome { get; set; }
 
         public string LoanNotes { get; set; }
+
         //public IEnumerable<int> LoanMasterIds { get; set; }
     }
 }

@@ -181,7 +181,7 @@ namespace SingularityFAAST.WebUI.Controllers
             var dto = new CheckInWholeLoanDTO()
             {
                 ClientOutcome = loan.ClientOutcome,
-                ItemDamages = loan.Damages,
+                Damages = loan.Damages,
                 LoanNotes = loan.LoanNotes,
                 LoanNumber = loan.LoanNumber
             };
@@ -218,7 +218,17 @@ namespace SingularityFAAST.WebUI.Controllers
         #endregion
 
         #region Delete Loan - Mark entirely deleted
-        public ActionResult DeleteLoan(string loanNumber)
+
+        //route to "are you sure?" page
+        public ActionResult CancelLoan(LoansClientsInventoryDTO loan)
+        {
+            IList<LoansClientsInventoryDTO> allItems = lm_services.GetAllItems();
+            IList<LoansClientsInventoryDTO> model = allItems.Where(x => string.Equals(x.LoanNumber, loan.LoanNumber)).ToList();
+            return View(model);
+        }
+        
+        //Do the canceling
+        public ActionResult CancelLn(string loanNumber)
         {
             lm_services.DeleteLoanByLoanNumber(loanNumber);
 

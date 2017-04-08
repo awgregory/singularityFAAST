@@ -101,7 +101,7 @@
                             Date Loaned
                         </th>
                         <th>
-                            Date Due
+                            Item Date Due
                         </th>
                         <th>
                             Notes
@@ -164,10 +164,10 @@
                                 @item.Manufacturer
                             </td>
                             <td>
-                                @item.LoanDate.ToString("MMMM dd yyyy")  @*Date item added to loan - may be the same day loan was created*@
+                                @item.LoanDate.ToString("MMMM dd, yyyy")  @*Date item added to loan - may be the same day loan was created*@
                             </td>
                             <td>
-                                @item.LoanDate.AddDays(28).ToString("MMMM dd yyyy") @* + 28 days *@
+                                @item.LoanDate.AddDays(28).ToString("MMMM dd, yyyy") @* + 28 days *@
                             </td>
                             <td>
                                 <div style="width: 300px;">

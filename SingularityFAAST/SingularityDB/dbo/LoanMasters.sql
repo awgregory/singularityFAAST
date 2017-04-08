@@ -7,7 +7,7 @@
 	[LoanNumber] VARCHAR(20) NOT NULL,
 	[IsDeleted]	BIT DEFAULT (0) NOT NULL,
 	[ClientOutcome] VARCHAR(50) NULL,
-	[LoanNotes] VARCHAR(500) NULL,
+	[LoanNotes] VARCHAR(MAX) NULL,
 
 	CONSTRAINT [PK_LoanMasters] PRIMARY KEY ([LoanMasterId]),	 
     CONSTRAINT [FK_LoanMasters_Clients] FOREIGN KEY ([ClientId]) REFERENCES dbo.Clients ([ClientId]),
