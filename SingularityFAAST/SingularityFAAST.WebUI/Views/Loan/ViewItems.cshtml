@@ -20,7 +20,7 @@
         @*@Html.ActionLink("Renew Entire Loan", "RenewLn", null, new {@class = "btn btn-primary"})*@ @*Currently, this creates a new loan for the month.  !Or--New LoanMasterId is made but same Loan Number is kept!*@
         @using (Html.BeginForm("RenewLn", "Loan", FormMethod.Post, new { @class = "form-inline col-md-1" }))
         {
-            foreach(var i in Model)
+            foreach (var i in Model)
             {
                 <input type="hidden" value="@i.LoanMasterId" name="LoanMasterId" />
             }
@@ -30,15 +30,21 @@
 
         @* test code button.  bottom one is original *@
         @*@Html.ActionLink("Edit Loan", "EditLn", null, new {@class = "btn btn-primary"})*@ @*Pass the Loan number to auto-populate details on EditLn*@
-        @using (Html.BeginForm("EditLoan", "Loan", FormMethod.Post, new { @class = "form-inline col-md-1" }))
+        @foreach (var q in Model)
         {
-            foreach (var i in Model)
+            if (q.IsActive)
             {
-                <input type="hidden" value="@i.LoanMasterId" name="LoanMasterId" />
+                using (Html.BeginForm("EditLoan", "Loan", FormMethod.Post, new {@class = "form-inline col-md-1"}))
+                 {
+                     foreach (var i in Model)
+                     {
+                         <input type="hidden" value="@i.LoanMasterId" name="LoanMasterId"/>
+                     }
+                     <input type="submit" class="btn btn-primary" name="edtLoan" value='Edit Loan'/>
+                 }
             }
-            <input type="submit" class="btn btn-primary" name="edtLoan" value='Edit Loan' />
+            break;
         }
-
     </div>
 </div>
 <br />
@@ -64,18 +70,15 @@
         @foreach (LoansClientsInventoryDTO item in Model)
             {
             <span class="col-md-1">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
-                <span class="col-md-2">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
-                <span class="col-md-2">Phone: @Html.DisplayFor(x => item.HomePhone)  </span>
+            <span class="col-md-2">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
+                <span class="col-md-2">Phone: @Html.DisplayFor(x => item.CellPhone)  </span>
                 <span class="col-md-3">Email: @Html.DisplayFor(x => item.Email)</span>
             break;  //or will print client for each item in client loan
         }
 
     </h4>
 </div>
-
 <hr />
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -116,20 +119,23 @@
                                     @*@Html.RadioButton("selectNum", false)*@
 
                                     @*Remove Item from loan*@
-                                    @using (Html.BeginForm("CancelItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                    @if (item.IsActive)
                                     {
-                                        <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
-                                            <button type="submit" style="float: left" name="viewButton" value="1"><i class="fa fa-times fa-lg text-danger"></i></button> @*remove item*@
+                                        using (Html.BeginForm("CancelItem", "Loan", FormMethod.Post, new {@class = "form-inline"}))
+                                         {
+                                             <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId"/>
+                                             <button type="submit" style="float: left" name="viewButton" value="1"><i class="fa fa-times fa-lg text-danger"></i></button> @*remove item*@
+                                         }
                                     }
 
                                     @*Checkin Item on its own*@
                                     @*true / false - if loan is active and item is checked out.  If an item is checked in and is available, no check mark*@
-                                    @if (item.IsActive && (!item.Availability))  
+                                    @if (item.IsActive && (!item.Availability))
                                     {
                                         using (Html.BeginForm("CheckItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                         {
                                             <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
-                                                <button type="submit" style="float: left" name="checkButton" value="1"><i class="fa fa-check fa-lg text-info"></i></button> @*check in the item, record client outcome, damages etc.*@
+                                            <button type="submit" style="float: left" name="checkButton" value="1"><i class="fa fa-check fa-lg text-info"></i></button> @*check in the item, record client outcome, damages etc.*@
                                         }
                                     }
 
@@ -137,14 +143,14 @@
                                     @using (Html.BeginForm("RenewItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                     {
                                         <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
-                                            <button type="submit" name="viewButton" value="2"><i class="fa fa-refresh fa-lg text-success"></i></button> @*renew item (create new loan)*@
+                                        <button type="submit" name="viewButton" value="2"><i class="fa fa-refresh fa-lg text-success"></i></button> @*renew item (create new loan)*@
                                     }
                                 </div>
                             </td>
                             <td>
                                 <div style="width: 110px;">
                                     12-IN-@item.InventoryItemId
-                                    @*&& (!item.Availability) can't do this because item could be false because it's checked out to another loan*@  
+                                    @*&& (!item.Availability) can't do this because item could be false because it's checked out to another loan*@
                                     @if ((item.LoanDate.AddDays(29) < DateTime.Today.AddDays(1)) && (item.IsActive && !(item.Availability)))
                                     {
                                         <i class="fa fa-exclamation-circle fa-lg text-danger"></i>

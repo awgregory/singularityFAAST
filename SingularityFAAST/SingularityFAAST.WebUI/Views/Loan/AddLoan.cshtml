@@ -45,7 +45,7 @@
     <b>
         Today's Date: @DateTime.Now.ToString("MMMM dd, yyyy")
         <br />
-        Loan Due Date: @DateTime.Now.AddDays(28).ToString("MMMM dd")
+        Loan Due Date: @DateTime.Now.AddDays(29).ToString("MMMM dd")
     </b>
 
     <hr />
@@ -209,7 +209,7 @@
 
     <br />
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-5">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title"><b>New Loan Information </b></h4>
@@ -218,16 +218,18 @@
                     <div id="cName">
                         @*<h5>Client Anderson, Lorin is checking out these items: </h5>*@
                     </div>
-                    <div class="row col-md-6 col-md-offset-1">
+                    <div class="row col-md-4 col-md-offset-1">
                         <div id="iItems">
                             @*Modified Keyboard, Learn To Respond Appropriately*@
                         </div>
                     </div>
                     <br /><br />
                     <div class="row">
-                        <b>Items are due on @DateTime.Now.AddDays(28).ToString("MMMM dd") </b>
+                        <div class="col-md-5">
+                            <b>Items are due @DateTime.Now.AddDays(29).ToString("MMMM dd") </b>
+                        </div>
+                        <br />
                     </div>
-                    <br />
                 </div>
             </div>
         </div>

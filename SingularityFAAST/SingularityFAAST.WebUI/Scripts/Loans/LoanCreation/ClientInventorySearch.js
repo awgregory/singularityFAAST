@@ -33,6 +33,8 @@
     var itemSearchButton = $('#itemSearchButton');
     var itemSearchInput = $('#itemSearchInput');
 
+    var itemRemoveButton = $('#itemRemoveButton');
+    var itemRemoveInput = $('#itemRemoveInput');
 
     //endregion
 
@@ -52,6 +54,11 @@
         getInventoryWithOneParameter(itemSearchInput.val())
         //set error message to blank
         $('#itemsInfoAlert').text('')
+    });
+
+    itemRemoveButton.on('click', function () {
+        removeItemFromLoan(itemRemoveInput.val())
+        //set error message to blank
     });
 
     //$("input:radio[name=purp]").on('click', updatecheckboxesThreeCategories);
@@ -175,7 +182,23 @@
         })
     }
 
+    function removeItemFromLoan(sendThis) {
+        var pathToControllerMethod = "/Loan/DeleteIteminEdit/";  //change to CancelItem
+        var methodArguments = "?searchString=" + sendThis;
 
+        $.ajax({
+            url: pathToControllerMethod + methodArguments,
+            success: function () {
+                return;
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+
+
+    //function removeItemFromLoanTable - click on x takes to here, that loads fake client table
 
     //Autocomplete
     //function log(message) {
@@ -220,7 +243,7 @@
                     '<td>' + results[i].ClientID + '</td>' + //client id
                     '<td>' + results[i].FirstName + '</td>' + //first name
                     '<td>' + results[i].LastName + '</td>' + //last name
-                    '<td>' + results[i].HomePhone + '</td>' + //home phone
+                    '<td>' + results[i].CellPhone + '</td>' + //home phone
                     '<td>' + results[i].Email + '</td>' + //email
                     '<td>' + results[i].LoanEligibilty + '</td>' + //eligibility -- will need a ToString() version 
                     '</tr>'
@@ -232,6 +255,7 @@
         //once table is built, do we have valid markup to attach to -- assign the functions here!
         //$("input:radio[name=radioClientId]").on('click', updateClientIdFormValue);
         $("input:button[name=addCButton]").on('click', updateClientIdFormValue);   //, function(){$(this).css('color: gray')});
+        $("input:button[name=addCButton]").click(function() { $(this).css('background:gray;') });
     }
 
 
