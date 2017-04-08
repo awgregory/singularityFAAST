@@ -675,20 +675,22 @@ namespace SingularityFAAST.Services.Services
                                                 };
                 List<LoanDetail> loanDetailsList = query.ToList();
 
+                ////Update New Inventory Items' Availability
+                foreach (var itemId in query)
+                {
+                    var item = (from ii in context.InventoryItems
+                                  where ii.InventoryItemId == itemId.InventoryItemId
+                                  select ii).FirstOrDefault();
+
+                    if (item != null)
+                        item.Availability = false;
+
+                    context.SaveChanges();
+                }
                 //now we can add a range of loan details to the loan details table
                 context.LoanDetails.AddRange(loanDetailsList);
-                context.SaveChanges();
+                context.SaveChanges();                              
 
-
-                var loanNumber = (from l in context.LoanDetails
-                                 join lm in context.LoanMasters
-                                 on l.LoanMasterId equals lm.LoanMasterId
-                                 where lm.LoanMasterId == loanSubmission.LoanMasterId
-                                 select lm.LoanNumber).FirstOrDefault();
-                    
-                ////Update Inventory Items' Availability
-                var itemIds = GetInventoryItemIdsByLoanNumber(loanNumber);
-                MarkInventoryItemsAsNotAvailable(context, itemIds);
             }
         }
 

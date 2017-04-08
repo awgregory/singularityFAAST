@@ -130,6 +130,10 @@ namespace SingularityFAAST.WebUI.Controllers
                 model.Where(item => int.Equals(item.LoanMasterId, loan.LoanMasterId))
                     .ToList();
 
+            //call jquery script, pass it json filtered object like above but json. Don't need above
+            //var list = GetItemsListForEdit(loan.LoanMasterId);
+
+
             return View(filteredLoans);
         }
 
@@ -301,6 +305,14 @@ namespace SingularityFAAST.WebUI.Controllers
             var filteredItems = inventoryItems.Where(thing => thing.ItemName.ToLower().Contains(searchString) && thing.Availability);
             return Json(filteredItems, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetItemsListForEdit(int searchInt)
+        {
+            IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
+            var filteredLoans = model.Where(item => int.Equals(item.LoanMasterId, searchInt)) .ToList();
+            return Json(filteredLoans, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult DeleteIteminEdit(string searchstring)
         {

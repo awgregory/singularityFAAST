@@ -30,15 +30,21 @@
 
         @* test code button.  bottom one is original *@
         @*@Html.ActionLink("Edit Loan", "EditLn", null, new {@class = "btn btn-primary"})*@ @*Pass the Loan number to auto-populate details on EditLn*@
-        @using (Html.BeginForm("EditLoan", "Loan", FormMethod.Post, new { @class = "form-inline col-md-1" }))
+        @foreach (var q in Model)
         {
-            foreach (var i in Model)
+            if (q.IsActive)
             {
-                <input type="hidden" value="@i.LoanMasterId" name="LoanMasterId" />
+                using (Html.BeginForm("EditLoan", "Loan", FormMethod.Post, new {@class = "form-inline col-md-1"}))
+                 {
+                     foreach (var i in Model)
+                     {
+                         <input type="hidden" value="@i.LoanMasterId" name="LoanMasterId"/>
+                     }
+                     <input type="submit" class="btn btn-primary" name="edtLoan" value='Edit Loan'/>
+                 }
             }
-            <input type="submit" class="btn btn-primary" name="edtLoan" value='Edit Loan' />
+            break;
         }
-
     </div>
 </div>
 <br />
