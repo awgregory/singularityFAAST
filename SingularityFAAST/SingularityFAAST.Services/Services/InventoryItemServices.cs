@@ -38,6 +38,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using SingularityFAAST.Core.ViewModels;
 
 
 namespace SingularityFAAST.Services.Services
@@ -131,17 +132,19 @@ namespace SingularityFAAST.Services.Services
 
         #region DeleteItem
         //Deletes Item - used in Update Inventory Items form
-        public void DeleteItem(InventoryItem item)
+        public void DeleteItem(int id)
         {
             using (var context = new SingularityDBContext())
             {
-                context.InventoryItems.Attach(item);
+                var item = context.InventoryItems.Find(id);
 
-                var entry = context.Entry(item);
-
-                entry.State = EntityState.Deleted;
-
-                context.SaveChanges();
+                if (item != null)
+                {
+                    context.InventoryItems.Attach(item);
+                    var entry = context.Entry(item);
+                    entry.State = EntityState.Deleted;
+                    context.SaveChanges();
+                }
             }
         }
         #endregion
@@ -258,6 +261,15 @@ namespace SingularityFAAST.Services.Services
         }
         #endregion
 
-        
+
+        public IList<InventoryItemCategory> GetItemCategories()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var list =  context.InventoryCategories.ToList();
+
+                return list;
+            }
+        }
     }
 }
