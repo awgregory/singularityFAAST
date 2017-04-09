@@ -151,7 +151,7 @@
                                 <div style="width: 110px;">
                                     12-IN-@item.InventoryItemId
                                     @*&& (!item.Availability) can't do this because item could be false because it's checked out to another loan*@
-                                    @if ((item.LoanDate.AddDays(29) < DateTime.Today.AddDays(1)) && (item.IsActive && !(item.Availability)))
+                                    @if ((item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)) && (item.IsActive && !(item.Availability)))
                                     {
                                         <i class="fa fa-exclamation-circle fa-lg text-danger"></i>
                                     }

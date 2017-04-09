@@ -20,7 +20,7 @@
         });
 
     itemRemoveButton.on('click',
-        function() {
+        function () {
             removeItemFromLoan(itemRemoveInput.val())
             //set error message to blank
         });
@@ -28,8 +28,7 @@
 
     function updateInventoryIdFormValue(e) {
         //tied to checkboxes - grabs the click event, inspects its data set which we defined as 'data-client-id'
-        var chosenInventoryId = e.target.dataset
-            .inventoryId; //even if custom data attribute contains hyphens, this uses camel case
+        var chosenInventoryId = e.target.dataset.inventoryId; //even if custom data attribute contains hyphens, this uses camel case
         //var invName = chosenInventoryId.replace(/[0-9]/g);  //removes the digits won't work for this purpose if Amazon "3"g
         //chosenInventoryId = chosenInventoryId.replace(/\D/g, '');  //removes the alphas
 
@@ -39,6 +38,9 @@
         //    chosenInventoryId = null
         //}
 
+        if (!chosenInventoryId) //if variable doesn't mean anything: we are invalid/error
+            return; //safely exit doing nothing
+
         if (itemIds) {
             for (var i = 0; i < itemIds.length; i++) {
                 if (chosenInventoryId == itemIds[i]) {
@@ -47,9 +49,6 @@
                 }
             }
         }
-
-        if (!chosenInventoryId) //if variable doesn't mean anything: we are invalid/error
-            return; //safely exit doing nothing
 
         console.log('item id chosen: ' + chosenInventoryId);
 
@@ -164,10 +163,10 @@
             $('#itemsInfoAlert').text('No items with that name exist in inventory.')
         }
         //once table is built, do we have valid markup to attach to -- assign the functions here!
-        //$("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   //checkbox
+        //$("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   
 
         $("input:button[name=addInvButton]").on('click', updateInventoryIdFormValue);
-        $("input:button[name=adInvButton]").on('click', function() { $(this).css('background', 'green') });
+        $("input:button[name=addInvButton]").on('click', function () { $(this).css('background', 'green') });
         $("input:button[name=addInvButton]").on('click', function () { $(this).val('Added') });
 
         //Submit - add inventoryItemIds before submission

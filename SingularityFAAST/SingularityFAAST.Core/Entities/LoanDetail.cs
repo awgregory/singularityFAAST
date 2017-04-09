@@ -24,8 +24,10 @@ namespace SingularityFAAST.Core.Entities
         [Key, Column(Order = 4)]
         public int InventoryItemId { get; set; }
 
+        [Required]
         public string Purpose { get; set; }
 
+        [Required]
         public string PurposeType { get; set; }
         
 

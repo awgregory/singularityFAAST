@@ -193,8 +193,10 @@ namespace SingularityFAAST.Services.Services
                 );
 
                 if (loanToDelete != null)
+                {
                     loanToDelete.IsDeleted = true;
-
+                    loanToDelete.IsActive = false;
+                }
                 context.SaveChanges();
 
                 var itemIds = GetInventoryItemIdsByLoanNumber(loanNumber);

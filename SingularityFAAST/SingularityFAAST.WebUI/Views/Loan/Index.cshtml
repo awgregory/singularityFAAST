@@ -78,7 +78,7 @@
                         @*Do for 10 items in list *@
                         @foreach (var item in Model)
                         {
-                            
+
                             <tr>
                                 <td>
                                     <div style="width: 100px;">
@@ -232,8 +232,13 @@
                 </div>
             </div>
         </div>
+    <br />
+        <div class="row">
+            <div class="col-md-6">
+                <p>
+                    @Html.ActionLink("Loans Page", "Index", null, null)
+                </p>
+            </div>
+        </div>
     </div>
-    <p>
-        @Html.ActionLink("Loans Page", "Index", null, null)
-    </p>
 </div>
