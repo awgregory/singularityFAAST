@@ -69,28 +69,34 @@ namespace SingularityFAAST.Services.Services
 
         
 
-        public IList<Client> GetClientByLastName(string searchBy)
+        public IList<Client> GetClientByLastName(string searchBy)   
         {
             IList<Client> allClients = GetAllClients();
 
 
-            IList<Client> filteredClients = allClients.Where(c => 
+            List<Client> filteredClients = allClients.Where(c => 
                 c.LastName.ToLower().Contains(searchBy.ToLower())).ToList();
 
-            #region Search code options
-            //Can't use StringComparison.OrdinalIgnoreCase in Contains()
+            //IList<Client> filteredClients2 = GetClientByFirstName(searchBy);
 
-            //SO#444798
-            //IList<Client> filteredClients = allClients.Where(c => c.LastName.IndexOf(searchBy, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+            filteredClients.AddRange(GetClientByFirstName(searchBy));
 
-            //Original
-            //IList<Client> filteredClients = allClients.Where(client =>
-            //    string.Equals(client.LastName, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
-            #endregion
-
+            filteredClients.AddRange(GetClientByEmail(searchBy));
 
             return filteredClients;
         }
+
+
+        #region Search code options
+        //Can't use StringComparison.OrdinalIgnoreCase in Contains()
+
+        //SO#444798
+        //IList<Client> filteredClients = allClients.Where(c => c.LastName.IndexOf(searchBy, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+
+        //Original
+        //IList<Client> filteredClients = allClients.Where(client =>
+        //    string.Equals(client.LastName, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+        #endregion
 
 
         private IList<Client> GetClientByFirstName(string searchBy)
@@ -103,7 +109,8 @@ namespace SingularityFAAST.Services.Services
             return filteredClients;
         }
 
-        // Need to implement
+
+        // Need to implement for LOANS
         public IEnumerable<LoanMaster> GetLoansByClientId(int id)
         {
             IList<LoanMaster> filteredLoans = GetAllLoanMasters().Where(loan => loan.ClientId == id).ToList();
@@ -147,7 +154,7 @@ namespace SingularityFAAST.Services.Services
 
             if (Int32.TryParse(searchBy, out x))    
             {
-                filteredClients = allClients.Take(0).ToList();  // Create fake client 'Invalid Input' to return? 
+                filteredClients = allClients.Take(0).ToList();  
             }
 
             else
