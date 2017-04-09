@@ -309,7 +309,7 @@ namespace SingularityFAAST.WebUI.Controllers
         {
             IList<InventoryItem> inventoryItems = lm_services.GetAllItemsAsInventoryList();
             //var filteredItems = inventoryItems.Where(ii => ii.ItemName.ToLower().Contains(searchString) && ii.Availability);       //string.Equals(ii.ItemName, searchString, StringComparison.OrdinalIgnoreCase)).ToList();
-            var filteredItems = inventoryItems.Where(thing => thing.ItemName.ToLower().Contains(searchString) && thing.Availability);
+            var filteredItems = inventoryItems.Where(thing => thing.ItemName.ToLower().Contains(searchString.ToLower()) && thing.Availability).ToList();
             return Json(filteredItems, JsonRequestBehavior.AllowGet);
         }
 

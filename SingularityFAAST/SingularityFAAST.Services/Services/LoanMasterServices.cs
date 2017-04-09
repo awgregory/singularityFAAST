@@ -353,9 +353,9 @@ namespace SingularityFAAST.Services.Services
         {
             IList<LoansClientsInventoryDTO> allLoans = GetAllLoans(); //Gets all the loans from the GetAllLoans() method
             IList<LoansClientsInventoryDTO> filteredLoans =
-                allLoans.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
-
+                //allLoans.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase))
+                //    .ToList();
+            allLoans.Where(thing => thing.LastName.ToLower().Contains(searchby.ToLower())).ToList();
             return filteredLoans;
         }
 
@@ -441,9 +441,9 @@ namespace SingularityFAAST.Services.Services
             IList<LoansClientsInventoryDTO> allLoans = GetAllLoansByNum();
             //Gets all the loans from the GetAllLoans() method
             IList<LoansClientsInventoryDTO> filteredLoans =
-                allLoans.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
-
+                //allLoans.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase))
+                //    .ToList();
+            allLoans.Where(thing => thing.LoanNumber.ToLower().Contains(searchby.ToLower())).ToList();
             return filteredLoans;
         }
 

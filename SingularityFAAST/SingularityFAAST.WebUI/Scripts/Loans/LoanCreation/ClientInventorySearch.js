@@ -254,8 +254,16 @@
         }
         //once table is built, do we have valid markup to attach to -- assign the functions here!
         //$("input:radio[name=radioClientId]").on('click', updateClientIdFormValue);
-        $("input:button[name=addCButton]").on('click', updateClientIdFormValue);   //, function(){$(this).css('color: gray')});
-        $("input:button[name=addCButton]").click(function() { $(this).css('background:gray;') });
+
+        $("input:button[name=addCButton]").on('click', updateClientIdFormValue);
+        $("input:button[name=addCButton]").on('click',
+            function () {
+                $(this).css('background', 'green');
+                $("input:button[name=addCButton]").prop('disabled', true);
+                $("#clientSearchButton").prop('disabled', true);
+            });
+        $("input:button[name=addCButton]").on('click', function () { $(this).val('Added') });
+
     }
 
 
@@ -294,6 +302,8 @@
         //$("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   //checkbox
 
         $("input:button[name=addInvButton]").on('click', updateInventoryIdFormValue);
+        $("input:button[name=addInvButton]").on('click', function () { $(this).css('background', 'green') });
+        $("input:button[name=addInvButton]").on('click', function () { $(this).val('Added') });
 
         //Submit - add inventoryItemIds before submission
         $("form")

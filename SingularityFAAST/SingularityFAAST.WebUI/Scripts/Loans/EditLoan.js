@@ -167,7 +167,8 @@
         //$("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   //checkbox
 
         $("input:button[name=addInvButton]").on('click', updateInventoryIdFormValue);
-        $("input:button[name=addInvButton]").click(function () { $(this).css('background:gray;') });
+        $("input:button[name=adInvButton]").on('click', function() { $(this).css('background', 'green') });
+        $("input:button[name=addInvButton]").on('click', function () { $(this).val('Added') });
 
         //Submit - add inventoryItemIds before submission
         $("form")
