@@ -27,10 +27,6 @@ namespace SingularityFAAST.Core.Entities
 
         public string PurposeType { get; set; }
 
-        public string ClientOutcome { get; set; }
-
-        public string Notes { get; set; }
-
         public IEnumerable<int> LoanDetailIds { get; set; }
     }
 }

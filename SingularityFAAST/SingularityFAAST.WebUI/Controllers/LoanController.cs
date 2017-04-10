@@ -29,6 +29,7 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult Index()
         {
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
+            model = model.OrderByDescending(loan => loan.DateCreated).ToList();
             return View(model);
         }
 
@@ -77,7 +78,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
         #region Renew
 
-        //This loads the page with a box, from View Items page top button 
+        
         public ActionResult RenewLn(LoansClientsInventoryDTO loan)
         {
             IList<LoansClientsInventoryDTO> allItems = lm_services.GetAllItems();
@@ -87,17 +88,60 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-        //This is executed when click yes in page with the box
-        public ActionResult RenewAllItems(LoansClientsInventoryDTO loan) //(string loan)
+        [HttpGet]
+        public ActionResult CheckInRenewal(string loanNumber)
         {
-            //passed string LoanNumber
-            //process renewal here (is checkin of loan and then add new loan)
+            IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);  
+                                     
+            
+            
+            return View(model);
+        } 
+
+
+        [HttpPost]
+        public ActionResult CheckInRenewal(LoansClientsInventoryDTO loan)
+        {
+            //
+            //Get the list of inventory items
+
+            //1. Close loan, save outcomes, check in items
+            lm_services.RenewLoan(loan);
+
+            //2. create new loan with new loan object so creates new loan number
+
+            // The DTO needs to send all of the data needed here   
+            //var submission = new LoansClientsInventoryDTO()
+            //{
+            //    ClientId = loan.ClientId,
+            //    InventoryItemIds = loan.InventoryItemIds,
+            //    IsActive = loan.IsActive,
+            //    Purpose = loan.Purpose,
+            //    PurposeType = loan.PurposeType
+            //};
+            
+            lm_services.CreateRenewedLoan(loan);
+
+            //3. use id to fill in loan with loan details
 
             //IList<LoansClientsInventoryDTO> model = lm_services.AddAllItemsAsNewLoan(loanNumber);
             //lm_services.SaveAllItemsAsNewLoan();
 
             return RedirectToAction("Index", "Loan");
         }
+
+
+        //RenewLn.cshtm needs to pass the Id to CheckInRenewal First then collect up the input for the loan
+        public ActionResult RenewAllItems(LoansClientsInventoryDTO loan) 
+        {
+     
+            //IList<LoansClientsInventoryDTO> model = lm_services.AddAllItemsAsNewLoan(loanNumber);
+            //lm_services.SaveAllItemsAsNewLoan();
+
+            return RedirectToAction("Index", "Loan");
+        }
+
+
 
 
         //This renews an individual item from View Items page
@@ -150,7 +194,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //Whole Loan 
         //This is the View Page with text boxes & one param passed in. Doesn't do any checking-in
-        public ActionResult CheckIn(LoansClientsInventoryDTO loan)
+        public ActionResult CheckIn(LoansClientsInventoryDTO loan)   // Only gets LoanNumber passed in
         {
             //View all Items in Loan
             //IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();  //get all for this id
@@ -168,7 +212,18 @@ namespace SingularityFAAST.WebUI.Controllers
             //Get input from text boxes for Damages, Notes and ClientOutcome
 
             //var services = new LoanMasterServices();
-            lm_services.CheckLoan(loan);
+            //lm_services.CheckLoan(loan);
+
+            //TODO: rewire as necessary
+            var dto = new CheckInWholeLoanDTO()
+            {
+                ClientOutcome = loan.ClientOutcome,
+                ItemDamages = loan.Damages,
+                LoanNotes = loan.LoanNotes,
+                LoanNumber = loan.LoanNumber
+            };
+
+            lm_services.CheckInLoan_Nick(loan);
 
 
             //    //Returns to Loan Index page
@@ -176,13 +231,13 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-
+        //Are either of these used?
         //Single Item
         //1. Displays check-in page with single item
-        public ActionResult CheckItem(LoansClientsInventoryDTO loan)
+        public ActionResult CheckItem(int inventoryItemId)
         {
             //Show single item on load
-            IList<LoansClientsInventoryDTO> model = lm_services.ViewItemsById(loan.InventoryItemId);
+            IList<LoansClientsInventoryDTO> model = lm_services.ViewItemsById(inventoryItemId);
 
             return View(model);
         }
@@ -200,20 +255,22 @@ namespace SingularityFAAST.WebUI.Controllers
 
         #endregion
 
-
-
-        #region Cancel Loan or Single Item
-
-        public ActionResult CancelLn(LoansClientsInventoryDTO loan)  //use inventoryItemId
+        #region Delete Loan - Mark entirely deleted
+        public ActionResult DeleteLoan(string loanNumber)
         {
-            //process delete here, return to Index
-            return RedirectToAction("Index", "Loan");
+            lm_services.DeleteLoanByLoanNumber(loanNumber);
+
+            return RedirectToAction("Index");
         }
 
+        #endregion
 
+
+        #region Delete Single Item
         public ActionResult CancelItem(LoansClientsInventoryDTO loan)  //use inventoryItemId
         {
             //process delete here, return to Index
+            lm_services.RemoveSingleItemFromLoanByLoanNumber(loan.LoanNumber);
             return RedirectToAction("Index", "Loan");
         }
 
@@ -250,9 +307,9 @@ namespace SingularityFAAST.WebUI.Controllers
         public ActionResult AddTheLoan(LoanSubmission loanSubmission)
         {
             var services = new LoanMasterServices();
+
             services.CreateLoan(loanSubmission);
 
-            //Returns to Loan Index page
             return RedirectToAction("Index", "Loan");
         }
 
@@ -261,14 +318,15 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         #region Search
-
+        //the following two methods are used by ClientInventorySearch.js
         public JsonResult SearchFakeClients(string searchString)
         {
             IList<Client> fakeClients = _clientServices.GetAllClients();
 
             //search through the fake clients list, checking eaching fake client if their first name contains the search string
             //var filteredClients = fakeClients.Where((fakeClient) => fakeClient.LastName.Contains(searchString));
-            var filteredClients = fakeClients.Where((fakeClient) => string.Equals(fakeClient.LastName, searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+            var filteredClients = fakeClients.Where(fakeClient => //fakeClient.LastName.ToLower().Contains(searchString)).ToList();
+            string.Equals(fakeClient.LastName, searchString, StringComparison.OrdinalIgnoreCase)).ToList();
 
             //method demands return type of Json, whose first parameter is DATA, just shove the c# result into this
             //and javascript on the front end will be happy
@@ -278,7 +336,7 @@ namespace SingularityFAAST.WebUI.Controllers
         public JsonResult SearchInventory(string searchString)
         {
             IList<InventoryItem> inventoryItems = lm_services.GetAllItemsAsInventoryList();
-            var filteredItems = inventoryItems.Where((ii) => ii.ItemName.Contains(searchString));       //string.Equals(ii.ItemName, searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+            var filteredItems = inventoryItems.Where(ii => ii.ItemName.ToLower().Contains(searchString) && ii.Availability);       //string.Equals(ii.ItemName, searchString, StringComparison.OrdinalIgnoreCase)).ToList();
             return Json(filteredItems, JsonRequestBehavior.AllowGet);
         }
 

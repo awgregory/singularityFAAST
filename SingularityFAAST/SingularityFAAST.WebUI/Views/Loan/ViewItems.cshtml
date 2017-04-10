@@ -123,9 +123,8 @@
                                     }
 
                                     @*Checkin Item on its own*@
-                                    @*If Item not available (because it's checked out) ----what if it's checked out by another person?? will still appear*@
-                                    @*(!item.Availability) &&*@
-                                    @if (item.IsActive)
+                                    @*true / false - if loan is active and item is checked out.  If an item is checked in and is available, no check mark*@
+                                    @if (item.IsActive && (!item.Availability))  
                                     {
                                         using (Html.BeginForm("CheckItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                         {
@@ -145,8 +144,8 @@
                             <td>
                                 <div style="width: 110px;">
                                     12-IN-@item.InventoryItemId
-                                    @*&& (!item.Availability)*@
-                                    @if ((item.LoanDate.AddDays(29) < DateTime.Today.AddDays(1)))
+                                    @*&& (!item.Availability) can't do this because item could be false because it's checked out to another loan*@  
+                                    @if ((item.LoanDate.AddDays(29) < DateTime.Today.AddDays(1)) && (item.IsActive && !(item.Availability)))
                                     {
                                         <i class="fa fa-exclamation-circle fa-lg text-danger"></i>
                                     }
@@ -166,7 +165,7 @@
                             </td>
                             <td>
                                 <div style="width: 300px;">
-                                    @item.Notes
+                                    @item.LoanNotes
                                 </div>
                             </td>
                         </tr>
