@@ -14,7 +14,11 @@
             <h5>
                 @foreach (var item in Model)
                 {
-                    <span class="col-md-4">Client: @item.FirstName @item.LastName, Loan# @item.LoanNumber</span>
+
+                    <span class="col-md-1">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
+                    <span class="col-md-2">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
+                    <span class="col-md-2">Phone: @Html.DisplayFor(x => item.CellPhone)  </span>
+                    <span class="col-md-3">Email: @Html.DisplayFor(x => item.Email)</span>
 
                     break; //or will print client for each item in client loan
                 }
@@ -101,10 +105,13 @@
         </div>
         <br />
 
-
+        <div class="row">
+            <label for="loannotes">Notes on the Loan:</label>
+            <input type="text" name="LoanNotes" id="loannotes" />
 
         <div class="form-group">           
                 <input type="submit" value="Check-In Loan" class="btn btn-primary" />          
+
         </div>
 
         <div class="form-group">

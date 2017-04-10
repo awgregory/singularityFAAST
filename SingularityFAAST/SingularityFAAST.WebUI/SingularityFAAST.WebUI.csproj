@@ -151,6 +151,7 @@
     <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.structure.css" />
     <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.structure.min.css" />
     <Content Include="Scripts\jquery-ui-1.12.1.custom\LICENSE.txt" />
+    <Content Include="Scripts\Loans\EditLoan.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />

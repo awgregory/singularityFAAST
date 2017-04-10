@@ -9,6 +9,7 @@ namespace SingularityFAAST.Core.Entities
     {
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
+
         public int LoanDetailId { get; set; }
 
         [Key, Column(Order =1)]
@@ -23,9 +24,12 @@ namespace SingularityFAAST.Core.Entities
         [Key, Column(Order = 4)]
         public int InventoryItemId { get; set; }
 
+        [Required]
         public string Purpose { get; set; }
 
+        [Required]
         public string PurposeType { get; set; }
+
 
         public IEnumerable<int> LoanDetailIds { get; set; }
     }

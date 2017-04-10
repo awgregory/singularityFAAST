@@ -15,27 +15,28 @@
                 @Html.ActionLink("Create New Loan", "AddLoan", null, new { @class = "btn btn-primary" })
 
             </div>
-            @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-            {
-                <div class="col-md-3">
+            <div class="col-md-4">
+                @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                {
                     <input type="text" class="form-control" id="LName" name="searchby" placeholder="Search Client Last Name" /> @*Search by last name*@
                     <input type="submit" class="btn btn-primary" name="byName" value='Search' />
-                </div>
-            }
-            @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-            {
-                <div class="col-md-3">
+
+                }
+            </div>
+            <div class="col-md-4">
+                @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                {
                     <input type="text" class="form-control" id="LoanNum" name="searchby" placeholder="Search by Loan Number" /> @*Search by loan Number*@
                     <input type="submit" class="btn btn-primary" name="byNum" value="Search" />
-                </div>
-            }
+                }
+            </div>
         </div>
     </div>
     <hr />
 
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <i class="fa fa-search-plus fa-lg"></i> Select any loan to edit, renew or cancel. <br />
                 <i class="fa fa-check text-info fa-lg"></i> Select any active loan to check-in. <br />
                 <i class="fa fa-times text-info fa-lg text-danger"></i> Select any loan to eliminate it. <br />
@@ -59,16 +60,16 @@
                                 Date Created
                             </th>
                             <th>
-                                Date Due
+                                Loan Date Due
                             </th>
                             <th>
-                                Client ID
+                                Client's ID
                             </th>
                             <th>
-                                First Name
+                                Client First Name
                             </th>
                             <th>
-                                Last Name
+                                Client Last Name
                             </th>
                         </tr>
                     </thead>
@@ -76,7 +77,7 @@
                         @*Do for 10 items in list *@
                         @foreach (var item in Model)
                         {
-                            
+
                             <tr>
                                 <td>
                                     <div style="width: 100px;">
@@ -94,6 +95,7 @@
                                                 <button type="submit" style="float: left"><i class="fa fa-check text-info fa-md"></i></button> @*Check in Entire loan*@
                                             }
                                         }
+
                                         @*@if (item.IsActive)*@
                                         @*{*@
                                             @using (Html.BeginForm("DeleteLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
@@ -230,8 +232,13 @@
                 </div>
             </div>
         </div>
+    <br />
+        <div class="row">
+            <div class="col-md-6">
+                <p>
+                    @Html.ActionLink("Loans Page", "Index", null, null)
+                </p>
+            </div>
+        </div>
     </div>
-    <p>
-        @Html.ActionLink("Loans Page", "Index", null, null)
-    </p>
 </div>
