@@ -1,93 +1,136 @@
-﻿@using SingularityFAAST.WebUI.Models
+﻿@* New Inventory Item page
+    Hope Haven - FAAST Inventory System
+    Jonathan Ebert *@
+
+@model SingularityFAAST.Core.ViewModels.NewInventoryItemViewModel
 
 @{
     ViewBag.Title = "NewInventoryItem";
 }
 
-@*New Inventory Item page
-    Hope Haven - FAAST Inventory System
-    Jonathan Ebert*@
-
 <h1>New Item</h1>
+<br />
 
-<form>
+@* ToolTips were added to the form to show the user what is required. *@
+@using (Html.BeginForm())
+{
+    @* Main Form Div *@
     <div class="row">
-
+        @* First Column *@
         <div class="col-md-3">
-            @*Item Name*@
+            @* Item Name *@
             <div class="form-group">
-                <label for="ItemName">Item Name</label>
-                <Input type="text" class="form-control" id="ItemName">
+                <label for="ItemName"><a data-toggle="tooltip" data-placement="bottom" title="Required">Item Name *</a></label>
+                <Input type="text" class="form-control" name="ItemName" required>
             </div>
 
-            @*Inventory Number*@
+            @* Inventory Number *@
             <div class="form-group">
                 <label for="InventoryNumber">Inventory Number</label>
-                <Input type="text" class="form-control" id="InventoryNumber">
+                <a data-toggle="tooltip" data-placement="bottom" title="This has been entered for you.">
+                    <Input disabled="disabled" type="text" class="form-control" value="@Model.ReturnNextInventoryNumber" name="InventoryNumber">
+                </a>
             </div>
 
-            @*Serial Number*@
+            @* Serial Number *@
             <div class="form-group">
-                <label for="ItemNumber">Item Number</label>
-                <Input type="text" class="form-control" id="ItemNumber">
+                <label for="ItemNumber">SerialNumber</label>
+                <Input type="text" class="form-control" name="SerialNumber">
             </div>
 
-            @*Retail Cost*@
+            @* Retail Cost *@
             <div class="form-group">
-                <label for="RetailCost">Retail Cost</label>
-                <Input type="text" class="form-control" id="RetailCost">
+                <label for="RetailCost"><a data-toggle="tooltip" data-placement="bottom" title="Required">Retail Cost *</a></label>
+                <Input type="number" class="form-control" name="RetailCost" placeholder="ex. 100.00" required>
             </div>
 
-            @*Cost Paid*@
+            @* Cost Paid *@
             <div class="form-group">
-                <label for="CostPaid">Cost Paid</label>
-                <Input type="text" class="form-control" id="CostPaid">
+                <label for="CostPaid"><a data-toggle="tooltip" data-placement="bottom" title="Required">Cost Paid *</a></label>
+                <Input type="number" class="form-control" name="PricePaid" placeholder="ex. 100.00" required>
             </div>
 
-            @*Location*@
+            @* Model Name *@
+            <div class="form-group">
+                <label for="ModelName">Model Name</label>
+                <Input type="text" class="form-control" name="ModelName">
+            </div>
+
+            @* Location *@
             <div class="form-group">
                 <label for="Location">Location</label>
-                <select class="form-control" id="Location">
-                    <option>Jacksonville</option>
-                    <option>Tampa</option>
+                <select class="form-control" name="Location">
+                    <option disabled="disabled"> -- select and option --</option>
+                    <option>Northeast Regional Center</option>
+                    @*<option>Tampa</option>
                     <option>Gainesville</option>
-                    <option>Miami</option>
+                    <option>Miami</option>*@
                 </select>
             </div>
         </div>
-
+        @* Second Column *@
         <div class="col-md-3">
-            @*Category*@
+            @* Category *@
             <div class="form-group">
-                <label for="Category">Category</label>
-                <select class="form-control" id="Category">
-                    <option disabled selected value> -- select and option -- </option>
-                    <option>Hearing</option>
-                    <option>Eyesight</option>
-                    <option>Technology</option>
-                    <option>Toys</option>
-                    <option>Communication/Speech</option>
+                <label for="Category"><a data-toggle="tooltip" data-placement="bottom" title="Required">Category *</a></label>
+                <select class="form-control" name="InventoryCategoryId" required>
+                    <option disabled selected> -- select and option -- </option>
+                    <option value="1">Computers and Related Technology</option>
+                    <option value="2">Daily Living</option>
+                    <option value="3">Environmental Adaptations</option>
+                    <option value="4">Hearing</option>
+                    <option value="5">Learing, Cognition, and Development</option>
+                    <option value="6">Mobility, Seating, and Positioning</option>
+                    <option value="7">Recreational, Sports, and Leisure</option>
+                    <option value="8">Speech Communication</option>
+                    <option value="9">Vehicle Mods and Transport</option>
+                    <option value="10">Vision</option>
                 </select>
             </div>
 
-            @*Purchase Date*@
+            @* Purchase Date *@
             <div class="form-group">
-                <label for="PurchaseDate">Purchase Date</label>
-                <Input type="text" class="form-control" id="PurchaseDate">
+                <label for="DatePurchased"><a data-toggle="tooltip" data-placement="bottom" title="Required">Date Purchased *</a></label>
+                <Input type="datetime" class="form-control" name="DatePurchased" placeholder="ex. mm/dd/yyyy" required>
             </div>
 
-            @*Description*@
+            @* Description *@
             <div class="form-group">
                 <label for="Description">Description</label>
-                <textarea rows="4" class="form-control" id="Description"></textarea>
+                <textarea rows="4" class="form-control" name="Description"></textarea>
             </div>
+
+            @* Availability *@
+            <div class="form-group">
+                <label for="Availability"><a data-toggle="tooltip" data-placement="bottom" title="Required">Availability *</a></label>
+                <div class="radio radio-inline">
+                    <label><input type="radio" name="Available" checked="checked"  value="1"/>Yes</label>
+                    <label><input type="radio" name="Available" value="0" />No</label>
+                </div>
+            </div>
+
+            @* Active *@
+            <div class="form-group">
+                <label for="Active">Active</label>
+                    <div class="radio radio-inline">
+                        <label><input type="radio" name="Active" checked="checked" value="1"/>Yes</label>
+                        <label><input type="radio" name="Active" value="0" />No</label>
+                    </div>
+            </div>
+
         </div>
-        
+        @* Third Column *@
         <div class="col-md-2">
-        @*Accessories*@
+        @* Accessories *@
             <div class="form-group">
                 <label for="Accessories">Accessories</label>
-                <textarea rows="4" class="form-control" id="Accessories"></textarea>
+                <textarea rows="4" class="form-control" name="Accessories"></textarea>
+            </div>
+
+        @* Damages *@
+            <div class="form-group">
+                <label for="Damages">Damages</label>
+                <textarea rows="4" class="form-control" name="Damages"></textarea>
             </div>
 
         @*@*Additional Files
@@ -97,9 +140,28 @@
         </div>
     </div>
 
-    
+    @* Buttons: Submit & Cancel *@
+    <div>
+        <br />
+        <br />
+        @* Submit Button *@
+        <button class="btn btn-primary" type="submit">Create Item</button>
+        <br />    
 
-        <div>
-            @Html.ActionLink("Create Item", "NewInventoryItem", null, new { @class = "btn btn-primary" })
-        </div>
-</form>
+
+        @* message displays back to user when there are errors with the login *@
+        @Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning" })  @* Have Not Checked for Accurate Location on web page yet *@
+        <br />
+
+
+        @Html.ActionLink("Cancel Entry", "IndexInventory", "InventoryItem", null, new { @class = "btn btn-warning btn-sm" })
+    </div>
+
+    @* Script for ToolTip *@
+    <script>
+        $(document).ready(function ()
+        {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

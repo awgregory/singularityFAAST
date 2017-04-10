@@ -73,8 +73,21 @@ namespace SingularityFAAST.Services.Services
         {
             IList<Client> allClients = GetAllClients();
 
-            IList<Client> filteredClients = allClients.Where(client =>
-                string.Equals(client.LastName, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            IList<Client> filteredClients = allClients.Where(c => 
+                c.LastName.ToLower().Contains(searchBy.ToLower())).ToList();
+
+            #region Search code options
+            //Can't use StringComparison.OrdinalIgnoreCase in Contains()
+
+            //SO#444798
+            //IList<Client> filteredClients = allClients.Where(c => c.LastName.IndexOf(searchBy, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+
+            //Original
+            //IList<Client> filteredClients = allClients.Where(client =>
+            //    string.Equals(client.LastName, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+            #endregion
+
 
             return filteredClients;
         }
@@ -84,13 +97,13 @@ namespace SingularityFAAST.Services.Services
         {
             IList<Client> allClients = GetAllClients();
 
-            IList<Client> filteredClients = allClients.Where(client =>
-                string.Equals(client.FirstName, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+            IList<Client> filteredClients = allClients.Where(c =>
+                c.FirstName.ToLower().Contains(searchBy.ToLower())).ToList();
 
             return filteredClients;
         }
 
-
+        // Need to implement
         public IEnumerable<LoanMaster> GetLoansByClientId(int id)
         {
             IList<LoanMaster> filteredLoans = GetAllLoanMasters().Where(loan => loan.ClientId == id).ToList();
@@ -103,9 +116,23 @@ namespace SingularityFAAST.Services.Services
         public IList<Client> GetClientById(string searchBy)
         {
             IList<Client> allClients = GetAllClients();
+            IList<Client> filteredClients;
 
-            IList<Client> filteredClients = allClients.Where(client =>
-                client.ClientID == (Convert.ToInt32(searchBy))).ToList();
+            int x = 0;
+
+            if (Int32.TryParse(searchBy, out x))  
+            {
+                filteredClients = allClients.Where(c =>
+                c.ClientID.Equals(x)).ToList();
+            }
+
+            else
+            {
+                filteredClients = allClients.Take(0).ToList();
+            }
+
+            //filteredClients = allClients.Where(client =>
+            //    client.ClientID == (Convert.ToInt32(searchBy))).ToList(); Throws format exception if string entered
 
             return filteredClients;
         }
@@ -114,11 +141,25 @@ namespace SingularityFAAST.Services.Services
         private IList<Client> GetClientByEmail(string searchBy)
         {
             IList<Client> allClients = GetAllClients();
+            IList<Client> filteredClients;
 
-            IList<Client> filteredClients = allClients.Where(client =>
-                string.Equals(client.Email, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+            int x = 0;
+
+            if (Int32.TryParse(searchBy, out x))    
+            {
+                filteredClients = allClients.Take(0).ToList();  // Create fake client 'Invalid Input' to return? 
+            }
+
+            else
+            {
+                filteredClients = allClients.Where(c =>
+                    //c.Email.ToLower().Contains(searchBy.ToLower())).ToList();   Returns NullException
+
+                    string.Equals(c.Email, searchBy, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
 
             return filteredClients;
+
         }
 
 

@@ -12,12 +12,12 @@ CREATE TABLE #tempClients (
     [LastName]			VARCHAR(50)		NOT NULL, 
     [Address1]			VARCHAR(200)	NOT NULL, 
 	[Address2]			VARCHAR(200)	NULL,
-	[StateName]			VARCHAR(30)		NULL, 
+	[StateName]			VARCHAR(30)		NOT NULL, 
     [StateCode]			CHAR(2)			NULL , 
-    [Zip]				VARCHAR(10)		NULL, 
+    [Zip]				VARCHAR(10)		NOT NULL, 
     [County]			VARCHAR(50)		NULL, 
     [CountyFIPS]		CHAR(10)		NULL, 
-    [City]				VARCHAR(50)		NULL,
+    [City]				VARCHAR(50)		NOT NULL,
     [Email]				VARCHAR(100)	NULL, 
     [HomePhone]			VARCHAR(20)		NULL,
 	[CellPhone]			VARCHAR(20)		NULL,
@@ -43,7 +43,11 @@ VALUES
 (1, N'2017-02-01 20:08:26', N'Chad', NULL, N'Stevens', N'1847 Reynolds Dr', NULL, N'Florida', N'FL', N'32256', N'Duval', NULL, N'Jacksonville', NULL, NULL, NULL, NULL, NULL, N'Mr', 0, N'Hearing Disabled', 1, 0),
 (1, N'2017-02-01 20:08:26', N'John', NULL, N'Mack', N'45761 Youmen dr', NULL, N'Florida', N'FL', N'32247', NULL, NULL, N'Jacksonville', NULL, NULL, NULL, NULL, NULL, NULL, 0, N'Blah', 1, 0),
 (1, N'2017-02-01 20:08:26', N'Tom', N'Y', N'Meyers', N'1234 Main St', NULL, N'Florida', N'FL', N'32210', N'Duval', NULL, N'Jacksonville', N'tm@yahoo.com', NULL, N'904-999-9999', NULL, N'Beeline', N'Mr', 0, N'new client', 2, 0),
-(1, N'2016-11-03 00:00:00', N'David', NULL, N'Teske', N'PO Box 909', NULL, N'North Carolina', N'NC', N'28711', N'Davie', N'37059     ', N'Advance', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 2, 0)
+(1, N'2016-11-03 00:00:00', N'David', NULL, N'Teske', N'PO Box 909', NULL, N'North Carolina', N'NC', N'28711', N'Davie', N'37059     ', N'Advance', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 2, 0),
+(1, N'2017-02-01 20:08:26', N'Bob', N'T', N'Welloers', N'1234 Main St', NULL, N'Florida', N'FL', N'32210', N'Duval', NULL, N'Jacksonville', N'tm@yahoo.com', NULL, NULL, NULL, N'Beeline', N'Mr', 0, N'new client', 2, 0),
+(1, N'2017-02-01 20:08:26', N'Test', N'Y', N'Test', N'1234 Main St', NULL, N'Florida', N'FL', N'32210', N'Duval', NULL, N'Jacksonville', N'tm@yahoo.com', NULL, N'904-999-9999', NULL, N'Beeline', N'Mr', 0, N'new client', 2, 0),
+(1, N'2017-02-01 20:08:26', N'Test1', N'Y', N'Test', N'1234 Main St', NULL, N'Florida', N'FL', N'32210', N'Duval', NULL, N'Jacksonville', N'tm@yahoo.com', NULL, N'904-999-9999', NULL, N'Beeline', N'Mr', 0, N'new client', 2, 0)
+
 
 MERGE dbo.Clients AS target
 USING #tempClients AS source
