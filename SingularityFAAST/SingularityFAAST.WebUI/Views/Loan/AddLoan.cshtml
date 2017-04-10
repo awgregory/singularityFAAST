@@ -275,6 +275,32 @@
             </div>
         </div>
     </div>
+
+    <br />
+    <div class="row form-group">
+        <div class="col-md-10">
+            @using (Html.BeginForm("AddTheLoan", "Loan", FormMethod.Post, new { @class = "" }))
+            {
+                @Html.AntiForgeryToken()
+                @* Html Hiddens give us form fields that the model binder will still use, but are hidden from the view *@
+                @* whatever you name id's, names, etc, keep them consistent.
+                    keep in mind the 'name' property on these must match the property names on the C# classes used*@
+
+                @* First parameter will be the name propety - and is what the model binder will use *@
+                @Html.Hidden("ClientId", null, new { id = "clientIdHidden" })
+
+                @*The two checkbox values*@
+                @Html.Hidden("Purpose", null, new { id = "purposeHidden" })
+                @Html.Hidden("PurposeType", null, new { id = "purposeTypeHidden" })
+                <input type="submit" value="Create New Loan" class="btn btn-success" />
+            }
+
+        </div>
+        <div class="col-md-3" style="color: red;" id="submitInfoAlert"></div>
+    </div>
+    <div class="row col-md-3">
+        @Html.ActionLink("Back to Loan List", "Index")
+    </div>
 </div>
 
 

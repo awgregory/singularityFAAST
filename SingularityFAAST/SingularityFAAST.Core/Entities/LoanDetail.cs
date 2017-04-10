@@ -29,7 +29,7 @@ namespace SingularityFAAST.Core.Entities
 
         [Required]
         public string PurposeType { get; set; }
-        
+
 
         public IEnumerable<int> LoanDetailIds { get; set; }
     }
