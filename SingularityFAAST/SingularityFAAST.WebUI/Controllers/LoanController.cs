@@ -88,7 +88,6 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
 
-
         [HttpGet]
         public ActionResult CheckInRenewal(string loanNumber)
         {

@@ -36,19 +36,13 @@
                 {
                     <div class="row">
                         <div class="col-md-4">
-                           
+
                             <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
                             <input type="hidden" value="@item.ClientId" name="ClientId" />
+                            <input type="hidden" value="@item.Purpose" name="Purpose" />
+                            <input type="hidden" value="@item.PurposeType" name="PurposeType" />
                             <input type="hidden" name="InventoryItems[@i].InventoryItemId" value="@item.InventoryItemId" />
-                            @*@Html.Hidden("InventoryItems[" + item + "].InventoryItemId", item.InventoryItemId)*@
                             @{ i++;}
-
-                            @*@{for (var i = 0; i < @Model.Count(); i++)
-                                    {
-                                        <input type="hidden" name="InventoryItems[@i].InventoryItemId" value="@item.InventoryItemId" />
-                                    }  //currently gets the one itemid  3x
-                                }*@
-
 
                             <dl class="dl-horizontal">
                                 <dt>
@@ -78,20 +72,24 @@
 
 
                         @*Damages would not be recorded until item final checkin*@
-
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="damages">Item Damages:</label>
-                                <input type="text" name="Damages" id="damages" />
-                            </div>
-                        </div>
+                        @{
+                            if (item.Availability)
+                            {
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="damages">Item Damages:</label>
+                                        <input type="text" name="Damages" id="damages" />
+                                    </div>
+                                </div>
+                            }
+                        }
                     </div>
                     <br />
-                    //break;
-                }
-                break;
+                                    //break;
+                                }
+                                break;
 
-            }
+                            }
 
         </div>
 
@@ -123,15 +121,17 @@
             </div>
         </div>
         <br />
-
-        <div class="form-group">
-
-            <input type="submit" value="Continue" class="btn btn-primary" />
-
+        <div class="row">
+            <div class="form-group">
+                <input type="submit" value="Continue" class="btn btn-primary" />
+            </div>
+            <div class="form-group">
+                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-primary" })
+            </div>
         </div>
     </div>
 
-                                }
+                            }
 
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

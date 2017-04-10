@@ -113,7 +113,9 @@ namespace SingularityFAAST.Services.Services
                                 Availability = i.Availability,
                                 LastName = c.LastName,
                                 FirstName = c.FirstName,
-                                IsActive = lm.IsActive
+                                IsActive = lm.IsActive,
+                                Purpose = ld.Purpose,
+                                PurposeType = ld.PurposeType
                             };
 
                 return items.ToList();
@@ -519,7 +521,6 @@ namespace SingularityFAAST.Services.Services
 
         public void CreateRenewedLoan(LoansClientsInventoryDTO loanSubmission)
         {
-            //have client id 
             using (var context = new SingularityDBContext())
             {
                 var loanNumIncrement = LoanIncrement();
@@ -536,14 +537,6 @@ namespace SingularityFAAST.Services.Services
                 context.LoanMasters.Add(newLoan);
                 context.SaveChanges();
 
-                //get purpose and purpose type
-                //var purpose = from p in context.LoanMaster
-                                //where p.LoanNumber equals loanSubmission.LoanNumber
-                                //select p.Purpose;
-                //var purposeType = from p in context.LoanMaster
-                                //where p.LoanNumber equals loanSubmission.LoanNumber
-                                //select p.PurposeType;
-
                 LoanDetail[] itemsListed = new LoanDetail[loanSubmission.InventoryItems.Count];
 
                 for (int i = 0; i < itemsListed.Length; i++)
@@ -551,12 +544,12 @@ namespace SingularityFAAST.Services.Services
                     foreach (var itemId in loanSubmission.InventoryItems)
                     {
                         itemsListed[i] = new LoanDetail
-                         {
-                             InventoryItemId = itemId.InventoryItemId,
-                             LoanMasterId = newLoan.LoanMasterId,
-                             Purpose = loanSubmission.Purpose, //purpose,
-                             PurposeType = loanSubmission.PurposeType  //purposeType
-                         };
+                        {
+                            InventoryItemId = itemId.InventoryItemId,
+                            LoanMasterId = newLoan.LoanMasterId,
+                            Purpose = loanSubmission.Purpose,
+                            PurposeType = loanSubmission.PurposeType
+                        };
                         i++;
                     };
                     break;
@@ -570,7 +563,7 @@ namespace SingularityFAAST.Services.Services
 
                 ////Update Inventory Items' Availability
                 var itemIds = GetInventoryItemIdsByLoanNumber(newLoan.LoanNumber);
-                MarkInventoryItemsAsNotAvailable(context, itemIds);  //or does this need to be like context.LoanDetails.AddRange(loanDetailsList);
+                MarkInventoryItemsAsNotAvailable(context, itemIds);  
 
             }
         }

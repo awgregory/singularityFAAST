@@ -69,7 +69,6 @@
                             </th>
                             <th>
                                 Last Name
-                                @*@Html.ActionLink("Loan End Date", "IndexLoan", new { sort = ViewBag.DateSortParm })*@
                             </th>
                         </tr>
                     </thead>
@@ -95,14 +94,14 @@
                                                 <button type="submit" style="float: left"><i class="fa fa-check text-info fa-md"></i></button> @*Check in Entire loan*@
                                             }
                                         }
-                                        @if (item.IsActive)
-                                        {
-                                            using (Html.BeginForm("DeleteLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                        @*@if (item.IsActive)*@
+                                        @*{*@
+                                            @using (Html.BeginForm("DeleteLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                             {
                                                 <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
                                                 <button type="submit"><i class="fa fa-times text-info fa-md text-danger"></i></button> @*View items in Loan*@
                                             }
-                                        }
+                                        @*}*@
                                         @*<button><i>  issue with the first string and size of button
                                                 @Html.ActionLink(" ", "DeleteLoan", new {loanNumber = item.LoanNumber }, new {@class= "fa fa-times text-info fa-md text-danger", style = "float: right;" })
                                             </i></button>*@
