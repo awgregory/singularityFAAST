@@ -65,6 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTransferObjects\CheckInWholeLoanDTO.cs" />
     <Compile Include="DataTransferObjects\LoansClientsInventoryDTO.cs" />
     <Compile Include="DataTransferObjects\ReportInventoryItemCategoryCount.cs" />
     <Compile Include="DataTransferObjects\LoanSubmission.cs" />
@@ -81,6 +82,8 @@
     <Compile Include="SearchRequests\SearchRequest.cs" />
     <Compile Include="ViewModels\Reports\LoanReportViewModel.cs" />
     <Compile Include="ViewModels\EditClientViewModel.cs" />
+    <Compile Include="ViewModels\NewInventoryItemViewModel.cs" />
+    <Compile Include="ViewModels\UpdateInventoryItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

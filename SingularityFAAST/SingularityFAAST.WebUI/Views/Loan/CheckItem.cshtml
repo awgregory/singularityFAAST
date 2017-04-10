@@ -15,7 +15,7 @@
                 {
                     <span class="col-md-1">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
                     <span class="col-md-2">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
-                    <span class="col-md-2">Phone: @Html.DisplayFor(x => item.HomePhone)  </span>
+                    <span class="col-md-2">Phone: @Html.DisplayFor(x => item.CellPhone)  </span>
                     <span class="col-md-3">Email: @Html.DisplayFor(x => item.Email)</span>
                     break; //or will print client for each item in client loan
                 }
@@ -26,13 +26,14 @@
         <div class="row">
             @foreach (var item in Model)
             {
-                <input type="hidden" value="@item.LoanMasterId" name="LoanMasterId" />
+                <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
                 <dl class="dl-horizontal">
                     <dt>
                         Item Number:
                     </dt>
 
                     <dd>
+                        <input type="hidden" value="@item.InventoryItemId" name="InventoryItemId" />
                         @item.InventoryItemId
                     </dd>
                     <dt>
@@ -56,8 +57,12 @@
                     <label for="damages">Item Damages:</label>
                     <input type="text" name="Damages" id="damages" />
                 </div>
+                break;
             }
         </div>
+        <br />
+        
+        <br />
         <br />
         <br />
         <div class="form-group">

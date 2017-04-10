@@ -2,54 +2,68 @@
      
     Hope Haven - FAAST Inventory System
     Jonathan Ebert - 11/22/16*@
+
+@model SingularityFAAST.Core.ViewModels.UpdateInventoryItemViewModel
+
 @{
     ViewBag.Title = "Edit Item";
 }
 
 <h1>Edit Inventory Item</h1>
 
-<form>
+@* ToolTips were added to the form to show the user what is required. *@
+@using (Html.BeginForm())
+{
     <div class="row">
 
         <div class="col-md-3">
             @*Item Name*@
             <div class="form-group">
-                <label for="ItemName">Item Name</label>
-                <Input type="text" class="form-control" id="ItemName">
+                <label for="ItemName"><a data-toggle="tooltip" data-placement="bottom" title="Required">Item Name *</a></label>
+                <Input type="text" class="form-control" name="ItemName" value="@Model.InventoryItems.ItemName" required>
             </div>
 
             @*Inventory Number*@
             <div class="form-group">
                 <label for="InventoryNumber">Inventory Number</label>
-                <Input type="text" class="form-control" id="InventoryNumber">
+                <a data-toggle="tooltip" data-placement="bottom" title="This has been entered for you.">
+                    <Input disabled="disabled" type="text" class="form-control" value="@Model.NextInventoryNumber" name="InventoryNumber">
+                </a>
             </div>
 
             @*Serial Number*@
             <div class="form-group">
-                <label for="ItemNumber">Item Number</label>
-                <Input type="text" class="form-control" id="ItemNumber">
+                <label for="ItemNumber">SerialNumber</label>
+                <Input type="text" class="form-control" name="SerialNumber" value="@Model.InventoryItems.SerialNumber">
             </div>
 
             @*Retail Cost*@
             <div class="form-group">
-                <label for="RetailCost">Retail Cost</label>
-                <Input type="text" class="form-control" id="RetailCost">
+                <label for="RetailCost"><a data-toggle="tooltip" data-placement="bottom" title="Required">Retail Cost *</a></label>
+                <Input type="text" class="form-control" name="RetailCost" placeholder="ex. 100.00" value="@Model.InventoryItems.RetailCost" required>
             </div>
 
             @*Cost Paid*@
             <div class="form-group">
-                <label for="CostPaid">Cost Paid</label>
-                <Input type="text" class="form-control" id="CostPaid">
+                <label for="CostPaid"><a data-toggle="tooltip" data-placement="bottom" title="Required">Cost Paid *</a></label>
+                <Input type="text" class="form-control" name="PricePaid" placeholder="ex. 100.00" value="@Model.InventoryItems.PricePaid" required>
+            </div>
+
+            @*Model Name*@
+            <div class="form-group">
+                <label for="ModelName">Model Name</label>
+                <Input type="text" class="form-control" name="ModelName" value="@Model.InventoryItems.ModelName">
             </div>
 
             @*Location*@
             <div class="form-group">
                 <label for="Location">Location</label>
-                <select class="form-control" id="Location">
-                    <option>Jacksonville</option>
-                    <option>Tampa</option>
+                <select class="form-control" name="Location" value="@Model.InventoryItems.Location">
+                    <option disabled="disabled"> -- select and option --</option>
+                    <option>Northeast Regional Center</option>
+                    @*<option>Tampa</option>
                     <option>Gainesville</option>
-                    <option>Miami</option>
+                    <option>Miami</option>*@
                 </select>
             </div>
         </div>
@@ -57,50 +71,97 @@
         <div class="col-md-3">
             @*Category*@
             <div class="form-group">
-                <label for="Category">Category</label>
-                <select class="form-control" id="Category">
-                    <option disabled selected value> -- select and option -- </option>
-                    <option>Hearing</option>
-                    <option>Eyesight</option>
-                    <option>Technology</option>
-                    <option>Toys</option>
-                    <option>Communication/Speech</option>
+                <label for="Category"><a data-toggle="tooltip" data-placement="bottom" title="Required">Category *</a></label>
+                <select class="form-control" name="InventoryCategoryId" value="@Model.InventoryItems.InventoryCategoryId" required>
+                    <option disabled selected> -- select and option -- </option>
+                    <option value="1">Computers and Related Technology</option>
+                    <option value="2">Daily Living</option>
+                    <option value="3">Environmental Adaptations</option>
+                    <option value="4">Hearing</option>
+                    <option value="5">Learing, Cognition, and Development</option>
+                    <option value="6">Mobility, Seating, and Positioning</option>
+                    <option value="7">Recreational, Sports, and Leisure</option>
+                    <option value="8">Speech Communication</option>
+                    <option value="9">Vehicle Mods and Transport</option>
+                    <option value="10">Vision</option>
                 </select>
             </div>
 
             @*Purchase Date*@
             <div class="form-group">
-                <label for="PurchaseDate">Purchase Date</label>
-                <Input type="text" class="form-control" id="PurchaseDate">
+                <label for="DatePurchased"><a data-toggle="tooltip" data-placement="bottom" title="Required">Date Purchased *</a></label>
+                <Input type="datetime" class="form-control" name="DatePurchased" placeholder="ex. mm/dd/yyyy" value="@Model.InventoryItems.DatePurchased" required>
             </div>
 
             @*Description*@
             <div class="form-group">
                 <label for="Description">Description</label>
-                <textarea rows="4" class="form-control" id="Description"></textarea>
+                <textarea rows="4" class="form-control" name="Description" value="@Model.InventoryItems.Description"></textarea>
             </div>
+
+            @* Availability *@
+            <div class="form-group">
+                <label for="Availability"><a data-toggle="tooltip" data-placement="bottom" title="Required">Availability *</a></label>
+                <div class="radio radio-inline" name="Available" value="@Model.InventoryItems.Availability">
+                    <label><input type="radio" name="Available" id="1" />Yes</label>
+                    <label><input type="radio" name="Available" id="0" />No</label>
+                </div>
+            </div>
+
+            @* Active *@
+            <div class="form-group">
+                <label for="Active">Active</label>
+                <div class="radio radio-inline" name="Active" value="@Model.InventoryItems.Active">
+                    <label><input type="radio" name="Active" id="1" />Yes</label>
+                    <label><input type="radio" name="Active" id="0" />No</label>
+                </div>
+            </div>
+
         </div>
 
         <div class="col-md-2">
             @*Accessories*@
             <div class="form-group">
                 <label for="Accessories">Accessories</label>
-                <textarea rows="4" class="form-control" id="Accessories"></textarea>
+                <textarea rows="4" class="form-control" name="Accessories" value="@Model.InventoryItems.Accessories"></textarea>
             </div>
 
-            @*Additional Files
-    <div class="form-control">
-        <label for ="AdditionalFiles">Additional Files</label>
-    </div>*@
+            @*Damages*@
+            <div class="form-group">
+                <label for="Damages">Damages</label>
+                <textarea rows="4" class="form-control" name="Damages" value="@Model.InventoryItems.Damages"></textarea>
+            </div>
+
+            @*@*Additional Files
+            <div class="form-control">
+                <label for="AdditionalFiles">Additional Files</label>
+            </div>*@
         </div>
     </div>
 
-    
 
     <div>
-        @Html.ActionLink("Update Item", "UpdateInventoryItem", null, new { @class = "btn btn-primary" })
-        <br/>
-        <br/>
-        @Html.ActionLink("Delete Item", "", null, new { @class = "btn btn-danger btn-sm" })
+        <br />
+        @* Submit Form Button *@
+        <button class="btn btn-primary btn-lg" type="submit" name="UpdateItem" >Update Item</button>
+        <br />
+        @* message displays back to user when there are errors with the login *@
+        @Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning" })  @* Have Not Checked for Accurate Location on web page yet *@
+
+        <br />
+        @Html.ActionLink("Cancel Update", "IndexInventory", null, new { @class = "btn btn-warning btn-md" })
+        <br />
+
+        
+        <br />
+        <button class="btn btn-danger btn-sm" type="submit" name="DeleteItem">Delete Item</button>
     </div>
-</form>
+}
+
+@* Script for ToolTip *@
+<script>
+        $(document).ready(function ()
+        {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+</script>

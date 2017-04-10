@@ -13,14 +13,15 @@ namespace SingularityFAAST.WebUI.Controllers
     {
         [AllowAnonymous]
 
-        // GET: Account
+        #region [HttpGet] Display Login Page
         [HttpGet]
         public ActionResult LogIn()
         {
             return View();
         }
+        #endregion
 
-        //A login method
+        #region [HttpPost] Login Method
         [HttpPost]
         public ActionResult LogIn(UserLogIn user, string returnUrl)
         {
@@ -57,12 +58,14 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return View(user);
         }
+        #endregion
 
-        //Log off method
+        #region Log off method
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("LogIn", "Account");
         }
+        #endregion
     }
 }

@@ -63,6 +63,8 @@
     <Folder Include="Scripts" />
     <Folder Include="Scripts\seeds" />
     <Folder Include="Scripts\StoredProcedures" />
+    <Folder Include="Stored Procedures" />
+    <Folder Include="Stored Procedures\Loans" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Clients.sql" />
@@ -80,6 +82,8 @@
     <None Include="Scripts\seeds\seedLoanDetails.sql" />
     <None Include="Scripts\seeds\seedLoanMaster.sql" />
     <Build Include="Scripts\StoredProcedures\InventoryItemCategoryCount.sql" />
+    <Build Include="Stored Procedures\Loans\GetInventoryItemsByLoanNumber.sql" />
+    <Build Include="Stored Procedures\Loans\GetLoanNumberByInventoryItemId.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SingularityDB.refactorlog" />
@@ -91,6 +95,7 @@
     <None Include="Scripts\seeds\SeedClients.sql" />
     <None Include="Scripts\seeds\SeedInventoryItemCategories.sql" />
     <None Include="local.publish.xml" />
+    <None Include="SingularityDB.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
