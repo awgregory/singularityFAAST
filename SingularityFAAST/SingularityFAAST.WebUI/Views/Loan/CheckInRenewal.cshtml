@@ -73,15 +73,13 @@
 
                         @*Damages would not be recorded until item final checkin*@
                         @{
-                            if (item.Availability)
-                            {
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label for="damages">Item Damages:</label>
-                                        <input type="text" name="Damages" id="damages" />
-                                    </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="damages">Item Damages:</label>
+                                    <input type="text" name="Damages" id="damages" />
                                 </div>
-                            }
+                            </div>
+
                         }
                     </div>
                     <br />
@@ -124,8 +122,7 @@
         <div class="row">
             <div class="form-group">
                 <input type="submit" value="Continue" class="btn btn-primary" />
-            </div>
-            <div class="form-group">
+           
                 @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-primary" })
             </div>
         </div>

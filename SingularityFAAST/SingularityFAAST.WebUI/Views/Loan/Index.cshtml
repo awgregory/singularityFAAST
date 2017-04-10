@@ -15,7 +15,7 @@
                 @Html.ActionLink("Create New Loan", "AddLoan", null, new { @class = "btn btn-primary" })
 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                 {
                     <input type="text" class="form-control" id="LName" name="searchby" placeholder="Search Client Last Name" /> @*Search by last name*@
@@ -37,7 +37,7 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-6">
-                <i class="fa fa-search-plus fa-lg"></i> Select any loan to edit, renew or cancel. <br />
+                <i class="fa fa-search-plus fa-lg"></i> Select any loan to view the loan's details, and to edit or renew. <br />
                 <i class="fa fa-check text-info fa-lg"></i> Select any active loan to check-in. <br />
                 <i class="fa fa-times text-info fa-lg text-danger"></i> Select any loan to eliminate it. <br />
                 <br />
@@ -120,7 +120,7 @@
                                     @item.DateCreated.ToString("MMMM dd, yyyy")
                                 </td>
                                 <td>
-                                    @item.DateCreated.AddDays(29).ToString("MMMM dd")
+                                    @item.DateCreated.AddDays(29).ToString("MMMM dd, yyyy")
                                 </td>
                                 <td>
                                     @item.ClientId
@@ -143,7 +143,7 @@
             @*Placeholder - keep empty*@
             @*</div>*@
 
-            <div class="col-md-4">
+            <div class="col-md-3" style="position: fixed; right: 8%;">
                 <div class="sidebar">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -179,7 +179,7 @@
                                                     }
                                                     12-DL-@item.LoanNumber  @*DL is device loan. what is 12?*@
                                                 </td>
-                                                <td>@item.DateCreated.AddDays(29).ToString("MMMM dd")</td>
+                                                <td>@item.DateCreated.AddDays(29).ToString("MMMM dd, yyyy")</td>
                                             </tr>
                                         }
                                     }
