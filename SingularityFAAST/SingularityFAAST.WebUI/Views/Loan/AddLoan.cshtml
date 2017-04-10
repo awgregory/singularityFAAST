@@ -68,7 +68,6 @@
                                 <input type="submit" class="btn btn-primary" name="byName" value='Search' id="clientSearchButton" />
                             </div>
 
-                            @*Need remove client button here*@ @*Currently must reload the page if wanting new client*@
                             <div class="col-md-4  form-inline">
                                 <input type="submit" class="btn btn-primary" id="chooseNewClient" value='Choose Different Client' disabled="disabled" />
                             </div>
@@ -120,7 +119,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h4>Loan Information: </h4>
-                                
+
                                 <div class="col-md-7" id="purpose">
                                     <h5><b>Primary Purpose</b></h5>
                                     <div class="radio">
@@ -171,9 +170,9 @@
 
                                 @*Need remove button*@
                                 @*<div class="col-md-2  form-inline">
-                            <input type="hidden" id="ItemNumber" /> @*foreach this*@
+                                    <input type="hidden" id="ItemNumber" /> @*foreach this*@
                                 @*<input type="submit" class="btn btn-primary" name="byInvName" value='Remove Selected Item' />
-                            </div>*@
+                                    </div>*@
 
                                 @*Error message*@
                                 @*<div class="col-md-3" style="color: red;" id="itemsInfoAlert"></div>*@
@@ -223,24 +222,24 @@
 
             <div class="row form-group">
                 <div class="col-md-10">
-     
-                        @using (Html.BeginForm("AddTheLoan", "Loan", FormMethod.Post, new { @id = "myform" }))
-                        {
 
-                            @* Html Hiddens give us form fields that the model binder will still use, but are hidden from the view *@
-                            @* whatever you name id's, names, etc, keep them consistent.
-                                keep in mind the 'name' property on these must match the property names on the C# classes used*@
+                    @using (Html.BeginForm("AddTheLoan", "Loan", FormMethod.Post, new { @id = "myform" }))
+                    {
 
-                            @* First parameter will be the name propety - and is what the model binder will use *@
-                            @Html.Hidden("ClientId", null, new { id = "clientIdHidden" })
+                        @* Html Hiddens give us form fields that the model binder will still use, but are hidden from the view *@
+                        @* whatever you name id's, names, etc, keep them consistent.
+                            keep in mind the 'name' property on these must match the property names on the C# classes used*@
 
-                            @*The two checkbox values*@
-                            @Html.Hidden("Purpose", null, new { id = "purposeHidden" })
-                            @Html.Hidden("PurposeType", null, new { id = "purposeTypeHidden" })
-                            <input type="submit" value="Create New Loan" class="btn btn-primary" />
+                        @* First parameter will be the name propety - and is what the model binder will use *@
+                        @Html.Hidden("ClientId", null, new { id = "clientIdHidden" })
 
-                        }
-                   
+                        @*The two checkbox values*@
+                        @Html.Hidden("Purpose", null, new { id = "purposeHidden" })
+                        @Html.Hidden("PurposeType", null, new { id = "purposeTypeHidden" })
+                        <input type="submit" value="Create New Loan" class="btn btn-primary" />
+
+                    }
+                    @Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning" })
 
                 </div>
                 <div class="col-md-3" style="color: red;" id="submitInfoAlert"></div>
@@ -275,8 +274,8 @@
             </div>
         </div>
     </div>
+</div>
 
-   
 
 <script>
     //move this externally when functional
