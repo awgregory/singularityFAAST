@@ -43,8 +43,7 @@ VALUES
 (1, N'2017-02-01 20:08:26', N'Chad', NULL, N'Stevens', N'1847 Reynolds Dr', NULL, N'Florida', N'FL', N'32256', N'Duval', NULL, N'Jacksonville', N'jhhhhh@starke.com', NULL, N'333-714-145-5555', NULL, NULL, N'Mr', 0, N'Hearing Disabled', 1, 0),
 (1, N'2017-02-01 20:08:26', N'John', NULL, N'Mack', N'45761 Youmen dr', NULL, N'Florida', N'FL', N'32247', NULL, NULL, N'Jacksonville', N'yyyy@starke.com', NULL, N'714-145-3333', NULL, NULL, NULL, 0, N'Blah', 1, 0),
 (1, N'2017-02-01 20:08:26', N'Tom', N'Y', N'Meyers', N'1234 Main St', NULL, N'Florida', N'FL', N'32210', N'Duval', NULL, N'Jacksonville', N'tm@yahoo.com', NULL, N'904-999-9999', NULL, N'Beeline', N'Mr', 0, N'new client', 2, 0),
-
-(1, N'2016-11-03 00:00:00', N'David', NULL, N'Teske', N'PO Box 909', NULL, N'North Carolina', N'NC', N'28711', N'Davie', N'37059     ', N'Advance', NULL, NULL, N'555-145-7746', NULL, NULL, NULL, 1, NULL, 2, 0)
+(1, N'2016-11-03 00:00:00', N'David', NULL, N'Teske', N'PO Box 909', NULL, N'North Carolina', N'NC', N'28711', N'Davie', N'37059', N'Advance', NULL, NULL, N'555-145-7746', NULL, NULL, NULL, 1, NULL, 2, 0),
 (1, N'2017-02-01 20:08:26', N'Bob', N'T', N'Welloers', N'1234 Main St', NULL, N'Florida', N'FL', N'32210', N'Duval', NULL, N'Jacksonville', N'tm@yahoo.com', NULL, NULL, NULL, N'Beeline', N'Mr', 0, N'new client', 2, 0),
 (1, N'2017-02-01 20:08:26', N'Test', N'Y', N'Test', N'1234 Main St', NULL, N'Florida', N'FL', N'32210', N'Duval', NULL, N'Jacksonville', N'tm@yahoo.com', NULL, N'904-999-9999', NULL, N'Beeline', N'Mr', 0, N'new client', 2, 0),
 (1, N'2017-02-01 20:08:26', N'Test1', N'Y', N'Test', N'1234 Main St', NULL, N'Florida', N'FL', N'32210', N'Duval', NULL, N'Jacksonville', N'tm@yahoo.com', NULL, N'904-999-9999', NULL, N'Beeline', N'Mr', 0, N'new client', 2, 0)

@@ -27,6 +27,7 @@
                         @foreach (var i in Model)
                         {
                             @Html.ActionLink("Cancel Entire Loan", "CancelLn", "Loan", new {loanNumber = @i.LoanNumber}, new {@class = "btn btn-primary"})
+                            break;
                         }
                     </div>
                 </div>
@@ -36,6 +37,7 @@
                         @foreach (var i in Model)
                         {
                             @Html.ActionLink("View Loan Details to Cancel Items", "ViewItems", "Loan", new {loanNumber = @i.LoanNumber}, new {@class = "btn btn-primary"})
+                            break;
                         }
                     </div>
                 </div>
