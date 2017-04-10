@@ -234,10 +234,10 @@ namespace SingularityFAAST.WebUI.Controllers
         //Are either of these used?
         //Single Item
         //1. Displays check-in page with single item
-        public ActionResult CheckItem(LoansClientsInventoryDTO loan)
+        public ActionResult CheckItem(int inventoryItemId)
         {
             //Show single item on load
-            IList<LoansClientsInventoryDTO> model = lm_services.ViewItemsById(loan.InventoryItemId);
+            IList<LoansClientsInventoryDTO> model = lm_services.ViewItemsById(inventoryItemId);
 
             return View(model);
         }
