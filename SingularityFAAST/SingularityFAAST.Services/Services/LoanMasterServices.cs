@@ -595,72 +595,7 @@ namespace SingularityFAAST.Services.Services
         #endregion
 
 
-        //Renews all Items in a loan as a new loan
-        //public void CheckLoan(LoansClientsInventoryDTO loan)  //(LoanSubmission loan)
-        //{
-        //    using (var context = new SingularityDBContext())
-        //    {
-
-        //        var query2 = from item in context.LoanDetails
-        //                     where item.InventoryItemId == loan.InventoryItemId
-        //                     select item;
-
-        //        //Details - may have multiple deets, so for each loan detail, update
-        //        //var query1 = (from itemId in loan.InventoryItemIds
-        //        //                where itemId == loan.InventoryItemId
-        //        //              //select itemId).ToList();
-        //        //              select new LoanDetail
-        //        //              {
-        //        //                  InventoryItemId = itemId,
-        //        //                  ClientOutcome = loan.ClientOutcome,
-        //        //                  Notes = loan.Notes
-        //        //              });
-
-        //        List<LoanDetail> loanDetailsList = query2.ToList();
-        //        foreach (var iItem in loanDetailsList)
-        //        {
-        //            iItem.ClientOutcome = loan.ClientOutcome;
-        //            iItem.Notes = loan.Notes;
-        //        }
-        //        context.SaveChanges();
-
-
-        //        //old, not specific but didn't trigger error
-        //        //IEnumerable <LoanDetail> itemIds = new List<LoanDetail>();
-        //        //foreach (var iItem in itemIds) 
-        //        //{
-        //        //    iItem.ClientOutcome = loan.ClientOutcome;
-        //        //    iItem.Notes = loan.Notes;
-        //        //}
-        //        //context.SaveChanges();
-
-
-        //        ////Inventory - for each item (one item per detail) update these fields:  
-        //        //IEnumerable<InventoryItem> query2 = new List<InventoryItem>();
-        //        //query2 = query2.Select(itemId => itemId.InventoryItemId = loan.InventoryItemIds).ToList();
-
-        //        var inventoryList = (from item in context.InventoryItems where item.InventoryItemId == loan.InventoryItemId select item).ToList();
-        //        foreach (var iItem in inventoryList)
-        //        {
-        //            iItem.Availability = true;
-        //            iItem.Damages = loan.Damages;
-        //        }
-        //        context.SaveChanges();
-
-
-        //        //Master
-        //        //LoanMaster loanM = context.LoanMasters.SingleOrDefault(x => Equals(x.LoanMasterId, loan.LoanMasterId));
-        //        var loanM = (from item in context.LoanMasters where item.LoanMasterId == loan.LoanMasterId select item).ToList();
-        //        foreach (var items in loanM)
-        //        {
-        //            items.IsActive = false;
-        //        }
-        //        context.SaveChanges();
-
-        //    }
-        //}
-
-
+        
 
         #region Edit Loan
 
