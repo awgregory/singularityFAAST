@@ -98,7 +98,7 @@
 
                                         @*@if (item.IsActive)*@
                                         @*{*@
-                                            @using (Html.BeginForm("DeleteLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                            @using (Html.BeginForm("CancelLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                             {
                                                 <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
                                                 <button type="submit"><i class="fa fa-times text-info fa-md text-danger"></i></button> @*View items in Loan*@

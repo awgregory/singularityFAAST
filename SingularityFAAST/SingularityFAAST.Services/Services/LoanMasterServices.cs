@@ -109,9 +109,8 @@ namespace SingularityFAAST.Services.Services
                                 LastName = c.LastName,
                                 FirstName = c.FirstName,
                                 IsActive = lm.IsActive,
-                                ClientId = c.ClientID,
                                 ClientOutcome = lm.ClientOutcome,
-                                Damages = i.Damages
+                                Damages = i.Damages,
                                 Purpose = ld.Purpose,
                                 PurposeType = ld.PurposeType
                             };
@@ -712,16 +711,14 @@ namespace SingularityFAAST.Services.Services
                 context.LoanDetails.AddRange(loanDetailsList);
                 context.SaveChanges();
 
-
-        #endregion
-
-                ////Update Inventory Items' Availability
+                //Update Inventory Items' Availability
                 var itemIds = GetInventoryItemIdsByLoanNumber(newLoan.LoanNumber);
                 MarkInventoryItemsAsNotAvailable(context, itemIds);  
 
             }
         }
 
+        #endregion
 
         #region Unused - SaveAllItems
 
