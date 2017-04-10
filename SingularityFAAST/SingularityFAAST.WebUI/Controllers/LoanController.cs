@@ -103,23 +103,25 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public ActionResult CheckInRenewal(LoansClientsInventoryDTO loan)
         {
-            
+            //
+            //Get the list of inventory items
+
             //1. Close loan, save outcomes, check in items
             lm_services.RenewLoan(loan);
 
             //2. create new loan with new loan object so creates new loan number
 
             // The DTO needs to send all of the data needed here   
-            var submission = new LoanSubmission()
-            {
-                ClientId = loan.ClientId,
-                InventoryItemIds = loan.InventoryItemIds,
-                IsActive = loan.IsActive,
-                Purpose = loan.Purpose,
-                PurposeType = loan.PurposeType
-            };
+            //var submission = new LoansClientsInventoryDTO()
+            //{
+            //    ClientId = loan.ClientId,
+            //    InventoryItemIds = loan.InventoryItemIds,
+            //    IsActive = loan.IsActive,
+            //    Purpose = loan.Purpose,
+            //    PurposeType = loan.PurposeType
+            //};
             
-            lm_services.CreateLoan(submission);
+            lm_services.CreateRenewedLoan(loan);
 
             //3. use id to fill in loan with loan details
 

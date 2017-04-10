@@ -4,89 +4,102 @@
     ViewBag.Title = "CheckInRenewal";
 }
 
-<h3>Enter Outcomes of Prior Loan</h3>
-
+<div class="row">
+    <div class="col-md-4">
+        <h3>Enter Outcomes of Prior Loan</h3>
+    </div>
+</div>
 
 @using (Html.BeginForm("CheckInRenewal", "Loan", FormMethod.Post, new { @class = "" }))
 {
-
-
-    <div>
+    <div class="container-fluid">
         <hr />
         <div class="row">
             <h5>
                 @foreach (var item in Model)
                 {
-                    <span class="col-md-4">Client: @item.FirstName @item.LastName, Loan# @item.LoanNumber</span>
-                   
+                    <span class="col-md-4"><h4>Client: @item.FirstName @item.LastName, Loan# @item.LoanNumber</h4></span>
+
                     break; //or will print client for each item in client loan
                 }
             </h5>
         </div>
         <br />
 
-        
         @*Need to do this section like EditClient for the Disabilities,  OR BYPASS listing?*@
 
-
         <div class="row">
-            @foreach (var item in Model)
+
+            @for (var i = 0; i < @Model.Count(); i++)
             {
+                foreach (var item in Model)
+                {
+                    <div class="row">
+                        <div class="col-md-4">
+                           
+                            <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
+                            <input type="hidden" value="@item.ClientId" name="ClientId" />
+                            <input type="hidden" name="InventoryItems[@i].InventoryItemId" value="@item.InventoryItemId" />
+                            @*@Html.Hidden("InventoryItems[" + item + "].InventoryItemId", item.InventoryItemId)*@
+                            @{ i++;}
 
-                <div class="col-md-4">
-
-                    <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                    <input type="hidden" value="@item.ClientId" name="ClientId" />
-
-                    <dl class="dl-horizontal">
-                        <dt>
-                            Item Number:
-                        </dt>
-
-                        <dd>
-                            @item.InventoryItemId
-                        </dd>
-                        <dt>
-                            Item:
-                        </dt>
-
-                        <dd>
-                            @item.ItemName
-                        </dd>
-
-                        <dt>
-                            End Date:
-                        </dt>
-
-                        <dd>
-                            @item.LoanDate.AddDays(29).ToString("MMMM dd, yyyy")
-                        </dd>
-                    </dl>
-                </div>
+                            @*@{for (var i = 0; i < @Model.Count(); i++)
+                                    {
+                                        <input type="hidden" name="InventoryItems[@i].InventoryItemId" value="@item.InventoryItemId" />
+                                    }  //currently gets the one itemid  3x
+                                }*@
 
 
-                //Damages would not be recorded until item final checkin
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    Item Number:
+                                </dt>
 
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label for="damages">Item Damages:</label>
+                                <dd>
+                                    @item.InventoryItemId
+                                </dd>
+                                <dt>
+                                    Item:
+                                </dt>
 
-                        <input type="text" name="Damages" id="damages" />
+                                <dd>
+                                    @item.ItemName
+                                </dd>
+
+                                <dt>
+                                    End Date:
+                                </dt>
+
+                                <dd>
+                                    @item.LoanDate.AddDays(29).ToString("MMMM dd, yyyy")
+                                </dd>
+                            </dl>
+                        </div>
+
+
+                        @*Damages would not be recorded until item final checkin*@
+
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="damages">Item Damages:</label>
+                                <input type="text" name="Damages" id="damages" />
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <br />
+                    //break;
+                }
+                break;
 
-                //break;
             }
+
         </div>
-
-
-
 
         <br />
 
         <div class="row">
             <div class="col-md-4" id="decision">
-                <h5>Client Outcome</h5>
+                <h5><b>Client Outcome</b></h5>
                 <div class="radio">
                     <label><input type="radio" name="clientOutcome" value="AT will meet needs">AT will meet needs</label>
                 </div>
@@ -108,18 +121,17 @@
                     <input type="text" name="LoanNotes" id="notes" />
                 </div>
             </div>
-            </div>
+        </div>
         <br />
 
-
-
         <div class="form-group">
-            
-                <input type="submit" value="Continue" class="btn btn-primary" />
-            
+
+            <input type="submit" value="Continue" class="btn btn-primary" />
+
         </div>
     </div>
-}
+
+                                }
 
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

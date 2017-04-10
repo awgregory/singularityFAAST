@@ -237,7 +237,7 @@
         <div class="col-md-10">
             @using (Html.BeginForm("AddTheLoan", "Loan", FormMethod.Post, new { @class = "" }))
             {
-
+                @Html.AntiForgeryToken()
                 @* Html Hiddens give us form fields that the model binder will still use, but are hidden from the view *@
                 @* whatever you name id's, names, etc, keep them consistent.
                     keep in mind the 'name' property on these must match the property names on the C# classes used*@

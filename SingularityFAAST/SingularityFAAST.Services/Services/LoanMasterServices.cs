@@ -82,7 +82,7 @@ namespace SingularityFAAST.Services.Services
 
 
         //Gets all Inventory Items
-        public IList<LoansClientsInventoryDTO> GetAllItems()  
+        public IList<LoansClientsInventoryDTO> GetAllItems()
         {
             using (var context = new SingularityDBContext())
             {
@@ -107,7 +107,7 @@ namespace SingularityFAAST.Services.Services
                                 ItemName = i.ItemName,
                                 Manufacturer = i.Manufacturer,
                                 Description = i.Description,
-                                LoanNotes = ld.Notes,
+                                LoanNotes = lm.LoanNotes,
                                 HomePhone = c.HomePhone,
                                 Email = c.Email,
                                 Availability = i.Availability,
@@ -401,13 +401,13 @@ namespace SingularityFAAST.Services.Services
                 var loanNum = loan.LoanNumber;
 
                 //var loanNum = GetLoanNumberByInventoryItemId(inventoryId);
-                var itemIds = GetInventoryItemIdsByLoanNumber(loanNum);  
+                var itemIds = GetInventoryItemIdsByLoanNumber(loanNum);
 
                 //itemIds is IEnumerable<int>
 
                 if (itemIds.Count() > 1)
                 {
-                    var inventoryItemid = loan.InventoryItemId; 
+                    var inventoryItemid = loan.InventoryItemId;
 
                     var itemId = context.InventoryItems.FirstOrDefault(
                         ii => int.Equals(ii.InventoryItemId, inventoryItemid));
@@ -483,12 +483,13 @@ namespace SingularityFAAST.Services.Services
 
 
         //Renews all Items in a loan as a new loan
-        public void RenewLoan(LoansClientsInventoryDTO renewedDTO) 
+        public void RenewLoan(LoansClientsInventoryDTO renewedDTO)
         {
             var loanNumber = renewedDTO.LoanNumber;
 
             using (var context = new SingularityDBContext())
             {
+
                 var loan = context.LoanMasters.FirstOrDefault(
                     lm => string.Equals(lm.LoanNumber, loanNumber));
 
@@ -503,115 +504,116 @@ namespace SingularityFAAST.Services.Services
 
                 context.SaveChanges();
 
-                var itemIds = GetInventoryItemIdsByLoanNumber(loanNumber);
+                foreach (var itemId in renewedDTO.InventoryItems)
+                {
+                    var item = context.InventoryItems.FirstOrDefault(
+                        i => i.InventoryItemId == itemId.InventoryItemId);
 
-                MarkInventoryItemsAsAvailable(context, itemIds);
+                    if (item != null)
+                        item.Availability = true;
 
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public void CreateRenewedLoan(LoansClientsInventoryDTO loanSubmission)
+        {
+            //have client id 
+            using (var context = new SingularityDBContext())
+            {
+                var loanNumIncrement = LoanIncrement();
+
+                var newLoan = new LoanMaster
+                {
+                    ClientId = loanSubmission.ClientId,
+                    DateCreated = DateTime.Now,
+                    LoanNumber = loanNumIncrement,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+
+                context.LoanMasters.Add(newLoan);
+                context.SaveChanges();
+
+                //get purpose and purpose type
+                //var purpose = from p in context.LoanMaster
+                                //where p.LoanNumber equals loanSubmission.LoanNumber
+                                //select p.Purpose;
+                //var purposeType = from p in context.LoanMaster
+                                //where p.LoanNumber equals loanSubmission.LoanNumber
+                                //select p.PurposeType;
+
+                LoanDetail[] itemsListed = new LoanDetail[loanSubmission.InventoryItems.Count];
+
+                for (int i = 0; i < itemsListed.Length; i++)
+                {
+                    foreach (var itemId in loanSubmission.InventoryItems)
+                    {
+                        itemsListed[i] = new LoanDetail
+                         {
+                             InventoryItemId = itemId.InventoryItemId,
+                             LoanMasterId = newLoan.LoanMasterId,
+                             Purpose = loanSubmission.Purpose, //purpose,
+                             PurposeType = loanSubmission.PurposeType  //purposeType
+                         };
+                        i++;
+                    };
+                    break;
+                }
+                List<LoanDetail> loanDetailsList = itemsListed.ToList();
+
+                //now we can add a range of loan details to the loan details table
+                context.LoanDetails.AddRange(loanDetailsList);
+                context.SaveChanges();
+
+
+                ////Update Inventory Items' Availability
+                var itemIds = GetInventoryItemIdsByLoanNumber(newLoan.LoanNumber);
+                MarkInventoryItemsAsNotAvailable(context, itemIds);  //or does this need to be like context.LoanDetails.AddRange(loanDetailsList);
 
             }
         }
-            //    using (var context = new SingularityDBContext())
-            //    {
-
-            //        var query2 = from item in context.LoanDetails
-            //                     where item.InventoryItemId == loan.InventoryItemId
-            //                     select item;
-
-            //        //Details - may have multiple deets, so for each loan detail, update
-            //        //var query1 = (from itemId in loan.InventoryItemIds
-            //        //                where itemId == loan.InventoryItemId
-            //        //              //select itemId).ToList();
-            //        //              select new LoanDetail
-            //        //              {
-            //        //                  InventoryItemId = itemId,
-            //        //                  ClientOutcome = loan.ClientOutcome,
-            //        //                  Notes = loan.Notes
-            //        //              });
-
-            //        List<LoanDetail> loanDetailsList = query2.ToList();
-            //        foreach (var iItem in loanDetailsList)
-            //        {
-            //            iItem.ClientOutcome = loan.ClientOutcome;
-            //            iItem.Notes = loan.Notes;
-            //        }
-            //        context.SaveChanges();
 
 
-            //        //old, not specific but didn't trigger error
-            //        //IEnumerable <LoanDetail> itemIds = new List<LoanDetail>();
-            //        //foreach (var iItem in itemIds) 
-            //        //{
-            //        //    iItem.ClientOutcome = loan.ClientOutcome;
-            //        //    iItem.Notes = loan.Notes;
-            //        //}
-            //        //context.SaveChanges();
+        #region EditItems
+
+        //public void EditLoanDetails(LoanDetail loan)
+        //{
+        //    using (var context = new SingularityDBContext())
+        //    {
+        //        context.LoanDetails.Attach(loan);
+
+        //        var entry = context.Entry(loan);
+
+        //        entry.State = EntityState.Modified;
+
+        //        context.SaveChanges();
+
+        //    }
+        //}
+
+        //public void EditLoanMaster(LoanMaster loan)
+        //{
+        //    using (var context = new SingularityDBContext())
+        //    {
+        //        context.LoanMasters.Attach(loan);
+
+        //        var entry = context.Entry(loan);
+
+        //        entry.State = EntityState.Modified;
+
+        //        context.SaveChanges();
+
+        //    }
+        //}
+        #endregion
 
 
-            //        ////Inventory - for each item (one item per detail) update these fields:  
-            //        //IEnumerable<InventoryItem> query2 = new List<InventoryItem>();
-            //        //query2 = query2.Select(itemId => itemId.InventoryItemId = loan.InventoryItemIds).ToList();
+        #region SaveAllItems
 
-            //        var inventoryList = (from item in context.InventoryItems where item.InventoryItemId == loan.InventoryItemId select item).ToList();
-            //        foreach (var iItem in inventoryList)
-            //        {
-            //            iItem.Availability = true;
-            //            iItem.Damages = loan.Damages;
-            //        }
-            //        context.SaveChanges();
-
-
-            //        //Master
-            //        //LoanMaster loanM = context.LoanMasters.SingleOrDefault(x => Equals(x.LoanMasterId, loan.LoanMasterId));
-            //        var loanM = (from item in context.LoanMasters where item.LoanMasterId == loan.LoanMasterId select item).ToList();
-            //        foreach (var items in loanM)
-            //        {
-            //            items.IsActive = false;
-            //        }
-            //        context.SaveChanges();
-
-            //    }
-            //}
-
-
-
-            #region EditItems
-
-            //public void EditLoanDetails(LoanDetail loan)
-            //{
-            //    using (var context = new SingularityDBContext())
-            //    {
-            //        context.LoanDetails.Attach(loan);
-
-            //        var entry = context.Entry(loan);
-
-            //        entry.State = EntityState.Modified;
-
-            //        context.SaveChanges();
-
-            //    }
-            //}
-
-            //public void EditLoanMaster(LoanMaster loan)
-            //{
-            //    using (var context = new SingularityDBContext())
-            //    {
-            //        context.LoanMasters.Attach(loan);
-
-            //        var entry = context.Entry(loan);
-
-            //        entry.State = EntityState.Modified;
-
-            //        context.SaveChanges();
-
-            //    }
-            //}
-            #endregion
-
-
-            #region SaveAllItems
-
-            //Renews all Items in a loan as a new loan
-            public void SaveAllItemsAsNewLoan(LoansClientsInventoryDTO loan)  //(LoanSubmission loan)
+        //Renews all Items in a loan as a new loan
+        public void SaveAllItemsAsNewLoan(LoansClientsInventoryDTO loan)  //(LoanSubmission loan)
         {
             using (var context = new SingularityDBContext())
             {
