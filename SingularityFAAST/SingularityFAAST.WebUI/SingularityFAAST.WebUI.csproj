@@ -163,17 +163,14 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\Reports\ReportRange.js" />
+    
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -182,6 +179,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryItemController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,8 +193,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\InventoryItem\IndexInventory.cshtml" />
     <Content Include="Views\InventoryItem\NewInventoryItem.cshtml" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\InventoryItem\ViewAllOnLoanInv.cshtml" />
     <Content Include="Views\InventoryItem\ViewAllAvailableInv.cshtml" />
     <Content Include="Views\InventoryItem\UpdateInventoryItem.cshtml" />
@@ -212,6 +208,9 @@
     <Content Include="Views\Loan\AddLoan.cshtml" />
     <Content Include="Views\Loan\CheckItem.cshtml" />
     <Content Include="Views\Client\EditClient.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\LoanReports.cshtml" />
+    <Content Include="Views\Report\ClientReport.cshtml" />
     <Content Include="Scripts\jquery-ui-1.12.1.custom\package.json" />
     <Content Include="Views\Loan\CheckInRenewal.cshtml" />
     <None Include="Web.Debug.config">

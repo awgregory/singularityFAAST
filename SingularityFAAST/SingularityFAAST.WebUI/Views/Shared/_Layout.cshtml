@@ -1,4 +1,4 @@
-﻿@using SingularityFAAST.WebUI.Controllers
+@using SingularityFAAST.WebUI.Controllers
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +31,7 @@
                 @Html.ActionLink("Clients", "Index", "Client", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Loans", "Index", "Loan", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Inventory", "IndexInventory", "InventoryItem", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Reports", "IndexReport", "Report", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Reports", "Index", "Report", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 @*needs to be reactive to log in credentials*@
