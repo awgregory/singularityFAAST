@@ -68,7 +68,7 @@ namespace SingularityFAAST.Services.Services
             {
                 IList<InventoryItem> allitems = GetAllInventory(); //gets full list of inventory items from db
 
-                IList<InventoryItem> AvailableItems = allitems.Where(item => item.Availability = true).ToList(); //filters out items which have an availability of True (or 1)
+                IList<InventoryItem> AvailableItems = allitems.Where(item => item.Availability == true).ToList(); //filters out items which have an availability of True (or 1)
 
                 return AvailableItems;
             }
