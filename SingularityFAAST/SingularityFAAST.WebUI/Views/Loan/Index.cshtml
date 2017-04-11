@@ -15,7 +15,7 @@
                 @Html.ActionLink("Create New Loan", "AddLoan", null, new { @class = "btn btn-primary" })
 
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                 {
                     <input type="text" class="form-control" id="LName" name="searchby" placeholder="Search Client Last Name" /> @*Search by last name*@

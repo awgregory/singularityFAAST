@@ -634,7 +634,7 @@ namespace SingularityFAAST.Services.Services
         }
 #endregion
       
-  #region Renew Loan
+        #region Renew Loan
         //Renews all Items in a loan as a new loan
         public void RenewLoan(LoansClientsInventoryDTO renewedDTO)
         {
@@ -694,14 +694,17 @@ namespace SingularityFAAST.Services.Services
                 {
                     foreach (var itemId in loanSubmission.InventoryItems)
                     {
-                        itemsListed[i] = new LoanDetail
-                        {
-                            InventoryItemId = itemId.InventoryItemId,
-                            LoanMasterId = newLoan.LoanMasterId,
-                            Purpose = loanSubmission.Purpose,
-                            PurposeType = loanSubmission.PurposeType
-                        };
-                        i++;
+                        //if (loanSubmission.Availability)
+                        //{
+                            itemsListed[i] = new LoanDetail
+                            {
+                                InventoryItemId = itemId.InventoryItemId,
+                                LoanMasterId = newLoan.LoanMasterId,
+                                Purpose = loanSubmission.Purpose,
+                                PurposeType = loanSubmission.PurposeType
+                            };
+                            i++;
+                        //};
                     };
                     break;
                 }

@@ -63,11 +63,11 @@
         //set error message to blank
     });
 
-    chooseNewClientButton.on('click', function() {
+    chooseNewClientButton.on('click', function () {
         $("#clientSearchButton").prop('disabled', false);
         $("#clientSearchInput").prop('disabled', false);
         $('#cName').text('');
-        });
+    });
 
 
     //$("input:radio[name=purp]").on('click', updatecheckboxesThreeCategories);
@@ -118,11 +118,30 @@
 
         if (!chosenInventoryId) //if variable doesn't mean anything: we are invalid/error
             return; //safely exit doing nothing
+        //Update the info panel
 
         if (itemIds) {
             for (var i = 0; i < itemIds.length; i++) {
-                if (chosenInventoryId == itemIds[i]) {
-                    $('#itemsInfoAlert').text('Item can be added only once.')
+                if (chosenInventoryId == itemIds[i]) {  //if item being added is the same as an item in the itemIds array (would've been added below)...
+
+                    //$('#itemsInfoAlert').text('Item can be added only once.')
+                    //$('#iItems').text('');  //emptys entire div
+
+                    //remove from itemids array
+                    itemIds.splice($.inArray(chosenInventoryId, itemIds), 1);
+
+                    //remove from infoPanel the div with the item id 
+                    //$("#iItems .chosenInventoryId h5").remove();
+
+                    //var elem = document.getElementById(".chosenInventoryId");
+                    //elem.remove();
+                    //console.log(elem)
+
+                    $(".chosenInventoryId").remove();
+                    
+                    
+                    //make null
+                    chosenInventoryId = null;
                     return;
                 }
             }
@@ -136,9 +155,9 @@
         itemIds.push(chosenInventoryId); //TODO: create separate function that handles this logic
         console.log(itemIds);
 
-        //Update the info panel
+        ////Update the info panel
         var infoPanel = $('#iItems');
-        infoPanel.append('<h5>Item #' + chosenInventoryId + '</h5>');
+        infoPanel.append('<div class = "' + chosenInventoryId + '"><h5>Item #' + chosenInventoryId + '</h5></div>');
     }
 
 
@@ -229,7 +248,7 @@
                 table.append(
                     '<tr>' +
                     //'<td>' +
-                    '<td>' + '<input type="button" class="btn btn-primary" name="addCButton" value="Add" data-client-id="' + results[i].ClientID + '"' + '</input>' + '</td>' + //add
+                    '<td>' + '<input type="button" class="btn btn-primary form-control" name="addCButton" value="Add" data-client-id="' + results[i].ClientID + '"' + '</input>' + '</td>' + //add
                         //'<input type="radio" name="radioClientId" data-client-id="' + results[i].ClientID + '"' +  //+results[i].FirstName + ' ' + results[i].LastName + '"' +
                         //'</input>' +
                     //'</td>' + //select box -- we will have jquery grab each checkbox created, and put a function on it
@@ -274,7 +293,7 @@
                 table.append(
                     '<tr>' +
                     //'<td>' +
-                    '<td>' + '<input type="button" class="btn btn-primary" name="addInvButton" value="Add" data-inventory-id="' + results[i].InventoryItemId + '"' + '</input>' + '</td>' + //add
+                    '<td>' + '<input type="button" class="btn btn-primary form-control" name="addInvButton" value="Add" data-inventory-id="' + results[i].InventoryItemId + '"' + '</input>' + '</td>' + //add
                         //'<input type="radio" name="radioInventoryId" data-inventory-id="' + results[i].InventoryItemId + '"' +  //results[i].ItemName + '"' +   //checkbox
                         //'</input>' +
                     //'</td>' + //select box -- we will have jquery grab each checkbox created, and put a function on it
@@ -295,8 +314,8 @@
         //$("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   //checkbox
 
         $("input:button[name=addInvButton]").on('click', updateInventoryIdFormValue);
-        $("input:button[name=addInvButton]").on('click', function () { $(this).css('background', 'green') });
-        $("input:button[name=addInvButton]").on('click', function () { $(this).val('Added') });
+        $("input:button[name=addInvButton]").on('click', function () { $(this).toggleClass("btn-primary btn-danger") });
+        $("input:button[name=addInvButton]").on('click', function () { $(this).val(function (i, v) { return v === 'Add' ? 'Remove' : 'Add' }) });
 
         //Submit - add inventoryItemIds before submission
         $("form")
@@ -315,16 +334,6 @@
                     }
                 }
                 updatecheckboxesThreeCategories()
-                //if ($('#clientIdHidden').val().trim().length == null || itemIds == null) {
-                //    ($('#submitInfoAlert').text("Client and items are required."))
-                //    return;
-                //}
-
-                //find name of primary purpose decision Radio Buttons
-
-                //ensure something is checked
-
-                //if none checked pop alert / PREVENT form submission
             })
 
     }

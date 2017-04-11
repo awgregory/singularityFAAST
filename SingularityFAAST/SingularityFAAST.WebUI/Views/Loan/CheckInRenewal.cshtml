@@ -3,7 +3,12 @@
 @{
     ViewBag.Title = "CheckInRenewal";
 }
-
+<br/>
+<div class="row">
+    <div class="col-md-7">
+        <p><i>Please confirm all items are available for renewal before completing this form.</i></p>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-4">
         <h3>Enter Outcomes of Prior Loan</h3>
@@ -82,7 +87,7 @@
 
                         }
                     </div>
-                    <br />
+                            <br />
                                     //break;
                                 }
                                 break;
@@ -122,7 +127,7 @@
         <div class="row">
             <div class="form-group">
                 <input type="submit" value="Continue" class="btn btn-primary" />
-           
+
                 @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-primary" })
             </div>
         </div>
