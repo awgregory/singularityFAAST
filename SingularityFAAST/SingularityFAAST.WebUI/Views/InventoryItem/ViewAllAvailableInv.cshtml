@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SingularityFAAST.Core.Entities.InventoryItem>
+﻿@model SingularityFAAST.Core.ViewModels.ItemIndexViewModel
 
 @*View All Inventory Available
      -shows ONLY those inventory items that are currently Available
@@ -107,7 +107,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var inventoryItem in Model)
+                @foreach (var inventoryItem in Model.InventoryItems)
                 {
                     <tr>
                         <td>@inventoryItem.InventoryItemId</td>
@@ -124,6 +124,11 @@
                 }
             </tbody>
         </table>
+
+        <div>
+            @Html.PageLinks(Model.PagingInfo, x => Url.Action("IndexInventory", new { page = x }))
+        </div>
+
     </div>
 
     </div>

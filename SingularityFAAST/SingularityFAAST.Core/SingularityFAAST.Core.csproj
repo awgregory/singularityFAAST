@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="DataTransferObjects\LoansClientsInventoryDTO.cs" />
     <Compile Include="DataTransferObjects\LoanSubmission.cs" />
+    <Compile Include="DataTransferObjects\PagingInfo.cs" />
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\ClientCategory.cs" />
     <Compile Include="Entities\ClientDisability.cs" />
@@ -80,11 +81,15 @@
     <Compile Include="SearchRequests\SearchRequest.cs" />
     <Compile Include="ViewModels\ClientIndexViewModel.cs" />
     <Compile Include="ViewModels\EditClientViewModel.cs" />
+    <Compile Include="ViewModels\ItemIndexViewModel.cs" />
     <Compile Include="ViewModels\NewInventoryItemViewModel.cs" />
     <Compile Include="ViewModels\UpdateInventoryItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enums\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SingularityFAAST.Core.Entities.InventoryItem>
+﻿@model SingularityFAAST.Core.ViewModels.ItemIndexViewModel  
 
 @*Inventory Home page
      -Homepage for all Inventory actions
@@ -103,7 +103,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach (var inventoryItem in Model)
+                @foreach (var inventoryItem in Model.InventoryItems)
                 {
                          <tr>
                             <td>@inventoryItem.InventoryItemId</td>
@@ -120,6 +120,10 @@
                 }
                 </tbody>
             </table>
+
+            <div>
+                @Html.PageLinks(Model.PagingInfo, x => Url.Action("IndexInventory", new { page = x }))
+            </div>
         </div>
     </div>
 </div>
