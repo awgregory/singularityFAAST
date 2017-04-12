@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<SingularityFAAST.Core.Entities.Client>
+@model SingularityFAAST.Core.ViewModels.ClientIndexViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -75,7 +75,7 @@
                         <th>Last Name</th>
                         <th>Cell Phone</th>
                         <th>Home Phone</th>
-                        <th>@Html.DisplayNameFor(model => model.Email)</th>  @*Usage comparison*@
+                        <th>Email</th>  
                         <th>Category</th>
                         <th>Notes</th>
                         <th>View/Edit</th>  @*To make th width match data*@
@@ -83,27 +83,33 @@
                     </tr>
                 </thead>
 
-
-                @foreach (var item in Model)
-                {
-                    if (item.IsDeleted == false)
+                <tbody>
+                    @foreach (var item in Model.Clients)
                     {
-                        <tr>
-                            <td>@item.FirstName</td>
-                            <td>@item.LastName</td>
-                            <td>@item.CellPhone</td>
-                            <td>@item.HomePhone</td>
-                            <td>@item.Email</td>
-                            <td>@item.ClientCategoryName</td>
-                            <td>@item.Notes</td>
+                        if (item.IsDeleted == false)
+                        {
+                            <tr>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@item.CellPhone</td>
+                                <td>@item.HomePhone</td>
+                                <td>@item.Email</td>
+                                <td>@item.ClientCategoryName</td>
+                                <td>@item.Notes</td>
 
-                            <td>@Html.ActionLink("View/Edit", "EditClient", new { id = item.ClientID })</td>
-                            <td>@Html.ActionLink("Delete", "Delete", new { id = item.ClientID })</td>
-                        </tr>
+                                <td>@Html.ActionLink("View/Edit", "EditClient", new { id = item.ClientID })</td>
+                                <td>@Html.ActionLink("Delete", "Delete", new { id = item.ClientID })</td>
+                            </tr>
+                        }
                     }
-                }
-
+                </tbody>
             </table>
+
+            <div>
+                @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+            </div>
+
+
         </div>
     </div>
 </div>

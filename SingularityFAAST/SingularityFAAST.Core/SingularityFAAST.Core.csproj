@@ -78,6 +78,7 @@
     <Compile Include="Entities\UserLogIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchRequests\SearchRequest.cs" />
+    <Compile Include="ViewModels\ClientIndexViewModel.cs" />
     <Compile Include="ViewModels\EditClientViewModel.cs" />
     <Compile Include="ViewModels\NewInventoryItemViewModel.cs" />
     <Compile Include="ViewModels\UpdateInventoryItemViewModel.cs" />
