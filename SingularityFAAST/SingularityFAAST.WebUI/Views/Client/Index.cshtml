@@ -71,10 +71,10 @@
             <table class="table table-striped table-responsive table-hover">
                 <thead>
                     <tr>
+                        <th>Client Number</th>
                         <th>First Name</th>
                         <th>Last Name</th>
-                        <th>Cell Phone</th>
-                        <th>Home Phone</th>
+                        <th>Primary Phone</th>
                         <th>Email</th>  
                         <th>Category</th>
                         <th>Notes</th>
@@ -89,10 +89,10 @@
                         if (item.IsDeleted == false)
                         {
                             <tr>
+                                <td>@item.ClientID</td>
                                 <td>@item.FirstName</td>
                                 <td>@item.LastName</td>
                                 <td>@item.CellPhone</td>
-                                <td>@item.HomePhone</td>
                                 <td>@item.Email</td>
                                 <td>@item.ClientCategoryName</td>
                                 <td>@item.Notes</td>

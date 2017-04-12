@@ -51,20 +51,10 @@ namespace SingularityFAAST.WebUI.Controllers
             return View(model);
         }
 
-        // NULL Case
-        //if (string.IsNullOrWhiteSpace(searchRequest.SearchByName))
-        //{
-
-        //    IList<Client> model = _clientServices.GetAllClients();
-
-        //    return View(model);
-        //}
-
 
 
 
         //  Returns Add New Client Page
-
         public ViewResult AddClient()
         {
             return View();
@@ -78,26 +68,26 @@ namespace SingularityFAAST.WebUI.Controllers
         {
             _clientServices.SaveClient(client);
 
-            #region ModelStateValidation
-            //if (ModelState.IsValid)
-            //{
-            //    _clientServices.SaveClient(client);
-
-            //    //Need a Saved Ack here
-            //}
-
-            //else
-            //{
-            //    ModelState.AddModelError("", "Please Enter All Required Information");
-
-            //    return RedirectToAction("AddClient", "Client");
-            //}
-            #endregion
 
 
             return RedirectToAction("Index", "Client");
         }
 
+        #region ModelStateValidation
+        //if (ModelState.IsValid)
+        //{
+        //    _clientServices.SaveClient(client);
+
+        //    //Need a Saved Ack here
+        //}
+
+        //else
+        //{
+        //    ModelState.AddModelError("", "Please Enter All Required Information");
+
+        //    return RedirectToAction("AddClient", "Client");
+        //}
+        #endregion
 
 
 
@@ -106,15 +96,15 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpGet]
         public ActionResult EditClient(int id)
         {
-            var client = _clientServices.GetClientDetails(id); //gets the Client Object and populates it's DisabilityIds Property using a Linq query
+            var client = _clientServices.GetClientDetails(id); 
 
-            var disabilityList = _clientServices.GetAllDisabilities(); //gets list of all DisabilityCategory Objects
+            var disabilityList = _clientServices.GetAllDisabilities(); 
 
-            IEnumerable<LoanMaster> associatedLoans = _clientServices.GetLoansByClientId(id); //GETS LOANS
+            IEnumerable<LoanMaster> associatedLoans = _clientServices.GetLoansByClientId(id); 
 
             var viewModel = new EditClientViewModel(client, disabilityList, associatedLoans);
 
-            return View(viewModel);  //Passes the DisabilityIds to view from within the Client Object within the viewModel
+            return View(viewModel); 
         }
 
 
