@@ -1,9 +1,8 @@
-﻿using SingularityFAAST.Core.Entities;
-using System;
+﻿using SingularityFAAST.Core.DataTransferObjects;
+using SingularityFAAST.Core.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+
 
 namespace SingularityFAAST.Core.ViewModels
 {

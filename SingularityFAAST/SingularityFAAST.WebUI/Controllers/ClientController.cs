@@ -5,6 +5,7 @@ using SingularityFAAST.Services.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using SingularityFAAST.Core.DataTransferObjects;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
@@ -13,6 +14,7 @@ namespace SingularityFAAST.WebUI.Controllers
     {
         private readonly ClientServices _clientServices = new ClientServices();
         private readonly int _pageSize = 5;
+
 
         //  Returns Index View
         [HttpGet]
@@ -36,7 +38,7 @@ namespace SingularityFAAST.WebUI.Controllers
                 }
             };
 
-            return View(allClients);
+            return View(viewModel);
         }
 
 
