@@ -3,30 +3,48 @@ using SingularityFAAST.Core.SearchRequests;
 using SingularityFAAST.Core.ViewModels;
 using SingularityFAAST.Services.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using SingularityFAAST.Core.DataTransferObjects;
 
 namespace SingularityFAAST.WebUI.Controllers
 {
     [Authorize]
     public class ClientController : Controller
     {
-
         private readonly ClientServices _clientServices = new ClientServices();
+        private readonly int _pageSize = 5;
 
 
         //  Returns Index View
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            IList<Client> model = _clientServices.GetAllClients();
+            IList<Client> allClients = _clientServices.GetAllClients();
 
-            return View(model);
+            var list = allClients
+                .OrderBy(item => item.ClientID)
+                .Skip((page - 1) * _pageSize)
+                .Take(_pageSize);
+
+            var viewModel = new ClientIndexViewModel
+            {
+                Clients = list,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = allClients.Count
+                }
+            };
+
+            return View(viewModel);
         }
 
 
         //  Search Function
         [HttpPost]
-        public ActionResult Index(SearchRequest searchRequest)
+        public ActionResult Index(SearchRequest searchRequest) // Create client 'No Match'
         {
             IList<Client> model = _clientServices.HandlesSearchRequest(searchRequest);
 
