@@ -61,6 +61,10 @@ namespace SingularityFAAST.WebUI.Controllers
         //  Returns Add New Client Page
         public ViewResult AddClient()
         {
+            int nextClientId = _clientServices.ReturnNextClientNumber();
+
+            ViewBag.nextClientId = nextClientId;
+
             return View();
         }
         #endregion

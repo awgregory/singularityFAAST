@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "AddClient";
+
 }
 
 <h2>Add New Client</h2>
@@ -22,12 +23,10 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(client => client.ClientID, "Client Number (will be assigned)")
-                @*<label for="ClientID">Client Number</label>*@
-                <a data-toggle="tooltip" data-placement="bottom" title="Client Number will populate when saved">
-                    <Input disabled="disabled" type="text" name="ClientID" class="form-control" >
+                @Html.LabelFor(client => client.ClientID, "Client Number")
+                <a data-toggle="tooltip" data-placement="bottom" title="Client Number not official until Client has been successfully added">
+                    <Input disabled="disabled" value="@ViewBag.nextClientId" type="text" name="ClientID" class="form-control">
                 </a>
-                
             </div>
         </div>
     </div>
@@ -37,7 +36,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.FirstName, "First Name *")
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required ="required", maxlength = "50" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required = "required", maxlength = "50" })
             </div>
         </div>
 
@@ -111,7 +110,12 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.CountyFIPS, "CountyFIPS *")
-                @Html.TextBoxFor(m => m.CountyFIPS, new { @class = "form-control", maxlength = "10" })
+                <a data-toggle="tooltip" data-placement="bottom" 
+                   title="The FIPS county code is a five-digit Federal Information Processing Standards (FIPS) 
+                   code which uniquely identifies counties and county equivalents in the United States,
+                   certain U.S. possessions, and certain freely associated states.">
+                    @Html.TextBoxFor(m => m.CountyFIPS, new { @class = "form-control", maxlength = "10" })
+                </a>
             </div>
         </div>
 
@@ -186,14 +190,14 @@
                     <label class="form-check-label">
                         <input class="form-check-input" type="radio" name="LoanEligibility" value="False"> False
                     </label>
-                </div> 
+                </div>
             </div>
 
 
             @*<div class="form-group">
-                @Html.LabelFor(client => client.LoanEligibility, "Eligible for Loan? (Default is true)")
-                @Html.TextBoxFor(m => m.LoanEligibility, new { @class = "form-control" })
-            </div>*@
+                    @Html.LabelFor(client => client.LoanEligibility, "Eligible for Loan? (Default is true)")
+                    @Html.TextBoxFor(m => m.LoanEligibility, new { @class = "form-control" })
+                </div>*@
 
         </div>
 
@@ -217,10 +221,10 @@
 
 
         <div class="col-md-4">
-            
+
             <label>Disabilities</label>
             <br />
-           
+
 
             <div class="form-check">
                 <label class="form-check-label">
@@ -263,9 +267,9 @@
                     No Impairment
                 </label>
             </div>
-       
 
-           
+
+
 
             <div class="form-check">
                 <label class="form-check-label">
@@ -329,7 +333,7 @@
     </div>
 
 
-        <br />
+    <br />
 
         <div class="text-left">
             <input class="btn btn-primary" type="submit" value="Add Client" />
@@ -345,7 +349,7 @@
 
 <br />
 @* message displays back to user when there are errors with the login *@
-@Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning" }) 
+@Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning" })
 
 
 

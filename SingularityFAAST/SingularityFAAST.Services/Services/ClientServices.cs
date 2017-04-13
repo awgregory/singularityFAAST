@@ -248,8 +248,6 @@ namespace SingularityFAAST.Services.Services
         #endregion
 
 
-
-
         #region EditClientDetails - For the EditClient Post Method
         //Update existing client info
         public void EditClientDetails(Client client, IEnumerable<int> DisabilityIds)
@@ -319,6 +317,41 @@ namespace SingularityFAAST.Services.Services
         }
 
         #endregion
+
+
+
+        #region ReturnNextClientNumber
+        //Used for AddClient Get Method to pre-populate the Client Number
+  
+        public int ReturnNextClientNumber()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                //var items = context.Clients;
+
+                int ClientID;
+
+                IList<Client> allClients = GetAllClients();
+
+                var itemCount = allClients.Count;
+                //need to add a segment that actually checks the id # of the last item
+                //  --> This proposed fix should fix any un-aligned numbers
+
+              
+                if (allClients.Count > 0)
+                {
+                    ClientID = itemCount + 1;                   
+                }
+                else
+                {
+                    ClientID = 1;
+                }
+
+                return ClientID;
+            }
+        }
+        #endregion
+
 
     }
 }
