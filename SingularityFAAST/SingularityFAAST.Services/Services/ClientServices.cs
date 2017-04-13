@@ -74,7 +74,7 @@ namespace SingularityFAAST.Services.Services
 
 
 
-        public IList<Client> GetClientByLastName(string searchBy)   //currenlty being used to call other service directly 
+        public List<Client> GetClientByLastName(string searchBy)   
         {
             IList<Client> allClients = GetAllClients();
 
@@ -83,9 +83,9 @@ namespace SingularityFAAST.Services.Services
                 c.LastName.ToLower().Contains(searchBy.ToLower())).ToList();
 
 
-            filteredClients.AddRange(GetClientByFirstName(searchBy));
+            //filteredClients.AddRange(GetClientByFirstName(searchBy));
 
-            filteredClients.AddRange(GetClientByEmail(searchBy));
+            //filteredClients.AddRange(GetClientByEmail(searchBy));
 
             return filteredClients;
         }
@@ -117,11 +117,12 @@ namespace SingularityFAAST.Services.Services
 
 
 
-
+        //Default Search Method
         public IList<Client> GetClientById(string searchBy)
         {
             IList<Client> allClients = GetAllClients();
-            IList<Client> filteredClients;
+
+            List<Client> filteredClients;
 
             int x = 0;
 
@@ -133,11 +134,19 @@ namespace SingularityFAAST.Services.Services
 
             else
             {
-                filteredClients = allClients.Take(0).ToList();
+                filteredClients = GetClientByLastName(searchBy);
+
+                filteredClients.AddRange(GetClientByFirstName(searchBy));
+
+                filteredClients.AddRange(GetClientByEmail(searchBy));
+
+                //filteredClients = allClients.Take(0).ToList();
             }
 
+            //This Threw format exception if string entered
             //filteredClients = allClients.Where(client =>
-            //    client.ClientID == (Convert.ToInt32(searchBy))).ToList(); Throws format exception if string entered
+            //    client.ClientID == (Convert.ToInt32(searchBy))).ToList(); 
+
 
             return filteredClients;
         }

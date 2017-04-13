@@ -49,9 +49,20 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public ActionResult Index(SearchRequest searchRequest) // Create client 'No Match'
         {
-            IList<Client> model = _clientServices.HandlesSearchRequest(searchRequest);
+            IList<Client> searchMatches = _clientServices.HandlesSearchRequest(searchRequest);
 
-            return View(model);
+            var viewModel = new ClientIndexViewModel
+            {
+                Clients = searchMatches,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = 1,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = searchMatches.Count
+                }
+            };
+
+            return View(viewModel);
         }
 
         #endregion
