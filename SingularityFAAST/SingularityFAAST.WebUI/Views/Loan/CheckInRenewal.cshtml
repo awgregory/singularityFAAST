@@ -1,0 +1,137 @@
+﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+
+@{
+    ViewBag.Title = "CheckInRenewal";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <h3>Enter Outcomes of Prior Loan</h3>
+    </div>
+</div>
+
+@using (Html.BeginForm("CheckInRenewal", "Loan", FormMethod.Post, new { @class = "" }))
+{
+    <div class="container-fluid">
+        <hr />
+        <div class="row">
+            <h5>
+                @foreach (var item in Model)
+                {
+                    <span class="col-md-4"><h4>Client: @item.FirstName @item.LastName, Loan# @item.LoanNumber</h4></span>
+
+                    break; //or will print client for each item in client loan
+                }
+            </h5>
+        </div>
+        <br />
+
+        @*Need to do this section like EditClient for the Disabilities,  OR BYPASS listing?*@
+
+        <div class="row">
+
+            @for (var i = 0; i < @Model.Count(); i++)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
+                            <input type="hidden" value="@item.ClientId" name="ClientId" />
+                            <input type="hidden" value="@item.Purpose" name="Purpose" />
+                            <input type="hidden" value="@item.PurposeType" name="PurposeType" />
+                            <input type="hidden" name="InventoryItems[@i].InventoryItemId" value="@item.InventoryItemId" />
+                            @{ i++;}
+
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    Item Number:
+                                </dt>
+
+                                <dd>
+                                    @item.InventoryItemId
+                                </dd>
+                                <dt>
+                                    Item:
+                                </dt>
+
+                                <dd>
+                                    @item.ItemName
+                                </dd>
+
+                                <dt>
+                                    End Date:
+                                </dt>
+
+                                <dd>
+                                    @item.LoanDate.AddDays(29).ToString("MMMM dd, yyyy")
+                                </dd>
+                            </dl>
+                        </div>
+
+
+                        @*Damages would not be recorded until item final checkin*@
+                        @{
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="damages">Item Damages:</label>
+                                    <input type="text" name="Damages" id="damages" />
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                    <br />
+                                    //break;
+                                }
+                                break;
+
+                            }
+
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-md-4" id="decision">
+                <h5><b>Client Outcome</b></h5>
+                <div class="radio">
+                    <label><input type="radio" name="clientOutcome" value="AT will meet needs">AT will meet needs</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="clientOutcome" value="Non-Respondant">Non-Respondant</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="clientOutcome" value="No decision made">No decision made</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="clientOutcome" value="AT will not meet needs">AT will not meet needs</label>
+                </div>
+            </div>
+
+
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="notes">Loan Notes:</label>
+                    <input type="text" name="LoanNotes" id="notes" />
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="form-group">
+                <input type="submit" value="Continue" class="btn btn-primary" />
+           
+                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+
+                            }
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

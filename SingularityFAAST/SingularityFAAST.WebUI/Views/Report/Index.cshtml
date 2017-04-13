@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+    //TODO
+    var beginDateString = DateTime.UtcNow.AddDays(-28).ToString("yyyy-MM-dd");
+    var endDateString = DateTime.UtcNow.ToString("yyyy-MM-dd");
+}
+
+
+<h2>Reports</h2>
+
+<br />
+
+@using (Html.BeginForm("ReportFilter", "Report", FormMethod.Post))
+{
+    <h4 class="has-error" id="error-text" style="color: red; display: none;">Error: Please Enter Valid Dates</h4>
+    <h3>Enter Report Range</h3>
+    <div>
+        Start Date: <input type="date" name="StartDate" id="startDate" value="@(beginDateString)" />     
+        End Date: <input type="date" name="EndDate" id="endDate" value="@endDateString" />
+    </div>
+
+    <br />
+
+    <h3>Choose Report Type</h3>
+    <div>
+        <input type="radio" name="ReportType" value="1" checked="checked"/> Loans Report <br />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary" id="submitLoanReport">Submit</button>
+
+    
+
+    <script src="~/Scripts/Reports/ReportRange.js"></script>
+}
+

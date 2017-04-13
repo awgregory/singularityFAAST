@@ -33,6 +33,10 @@
     var itemSearchButton = $('#itemSearchButton');
     var itemSearchInput = $('#itemSearchInput');
 
+    var itemRemoveButton = $('#itemRemoveButton');
+    var itemRemoveInput = $('#itemRemoveInput');
+
+    var chooseNewClientButton = $('#chooseNewClient');
 
     //endregion
 
@@ -54,6 +58,18 @@
         $('#itemsInfoAlert').text('')
     });
 
+    itemRemoveButton.on('click', function () {
+        removeItemFromLoan(itemRemoveInput.val())
+        //set error message to blank
+    });
+
+    chooseNewClientButton.on('click', function() {
+        $("#clientSearchButton").prop('disabled', false);
+        $("#clientSearchInput").prop('disabled', false);
+        $('#cName').text('');
+        });
+
+
     //$("input:radio[name=purp]").on('click', updatecheckboxesThreeCategories);
     //$("input:radio[name=ppda]").on('click', updatecheckboxesThreeCategories);
     //endregion
@@ -67,11 +83,12 @@
         //var clientName = chosenClientId1.replace(/[0-9]/g);  //removes the digits     
         //var chosenClientId = chosenClientId1.replace(/\D/g, '');  //removes the alphas
 
-        if ($('#clientIdHidden').val().trim().length > 0) {
-            console.log('one client already entered')
-            $('#clientInfoAlert').text('Only one client can be chosen.')  //' Please remove first client by using the Remove Selected Client button.')  //this will never need to happen. Must reload page for different client
-            chosenClientId = null
-        }
+        //this was removed to allow for different client to be chosen
+        //if ($('#clientIdHidden').val().trim().length > 0) {
+        //    console.log('one client already entered')
+        //    $('#clientInfoAlert').text('Only one client can be chosen.')  //' Please remove first client by using the Remove Selected Client button.')  //this will never need to happen. Must reload page for different client
+        //    chosenClientId = null
+        //}
 
         if (!chosenClientId) //if variable doesn't mean anything: we are invalid/error
             return; //safely exit doing nothing
@@ -102,6 +119,15 @@
         if (!chosenInventoryId) //if variable doesn't mean anything: we are invalid/error
             return; //safely exit doing nothing
 
+        if (itemIds) {
+            for (var i = 0; i < itemIds.length; i++) {
+                if (chosenInventoryId == itemIds[i]) {
+                    $('#itemsInfoAlert').text('Item can be added only once.')
+                    return;
+                }
+            }
+        }
+
         console.log('item id chosen: ' + chosenInventoryId);
 
         //set the hidden form input's value to the inventoryId extracted from the click event
@@ -128,7 +154,7 @@
         $('#purposeTypeHidden').val(purposeTypeDropdown);
         console.log(purposeDropdown);
         console.log(purposeTypeDropdown);
-        
+
     }
 
 
@@ -166,24 +192,23 @@
         })
     }
 
+    function removeItemFromLoan(sendThis) {
+        var pathToControllerMethod = "/Loan/DeleteIteminEdit/";  //change to CancelItem
+        var methodArguments = "?searchString=" + sendThis;
 
-    
-    //Autocomplete
-    //function log(message) {
-    //    $("<div>").text(message).prependTo("#log");
-    //    $("#log").scrollTop(0);
-    //}
-
-    //$("#clientSearchInput").autocomplete({
-    //    source: "/Loan/SearchInventory/" + "?searchString=" + sendThis,  //how do I pass in the value when this is not in its own function?  Then use the .json example from jquery ui
-    //    minLength: 2,
-    //    //select: function( event, ui ) {
-    //    //    log( "Selected: " + ui.item.value + " aka " + ui.item.id );
-    //    //}
-    //});
+        $.ajax({
+            url: pathToControllerMethod + methodArguments,
+            success: function () {
+                return;
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
 
 
-        
+    //function removeItemFromLoanTable - click on x takes to here, that loads fake client table
 
 
     function buildFakeClientTable(results) {
@@ -211,7 +236,7 @@
                     '<td>' + results[i].ClientID + '</td>' + //client id
                     '<td>' + results[i].FirstName + '</td>' + //first name
                     '<td>' + results[i].LastName + '</td>' + //last name
-                    '<td>' + results[i].HomePhone + '</td>' + //home phone
+                    '<td>' + results[i].CellPhone + '</td>' + //home phone
                     '<td>' + results[i].Email + '</td>' + //email
                     '<td>' + results[i].LoanEligibilty + '</td>' + //eligibility -- will need a ToString() version 
                     '</tr>'
@@ -222,10 +247,19 @@
         }
         //once table is built, do we have valid markup to attach to -- assign the functions here!
         //$("input:radio[name=radioClientId]").on('click', updateClientIdFormValue);
-        $("input:button[name=addCButton]").on('click', updateClientIdFormValue);   //, function(){$(this).css('color: gray')});
+
+        $("input:button[name=addCButton]").on('click', updateClientIdFormValue);
+        $("input:button[name=addCButton]").on('click',
+            function () {
+                $(this).css('background', 'green');
+                $("input:button[name=addCButton]").prop('disabled', true);
+                $("#clientSearchButton").prop('disabled', true);
+                $("#clientSearchInput").prop('disabled', true);
+                $("#chooseNewClient").prop('disabled', false);
+            });
+        $("input:button[name=addCButton]").on('click', function () { $(this).val('Added') });
+
     }
-
-
 
     function buildInventoryTable(results) {
         //jQuery reference of table
@@ -236,7 +270,7 @@
         //step 2: check if there's any info at all to build a table out of
         if (results.length > 0) {
             //build a row for each result - string gore ahead
-            for (var i = 0; i < results.length; i++) {        //results.length     
+            for (var i = 0; i < results.length; i++) {        //results.length 
                 table.append(
                     '<tr>' +
                     //'<td>' +
@@ -261,10 +295,12 @@
         //$("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   //checkbox
 
         $("input:button[name=addInvButton]").on('click', updateInventoryIdFormValue);
+        $("input:button[name=addInvButton]").on('click', function () { $(this).css('background', 'green') });
+        $("input:button[name=addInvButton]").on('click', function () { $(this).val('Added') });
 
         //Submit - add inventoryItemIds before submission
         $("form")
-            .submit(function(e) {
+            .submit(function (e) {
                 //validate inventoryId array
                 //debugger;
                 if (itemIds) {
@@ -283,8 +319,14 @@
                 //    ($('#submitInfoAlert').text("Client and items are required."))
                 //    return;
                 //}
+
+                //find name of primary purpose decision Radio Buttons
+
+                //ensure something is checked
+
+                //if none checked pop alert / PREVENT form submission
             })
-        
+
     }
 
     //endregion
