@@ -85,7 +85,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.StateName, "State Name")
-                @Html.TextBoxFor(m => m.StateName, new { @class = "form-control", required = "required", maxlength = "30" })
+                @Html.TextBoxFor(m => m.StateName, new { @class = "form-control", maxlength = "30" })
             </div>
         </div>
 
@@ -114,7 +114,7 @@
                    title="The FIPS county code is a five-digit Federal Information Processing Standards (FIPS) 
                    code which uniquely identifies counties and county equivalents in the United States,
                    certain U.S. possessions, and certain freely associated states.">
-                    @Html.TextBoxFor(m => m.CountyFIPS, new { @class = "form-control", maxlength = "10" })
+                    @Html.TextBoxFor(m => m.CountyFIPS, new { @class = "form-control", required = "required", maxlength = "10" })
                 </a>
             </div>
         </div>
@@ -139,7 +139,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(client => client.CellPhone, "Primary Phone *")
-                @Html.TextBoxFor(m => m.CellPhone, new { @class = "form-control", maxlength = "20" })
+                @Html.TextBoxFor(m => m.CellPhone, new { @class = "form-control", required = "required", maxlength = "20" })
             </div>
         </div>
 
