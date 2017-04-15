@@ -16,7 +16,7 @@
     <div class="col-md-12">
         
         @*@Html.ActionLink("Renew Entire Loan", "RenewLn", null, new {@class = "btn btn-primary"})*@ @*Currently, this creates a new loan for the month.*@
-        @using (Html.BeginForm("RenewLn", "Loan", FormMethod.Post, new {@class = "form-inline col-md-1"}))
+        @using (Html.BeginForm("RenewLn", "Loan", FormMethod.Post, new {@class = "form-inline col-md-2"}))
          {
              foreach (var i in Model)
              {
@@ -136,11 +136,11 @@
                                     }
 
                                     @*Renew Item (this creates new loan with just this item)*@
-                                    @using (Html.BeginForm("RenewItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                    @*@using (Html.BeginForm("RenewItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                     {
                                         <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
                                         <button type="submit" name="viewButton" value="2"><i class="fa fa-refresh fa-lg text-success"></i></button> @*renew item (create new loan)*@
-                                    }
+                                    }*@
                                 </div>
                             </td>
                             <td>

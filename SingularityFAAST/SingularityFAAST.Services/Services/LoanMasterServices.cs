@@ -49,7 +49,7 @@ namespace SingularityFAAST.Services.Services
             using (var context = new SingularityDBContext())
             {
                 //Get all Loans in DB
-                var loans = from c in context.Clients  //LINQ Query Syntax form, end with Select instead of starting with it
+                var loans = from c in context.Clients  
                             join l in context.LoanMasters
                             on c.ClientID equals l.ClientId
                             where l.IsDeleted == false

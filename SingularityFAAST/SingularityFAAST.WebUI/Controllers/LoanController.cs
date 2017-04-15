@@ -60,7 +60,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //This is the page with the inventory items list in a loan
         [HttpPost]
-        public ActionResult ViewItems(string loanNumber) //loanNumber
+        public ActionResult ViewItems(string loanNumber)  //because this is POST, need to somehow pass loan number, for Client Edit and item renewal/delete/checkin
         {
             IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);
 
@@ -254,6 +254,8 @@ namespace SingularityFAAST.WebUI.Controllers
         
         #endregion
 
+
+
         #region Delete Loan - Mark entirely deleted
 
         //route to "are you sure?" page
@@ -276,13 +278,14 @@ namespace SingularityFAAST.WebUI.Controllers
 
         
         #region Delete Single Item - actually removes it from loan, no record left of its addition
-        //[HttpPost]
+        [HttpPost]
         public ActionResult CancelItem(LoansClientsInventoryDTO loan)  
         {
             //process delete here, return to ViewItems
             var loanNum = (lm_services.RemoveSingleItemFromLoanByLoanNumber(loan.InventoryItemId)).ToString();
-            //return RedirectToAction("ViewItems", "Loan", new {id = loanNum});
-            return RedirectToAction("Index");
+            //Session["LoanNumber"] = loan.LoanNumber;
+            return RedirectToAction("ViewItems", "Loan", new {id = loanNum});
+            //return RedirectToAction("Index");
         }
 
         #endregion

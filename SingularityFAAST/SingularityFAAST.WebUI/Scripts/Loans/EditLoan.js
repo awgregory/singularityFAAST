@@ -43,8 +43,26 @@
 
         if (itemIds) {
             for (var i = 0; i < itemIds.length; i++) {
-                if (chosenInventoryId == itemIds[i]) {
-                    $('#itemsInfoAlert').text('Item can be added only once.')
+                if (chosenInventoryId == itemIds[i]) {  //if item being added is the same as an item in the itemIds array (would've been added below)...
+
+                    //$('#itemsInfoAlert').text('Item can be added only once.')
+                    //$('#iItems').text('');  //emptys entire div
+
+                    //remove from itemids array
+                    itemIds.splice($.inArray(chosenInventoryId, itemIds), 1);
+
+                    //remove from infoPanel the div with the item id 
+                    //$("#iItems .chosenInventoryId h5").remove();
+
+                    //var elem = document.getElementById(".chosenInventoryId");
+                    //elem.remove();
+                    //console.log(elem)
+
+                    $(".chosenInventoryId").remove();
+
+
+                    //make null
+                    chosenInventoryId = null;
                     return;
                 }
             }
@@ -166,8 +184,8 @@
         //$("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   
 
         $("input:button[name=addInvButton]").on('click', updateInventoryIdFormValue);
-        $("input:button[name=addInvButton]").on('click', function () { $(this).css('background', 'green') });
-        $("input:button[name=addInvButton]").on('click', function () { $(this).val('Added') });
+        $("input:button[name=addInvButton]").on('click', function () { $(this).toggleClass("btn-primary btn-danger") });
+        $("input:button[name=addInvButton]").on('click', function () { $(this).val(function (i, v) { return v === 'Add' ? 'Remove' : 'Add' }) });
 
         //Submit - add inventoryItemIds before submission
         $("form")
