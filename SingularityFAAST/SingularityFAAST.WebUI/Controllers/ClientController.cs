@@ -13,7 +13,7 @@ namespace SingularityFAAST.WebUI.Controllers
     public class ClientController : Controller
     {
         private readonly ClientServices _clientServices = new ClientServices();
-        private readonly int _pageSize = 5;
+        private readonly int _pageSize = 25;
 
 
         #region Index Get Method - With Paging Logic
@@ -86,33 +86,38 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpPost]
         public RedirectToRouteResult AddClient(Client client)
         {
-            _clientServices.SaveClient(client);
+            //_clientServices.SaveClient(client);
+
+            //return RedirectToAction("Index", "Client");
+            
+            #region ModelStateValidation
+
+            if (ModelState.IsValid)
+            {
+                _clientServices.SaveClient(client);
 
 
 
-            return RedirectToAction("Index", "Client");
+                return RedirectToAction("Index", "Client");
+
+                //Need a Saved Ack here
+            }
+
+            else
+            {
+                ModelState.AddModelError("", "Please Enter All Required Information");
+
+                return RedirectToAction("AddClient", "Client");
+            }
+            #endregion
+
         }
 
-        #region ModelStateValidation
-        //if (ModelState.IsValid)
-        //{
-        //    _clientServices.SaveClient(client);
-
-        //    //Need a Saved Ack here
-        //}
-
-        //else
-        //{
-        //    ModelState.AddModelError("", "Please Enter All Required Information");
-
-        //    return RedirectToAction("AddClient", "Client");
-        //}
-        #endregion
 
         #endregion
 
 
-        
+
 
 
         #region EditClient Get Method
