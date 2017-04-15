@@ -57,10 +57,8 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         #region View Items in Loan
-
-        //This is the page with the inventory items list in a loan
-        [HttpPost]
-        public ActionResult ViewItems(string loanNumber) //loanNumber
+        [HttpGet]
+        public ActionResult ViewItems(string loanNumber)
         {
             IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);
 
@@ -71,6 +69,20 @@ namespace SingularityFAAST.WebUI.Controllers
             //IList<LoansClientsInventoryDTO> model = lm_services.removeItem(viewButton);   Not worked out yet
             return View(model);
         }
+
+        //This is the page with the inventory items list in a loan
+        //[HttpPost]
+        //public ActionResult ViewItems(string loanNumber) //loanNumber
+        //{
+        //    IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);
+
+        //    //testing email
+        //    //lm_services.NotifyEmail(loanNumber);
+
+        //    //Remove Item will also show this page:
+        //    //IList<LoansClientsInventoryDTO> model = lm_services.removeItem(viewButton);   Not worked out yet
+        //    return View(model);
+        //}
 
         #endregion
 
