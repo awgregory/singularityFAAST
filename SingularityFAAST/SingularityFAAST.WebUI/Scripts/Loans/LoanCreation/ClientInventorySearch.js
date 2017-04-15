@@ -336,6 +336,19 @@
                 e.preventDefault();
                 return;
             }
+
+            if (itemIds) {
+                //var hiddenInput = $("input[name='InventoryItemIds']");
+                //hiddenInput.val(itemIds);
+                for (var i = 0; i < itemIds.length; i++) {
+                    $('<input />')
+                        .attr('type', 'hidden')
+                        .attr('name', 'InventoryItemIds[' + i + ']')
+                        .attr('value', itemIds[i])
+                        .appendTo("form");
+                }
+            }
+            updatecheckboxesThreeCategories()
         });
 
         function isLoanValid() {
