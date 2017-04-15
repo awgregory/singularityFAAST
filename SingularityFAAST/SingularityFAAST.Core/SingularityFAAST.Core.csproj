@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="DataTransferObjects\CheckInWholeLoanDTO.cs" />
     <Compile Include="DataTransferObjects\LoansClientsInventoryDTO.cs" />
-    <Compile Include="DataTransferObjects\ReportClientList.cs" />
     <Compile Include="DataTransferObjects\ReportInventoryItemCategoryCount.cs" />
     <Compile Include="DataTransferObjects\LoanSubmission.cs" />
     <Compile Include="Entities\Client.cs" />

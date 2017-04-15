@@ -69,7 +69,7 @@ namespace SingularityFAAST.WebUI.Controllers
         //todo client reports
         public ActionResult ClientReport(DateTime startDate, DateTime endDate)
         {
-            LoanReportViewModel model = _reportingServices.CreateLoanReportViewModel(startDate, endDate);
+            ClientReportViewModel model = _reportingServices.CreateClientReportViewModel();
 
             return View(model);
         }

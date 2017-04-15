@@ -104,7 +104,9 @@ namespace SingularityFAAST.Services.Services
             {
                 var viewModel = new ClientReportViewModel();
 
-                
+                var clients = context.Clients.ToList();
+
+                viewModel.clientList = clients;
 
                 return viewModel;
             }

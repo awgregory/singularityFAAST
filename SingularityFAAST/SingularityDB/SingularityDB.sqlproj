@@ -84,7 +84,6 @@
     <Build Include="Scripts\StoredProcedures\InventoryItemCategoryCount.sql" />
     <Build Include="Stored Procedures\Loans\GetInventoryItemsByLoanNumber.sql" />
     <Build Include="Stored Procedures\Loans\GetLoanNumberByInventoryItemId.sql" />
-    <Build Include="Scripts\StoredProcedures\CreateClientList.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SingularityDB.refactorlog" />

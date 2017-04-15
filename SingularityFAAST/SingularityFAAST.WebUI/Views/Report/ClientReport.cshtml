@@ -1,16 +1,9 @@
 ﻿@model SingularityFAAST.Core.ViewModels.Reports.ClientReportViewModel
 
 @{
-    Layout = null;
+   
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
 
 <body>
     
@@ -27,6 +20,15 @@
                     </tr>
                 </thead>
             <tbody>
+                @foreach (var client in Model.clientList)
+                {
+                    <tr>
+                        <td>@client.FirstName</td>
+                        <td>@client.LastName</td>
+                        <td>@client.Email</td>
+                        <td>@client.CellPhone</td>
+                    </tr>
+                }
                 
             </tbody>
         </table>
@@ -34,4 +36,4 @@
     
 
 </body>
-</html>
+

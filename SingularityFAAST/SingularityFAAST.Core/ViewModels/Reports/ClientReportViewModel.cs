@@ -1,4 +1,5 @@
 ﻿using SingularityFAAST.Core.DataTransferObjects;
+using SingularityFAAST.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,6 @@ namespace SingularityFAAST.Core.ViewModels.Reports
 {
     public class ClientReportViewModel
     {
-        public IList<ReportClientList> clientList { get; set; }
+        public IList<Client> clientList { get; set; }
     }
 }
