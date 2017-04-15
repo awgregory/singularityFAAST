@@ -57,10 +57,8 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         #region View Items in Loan
-
-        //This is the page with the inventory items list in a loan
-        [HttpPost]
-        public ActionResult ViewItems(string loanNumber)  //because this is POST, need to somehow pass loan number, for Client Edit and item renewal/delete/checkin
+        [HttpGet]
+        public ActionResult ViewItems(string loanNumber)
         {
             IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);
 
@@ -71,6 +69,20 @@ namespace SingularityFAAST.WebUI.Controllers
             //IList<LoansClientsInventoryDTO> model = lm_services.removeItem(viewButton);   Not worked out yet
             return View(model);
         }
+
+        //This is the page with the inventory items list in a loan
+        //[HttpPost]
+        //public ActionResult ViewItems(string loanNumber) //loanNumber
+        //{
+        //    IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);
+
+        //    //testing email
+        //    //lm_services.NotifyEmail(loanNumber);
+
+        //    //Remove Item will also show this page:
+        //    //IList<LoansClientsInventoryDTO> model = lm_services.removeItem(viewButton);   Not worked out yet
+        //    return View(model);
+        //}
 
         #endregion
 
@@ -254,8 +266,6 @@ namespace SingularityFAAST.WebUI.Controllers
         
         #endregion
 
-
-
         #region Delete Loan - Mark entirely deleted
 
         //route to "are you sure?" page
@@ -278,14 +288,13 @@ namespace SingularityFAAST.WebUI.Controllers
 
         
         #region Delete Single Item - actually removes it from loan, no record left of its addition
-        [HttpPost]
+        //[HttpPost]
         public ActionResult CancelItem(LoansClientsInventoryDTO loan)  
         {
             //process delete here, return to ViewItems
             var loanNum = (lm_services.RemoveSingleItemFromLoanByLoanNumber(loan.InventoryItemId)).ToString();
-            //Session["LoanNumber"] = loan.LoanNumber;
-            return RedirectToAction("ViewItems", "Loan", new {id = loanNum});
-            //return RedirectToAction("Index");
+            //return RedirectToAction("ViewItems", "Loan", new {id = loanNum});
+            return RedirectToAction("Index");
         }
 
         #endregion
