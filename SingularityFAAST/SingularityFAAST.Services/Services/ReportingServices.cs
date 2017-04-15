@@ -95,5 +95,20 @@ namespace SingularityFAAST.Services.Services
             }
             
         }
+
+        // Create a new service that will pass the values of the Client View Model to the Client report which will show 
+        // All of the clients along with their email and phone number
+        public ClientReportViewModel CreateClientReportViewModel()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var viewModel = new ClientReportViewModel();
+
+                
+
+                return viewModel;
+            }
+        }
     }
+    
 }
