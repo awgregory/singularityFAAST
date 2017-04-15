@@ -86,8 +86,8 @@
                                             <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
                                             <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan
                                         }*@
-                                        @Html.ActionLink("+", "ViewItems", new {loanNumber = @item.LoanNumber})
-
+                                        @Html.ActionLink("", "ViewItems", new {loanNumber = @item.LoanNumber, @class = "fa fa-search-plus text-info fa-md", style = "float: left;" })
+                                        
                                         @if (item.IsActive)
                                         {
                                             using (Html.BeginForm("CheckIn", "Loan", FormMethod.Post, new { @class = "form-inline" }))
