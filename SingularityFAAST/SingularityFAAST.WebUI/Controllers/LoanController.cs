@@ -65,10 +65,11 @@ namespace SingularityFAAST.WebUI.Controllers
             //testing email
             //lm_services.NotifyEmail(loanNumber);
 
-            //Remove Item will also show this page:
-            //IList<LoansClientsInventoryDTO> model = lm_services.removeItem(viewButton);   Not worked out yet
             return View(model);
         }
+
+        #endregion
+
 
         //This is the page with the inventory items list in a loan
         //[HttpPost]
@@ -84,14 +85,11 @@ namespace SingularityFAAST.WebUI.Controllers
         //    return View(model);
         //}
 
-        #endregion
-
-
-
+            
 
         #region Renew
 
-        
+
         public ActionResult RenewLn(LoansClientsInventoryDTO loan)
         {
             IList<LoansClientsInventoryDTO> allItems = lm_services.GetAllItems();
@@ -167,8 +165,7 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
         #endregion
-
-
+        
 
 
         #region Edit
@@ -202,8 +199,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
         #endregion
 
-
-
+        
 
         #region Check In
 
@@ -255,13 +251,13 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
         //Single Item
-        //2. Executes single item checkin, routes back to Index 
+        //2. Executes single item checkin, routes back to ViewItems page 
         public ActionResult CheckItemIn(LoansClientsInventoryDTO loan)
         {
             //Check in single item
             lm_services.CheckInLoanInventoryItem(loan);
 
-            return RedirectToAction("Index", "Loan");
+            return RedirectToAction("ViewItems", "Loan", new { @LoanNumber = loan.LoanNumber });
         }
         
         #endregion
@@ -293,8 +289,8 @@ namespace SingularityFAAST.WebUI.Controllers
         {
             //process delete here, return to ViewItems
             var loanNum = (lm_services.RemoveSingleItemFromLoanByLoanNumber(loan.InventoryItemId)).ToString();
-            //return RedirectToAction("ViewItems", "Loan", new {id = loanNum});
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewItems", "Loan", new {LoanNumber = loanNum});
+            //return RedirectToAction("Index");
         }
 
         #endregion

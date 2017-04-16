@@ -56,201 +56,200 @@
             </b>
 
             <hr />
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4>Select Client: </h4>
-                <div class="row">
-                    <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Select Client: </h4>
+                    <div class="row">
+                        <div class="col-md-12">
 
-                        @*search for client by last name, select*@
-                        <div class="col-md-5 form-inline">
-                            <input type="text" class="form-control" id="clientSearchInput" name="searchby" placeholder="Search Client Last Name" /> @*Search by last name*@
-                            <input type="submit" class="btn btn-primary" name="byName" value='Search' id="clientSearchButton" />
-                        </div>
+                            @*search for client by last name, select*@
+                            <div class="col-md-5 form-inline">
+                                <input type="text" class="form-control" id="clientSearchInput" name="searchby" placeholder="Search Client Last Name" /> @*Search by last name*@
+                                <input type="submit" class="btn btn-primary" name="byName" value='Search' id="clientSearchButton" />
+                            </div>
 
-                        <div class="col-md-4  form-inline">
-                            <input type="submit" class="btn btn-primary" id="chooseNewClient" value='Choose Different Client' disabled="disabled" />
-                        </div>
+                            <div class="col-md-3  form-inline">
+                                <input type="submit" class="btn btn-primary" id="chooseNewClient" value='Choose Different Client' disabled="disabled" />
+                            </div>
 
-                        @*Error message
+                            @*Error message
                                 @*<div class="col-md-3" style="color: red;" id="clientInfoAlert"></div>*@
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-striped table-hover table-condensed"
-                               id="clientSearchTable">
-                            <thead>
-                            <tr>
-                                <th>
-                                    Select
-                                </th>
-                                <th>
-                                    Client ID
-                                </th>
-                                <th>
-                                    Client First Name
-                                </th>
-                                <th>
-                                    Client Last Name
-                                </th>
-                                <th>
-                                    Phone
-                                </th>
-                                <th>
-                                    Email
-                                </th>
-                                <th>
-                                    Eligibility
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-    <div id="sectionTwo">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>Loan Information: </h4>
-
-                        <div class="col-md-7" id="purpose">
-                            <h5><b>Primary Purpose</b></h5>
-                            <div class="radio">
-                                <label class="form-check-label"><input type="radio" class="purp-group form-check-input" id="A" name="purp" value="Assist in decision making (device trial or evaluation" checked>Assist in decision making (device trial or evaluation)</label>
-                            </div>
-                            <div class="radio">
-                                <label class="form-check-label"><input type="radio" class="purp-group form-check-input" id="B" name="purp" value="Provide an accomodation on a short-term basis">Provide an accomodation on a short-term basis</label>
-                            </div>
-                            <div class="radio">
-                                <label class="form-check-label"><input type="radio" class="purp-group form-check-input" id="C" name="purp" value="Conduct training, self-education or other professional development activity">Conduct training, self-education or other professional development activity</label>
-                            </div>
-                            <div class="radio">
-                                <label class="form-check-label"><input type="radio" class="purp-group form-check-input" id="D" name="purp" value="Serve as Loaner during Device Repair or while waiting for funding">Serve as Loaner during Device Repair or while waiting for funding</label>
-                            </div>
                         </div>
-
-                        <div class="col-md-4" id="decision">
-                            <h5><b>Primary Purpose Decision Area</b></h5>
-                            <div class="radio">
-                                <label class="form-check-label"><input type="radio" class="purp-t-group form-check-input" id="E" name="ppda" value="Education" checked>Education</label>
-                            </div>
-                            <div class="radio">
-                                <label class="form-check-label"><input type="radio" class="purp-t-group form-check-input" id="F" name="ppda" value="Employment">Employment</label>
-                            </div>
-                            <div class="radio">
-                                <label class="form-check-label"><input type="radio" class="purp-t-group form-check-input" id="G" name="ppda" value="Community Living">Community Living</label>
-                            </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-hover table-condensed"
+                                   id="clientSearchTable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Select
+                                        </th>
+                                        <th>
+                                            Client ID
+                                        </th>
+                                        <th>
+                                            Client First Name
+                                        </th>
+                                        <th>
+                                            Client Last Name
+                                        </th>
+                                        <th>
+                                            Phone
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <th>
+                                            Eligibility
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div id="sectionThree">
-        @*Error message*@
-        @*<div class="col-md-3" style="color: red;" id="purposeInfoAlert"></div>*@
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>Select Inventory Items: </h4>
-                        @*search for item by name, select*@
-                        <div class="col-md-8 form-inline">
-                            <input type="text" class="form-control" id="itemSearchInput" name="searchby" placeholder="Search by Item Name"/> @*Search by last name*@
-                            <input type="submit" class="btn btn-primary" name="byName" value='Search' id="itemSearchButton"/>
+
+            <div id="sectionTwo">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Loan Information: </h4>
+
+                                <div class="col-md-7" id="purpose">
+                                    <h5><b>Primary Purpose</b></h5>
+                                    <div class="radio">
+                                        <label class="form-check-label"><input type="radio" class="purp-group form-check-input" id="A" name="purp" value="Assist in decision making (device trial or evaluation" checked>Assist in decision making (device trial or evaluation)</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label class="form-check-label"><input type="radio" class="purp-group form-check-input" id="B" name="purp" value="Provide an accomodation on a short-term basis">Provide an accomodation on a short-term basis</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label class="form-check-label"><input type="radio" class="purp-group form-check-input" id="C" name="purp" value="Conduct training, self-education or other professional development activity">Conduct training, self-education or other professional development activity</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label class="form-check-label"><input type="radio" class="purp-group form-check-input" id="D" name="purp" value="Serve as Loaner during Device Repair or while waiting for funding">Serve as Loaner during Device Repair or while waiting for funding</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4" id="decision">
+                                    <h5><b>Primary Purpose Decision Area</b></h5>
+                                    <div class="radio">
+                                        <label class="form-check-label"><input type="radio" class="purp-t-group form-check-input" id="E" name="ppda" value="Education" checked>Education</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label class="form-check-label"><input type="radio" class="purp-t-group form-check-input" id="F" name="ppda" value="Employment">Employment</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label class="form-check-label"><input type="radio" class="purp-t-group form-check-input" id="G" name="ppda" value="Community Living">Community Living</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                </div>
+            </div>
 
-                        @*Need remove button*@
-                        @*<div class="col-md-2  form-inline">
+            <div id="sectionThree">
+                @*Error message*@
+                @*<div class="col-md-3" style="color: red;" id="purposeInfoAlert"></div>*@
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Select Inventory Items: </h4>
+                                @*search for item by name, select*@
+                                <div class="col-md-8 form-inline">
+                                    <input type="text" class="form-control" id="itemSearchInput" name="searchby" placeholder="Search by Item Name" /> @*Search by last name*@
+                                    <input type="submit" class="btn btn-primary" name="byName" value='Search' id="itemSearchButton" />
+                                </div>
+
+                                @*Need remove button*@
+                                @*<div class="col-md-2  form-inline">
                                     <input type="hidden" id="ItemNumber" /> @*foreach this*@
-                        @*<input type="submit" class="btn btn-primary" name="byInvName" value='Remove Selected Item' />
+                                @*<input type="submit" class="btn btn-primary" name="byInvName" value='Remove Selected Item' />
                                     </div>*@
 
-                        @*Error message*@
-                        @*<div class="col-md-3" style="color: red;" id="itemsInfoAlert"></div>*@
-                    </div>
-                </div>
-                <br/>
+                                @*Error message*@
+                                @*<div class="col-md-3" style="color: red;" id="itemsInfoAlert"></div>*@
+                            </div>
+                        </div>
+                        <br />
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-striped table-hover table-condensed"
-                               id="inventorySearchTable">
-                            <thead>
-                            <tr>
-                                <th>
-                                    Select
-                                </th>
-                                <th>
-                                    Inventory Id
-                                </th>
-                                <th>
-                                    Item Name
-                                </th>
-                                <th>
-                                    Manufacturer
-                                </th>
-                                <th>
-                                    Description
-                                </th>
-                                <th>
-                                    Accessories
-                                </th>
-                                <th>
-                                    Availability
-                                </th>
-                                <th>
-                                    Damages
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-striped table-hover table-condensed"
+                                       id="inventorySearchTable">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Select
+                                            </th>
+                                            <th>
+                                                Inventory Id
+                                            </th>
+                                            <th>
+                                                Item Name
+                                            </th>
+                                            <th>
+                                                Manufacturer
+                                            </th>
+                                            <th>
+                                                Description
+                                            </th>
+                                            <th>
+                                                Accessories
+                                            </th>
+                                            <th>
+                                                Availability
+                                            </th>
+                                            <th>
+                                                Damages
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="row form-group">
-        <div class="col-md-10">
+            <div class="row form-group">
+                <div class="col-md-10">
 
-@using (Html.BeginForm("AddTheLoan", "Loan", FormMethod.Post, new {@id = "myform"}))
-{
+                    @using (Html.BeginForm("AddTheLoan", "Loan", FormMethod.Post, new { @id = "myform" }))
+                    {
 
-            @* Html Hiddens give us form fields that the model binder will still use, but are hidden from the view *@
-            @* whatever you name id's, names, etc, keep them consistent.
+                        @* Html Hiddens give us form fields that the model binder will still use, but are hidden from the view *@
+                        @* whatever you name id's, names, etc, keep them consistent.
                             keep in mind the 'name' property on these must match the property names on the C# classes used*@
 
-            @* First parameter will be the name propety - and is what the model binder will use *@
-    @Html.Hidden("ClientId", null, new {id = "clientIdHidden"})
+                        @* First parameter will be the name propety - and is what the model binder will use *@
+                        @Html.Hidden("ClientId", null, new { id = "clientIdHidden" })
 
-            @*The two checkbox values*@
-    @Html.Hidden("Purpose", null, new {id = "purposeHidden"})
-    @Html.Hidden("PurposeType", null, new {id = "purposeTypeHidden"})
-    <input type="submit" value="Create New Loan" class="btn btn-primary"/>
+                        @*The two checkbox values*@
+                        @Html.Hidden("Purpose", null, new { id = "purposeHidden" })
+                        @Html.Hidden("PurposeType", null, new { id = "purposeTypeHidden" })
+                        <input type="submit" value="Create New Loan" class="btn btn-primary" />
 
-            @*}*@
-            @*@Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning" })*@
-}
-        </div>
-        <div class="col-md-3" style="color: red;" id="submitInfoAlert"></div>
-        
-        <div id="clientErrorTextDiv" style="color: red; display: none">CLIENT ERROR</div>
-        <div id="itemErrorTextDiv" style="color: red; display: none">ITEM ERROR</div>
-    </div>
-    <div class="row col-md-3">
-        @Html.ActionLink("Back to Loan List", "Index")
-    </div>
+                        @*}*@
+                        @*@Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning" })*@
+                    }
+                </div>
+
+                <div id="clientErrorTextDiv" style="color: red; display: none">CLIENT ERROR</div>
+                <div id="itemErrorTextDiv" style="color: red; display: none">ITEM ERROR</div>
+            </div>
+            <div class="row col-md-3">
+                @Html.ActionLink("Back to Loan List", "Index")
+            </div>
 
         </div>
 

@@ -16,32 +16,7 @@ namespace SingularityFAAST.Services.Services
 {
     public class LoanMasterServices
     {
-        #region BUGS
-        //     _______
-        //    |       |
-        // ___|       |___
-        //    |  O O  |      ______
-        //    |   >   |     | Bugs |
-        //    |__ 0 __|     | X X  |
-        // ______| |______  |______|
-        //|  _         _  |    ||
-        //| | |       | | |    ||
-        //| | |       | | |___ ||
-        //| | |       | |_____|_}
-        //|_| |       | 
-        //{_} |_______|
-        //    |       |
-        //    |   ||  |
-        //    |   ||  |
-        //    |   ||  |
-        //    |   ||  |
-        //    |   ||  |
-        //   [____||____]
-        //needs fixin - medium priority
-        #endregion
-
-
-        #region Get All From DB - 3 basic methods for Loans, Clients, Inventory
+     #region Get All From DB - 3 basic methods for Loans, Clients, Inventory
 
         //Get All Loans in DB
         public IList<LoansClientsInventoryDTO> GetAllLoans()

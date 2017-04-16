@@ -184,26 +184,40 @@
         //$("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   
 
         $("input:button[name=addInvButton]").on('click', updateInventoryIdFormValue);
-        $("input:button[name=addInvButton]").on('click', function () { $(this).toggleClass("btn-primary btn-danger") });
-        $("input:button[name=addInvButton]").on('click', function () { $(this).val(function (i, v) { return v === 'Add' ? 'Remove' : 'Add' }) });
-
-        //Submit - add inventoryItemIds before submission
-        $("form")
-            .submit(function (e) {
-                //validate inventoryId array
-                //debugger;
-                if (itemIds) {
-                    //var hiddenInput = $("input[name='InventoryItemIds']");
-                    //hiddenInput.val(itemIds);
-                    for (var i = 0; i < itemIds.length; i++) {
-                        $('<input />')
-                            .attr('type', 'hidden')
-                            .attr('name', 'InventoryItemIds[' + i + ']')
-                            .attr('value', itemIds[i])
-                            .appendTo("form");
-                    }
-                }
-                updatecheckboxesThreeCategories()
-            })
+        $("input:button[name=addInvButton]").on('click', function() { $(this).toggleClass("btn-primary btn-danger") });
+        $("input:button[name=addInvButton]")
+            .on('click', function() { $(this).val(function(i, v) { return v === 'Add' ? 'Remove' : 'Add' }) });
     }
+    
+    $("form").submit(function (e) {
+        if (!isLoanValid()) {
+            e.preventDefault();
+            return;
+        }
+
+        if (itemIds) {
+            for (var i = 0; i < itemIds.length; i++) {
+                $('<input />')
+                    .attr('type', 'hidden')
+                    .attr('name', 'InventoryItemIds[' + i + ']')
+                    .attr('value', itemIds[i])
+                    .appendTo("form");
+            }
+        }
+        updatecheckboxesThreeCategories()
+    });
+
+    function isLoanValid() {
+        var valid = true;
+        $('#itemErrorTextDiv').hide();
+
+        if (itemIds.length === 0) {
+            $('#itemErrorTextDiv').show();
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    
 }(window.jQuery));

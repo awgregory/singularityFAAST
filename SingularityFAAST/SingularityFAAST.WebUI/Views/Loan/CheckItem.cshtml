@@ -27,6 +27,8 @@
             @foreach (var item in Model)
             {
                 <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
+                <input type="hidden" value="@item.Availability" name="Availability" />
+                <input type="hidden" value="@item.IsActive" name="IsActive" />
                 <dl class="dl-horizontal">
                     <dt>
                         Item Number:
