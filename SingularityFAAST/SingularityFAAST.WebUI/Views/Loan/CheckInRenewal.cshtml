@@ -3,14 +3,15 @@
 @{
     ViewBag.Title = "CheckInRenewal";
 }
-<br/>
+<br />
 <div class="row">
     <div class="col-md-7">
         <p><i>Please confirm all items are available for renewal before completing this form.</i></p>
+        <p><i>Only the items that are available can be renewed.</i></p>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <h3>Enter Outcomes of Prior Loan</h3>
     </div>
 </div>
@@ -39,60 +40,63 @@
             {
                 foreach (var item in Model)
                 {
-                    <div class="row">
-                        <div class="col-md-4">
+                    if (item.IsActive && (!item.Availability))
+                    {
+                        <div class="row">
+                            <div class="col-md-4">
 
-                            <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                            <input type="hidden" value="@item.ClientId" name="ClientId" />
-                            <input type="hidden" value="@item.Purpose" name="Purpose" />
-                            <input type="hidden" value="@item.PurposeType" name="PurposeType" />
-                            <input type="hidden" name="InventoryItems[@i].InventoryItemId" value="@item.InventoryItemId" />
-                            @{ i++;}
+                                <input type="hidden" value="@item.LoanNumber" name="LoanNumber"/>
+                                <input type="hidden" value="@item.ClientId" name="ClientId"/>
+                                <input type="hidden" value="@item.Purpose" name="Purpose"/>
+                                <input type="hidden" value="@item.PurposeType" name="PurposeType"/>
+                                <input type="hidden" name="InventoryItems[@i].InventoryItemId" value="@item.InventoryItemId"/>
+                                @{ i++; }
 
-                            <dl class="dl-horizontal">
-                                <dt>
-                                    Item Number:
-                                </dt>
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        Item Number:
+                                    </dt>
 
-                                <dd>
-                                    @item.InventoryItemId
-                                </dd>
-                                <dt>
-                                    Item:
-                                </dt>
+                                    <dd>
+                                        @item.InventoryItemId
+                                    </dd>
+                                    <dt>
+                                        Item:
+                                    </dt>
 
-                                <dd>
-                                    @item.ItemName
-                                </dd>
+                                    <dd>
+                                        @item.ItemName
+                                    </dd>
 
-                                <dt>
-                                    End Date:
-                                </dt>
+                                    <dt>
+                                        End Date:
+                                    </dt>
 
-                                <dd>
-                                    @item.LoanDate.AddDays(29).ToString("MMMM dd, yyyy")
-                                </dd>
-                            </dl>
-                        </div>
+                                    <dd>
+                                        @item.LoanDate.AddDays(29).ToString("MMMM dd, yyyy")
+                                    </dd>
+                                </dl>
+                            </div>
 
 
-                        @*Damages would not be recorded until item final checkin*@
-                        @{
+                            @*Damages would not be recorded until item final checkin*@
+
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="damages">Item Damages:</label>
-                                    <input type="text" name="Damages" id="damages" />
+                                    @*<input type="text" class="input-sm" name="Damages" id="damages" />*@
+                                    <textarea class="form-control" name="Damages" id="damages" rows="3"></textarea>
                                 </div>
                             </div>
 
-                        }
-                    </div>
-                            <br />
-                                    //break;
-                                }
-                                break;
+                        </div>
+                        <br/>
+                        <hr/>
+                    }
+                }
+            break;
 
-                            }
+        }
 
         </div>
 
@@ -119,7 +123,7 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="notes">Loan Notes:</label>
-                    <input type="text" name="LoanNotes" id="notes" />
+                    <textarea class="form-control" name="LoanNotes" id="notes" rows="3"></textarea>
                 </div>
             </div>
         </div>
@@ -133,7 +137,7 @@
         </div>
     </div>
 
-                            }
+                                }
 
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

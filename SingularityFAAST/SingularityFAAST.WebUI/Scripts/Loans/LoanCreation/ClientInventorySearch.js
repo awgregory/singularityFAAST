@@ -118,32 +118,34 @@
             //    chosenInventoryId = null
             //}
 
+            var infoPanel = $('#iItems');
+
             if (!chosenInventoryId) //if variable doesn't mean anything: we are invalid/error
                 return; //safely exit doing nothing
-            //Update the info panel
 
+            //Update the info panel when item is removed
             if (itemIds) {
                 for (var i = 0; i < itemIds.length; i++) {
                     if (chosenInventoryId == itemIds[i]) {  //if item being added is the same as an item in the itemIds array (would've been added below)...
 
                         //$('#itemsInfoAlert').text('Item can be added only once.')
-                        //$('#iItems').text('');  //emptys entire div
 
-                        //remove from itemids array
+                        //remove all items from panel
+                        $('#iItems').text('');  //emptys entire div
+
+                        //remove item from the itemids Array
                         itemIds.splice($.inArray(chosenInventoryId, itemIds), 1);
 
-                        //remove from infoPanel the div with the item id
-                        //$("#iItems .chosenInventoryId h5").remove();
-
-                        //var elem = document.getElementById(".chosenInventoryId");
-                        //elem.remove();
-                        //console.log(elem)
-
-                        $(".chosenInventoryId").remove();
-
+                        //logging
+                        console.log(itemIds);
 
                         //make null
                         chosenInventoryId = null;
+
+                        //add remaining items back to panel
+                        for (var i = 0; i < itemIds.length; i++) {
+                            infoPanel.append('<h5>Item #' + itemIds[i] + '</h5>');
+                        }
                         return;
                     }
                 }
@@ -158,7 +160,6 @@
             console.log(itemIds);
 
             ////Update the info panel
-            var infoPanel = $('#iItems');
             infoPanel.append('<div class = "' + chosenInventoryId + '"><h5>Item #' + chosenInventoryId + '</h5></div>');
         }
 

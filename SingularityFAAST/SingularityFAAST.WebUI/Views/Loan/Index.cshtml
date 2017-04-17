@@ -1,5 +1,5 @@
-﻿@using System.Data.Entity.Core.Objects.DataClasses
-@using SingularityFAAST.Core.DataTransferObjects
+﻿@*@using System.Data.Entity.Core.Objects.DataClasses
+    @using SingularityFAAST.Core.DataTransferObjects*@
 @model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
 
 @{
@@ -87,20 +87,20 @@
                                                 <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
                                                 <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan
                                             }*@
-                                       
+
                                         @*Convert the other buttons to be like this one*@
                                         <button style="float: left">
                                             <a href="@Url.Action("ViewItems", "Loan", new { loanNumber = @item.LoanNumber})">
-                                                <i class="fa fa-search-plus text-info fa-lg"  style ="color: black;"></i>
+                                                <i class="fa fa-search-plus text-info fa-lg" style="color: black;"></i>
                                             </a>
                                         </button>
-                                        
+
                                         @if (item.IsActive)
                                         {
                                             using (Html.BeginForm("CheckIn", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                             {
                                                 <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                                                    <button type="submit" style="float: left"><i class="fa fa-check text-info fa-lg"></i></button> @*Check in Entire loan*@
+                                                <button type="submit" style="float: left"><i class="fa fa-check text-info fa-lg"></i></button> @*Check in Entire loan*@
                                             }
                                         }
 
@@ -109,7 +109,7 @@
                                         @using (Html.BeginForm("CancelLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                         {
                                             <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                                                <button type="submit"><i class="fa fa-times text-info fa-lg text-danger"></i></button> @*View items in Loan*@
+                                            <button type="submit"><i class="fa fa-times text-info fa-lg text-danger"></i></button> @*View items in Loan*@
                                         }
                                         @*}*@
                                         @*<button><i>  issue with the first string and size of button
@@ -143,8 +143,8 @@
                         }
                     </tbody>
                 </table>
-                <a href="Index.cshtml">< Previous 10 </a> @*use bootstrap pagination here*@
-                <a href="Index.cshtml">| Next 10 ></a>
+                @*<a href="Index.cshtml">< Previous 10 </a> @*use bootstrap pagination here*@
+                @*<a href="Index.cshtml">| Next 10 ></a>*@
             </div>
 
             @*@*<div class="col-md-2 col-sm-3 hidden-xs">*@
@@ -180,12 +180,14 @@
                                         {
                                             <tr>
                                                 <td>
-                                                    @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                                    {
-                                                        <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                                                        <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan*@
-                                                    }
-                                                    12-DL-@item.LoanNumber  @*DL is device loan. what is 12?*@
+                                                    <div>
+                                                        <button style="float: left">
+                                                            <a href="@Url.Action("ViewItems", "Loan", new { loanNumber = @item.LoanNumber})">
+                                                                <i class="fa fa-search-plus text-info fa-lg" style="color: black;"></i>
+                                                            </a>
+                                                        </button>
+                                                    </div>
+                                                    12-DL-@item.LoanNumber  @*DL is device loan. what is 12?*@ 
                                                 </td>
                                                 <td>@item.DateCreated.AddDays(29).ToString("MMMM dd, yyyy")</td>
                                             </tr>
