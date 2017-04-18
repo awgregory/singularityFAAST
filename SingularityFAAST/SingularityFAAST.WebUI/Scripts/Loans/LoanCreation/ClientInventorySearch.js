@@ -294,7 +294,7 @@
             //step 2: check if there's any info at all to build a table out of
             if (results.length > 0) {
                 //build a row for each result - string gore ahead
-                for (var i = 0; i < results.length; i++) {        //results.length
+                for (var i = 0; i < results.length; i++) {        
                     table.append(
                         '<tr>' +
                         //'<td>' +

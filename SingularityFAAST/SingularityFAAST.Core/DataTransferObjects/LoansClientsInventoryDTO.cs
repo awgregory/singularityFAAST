@@ -10,8 +10,6 @@ namespace SingularityFAAST.Core.DataTransferObjects
 {
     public class LoansClientsInventoryDTO 
     {
-        public string NullDisplayText { get; set; }
-
         //Loan Master
         public int LoanMasterId { get; set; }
 

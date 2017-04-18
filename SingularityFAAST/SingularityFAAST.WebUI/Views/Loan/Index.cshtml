@@ -1,6 +1,5 @@
-﻿@*@using System.Data.Entity.Core.Objects.DataClasses
-    @using SingularityFAAST.Core.DataTransferObjects*@
-@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+@*@model IEnumerable < SingularityFAAST.Core.DataTransferObjects.MainIndexPageAllLoans>*@ 
 
 @{
     ViewBag.Title = "Loan";
@@ -180,6 +179,7 @@
                                         {
                                             <tr>
                                                 <td>
+                                           
                                                     <div>
                                                         <button style="float: left">
                                                             <a href="@Url.Action("ViewItems", "Loan", new { loanNumber = @item.LoanNumber})">
@@ -187,7 +187,7 @@
                                                             </a>
                                                         </button>
                                                     </div>
-                                                    12-DL-@item.LoanNumber  @*DL is device loan. what is 12?*@ 
+                                                    12-DL-@item.LoanNumber  @*DL is device loan. what is 12?*@
                                                 </td>
                                                 <td>@item.DateCreated.AddDays(29).ToString("MMMM dd, yyyy")</td>
                                             </tr>
@@ -225,11 +225,13 @@
                                     {
                                         <tr>
                                             <td>
-                                                @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                                {
-                                                    <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                                                    <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan*@
-                                                }
+                                                <div>
+                                                    <button style="float: left">
+                                                        <a href="@Url.Action("ViewItems", "Loan", new { loanNumber = @item.LoanNumber})">
+                                                            <i class="fa fa-search-plus text-info fa-lg" style="color: black;"></i>
+                                                        </a>
+                                                    </button>
+                                                </div>
                                                 12-DL-@item.LoanNumber
                                             </td>
                                             <td>@item.DateCreated.AddDays(29).ToString("MMMM dd")</td>

@@ -48,6 +48,32 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
+        //public IList<MainIndexPageAllLoans> GetAllLoansIndex()
+        //{
+        //    using (var context = new SingularityDBContext())
+        //    {
+        //        //Get all Loans in DB
+        //        var loans = from c in context.Clients
+        //                    join l in context.LoanMasters
+        //                    on c.ClientID equals l.ClientId
+        //                    where l.IsDeleted == false
+
+        //                    select new MainIndexPageAllLoans()
+        //                    {
+        //                        LoanNumber = l.LoanNumber,
+        //                        DateCreated = l.DateCreated,
+        //                        ClientId = c.ClientID,
+        //                        LastName = c.LastName,
+        //                        FirstName = c.FirstName,
+        //                        IsActive = l.IsActive,
+        //                        CellPhone = c.CellPhone,
+        //                        Email = c.Email
+                               
+        //                    };
+
+        //        return loans.ToList();
+        //    }
+        //}
 
 
         //Get all Inventory Items associated with LoanNumber
@@ -437,7 +463,7 @@ namespace SingularityFAAST.Services.Services
                 var items = context.InventoryItems;
 
                 var itemList = items.ToList();
-
+                
                 return itemList;
             }
         }

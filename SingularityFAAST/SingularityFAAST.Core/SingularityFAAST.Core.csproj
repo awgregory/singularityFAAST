@@ -68,6 +68,7 @@
     <Compile Include="DataTransferObjects\CheckInWholeLoanDTO.cs" />
     <Compile Include="DataTransferObjects\LoansClientsInventoryDTO.cs" />
     <Compile Include="DataTransferObjects\LoanSubmission.cs" />
+    <Compile Include="DataTransferObjects\MainIndexPageAllLoans.cs" />
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\ClientCategory.cs" />
     <Compile Include="Entities\ClientDisability.cs" />
