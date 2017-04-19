@@ -84,32 +84,44 @@ namespace SingularityFAAST.WebUI.Controllers
         #region AddClient Post Method
         //  Collects form data from AddClient page and saves it
         [HttpPost]
-        public RedirectToRouteResult AddClient(Client client)
+        public ActionResult AddClient(Client client)
         {
             //_clientServices.SaveClient(client);
 
             //return RedirectToAction("Index", "Client");
+
+            if (string.IsNullOrEmpty(client.CellPhone))
+            {
+                ModelState.AddModelError("Client", "Phone number"); 
+            }
             
-            #region ModelStateValidation
+            // Add explicit checks for other required fields
+
 
             if (ModelState.IsValid)
+            #region What makes ModelState False?
+            //returns false if Model.State.AddModelError was called, or if model binder couldn't create a Client object
+            // however the model itself doesn't check for check for required field and will create object anyway
+            #endregion
+
             {
                 _clientServices.SaveClient(client);
 
-
+                //Need a Saved Ack here
 
                 return RedirectToAction("Index", "Client");
 
-                //Need a Saved Ack here
+                
             }
 
             else
             {
                 ModelState.AddModelError("", "Please Enter All Required Information");
 
-                return RedirectToAction("AddClient", "Client");
+                return View(); 
+                    //RedirectToAction("AddClient", "Client");
             }
-            #endregion
+            
 
         }
 

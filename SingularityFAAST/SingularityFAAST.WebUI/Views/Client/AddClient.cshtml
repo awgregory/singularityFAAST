@@ -10,7 +10,8 @@
 @using (Html.BeginForm())
 {
 
-
+    @* Displays the error messages which got registered with the ModelState in AddClient action method *@
+    @Html.ValidationSummary()
 
 
     <div class="row">
@@ -348,8 +349,8 @@
 }
 
 <br />
-@* message displays back to user when there are errors with the login *@
-@Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning" })
+
+
 
 
 
