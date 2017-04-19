@@ -60,6 +60,14 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -108,6 +116,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -132,37 +141,26 @@
     <Content Include="fonts\DaysOne-Regular.ttf" />
     <None Include="Properties\PublishProfiles\singularityFAAST - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\AUTHORS.txt" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\external\jquery\jquery.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\index.html" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.css" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.min.css" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.min.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.structure.css" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.structure.min.css" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\LICENSE.txt" />
+    <Content Include="Scripts\Loans\EditLoan.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Loans\LoanCreation\ClientInventorySearch.js" />
+    <Content Include="Views\Loan\CheckIn.cshtml" />
     <Content Include="Views\Loan\EmailTemplate.html" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\Reports\ReportRange.js" />
+    
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -171,6 +169,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryItemController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -185,15 +184,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\InventoryItem\IndexInventory.cshtml" />
     <Content Include="Views\InventoryItem\NewInventoryItem.cshtml" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\InventoryItem\ViewAllOnLoanInv.cshtml" />
     <Content Include="Views\InventoryItem\ViewAllAvailableInv.cshtml" />
     <Content Include="Views\InventoryItem\UpdateInventoryItem.cshtml" />
     <Content Include="Views\Loan\Index.cshtml" />
     <Content Include="Views\Loan\RenewLn.cshtml" />
     <Content Include="Views\Loan\EditLoan.cshtml" />
-    <Content Include="Views\Loan\CheckIn.cshtml" />
     <Content Include="Views\Client\AddClient.cshtml" />
     <Content Include="Views\Client\CreateForm.cshtml" />
     <Content Include="Views\Client\Index.cshtml" />
@@ -203,7 +199,11 @@
     <Content Include="Views\Loan\AddLoan.cshtml" />
     <Content Include="Views\Loan\CheckItem.cshtml" />
     <Content Include="Views\Client\EditClient.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\LoanReports.cshtml" />
+    <Content Include="Views\Report\ClientReport.cshtml" />
     <Content Include="Scripts\jquery-ui-1.12.1.custom\package.json" />
+    <Content Include="Views\Loan\CheckInRenewal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

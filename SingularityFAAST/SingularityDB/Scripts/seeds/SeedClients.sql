@@ -35,6 +35,7 @@ INSERT INTO #tempClients (Active, DateCreated, FirstName, MiddleInitial, LastNam
 Zip, County, CountyFIPS, City, Email, HomePhone, CellPhone, WorkPhone, Company, Title, LoanEligibility, Notes, ClientCategoryId, IsDeleted) 
 VALUES 
 
+
 (1, N'2016-11-03 00:00:00', N'Jeanette', NULL, N'Otero', N'5734 W 57th Way', NULL, N'Florida', N'FL', N'33409', N'Palm Beach', N'12099     ', N'West Palm Beach', NULL, NULL, N'904-771-4298', NULL, NULL, NULL, 1, NULL, 2, 0),
 (1, N'2016-11-03 00:00:00', N'Bruce', NULL, N'Stayer', N'134 Deanna Dr', NULL, N'Florida', N'FL', N'33852', N'Highlands', N'12055     ', N'Lake Placid', NULL, NULL, N'904-419-1874', NULL, NULL, NULL, 1, NULL, 1, 0),
 (1, N'2016-11-03 00:00:00', N'Lorin', NULL, N'Anderson', N'15 B Cherry Ridge Dr', NULL, N'Florida', N'FL', N'32746', N'Seminole', N'12117     ', N'Lake Mary', NULL, NULL, N'904-388-1996', NULL, NULL, NULL, 1, NULL, 2, 0),

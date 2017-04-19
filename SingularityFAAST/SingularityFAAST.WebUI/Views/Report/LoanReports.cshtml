@@ -1,0 +1,106 @@
+﻿@model SingularityFAAST.Core.ViewModels.Reports.LoanReportViewModel
+@{
+    ViewBag.Title = "LoanReports";
+}
+
+<h2>Loan Reports</h2>
+
+<div class="container">
+    <br />
+    <h4>Total number of loans: @Model.TotalNumberOfLoans </h4>
+    <br />
+    <br />
+
+    <h4>Number of Device Loans by Type of Borrower</h4>
+    
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Type of Individual or Entity</th>
+                    <th>Number of Borrowers</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Individuals with disabilities</td>
+                    <td>@Model.NumberOfDeviceBorrowerWithDisability</td>
+                </tr>
+                <tr>
+                    <td>Famility members, guardians, and authorized representatives</td>
+                    <td>@Model.NumberOfBorrowerFamily</td>
+                </tr>
+                <tr>
+                    <td>Representatives of Education</td>
+                    <td>@Model.NumberOfBorrowerEducation</td>
+                </tr>
+                <tr>
+                    <td>Representatives of Employment</td>
+                    <td>@Model.NumberOfBorrowerEmployment</td>
+                </tr>
+                <tr>
+                    <td>Representatives of Health, allied health, and rehabilitation</td>
+                    <td>@Model.NumberOfBorrowerHealth</td>
+                </tr>
+                <tr>
+                    <td>Representatives of Community Living</td>
+                    <td>@Model.NumberOfBorrowerCommunityLiving</td>
+                </tr>
+                <tr>
+                    <td>Representatives of Technology</td>
+                    <td>@Model.NumberOfBorrowerTechnology</td>
+                </tr>
+            </tbody>
+        </table>
+    <br />
+    <br />
+
+    <h4>Types of Devices Loaned</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Type of AT Device</th>
+                    <th>Number</th>
+                </tr>
+            </thead>
+           <tbody>
+           @foreach(var item in Model.categoryCounts)
+            {
+                <tr>
+                    <td>@item.CategoryName</td>
+                    <td>@item.Count</td>
+                </tr>
+            }
+             </tbody>
+        </table>
+    <br />
+    <br />
+    <h4><bold>Device Loans by Type of Purpose</bold></h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Primary Purpose of Device Loan</th>
+                <th>Number of Loans</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Assist in decision making (device trial or evaluation)</td>
+                <td>@Model.PurposeDecisionMaking</td>
+            </tr>
+            <tr>
+                <td>Serve as loaner during device repair or while waiting for funding</td>
+                <td>@Model.PurposeServeAsLoaner</td>
+            </tr>
+            <tr>
+                <td>Provide and accomodation on a short-term basis for a time-limited event/situation</td>
+                <td>@Model.PurposeShortTerm</td>
+            </tr>
+            <tr>
+                <td>Conduct training, self-education or other professional development activity</td>
+                <td>@Model.PurposeConductTraining</td>
+            </tr>
+        </tbody>
+    </table>
+   
+    
+</div>
