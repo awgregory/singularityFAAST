@@ -86,6 +86,7 @@
     <Compile Include="ViewModels\Reports\LoanReportViewModel.cs" />
     <Compile Include="ViewModels\EditClientViewModel.cs" />
     <Compile Include="ViewModels\ItemIndexViewModel.cs" />
+    <Compile Include="ViewModels\NewClientViewModel.cs" />
     <Compile Include="ViewModels\NewInventoryItemViewModel.cs" />
     <Compile Include="ViewModels\UpdateInventoryItemViewModel.cs" />
   </ItemGroup>
