@@ -159,6 +159,8 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\Reports\ReportRange.js" />
+    
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -167,9 +169,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryItemController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Models\AddLoanInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -195,6 +199,10 @@
     <Content Include="Views\Loan\AddLoan.cshtml" />
     <Content Include="Views\Loan\CheckItem.cshtml" />
     <Content Include="Views\Client\EditClient.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\LoanReports.cshtml" />
+    <Content Include="Views\Report\ClientReport.cshtml" />
+    <Content Include="Scripts\jquery-ui-1.12.1.custom\package.json" />
     <Content Include="Views\Loan\CheckInRenewal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -8,12 +8,21 @@ namespace SingularityFAAST.Core.Entities
         [Key]
         public int InventoryItemId { get; set; }
 
+        [Required]
         public DateTime DatePurchased { get; set; }
         public int InventoryCategoryId { get; set; }
+
+        [Required]
         public string ItemName { get; set; }
         public string Manufacturer { get; set; }
+
+        [Required]
         public decimal PricePaid { get; set; }
+
+        [Required]
         public decimal RetailCost { get; set; }
+
+
         public string ModelName { get; set; }
         public string Location { get; set; }
         public bool Availability { get; set; }

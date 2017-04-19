@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SingularityFAAST.Core.Entities
 {
@@ -12,6 +7,6 @@ namespace SingularityFAAST.Core.Entities
         [Key]
         public int InventoryCategoryId { get; set; }
 
-        public string Category { get; set; }
+        public string CategoryName { get; set; }
     }
 }
