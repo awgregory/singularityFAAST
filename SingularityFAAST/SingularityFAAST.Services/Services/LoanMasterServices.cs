@@ -16,32 +16,7 @@ namespace SingularityFAAST.Services.Services
 {
     public class LoanMasterServices
     {
-        #region BUGS
-        //     _______
-        //    |       |
-        // ___|       |___
-        //    |  O O  |      ______
-        //    |   >   |     | Bugs |
-        //    |__ 0 __|     | X X  |
-        // ______| |______  |______|
-        //|  _         _  |    ||
-        //| | |       | | |    ||
-        //| | |       | | |___ ||
-        //| | |       | |_____|_}
-        //|_| |       | 
-        //{_} |_______|
-        //    |       |
-        //    |   ||  |
-        //    |   ||  |
-        //    |   ||  |
-        //    |   ||  |
-        //    |   ||  |
-        //   [____||____]
-        //needs fixin - medium priority
-        #endregion
-
-
-        #region Get All From DB - 3 basic methods for Loans, Clients, Inventory
+     #region Get All From DB - 3 basic methods for Loans, Clients, Inventory
 
         //Get All Loans in DB
         public IList<LoansClientsInventoryDTO> GetAllLoans()
@@ -49,7 +24,7 @@ namespace SingularityFAAST.Services.Services
             using (var context = new SingularityDBContext())
             {
                 //Get all Loans in DB
-                var loans = from c in context.Clients  //LINQ Query Syntax form, end with Select instead of starting with it
+                var loans = from c in context.Clients  
                             join l in context.LoanMasters
                             on c.ClientID equals l.ClientId
                             where l.IsDeleted == false
@@ -73,6 +48,32 @@ namespace SingularityFAAST.Services.Services
             }
         }
 
+        //public IList<MainIndexPageAllLoans> GetAllLoansIndex()
+        //{
+        //    using (var context = new SingularityDBContext())
+        //    {
+        //        //Get all Loans in DB
+        //        var loans = from c in context.Clients
+        //                    join l in context.LoanMasters
+        //                    on c.ClientID equals l.ClientId
+        //                    where l.IsDeleted == false
+
+        //                    select new MainIndexPageAllLoans()
+        //                    {
+        //                        LoanNumber = l.LoanNumber,
+        //                        DateCreated = l.DateCreated,
+        //                        ClientId = c.ClientID,
+        //                        LastName = c.LastName,
+        //                        FirstName = c.FirstName,
+        //                        IsActive = l.IsActive,
+        //                        CellPhone = c.CellPhone,
+        //                        Email = c.Email
+                               
+        //                    };
+
+        //        return loans.ToList();
+        //    }
+        //}
 
 
         //Get all Inventory Items associated with LoanNumber
@@ -462,7 +463,7 @@ namespace SingularityFAAST.Services.Services
                 var items = context.InventoryItems;
 
                 var itemList = items.ToList();
-
+                
                 return itemList;
             }
         }
@@ -634,7 +635,7 @@ namespace SingularityFAAST.Services.Services
         }
 #endregion
       
-  #region Renew Loan
+        #region Renew Loan
         //Renews all Items in a loan as a new loan
         public void RenewLoan(LoansClientsInventoryDTO renewedDTO)
         {
@@ -694,14 +695,17 @@ namespace SingularityFAAST.Services.Services
                 {
                     foreach (var itemId in loanSubmission.InventoryItems)
                     {
-                        itemsListed[i] = new LoanDetail
-                        {
-                            InventoryItemId = itemId.InventoryItemId,
-                            LoanMasterId = newLoan.LoanMasterId,
-                            Purpose = loanSubmission.Purpose,
-                            PurposeType = loanSubmission.PurposeType
-                        };
-                        i++;
+                        //if (loanSubmission.Availability)
+                        //{
+                            itemsListed[i] = new LoanDetail
+                            {
+                                InventoryItemId = itemId.InventoryItemId,
+                                LoanMasterId = newLoan.LoanMasterId,
+                                Purpose = loanSubmission.Purpose,
+                                PurposeType = loanSubmission.PurposeType
+                            };
+                            i++;
+                        //};
                     };
                     break;
                 }

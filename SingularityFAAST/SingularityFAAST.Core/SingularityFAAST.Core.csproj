@@ -69,6 +69,7 @@
     <Compile Include="DataTransferObjects\LoansClientsInventoryDTO.cs" />
     <Compile Include="DataTransferObjects\ReportInventoryItemCategoryCount.cs" />
     <Compile Include="DataTransferObjects\LoanSubmission.cs" />
+    <Compile Include="DataTransferObjects\MainIndexPageAllLoans.cs" />
     <Compile Include="DataTransferObjects\PagingInfo.cs" />
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\ClientCategory.cs" />

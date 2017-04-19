@@ -11,37 +11,33 @@
 @*<div class="col-md-4 col-md-offset-4"></div>*@  @*This was to center the title*@
 
 <br />
-@*How to RenewItems, yet not make whole loan overdue (while having item that is for another 28 days), or affect monthly count of loans made?  <br/>
-    When Item or Entire Loan is renewed, it should count as new loan for the month.*@
 
 <div class="row">
     <div class="col-md-12">
+        
+        @*@Html.ActionLink("Renew Entire Loan", "RenewLn", null, new {@class = "btn btn-primary"})*@ @*Currently, this creates a new loan for the month.*@
+        @using (Html.BeginForm("RenewLn", "Loan", FormMethod.Post, new {@class = "form-inline col-md-2"}))
+         {
+             foreach (var i in Model)
+             {
+                 <input type="hidden" value="@i.LoanMasterId" name="LoanMasterId"/>
+             }
+             <input type="submit" class="btn btn-primary" name="rnwLoan" value='Renew Loan'/>
+         }
 
-        @*@Html.ActionLink("Renew Entire Loan", "RenewLn", null, new {@class = "btn btn-primary"})*@ @*Currently, this creates a new loan for the month.  !Or--New LoanMasterId is made but same Loan Number is kept!*@
-        @using (Html.BeginForm("RenewLn", "Loan", FormMethod.Post, new { @class = "form-inline col-md-1" }))
-        {
-            foreach (var i in Model)
-            {
-                <input type="hidden" value="@i.LoanMasterId" name="LoanMasterId" />
-            }
-            <input type="submit" class="btn btn-primary" name="rnwLoan" value='Renew Loan' />
-        }
-
-
-        @* test code button.  bottom one is original *@
         @*@Html.ActionLink("Edit Loan", "EditLn", null, new {@class = "btn btn-primary"})*@ @*Pass the Loan number to auto-populate details on EditLn*@
         @foreach (var q in Model)
         {
             if (q.IsActive)
             {
-                using (Html.BeginForm("EditLoan", "Loan", FormMethod.Post, new {@class = "form-inline col-md-1"}))
-                 {
-                     foreach (var i in Model)
-                     {
-                         <input type="hidden" value="@i.LoanMasterId" name="LoanMasterId"/>
-                     }
-                     <input type="submit" class="btn btn-primary" name="edtLoan" value='Edit Loan'/>
-                 }
+                using (Html.BeginForm("EditLoan", "Loan", FormMethod.Post, new { @class = "form-inline col-md-1" }))
+                {
+                    foreach (var i in Model)
+                    {
+                        <input type="hidden" value="@i.LoanMasterId" name="LoanMasterId" />
+                    }
+                    <input type="submit" class="btn btn-primary" name="edtLoan" value='Edit Loan' />
+                }
             }
             break;
         }
@@ -53,8 +49,8 @@
         <div class="col-md-10 ">
             @*make this a list group (see bootstrap components) *@
             <h5><i class="fa fa-times fa-lg text-danger"></i> Select any item to remove it from the loan. </h5>
-            <h5><i class="fa fa-check fa-lg text-info"></i> Select any active item to check in. If this does not appear, the item has been checked in.</h5>
-            <h5><i class="fa fa-refresh fa-lg text-success"></i> Select any item to renew it.</h5>
+            <h5><i class="fa fa-check fa-lg text-info"></i> Select any active item to check in.  If the check is not visible, the loan has been checked in.</h5>
+            @*<h5><i class="fa fa-refresh fa-lg text-success"></i> Select any item to renew it.</h5>*@
             <br />
             <h5><i class="fa fa-exclamation-circle fa-lg text-danger"></i> Indicates an overdue item.</h5>
             <br />
@@ -71,8 +67,8 @@
             {
             <span class="col-md-2">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
             <span class="col-md-3">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
-                <span class="col-md-3">Phone: @Html.DisplayFor(x => item.CellPhone)  </span>
-                <span class="col-md-3">Email: @Html.DisplayFor(x => item.Email)</span>
+            <span class="col-md-3">Phone: @Html.DisplayFor(x => item.CellPhone)  </span>
+            <span class="col-md-3">Email: @Html.DisplayFor(x => item.Email)</span>
             break;  //or will print client for each item in client loan
         }
 
@@ -121,11 +117,11 @@
                                     @*Remove Item from loan*@
                                     @if (item.IsActive)
                                     {
-                                        using (Html.BeginForm("CancelItem", "Loan", FormMethod.Post, new {@class = "form-inline"}))
-                                         {
-                                             <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId"/>
-                                             <button type="submit" style="float: left" name="viewButton" value="1"><i class="fa fa-times fa-lg text-danger"></i></button> @*remove item*@
-                                         }
+                                        using (Html.BeginForm("CancelItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                        {
+                                            <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
+                                            <button type="submit" style="float: left" name="viewButton" value="1"><i class="fa fa-times fa-lg text-danger"></i></button> @*remove item*@
+                                        }
                                     }
 
                                     @*Checkin Item on its own*@
@@ -140,17 +136,16 @@
                                     }
 
                                     @*Renew Item (this creates new loan with just this item)*@
-                                    @using (Html.BeginForm("RenewItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                    @*@using (Html.BeginForm("RenewItem", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                     {
                                         <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" />
-                                        <button type="submit" name="viewButton" value="2"><i class="fa fa-refresh fa-lg text-success"></i></button> @*renew item (create new loan)*@
-                                    }
+                                        <button type="submit" name="viewButton" value="2"><i class="fa fa-refresh fa-lg text-success"></i></button> @*renew item (create new loan) 
+                                    }*@
                                 </div>
                             </td>
                             <td>
                                 <div style="width: 110px;">
                                     12-IN-@item.InventoryItemId
-                                    @*&& (!item.Availability) can't do this because item could be false because it's checked out to another loan*@
                                     @if ((item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)) && (item.IsActive && !(item.Availability)))
                                     {
                                         <i class="fa fa-exclamation-circle fa-lg text-danger"></i>

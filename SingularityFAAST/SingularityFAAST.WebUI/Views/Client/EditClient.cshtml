@@ -268,7 +268,9 @@
                     <tr>
                         <td>@associatedLoan.LoanMasterId</td>
                         <td>@associatedLoan.DateCreated</td>
-                        <td>@Html.ActionLink("View", "ViewLoan", "Loan", new { loanId = associatedLoan.LoanMasterId }, null)</td>
+                        <td>
+                            <a href="/Loan/ViewItems?loanNumber=@associatedLoan.LoanNumber"> View </a>
+                        </td>
                     </tr>
                 }
             </table>

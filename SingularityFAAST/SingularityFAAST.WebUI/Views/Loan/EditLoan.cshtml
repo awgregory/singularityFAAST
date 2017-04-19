@@ -142,7 +142,7 @@
                         <div class="col-md-5" id="purpose">
                             <h5><b>Primary Purpose</b></h5>
                             <div class="radio">
-                                <label><input type="radio" name="purp" value="Assist in decision making (device trial or evaluation">Assist in decision making (device trial or evaluation)</label>
+                                <label><input type="radio" name="purp" value="Assist in decision making (device trial or evaluation" checked>Assist in decision making (device trial or evaluation)</label>
                             </div>
                             <div class="radio">
                                 <label><input type="radio" name="purp" value="Provide an accomodation on a short-term basis">Provide an accomodation on a short-term basis</label>
@@ -158,7 +158,7 @@
                         <div class="col-md-4" id="decision">
                             <h5><b>Primary Purpose Decision Area</b></h5>
                             <div class="radio">
-                                <label><input type="radio" name="ppda" value="Education">Education</label>
+                                <label><input type="radio" name="ppda" value="Education" checked>Education</label>
                             </div>
                             <div class="radio">
                                 <label><input type="radio" name="ppda" value="Employment">Employment</label>
@@ -180,7 +180,7 @@
                     <div class="col-md-12">
                         <h4>Add Loan Items: </h4>
                         @*search for item by name, select*@
-                        <div class="col-md-3 form-inline">
+                        <div class="col-md-4 form-inline">
                             <input type="text" class="form-control" id="itemSearchInput" name="searchby" placeholder="Search by Item Name" /> @*Search by last name*@
                             <input type="submit" class="btn btn-primary" name="byName" value='Search' id="itemSearchButton" />
                         </div>
@@ -280,6 +280,7 @@
 
             }
         </div>
+        <div id="itemErrorTextDiv" style="color: red; display: none">ITEM ERROR</div>
     </div>
 
     <div class="row col-md-3">
