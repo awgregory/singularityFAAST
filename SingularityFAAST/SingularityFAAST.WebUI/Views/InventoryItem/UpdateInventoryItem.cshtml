@@ -109,25 +109,21 @@
             @*Description*@
             <div class="form-group">
                 <label for="Description">Description</label>
-                <textarea rows="4" class="form-control" name="Description" value="@Model.InventoryItem.Description"></textarea>
+                @Html.TextAreaFor(viewModel => viewModel.InventoryItem.Description, new { @class = "form-control", @rows = "4", @name = "Description"})
             </div>
 
             @* Availability *@
             <div class="form-group">
-                <label for="Availability"><a data-toggle="tooltip" data-placement="bottom" title="Required">Availability *</a></label>
-                <div class="radio radio-inline" name="Available" value="@Model.InventoryItem.Availability">
-                    <label><input type="radio" name="Available" id="1" />Yes</label>
-                    <label><input type="radio" name="Available" id="0" />No</label>
-                </div>
+                <label for="Availability"><a data-toggle="tooltip" data-placement="bottom" title="Required">Available *</a></label>
+                <label>@Html.RadioButtonFor(model => model.InventoryItem.Availability, "True")Yes</label>
+                <label>@Html.RadioButtonFor(model => model.InventoryItem.Availability, "False")No</label>
             </div>
 
             @* Active *@
             <div class="form-group">
                 <label for="Active">Active</label>
-                <div class="radio radio-inline" name="Active" value="@Model.InventoryItem.Active">
-                    <label><input type="radio" name="Active" id="1" />Yes</label>
-                    <label><input type="radio" name="Active" id="0" />No</label>
-                </div>
+                <label>@Html.RadioButtonFor(model => model.InventoryItem.Active, "True")Yes</label>
+                <label>@Html.RadioButtonFor(model => model.InventoryItem.Active, "False")No</label>
             </div>
 
         </div>
@@ -136,13 +132,13 @@
             @*Accessories*@
             <div class="form-group">
                 <label for="Accessories">Accessories</label>
-                <textarea rows="4" class="form-control" name="Accessories" value="@Model.InventoryItem.Accessories"></textarea>
+                @Html.TextAreaFor(viewModel => viewModel.InventoryItem.Accessories, new { @class = "form-control", @rows = "4", @name = "Accessories"})
             </div>
 
             @*Damages*@
             <div class="form-group">
                 <label for="Damages">Damages</label>
-                <textarea rows="4" class="form-control" name="Damages" value="@Model.InventoryItem.Damages"></textarea>
+                @Html.TextAreaFor(viewModel => viewModel.InventoryItem.Damages, new { @class = "form-control", @rows = "4", @name = "Damages" })
             </div>
 
             @*@*Additional Files

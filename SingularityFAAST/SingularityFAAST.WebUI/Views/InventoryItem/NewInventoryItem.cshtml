@@ -104,16 +104,16 @@
 
             @* Availability *@
             <div class="form-group">
-                <label>Available</label>
-                @Html.RadioButtonFor(model => model.InventoryItems.FirstOrDefault().Availability, "True")
-                @Html.RadioButtonFor(model => model.InventoryItems.FirstOrDefault().Availability, "False")
+                <label><a data-toggle="tooltip" data-placement="bottom" title="Required">Available *</a></label>
+                <label>@Html.RadioButtonFor(model => model.InventoryItems.FirstOrDefault().Availability, "True")Yes</label>
+                <label>@Html.RadioButtonFor(model => model.InventoryItems.FirstOrDefault().Availability, "False")No</label>
             </div>
 
             @* Active *@
             <div class="form-group">
                 <label>Active</label>
-                @Html.RadioButtonFor(model => model.InventoryItems.FirstOrDefault().Active, "True")
-                @Html.RadioButtonFor(model => model.InventoryItems.FirstOrDefault().Active, "False")
+                <label>@Html.RadioButtonFor(model => model.InventoryItems.FirstOrDefault().Active, "True")Yes</label>
+                <label>@Html.RadioButtonFor(model => model.InventoryItems.FirstOrDefault().Active, "False")No</label>
             </div>
 
         </div>
