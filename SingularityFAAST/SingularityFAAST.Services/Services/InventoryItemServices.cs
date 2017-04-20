@@ -28,6 +28,7 @@
 //              --> Both get hung up on "context.SaveChanges();"
 //      2). Return Next Inventory Number:
 //              --> Needs to be fixed to use ID and not just Database count
+//      3). Fix Searching Services
 #endregion
 
 
@@ -38,8 +39,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using SingularityFAAST.Core.ViewModels;
-
 
 namespace SingularityFAAST.Services.Services
 {

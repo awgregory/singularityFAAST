@@ -1,4 +1,4 @@
-﻿//Jon Ebert -2017
+﻿//Jon Ebert - 2017
 //Inventory Item Controller
 
 using System.Collections.Generic;
@@ -6,7 +6,6 @@ using SingularityFAAST.Core.SearchRequests;
 using System.Web.Mvc;
 using SingularityFAAST.Core.Entities;
 using SingularityFAAST.Services.Services;
-using System;
 using System.Linq;
 using SingularityFAAST.Core.DataTransferObjects;
 using SingularityFAAST.Core.ViewModels;
@@ -18,7 +17,7 @@ namespace SingularityFAAST.WebUI.Controllers
     {
         private readonly InventoryItemServices _itemServices = new InventoryItemServices();
 
-        private readonly int _pageSize = 5;
+        private readonly int _pageSize = 25;
 
 
         #region IndexInventory

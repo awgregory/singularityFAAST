@@ -21,7 +21,7 @@
 @* Top Row of webpage *@
 <div class="container-fluid"> 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 well well-sm">
             <div class="col-md-4">
                 @*this row holds buttons for navigating available views*@
 
@@ -29,7 +29,7 @@
                 @*<td style="padding-right: 10px; padding-bottom: 10px">@Html.ActionLink("All", "ViewAllInventory", null, new {@class = "btn btn-primary"})</td>*@
 
                 @* button for creating a new inventory item *@
-                @Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new { @class = "btn btn-primary btn-lg" })
+                @Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new { @class = "btn btn-primary" })
             </div>
 
             @* quick sort *@
@@ -54,42 +54,9 @@
     </div>
 </div>
 
-<br />
-<br/>
 @*separate table for displaying all the data*@
 <div class="container-fluid">
     <div class="row">
-        @*@* advanced sort
-        <div class="col-sm-2">
-            <div class="form-horizontal">
-                <h3>Sorting Options</h3>
-                <div class="well well-sm">
-                    @* Dropdown for picking item type - should populate with database in the future
-                    <label>Item Type:</label>
-                    <select name="type">
-                        <option selected>choose one...</option>
-                        <option value="speech">Speech</option>
-                        <option value="computer">Computers & Technology</option>
-                        <option value="dailyLiving">Daily Living</option>
-                        <option value="vision">Vision</option>
-                        <option value="hearing">Hearing</option>
-                    </select>
-                    <br />
-                    <br />
-
-                    @* choose how many items appear in table at once
-                    <label>Items Per Page:</label>
-                    <br />
-                    <label class="checkbox-inline"><input type="checkbox" value="20" checked>20</label>
-                    <label class="checkbox-inline"><input type="checkbox" value="50">50</label>
-                    <br />
-                    <br />
-
-                    @* Button - submit new sorting options
-                    @Html.ActionLink("Update Sorting", null, null, new { @class = "btn btn-primary" })
-                </div>
-            </div>
-        </div>*@
         <div class="col-md-12">@* changed col-md-9 to 12 since the above code was commented out *@
         <table class="table table-striped table-responsive">
             <thead>

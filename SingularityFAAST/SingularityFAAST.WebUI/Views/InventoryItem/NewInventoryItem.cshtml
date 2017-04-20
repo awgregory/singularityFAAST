@@ -104,16 +104,14 @@
 
             @* Availability *@
             <div class="form-group">
-                @*<label><input type="radio" name="Available" checked="checked"  value="1"/>Yes</label>
-                    <label><input type="radio" name="Available" value="0" />No</label>*@
+                <label>Available</label>
                 @Html.RadioButtonFor(model => model.InventoryItems.FirstOrDefault().Availability, "True")
                 @Html.RadioButtonFor(model => model.InventoryItems.FirstOrDefault().Availability, "False")
             </div>
 
             @* Active *@
             <div class="form-group">
-                @*<label><input type="radio" name="Active" checked="checked" value="1"/>Yes</label>
-                    <label><input type="radio" name="Active" value="0" />No</label>*@
+                <label>Active</label>
                 @Html.RadioButtonFor(model => model.InventoryItems.FirstOrDefault().Active, "True")
                 @Html.RadioButtonFor(model => model.InventoryItems.FirstOrDefault().Active, "False")
             </div>
