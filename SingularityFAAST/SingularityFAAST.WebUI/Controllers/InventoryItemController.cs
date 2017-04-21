@@ -15,6 +15,7 @@ namespace SingularityFAAST.WebUI.Controllers
     [Authorize]
     public class InventoryItemController : Controller
     {
+        private readonly LoanMasterServices _LoanServices = new LoanMasterServices();
         private readonly InventoryItemServices _itemServices = new InventoryItemServices();
 
         private readonly int _pageSize = 25;
@@ -93,6 +94,20 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return View(viewModel);
         }
+
+        //[HttpPost]
+        //public ActionResult ViewAllOnLoanInv(int id)
+        //{
+
+
+        //    var viewModel = new NewInventoryItemViewModel()
+        //    {
+        //        InventoryItems = items,
+        //        ReturnNextInventoryNumber = itemCount
+        //    };
+
+        //    return (viewModel);
+        //}
         #endregion
 
         #region New Item Creation methods

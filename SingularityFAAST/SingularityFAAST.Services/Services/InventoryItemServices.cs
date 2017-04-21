@@ -24,8 +24,8 @@
 //   [____||____]
 //
 //Items that need fixin - HIGH PRIORITY
-//      1). Update and Delete Items not working:
-//              --> Both get hung up on "context.SaveChanges();"
+//      1).Delete Item not working:
+//              --> gets hung up on "context.SaveChanges();"
 //      2). Return Next Inventory Number:
 //              --> Needs to be fixed to use ID and not just Database count
 //      3). Fix Searching Services
