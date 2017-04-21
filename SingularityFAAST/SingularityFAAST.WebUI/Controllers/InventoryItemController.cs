@@ -1,4 +1,4 @@
-﻿//Jon Ebert -2017
+﻿//Jon Ebert - 2017
 //Inventory Item Controller
 
 using System.Collections.Generic;
@@ -6,7 +6,6 @@ using SingularityFAAST.Core.SearchRequests;
 using System.Web.Mvc;
 using SingularityFAAST.Core.Entities;
 using SingularityFAAST.Services.Services;
-using System;
 using System.Linq;
 using SingularityFAAST.Core.DataTransferObjects;
 using SingularityFAAST.Core.ViewModels;
@@ -16,9 +15,10 @@ namespace SingularityFAAST.WebUI.Controllers
     [Authorize]
     public class InventoryItemController : Controller
     {
+        private readonly LoanMasterServices _LoanServices = new LoanMasterServices();
         private readonly InventoryItemServices _itemServices = new InventoryItemServices();
 
-        private readonly int _pageSize = 5;
+        private readonly int _pageSize = 25;
 
 
         #region IndexInventory
@@ -47,20 +47,69 @@ namespace SingularityFAAST.WebUI.Controllers
         #endregion
 
         #region All AVAILABLE Inventory
-        public ActionResult ViewAllAvailableInv()
+        public ActionResult ViewAllAvailableInv(int page = 1)
         {
             var model = _itemServices.ViewAvailableInv();
-            return View(model);
+
+            var list = model
+                .OrderBy(ii => ii.InventoryItemId)
+                .Skip((page - 1) * _pageSize)
+                .Take(_pageSize);
+
+            var viewModel = new ItemIndexViewModel
+            {
+                InventoryItems = list,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = model.Count
+                }
+            };
+
+            return View(viewModel);
         }
         #endregion
 
         #region All Inventory ON LOAN
-        public ActionResult ViewAllOnLoanInv()
+        [HttpGet]
+        public ActionResult ViewAllOnLoanInv(int page = 1)
         {
-            var services = new InventoryItemServices();
-            var model = services.ViewInvOnLoan();
-            return View(model);
+            var model = _itemServices.ViewInvOnLoan();
+
+            var list = model
+                .OrderBy(ii => ii.InventoryItemId)
+                .Skip((page - 1) * _pageSize)
+                .Take(_pageSize);
+
+            var viewModel = new ItemIndexViewModel
+            {
+                InventoryItems = list,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = model.Count
+                }
+            };
+
+            return View(viewModel);
         }
+
+        //[HttpPost]
+        //public ActionResult ViewAllOnLoanInv(int id)
+        //{
+        //    var loanNumber = 1;
+        //    IList<LoansClientsInventoryDTO> model = _itemServices.ViewAllItems(loanNumber);
+
+        //    var viewModel = new NewInventoryItemViewModel()
+        //    {
+        //        InventoryItems = items,
+        //        ReturnNextInventoryNumber = itemCount
+        //    };
+
+        //    return (viewModel);
+        //}
         #endregion
 
         #region New Item Creation methods
@@ -158,12 +207,65 @@ namespace SingularityFAAST.WebUI.Controllers
         #region Search Requests 
         //Returns Inventory records that match search criteria
         [HttpPost]
-        public ActionResult Index(SearchRequest searchRequest)
+        public ActionResult IndexInventory(SearchRequest searchRequest)
         {
 
             IList<InventoryItem> model = _itemServices.HandlesSearchRequest(searchRequest);
 
-            return View(model);
+            var viewModel = new ItemIndexViewModel
+            {
+                InventoryItems = model,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = 1,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = model.Count
+                }
+            };
+
+            return View(viewModel);
+        }
+
+        //Returns Inventory records that match search criteria
+        [HttpPost]
+        public ActionResult ViewAllAvailableInv(SearchRequest searchRequest)
+        {
+
+            IList<InventoryItem> model = _itemServices.HandlesSearchRequest(searchRequest);
+
+            var viewModel = new ItemIndexViewModel
+            {
+                InventoryItems = model,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = 1,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = model.Count
+                }
+            };
+
+            return View(viewModel);
+        }
+
+        //Returns Inventory records that match search criteria
+        [HttpPost]
+        public ActionResult ViewAllOnLoanInv(SearchRequest searchRequest)
+        {
+
+            IList<InventoryItem> model = _itemServices.HandlesSearchRequest(searchRequest);
+
+            var viewModel = new ItemIndexViewModel
+            {
+                InventoryItems = model,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = 1,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = model.Count
+                }
+            };
+
+            return View(viewModel);
         }
         #endregion
     }

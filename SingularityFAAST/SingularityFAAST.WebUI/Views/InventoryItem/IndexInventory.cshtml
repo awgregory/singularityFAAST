@@ -21,72 +21,53 @@
 <br />
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-4">
+        <div class="col-md-12 well well-sm">
+            <div class="col-md-2">
                 @* button for creating a new inventory item *@
-                @Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new {@class = "btn btn-primary btn-lg"})
+                @Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new { @class = "btn btn-primary" })
             </div>
 
             @* quick sort *@
             <div class="col-md-4">
                 <label>Quick Sort:</label>
                 @* view all inventory*@
-                @Html.ActionLink("All", "IndexInventory", "InventoryItem", null, new {@class = "btn btn-default active"})
+                @Html.ActionLink("All", "IndexInventory", "InventoryItem", null, new { @class = "btn btn-default active" })
                 @* view available inventory *@
-                @Html.ActionLink("Available", "ViewAllAvailableInv", "InventoryItem", null, new {@class = "btn btn-default"})
+                @Html.ActionLink("Available", "ViewAllAvailableInv", "InventoryItem", null, new { @class = "btn btn-default" })
                 @* view inventory on loan *@
-                @Html.ActionLink("On Loan", "ViewAllOnLoanInv", "InventoryItem", null, new {@class = "btn btn-default"})
+                @Html.ActionLink("On Loan", "ViewAllOnLoanInv", "InventoryItem", null, new { @class = "btn btn-default" })
             </div>
 
             @* search bar *@
-            <div class="col-md-4">
+            <div class="col-md-3">
+
                 <div class="form-inline">
-                    <input type="text" class="form-control" id="searchby" placeholder="Search by Item #" style="width: 60%;"/>
-                    @Html.ActionLink("Search", null, null, new {@class = "btn btn-primary"})
+                    @using (Html.BeginForm("IndexInventory", "InventoryItem", FormMethod.Post, new { @class = "form-inline" }))
+                    {
+                        <input type="text" class="form-control" id="searchby" placeholder="Search by Item Name" style="width: 60%;" />
+                        <input type="submit" class="btn btn-primary" name="byName" value="Search" />
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-inline">
+                    @using (Html.BeginForm("IndexInventory", "InventoryItem", FormMethod.Post, new { @class = "form-inline" }))
+                    {
+                        <input type="text" class="form-control" id="searchby" placeholder="Search by Item #" style="width: 60%;" />
+                        <input type="submit" class="btn btn-primary" name="byNum" value="Search" />
+                    }
                 </div>
             </div>
         </div>
+
     </div>
 </div>
-
-<br />
-<br/>
 
 @*separate table for displaying all the data*@
 <div class="container-fluid">
     <div class="row">
-        @* advanced sort 
-        <div class="col-sm-2">
-                <div class="form-horizontal">
-                    <h3>Sorting Options</h3>
-                    <div class="well well-sm">
-                        @* Dropdown for picking item type - should populate with database in the future 
-                        <label>Item Type:</label>
-                        <select name="type">
-                            <option selected>choose one...</option>
-                            <option value="speech">Speech</option>
-                            <option value="computer">Computers & Technology</option>
-                            <option value="dailyLiving">Daily Living</option>
-                            <option value="vision">Vision</option>
-                            <option value="hearing">Hearing</option>
-                        </select>
-                        <br/>
-                        <br/>
-
-                        @* choose how many items appear in table at once 
-                        <label>Items Per Page:</label>
-                        <br/>
-                        <label class="checkbox-inline"><input type="checkbox" value="20" checked>20</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="50">50</label>
-                        <br/>
-                        <br/>
-
-                        @* Button - submit new sorting options 
-                        @Html.ActionLink("Update Sorting", null, null, new {@class = "btn btn-primary"})
-                    </div>
-                </div>
-        </div>*@
-        <div class="col-md-12">@* changed col-md-9 to 12 since the above code was commented out *@
+        <div class="col-md-12">
             <table class="table table-striped table-responsive table-hover">
                 <thead>
                 <tr>
@@ -127,3 +108,5 @@
         </div>
     </div>
 </div>
+
+@* write script to turn  *@
