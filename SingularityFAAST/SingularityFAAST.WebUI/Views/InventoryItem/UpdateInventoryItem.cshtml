@@ -158,7 +158,31 @@
         @Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning" })  @* Have Not Checked for Accurate Location on web page yet *@
 
         <br />
-        @Html.ActionLink("Cancel Update", "IndexInventory", null, new { @class = "btn btn-warning btn-md" })
+        <button class="btn btn-warning btn-sm" type="button" name="CancelInventoryItem" data-toggle="modal" data-target="#cancelModal">Cancel Entry</button>
+
+
+        @*cancel Modal*@
+        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="ModalTitle">Warning!</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Are you sure that you would like to cancel? You will lose you progress.</h4>  @*A little over exagerated*@
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        @Html.ActionLink("Cancel Update", "IndexInventory", null, new { @class = "btn btn-primary btn-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <br />
         <br />        
     </div>
@@ -169,7 +193,28 @@
 {
     <input hidden="hidden" name="InventoryItemId" value="@Model.InventoryItem.InventoryItemId" />
 
-    <button class="btn btn-danger btn-sm" type="submit" name="DeleteInventoryItem" value="DeleteInventoryItem(@Model.InventoryItem.InventoryItemId)">Delete Item</button>
+    <button class="btn btn-danger btn-sm" type="button" name="DeleteInventoryItem" data-toggle="modal" data-target="#deleteModal">Delete Item</button>
+
+    //delete Modal
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="ModalTitle">Warning!</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure that you would like to delete this item? This is a destructive act that cannot be undone.</h4> @*A little over exagerated*@ 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn btn-danger btn-primary" type="submit" name="DeleteInventoryItem" value="DeleteInventoryItem(@Model.InventoryItem.InventoryItemId)">Delete Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 @* Script for ToolTip *@
 <script>

@@ -152,7 +152,28 @@
         <br />
 
 
-        @Html.ActionLink("Cancel Entry", "IndexInventory", "InventoryItem", null, new { @class = "btn btn-warning btn-sm" })
+        <button class="btn btn-warning btn-sm" type="button" name="CancelInventoryItem" data-toggle="modal" data-target="#cancelModal">Cancel Entry</button>
+
+        @*Modal*@
+        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="ModalTitle">Warning!</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Are you sure that you would like to cancel? You will lose you progress.</h4>  @*A little over exagerated*@
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        @Html.ActionLink("Cancel Entry", "IndexInventory", "InventoryItem", null, new { @class = "btn btn-primary btn-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     @* Script for ToolTip *@

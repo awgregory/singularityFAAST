@@ -82,8 +82,8 @@
                             <th>Date Purchased</th>
                             <th>Description</th>
                             <th>Serial Number</th>
-                            <th>Availability</th>
-                            <th>Active</th>
+                            <th>Damages</th>
+                            <th>Accessories</th>
                             <th>View Loan</th>
                         </tr>
                     </thead>
@@ -98,9 +98,9 @@
                                 <td>@inventoryItem.DatePurchased</td>
                                 <td>@inventoryItem.Description</td>
                                 <td>@inventoryItem.SerialNumber</td>
-                                <td>@inventoryItem.Availability</td>
-                                <td>@inventoryItem.Active</td>
-                                <td>@Html.ActionLink("Edit", "UpdateInventoryItem", new { id = inventoryItem.InventoryItemId })</td>
+                                <td>@inventoryItem.Damages</td>
+                                <td>@inventoryItem.Accessories</td>
+                                <td>@Html.ActionLink("View Loan", null , "Loan",new { id = inventoryItem.InventoryItemId })</td>
                             </tr>
                         }
                     </tbody>

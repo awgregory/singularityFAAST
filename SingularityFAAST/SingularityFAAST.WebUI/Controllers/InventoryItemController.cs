@@ -72,6 +72,7 @@ namespace SingularityFAAST.WebUI.Controllers
         #endregion
 
         #region All Inventory ON LOAN
+        [HttpGet]
         public ActionResult ViewAllOnLoanInv(int page = 1)
         {
             var model = _itemServices.ViewInvOnLoan();
@@ -98,7 +99,8 @@ namespace SingularityFAAST.WebUI.Controllers
         //[HttpPost]
         //public ActionResult ViewAllOnLoanInv(int id)
         //{
-
+        //    var loanNumber = 1;
+        //    IList<LoansClientsInventoryDTO> model = _itemServices.ViewAllItems(loanNumber);
 
         //    var viewModel = new NewInventoryItemViewModel()
         //    {

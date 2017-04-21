@@ -39,6 +39,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using SingularityFAAST.Core.DataTransferObjects;
 
 namespace SingularityFAAST.Services.Services
 {
@@ -100,6 +101,11 @@ namespace SingularityFAAST.Services.Services
 
                 return inventoryList;
             }
+        }
+
+        public IList<LoansClientsInventoryDTO> ViewAllItems(object loanNumber)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
@@ -270,6 +276,17 @@ namespace SingularityFAAST.Services.Services
                 return list;
             }
         }
+        #endregion
+
+        #region Get Loans associated with items
+        //public  IList<LoansClientsInventoryDTO> ReturnAssociatedLoanNumber(int id)
+        //{
+        //    IList<LoansClientsInventoryDTO> allItems = GetAllItems();
+        //    IList<LoansClientsInventoryDTO> filteredLoans =
+        //        allItems.Where(loan => string.Equals(loan.LoanNumber, loanNumber)).ToList();
+
+        //    return filteredLoans;
+        //}
         #endregion
     }
 }
