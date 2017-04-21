@@ -190,12 +190,65 @@ namespace SingularityFAAST.WebUI.Controllers
         #region Search Requests 
         //Returns Inventory records that match search criteria
         [HttpPost]
-        public ActionResult Index(SearchRequest searchRequest)
+        public ActionResult IndexInventory(SearchRequest searchRequest)
         {
 
             IList<InventoryItem> model = _itemServices.HandlesSearchRequest(searchRequest);
 
-            return View(model);
+            var viewModel = new ItemIndexViewModel
+            {
+                InventoryItems = model,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = 1,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = model.Count
+                }
+            };
+
+            return View(viewModel);
+        }
+
+        //Returns Inventory records that match search criteria
+        [HttpPost]
+        public ActionResult ViewAllAvailableInv(SearchRequest searchRequest)
+        {
+
+            IList<InventoryItem> model = _itemServices.HandlesSearchRequest(searchRequest);
+
+            var viewModel = new ItemIndexViewModel
+            {
+                InventoryItems = model,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = 1,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = model.Count
+                }
+            };
+
+            return View(viewModel);
+        }
+
+        //Returns Inventory records that match search criteria
+        [HttpPost]
+        public ActionResult ViewAllOnLoanInv(SearchRequest searchRequest)
+        {
+
+            IList<InventoryItem> model = _itemServices.HandlesSearchRequest(searchRequest);
+
+            var viewModel = new ItemIndexViewModel
+            {
+                InventoryItems = model,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = 1,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = model.Count
+                }
+            };
+
+            return View(viewModel);
         }
         #endregion
     }

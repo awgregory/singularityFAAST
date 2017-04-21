@@ -24,34 +24,43 @@
         <div class="col-md-12 well well-sm">
             <div class="col-md-2">
                 @* button for creating a new inventory item *@
-                @Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new {@class = "btn btn-primary"})
+                @Html.ActionLink("New Inventory Item", "NewInventoryItem", "InventoryItem", null, new { @class = "btn btn-primary" })
             </div>
 
             @* quick sort *@
             <div class="col-md-4">
                 <label>Quick Sort:</label>
                 @* view all inventory*@
-                @Html.ActionLink("All", "IndexInventory", "InventoryItem", null, new {@class = "btn btn-default active"})
+                @Html.ActionLink("All", "IndexInventory", "InventoryItem", null, new { @class = "btn btn-default active" })
                 @* view available inventory *@
-                @Html.ActionLink("Available", "ViewAllAvailableInv", "InventoryItem", null, new {@class = "btn btn-default"})
+                @Html.ActionLink("Available", "ViewAllAvailableInv", "InventoryItem", null, new { @class = "btn btn-default" })
                 @* view inventory on loan *@
-                @Html.ActionLink("On Loan", "ViewAllOnLoanInv", "InventoryItem", null, new {@class = "btn btn-default"})
+                @Html.ActionLink("On Loan", "ViewAllOnLoanInv", "InventoryItem", null, new { @class = "btn btn-default" })
             </div>
-            
+
             @* search bar *@
-            <div class="col-md-6">
-                @using (Html.BeginForm())
-                {
+            <div class="col-md-3">
+
                 <div class="form-inline">
-                    <input type="text" class="form-control" id="searchby" placeholder="Search by Item Name" style="width: 60%;"/>
-                    @Html.ActionLink("Search", null, null, new {@class = "btn btn-primary"})
-                    &nbsp;
-                    <input type="text" class="form-control" id="searchby" placeholder="Search by Item #" style="width: 60%;" />
-                    @Html.ActionLink("Search", null, null, new { @class = "btn btn-primary" })
+                    @using (Html.BeginForm("IndexInventory", "InventoryItem", FormMethod.Post, new { @class = "form-inline" }))
+                    {
+                        <input type="text" class="form-control" id="searchby" placeholder="Search by Item Name" style="width: 60%;" />
+                        <input type="submit" class="btn btn-primary" name="byName" value="Search" />
+                    }
                 </div>
-                }
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-inline">
+                    @using (Html.BeginForm("IndexInventory", "InventoryItem", FormMethod.Post, new { @class = "form-inline" }))
+                    {
+                        <input type="text" class="form-control" id="searchby" placeholder="Search by Item #" style="width: 60%;" />
+                        <input type="submit" class="btn btn-primary" name="byNum" value="Search" />
+                    }
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 

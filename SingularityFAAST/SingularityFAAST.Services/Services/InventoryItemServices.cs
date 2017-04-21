@@ -135,7 +135,7 @@ namespace SingularityFAAST.Services.Services
         {
             using (var context = new SingularityDBContext())
             {
-                var item = context.InventoryItems.Find(id);
+                var item = context.InventoryItems.FirstOrDefault(x => x.InventoryItemId ==id);
 
                 if (item != null)
                 {
@@ -260,7 +260,7 @@ namespace SingularityFAAST.Services.Services
         }
         #endregion
 
-
+        #region Get Item Categories
         public IList<InventoryItemCategory> GetItemCategories()
         {
             using (var context = new SingularityDBContext())
@@ -270,5 +270,6 @@ namespace SingularityFAAST.Services.Services
                 return list;
             }
         }
+        #endregion
     }
 }

@@ -44,17 +44,25 @@
             </div>
 
             @* search bar *@
-            <div class="col-md-6">
-                @using (Html.BeginForm())
-                {
-                    <div class="form-inline">
+            <div class="col-md-3">
+
+                <div class="form-inline">
+                    @using (Html.BeginForm("ViewAllAvailableInv", "InventoryItem", FormMethod.Post, new { @class = "form-inline" }))
+                    {
                         <input type="text" class="form-control" id="searchby" placeholder="Search by Item Name" style="width: 60%;" />
-                        @Html.ActionLink("Search", null, null, new { @class = "btn btn-primary" })
-                        &nbsp;
+                        <input type="submit" class="btn btn-primary" name="byName" value="Search" />
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-inline">
+                    @using (Html.BeginForm("ViewAllAvailableInv", "InventoryItem", FormMethod.Post, new { @class = "form-inline" }))
+                    {
                         <input type="text" class="form-control" id="searchby" placeholder="Search by Item #" style="width: 60%;" />
-                        @Html.ActionLink("Search", null, null, new { @class = "btn btn-primary" })
-                    </div>
-                }
+                        <input type="submit" class="btn btn-primary" name="byNum" value="Search" />
+                    }
+                </div>
             </div>
         </div>
     </div>
