@@ -83,24 +83,16 @@ namespace SingularityFAAST.Services.Services
             //NEEDS FIXIN
             //**************
 
-            //using (var context = new SingularityDBContext())
-            //{
-            //    IList<InventoryItem> allitems = GetAllInventory(); //gets full list of inventory items from db
-
-            //    IList<InventoryItem> ItemsOnLoan = allitems.Where(item => item.Availability = true).ToList(); //filters out items which have an availability of True (or 1)
-
-            //    return ItemsOnLoan;
-            //}
-
-            //Using the code to get all inventory as a temporary placeholder
             using (var context = new SingularityDBContext())
             {
-                var inventory = context.InventoryItems;
+                IList<InventoryItem> allitems = GetAllInventory(); //gets full list of inventory items from db
 
-                var inventoryList = inventory.ToList();
+                IList<InventoryItem> ItemsOnLoan = allitems.Where(item => item.Availability == false).ToList(); //filters out items which have an availability of True (or 1)
 
-                return inventoryList;
+                return ItemsOnLoan;
             }
+
+
         }
 
         public IList<LoansClientsInventoryDTO> ViewAllItems(object loanNumber)
