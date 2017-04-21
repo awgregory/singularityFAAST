@@ -4,67 +4,90 @@
     ViewBag.Title = "CheckIn";
 }
 
-<h2>Loan Check-In</h2>
+<h3>Loan Check-In</h3>
+
 @using (Html.BeginForm("CheckInLoan", "Loan", FormMethod.Post, new { @class = "" }))
 {
-    <div>
-        <hr />
-        <div class="row">
-            <h4>
-                @foreach (var item in Model)
-                {
-                    <span class="col-md-1">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
-                    <span class="col-md-2">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
-                    <span class="col-md-2">Phone: @Html.DisplayFor(x => item.HomePhone)  </span>
-                    <span class="col-md-3">Email: @Html.DisplayFor(x => item.Email)</span>
-                    break; //or will print client for each item in client loan
-                }
-            </h4>
-
-        </div>
-        <br />
-        <div class="row">
+    <hr />
+    <div class="row">
+        <h4>
             @foreach (var item in Model)
-            {
-                <input type="hidden" value="@item.LoanMasterId" name="LoanMasterId" />
-                <dl class="dl-horizontal">
-                    <dt>
-                        Item Number:
-                    </dt>
+                {
 
-                    <dd>
-                        @item.InventoryItemId
-                    </dd>
-                    <dt>
-                        Item:
-                    </dt>
+                <span class="col-md-1">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
+                <span class="col-md-2">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
+                <span class="col-md-2">Phone: @Html.DisplayFor(x => item.CellPhone)  </span>
+                    <span class="col-md-3">Email: @Html.DisplayFor(x => item.Email)</span>
 
-                    <dd>
-                        @item.ItemName
-                    </dd>
-
-                    <dt>
-                        Item Loan End Date:
-                    </dt>
-
-                    <dd>
-                        @item.LoanDate.AddDays(29).ToString("MMMM dd, yyyy")
-                    </dd>
-                </dl>
-                <br />
-                <div class="row">
-                    <label for="damages">Item Damages:</label>
-
-                    <input type="text" name="Damages" id="damages" />
-                </div>
+                break; //or will print client for each item in client loan
             }
-        </div>
+        </h4>
+
+    </div>
+    <br />
+
+    <br />
+    
+        foreach (var item in Model)
+        {
+            if (item.IsActive && (!item.Availability))
+            {
+                <div class="row">
+                    <br />
+                    <div class="col-md-4">
+                        <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Item Number:
+                            </dt>
+
+                            <dd>
+                                @item.InventoryItemId
+                            </dd>
+                            <dt>
+                                Item:
+                            </dt>
+
+                            <dd>
+                                @item.ItemName
+                            </dd>
+
+                            <dt>
+                                End Date:
+                            </dt>
+
+                            <dd>
+                                @item.LoanDate.AddDays(29).ToString("MMMM dd, yyyy")
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="damages">Item Damages:</label>
+                            @*<input type="text" class="input-sm" name="Damages" id="damages" />*@
+                            <textarea class="form-control" name="Damages" id="damages" rows="3"></textarea>
+
+                        </div>
+                    </div>
+                    <br />
+                    
+                </div>
+                <hr />
+        }
+
+    }
+        @*break;*@
+
+
+
         <br />
+
         <div class="row">
-            <div class="col-md-2" id="decision">
-                <h5>Client Outcome</h5>
+            <div class="col-md-4" id="decision">
+                <h5><b>Client Outcome</b></h5>
                 <div class="radio">
-                    <label><input type="radio" name="clientOutcome" value="AT will meet needs">AT will meet needs</label>
+                    <label><input type="radio" name="clientOutcome" value="AT will meet needs" checked>AT will meet needs</label>
                 </div>
                 <div class="radio">
                     <label><input type="radio" name="clientOutcome" value="Non-Respondant">Non-Respondant</label>
@@ -76,23 +99,30 @@
                     <label><input type="radio" name="clientOutcome" value="AT will not meet needs">AT will not meet needs</label>
                 </div>
             </div>
-        </div>
-        <br />
-        <div class="row">
-            <label for="notes">Notes on the Loan:</label>
-            <input type="text" name="Notes" id="notes" />
-        </div>
-        <br />
-        <div class="form-group">
-            <div class="col-md-2 col-md-10">
-                <input type="submit" value="Check-In Loan" class="btn btn-primary" />
+            @*</div>*@
+            <br />
+
+            @*<div class="row">*@
+            <div class="col-md-7 ">
+                <div class="form-group">
+                    <label for="notes">Loan Notes:</label>
+                    <textarea class="form-control" name="LoanNotes" id="notes" rows="3"></textarea>
+                </div>
+                <br />
+                <br />
             </div>
         </div>
-    </div>
+        <div class="form-group">
+            @*<div class="col-md-5 col-md-offset-1">*@
+            <input type="submit" value="Check-In Loan" class="btn btn-primary" />
+            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-primary" })
+            @*</div>*@
+        </div>
 }
-<div>
+<div class="form-group">
     @Html.ActionLink("Back to Loans List", "Index")
 </div>
+
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>

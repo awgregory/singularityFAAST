@@ -11,7 +11,7 @@ namespace SingularityFAAST.Core.SearchRequests
         public string SearchBy { get; set; }
 
 
-        // To Search Service Switch Statement
+        // For Switch Statement in Services
         public int SearchByType { get; set; }
 
     }

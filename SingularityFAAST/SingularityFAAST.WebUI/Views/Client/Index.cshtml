@@ -1,85 +1,117 @@
 ﻿
-@model IEnumerable<SingularityFAAST.Core.Entities.Client>
+@model SingularityFAAST.Core.ViewModels.ClientIndexViewModel
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Clients</h2> 
 
 
-
-
-
-@using (Html.BeginForm("Index", "Client", FormMethod.Post, new { @class = "form-inline" }))
-{
-
-    <div class="form-group">
-        @Html.ActionLink("Add New", "AddClient", "Client", null, new { @class = "btn btn-primary" })  OR    
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Clients</h3>
+        </div>
     </div>
 
-    <label class="sr-only" for="searchby">Search Input</label>
-    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="searchby" name="searchby" placeholder="Search By">
 
 
-        <div class="radio mb-2 mr-sm-2 mb-sm-0">
-            <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="searchByType" value="1" checked> Last Name
-            </label>
 
-            <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="searchByType" value="2"> First Name
-            </label>
 
-            <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="searchByType" value="3"> Client ID
-            </label>
 
-            <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="searchByType" value="4"> Email
-            </label>
-        </div> 
+    @using (Html.BeginForm("Index", "Client", FormMethod.Post, new { @class = "form-inline" }))
+            {
+        <div class="row">
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-}
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.ActionLink("New Client", "AddClient", "Client", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+
+
+            <div class="col-md-9, text-right">
+                @*Alignment Classes 12829608*@
+                <label class="sr-only" for="searchby">Search Input</label>
+                <a data-toggle="tooltip" data-placement="bottom" title="Name search with partial match | Client Number or Email wth full match">
+                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" required id="searchby" name="searchby" placeholder="Name, Client Num, Email">
+                </a>
+
+                <div class="radio mb-2 mr-sm-2 mb-sm-0">
+                    <label class="form-check-label, sr-only">
+                        <input class="form-check-input" type="hidden" name="searchByType" value="3" checked> Name
+                    </label>
+
+                    @*<label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="searchByType" value="2"> First Name
+                        </label>*@
+
+                    @*<label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="searchByType" value="3"> Client ID
+                        </label>*@
+
+                    @*<label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="searchByType" value="4"> Email
+                        </label>*@
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+
+            </div>
+
+        </div>
+    }
+
+
 
     @*Table -----------------------------------------------------------------------*@
 
-        <br /> 
+    <br />
 
-        <table class="table table-striped">
-            <tr>
-
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Cell Phone</th>
-                <th>Home Phone</th>
-                <th>@Html.DisplayNameFor(model => model.Email)</th>  @*Usage comparison*@                    
-                <th>Category</th>
-                <th>Notes</th>
-                <th>View/Edit</th>  @*To make th width match data*@
-                <th>Delete</th>
-            </tr>
-
-
-            @foreach (var item in Model)
-            {
-                if (item.IsDeleted == false)
-                {
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-responsive table-hover">
+                <thead>
                     <tr>
-                        <td>@item.FirstName</td>
-                        <td>@item.LastName</td>
-                        <td>@item.CellPhone</td>
-                        <td>@item.HomePhone</td>
-                        <td>@item.Email</td>
-                        <td>@item.ClientCategoryName</td>
-                        <td>@item.Notes</td>
+                        <th>Client Number</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Primary Phone</th>
+                        <th>Email</th>
+                        <th>Category</th>
+                        <th>Notes</th>
+                        <th>View/Edit</th>  @*To make th width match data*@
+                        <th>Delete</th>
+                    </tr>
+                </thead>
 
-                        <td>@Html.ActionLink("View/Edit", "EditClient", new { id = item.ClientID })</td>
-                        <td>@Html.ActionLink("Delete", "Delete", new { id = item.ClientID })</td>
-                </tr>
-                }
-            }
+                <tbody>
+                    @foreach (var item in Model.Clients)
+                    {
+                        if (item.IsDeleted == false)
+                        {
+                            <tr>
+                                <td>@item.ClientID</td>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@item.CellPhone</td>
+                                <td>@item.Email</td>
+                                <td>@item.ClientCategoryName</td>
+                                <td>@item.Notes</td>
 
-        </table>
+                                <td>@Html.ActionLink("View/Edit", "EditClient", new { id = item.ClientID })</td>
+                                <td>@Html.ActionLink("Delete", "Delete", new { id = item.ClientID })</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
 
+            <div>
+                @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+            </div>
+
+
+        </div>
+    </div>
+</div>

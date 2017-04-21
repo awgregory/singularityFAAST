@@ -1,9 +1,6 @@
 ﻿using SingularityFAAST.Core.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SingularityFAAST.Core.ViewModels
 {
@@ -17,6 +14,7 @@ namespace SingularityFAAST.Core.ViewModels
             this.Client = client;       // this refers to the class which you are currently writing code in
             DisabilityCategories = disabilityCategories;
             AssociatedLoans = associatedLoans;
+            //LoanEligibilityCategories = { "True", "False"};
         }
 
         //Client
@@ -27,6 +25,7 @@ namespace SingularityFAAST.Core.ViewModels
 
         //Loans
         public IEnumerable<LoanMaster> AssociatedLoans { get; set; }
+        
 
     }
 }
