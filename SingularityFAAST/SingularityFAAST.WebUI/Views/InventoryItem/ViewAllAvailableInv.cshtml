@@ -22,7 +22,7 @@
 <div class="container-fluid"> 
     <div class="row">
         <div class="col-md-12 well well-sm">
-            <div class="col-md-4">
+            <div class="col-md-2">
                 @*this row holds buttons for navigating available views*@
 
                 @*all inventory*@
@@ -44,11 +44,17 @@
             </div>
 
             @* search bar *@
-            <div class="col-md-4">
-                <div class="form-inline">
-                    <input type="text" class="form-control" placeholder="Search Inventory" style="width: 60%;" />
-                    @Html.ActionLink("Search", null, null, new { @class = "btn btn-primary" })
-                </div>
+            <div class="col-md-6">
+                @using (Html.BeginForm())
+                {
+                    <div class="form-inline">
+                        <input type="text" class="form-control" id="searchby" placeholder="Search by Item Name" style="width: 60%;" />
+                        @Html.ActionLink("Search", null, null, new { @class = "btn btn-primary" })
+                        &nbsp;
+                        <input type="text" class="form-control" id="searchby" placeholder="Search by Item #" style="width: 60%;" />
+                        @Html.ActionLink("Search", null, null, new { @class = "btn btn-primary" })
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -57,8 +63,8 @@
 @*separate table for displaying all the data*@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">@* changed col-md-9 to 12 since the above code was commented out *@
-        <table class="table table-striped table-responsive">
+        <div class="col-md-12">
+        <table class="table table-striped table-responsive table-hover">
             <thead>
                 <tr>
                     <th>Item Number</th>

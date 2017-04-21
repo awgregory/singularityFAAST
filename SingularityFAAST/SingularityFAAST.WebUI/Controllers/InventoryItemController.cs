@@ -71,11 +71,27 @@ namespace SingularityFAAST.WebUI.Controllers
         #endregion
 
         #region All Inventory ON LOAN
-        public ActionResult ViewAllOnLoanInv()
+        public ActionResult ViewAllOnLoanInv(int page = 1)
         {
-            var services = new InventoryItemServices();
-            var model = services.ViewInvOnLoan();
-            return View(model);
+            var model = _itemServices.ViewInvOnLoan();
+
+            var list = model
+                .OrderBy(ii => ii.InventoryItemId)
+                .Skip((page - 1) * _pageSize)
+                .Take(_pageSize);
+
+            var viewModel = new ItemIndexViewModel
+            {
+                InventoryItems = list,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = model.Count
+                }
+            };
+
+            return View(viewModel);
         }
         #endregion
 
