@@ -10,6 +10,16 @@
     <h4>Total number of loans: @Model.TotalNumberOfLoans </h4>
     <br />
     <br />
+    
+        @using (Html.BeginForm("LoanReport", "Export", "POST"))
+        {
+            @Html.HiddenFor(m => m.StartDate)
+            @Html.HiddenFor(m => m.EndDate)
+
+            <button type="submit">
+                Export
+            </button>
+        }
 
     <h4>Number of Device Loans by Type of Borrower</h4>
     
@@ -101,6 +111,4 @@
             </tr>
         </tbody>
     </table>
-   
-    
 </div>

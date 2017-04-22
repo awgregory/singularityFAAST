@@ -18,6 +18,9 @@ namespace SingularityFAAST.Services.Services
                 // We created a view model object that we will populate with information
                 var viewModel = new LoanReportViewModel();
 
+                viewModel.StartDate = startDate;
+                viewModel.EndDate = endDate;
+
                 // Created variable that holds the total amount of loans between two dates
                 var timeFramedLoans = context.LoanMasters
                                     .Where(loan => loan.DateCreated >= startDate

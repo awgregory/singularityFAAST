@@ -10,6 +10,9 @@ namespace SingularityFAAST.Core.ViewModels.Reports
 {
     public class LoanReportViewModel
     {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
         public int TotalNumberOfLoans { get; set; }
 
         // Create Variables for Device Loans for Borrower Type
