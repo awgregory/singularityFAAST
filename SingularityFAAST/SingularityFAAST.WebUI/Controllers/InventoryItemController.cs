@@ -1,6 +1,7 @@
 ﻿//Jon Ebert - 2017
 //Inventory Item Controller
 
+using System;
 using System.Collections.Generic;
 using SingularityFAAST.Core.SearchRequests;
 using System.Web.Mvc;
@@ -22,7 +23,8 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         #region IndexInventory
-        public ActionResult IndexInventory(int page = 1)
+        public ActionResult IndexInventory(InventoryItemSearchRequest inventoryItemSearchRequest, 
+            int page = 1)
         {
             var allInventory = _itemServices.GetAllInventory();
 
@@ -30,6 +32,23 @@ namespace SingularityFAAST.WebUI.Controllers
                 .OrderBy(ii => ii.InventoryItemId)
                 .Skip((page - 1) * _pageSize)
                 .Take(_pageSize);
+            
+            if (!string.IsNullOrEmpty(inventoryItemSearchRequest.FilterByItemName)
+                    && string.IsNullOrEmpty(inventoryItemSearchRequest.FilterByItemNumber))
+            {
+                list = list.Where(item => item.ItemName.ToLower()
+                    .Contains(inventoryItemSearchRequest.FilterByItemName));
+            }
+
+            if (!string.IsNullOrEmpty(inventoryItemSearchRequest.FilterByItemNumber)
+                && string.IsNullOrEmpty(inventoryItemSearchRequest.FilterByItemName))
+            {
+                int number;
+                var result = int.TryParse(inventoryItemSearchRequest.FilterByItemNumber, out number);
+
+                if (result)
+                    list = list.Where(item => item.InventoryItemId == number);
+            }
 
             var viewModel = new ItemIndexViewModel
             {
@@ -207,27 +226,27 @@ namespace SingularityFAAST.WebUI.Controllers
         #region Search Requests 
         //Returns Inventory records that match search criteria
         [HttpPost]
-        public ActionResult IndexInventory(SearchRequest searchRequest)
-        {
+        //public ActionResult IndexInventory(SearchRequest searchRequest)
+        //{
 
-            IList<InventoryItem> model = _itemServices.HandlesSearchRequest(searchRequest);
+        //    IList<InventoryItem> model = _itemServices.HandlesSearchRequest(searchRequest);
 
-            var viewModel = new ItemIndexViewModel
-            {
-                InventoryItems = model,
-                PagingInfo = new PagingInfo
-                {
-                    CurrentPage = 1,
-                    ItemsPerPage = _pageSize,
-                    TotalItems = model.Count
-                }
-            };
+        //    var viewModel = new ItemIndexViewModel
+        //    {
+        //        InventoryItems = model,
+        //        PagingInfo = new PagingInfo
+        //        {
+        //            CurrentPage = 1,
+        //            ItemsPerPage = _pageSize,
+        //            TotalItems = model.Count
+        //        }
+        //    };
 
-            return View(viewModel);
-        }
+        //    return View(viewModel);
+        //}
 
         //Returns Inventory records that match search criteria
-        [HttpPost]
+        //[HttpPost]
         public ActionResult ViewAllAvailableInv(SearchRequest searchRequest)
         {
 

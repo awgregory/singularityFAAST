@@ -16,7 +16,7 @@ CREATE TABLE [dbo].[InventoryItems]
     [Description]			 VARCHAR(MAX)		NULL, 
     [Accessories]			 VARCHAR(150)		NULL,
 	[Damages]				 VARCHAR(200)		NULL, 
-
+    [IsDeleted]				 BIT				NOT NULL DEFAULT 0, 
     CONSTRAINT	[PK_InventoryItemId]		PRIMARY KEY	([InventoryItemId]),
 	CONSTRAINT	[FK_InventoryItems_InventoryItemCategories]	FOREIGN KEY	([InventoryCategoryId])
 		REFERENCES	dbo.InventoryItemCategories ([InventoryCategoryId])

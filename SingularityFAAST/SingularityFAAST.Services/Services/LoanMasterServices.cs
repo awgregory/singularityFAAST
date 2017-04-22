@@ -691,7 +691,7 @@ namespace SingularityFAAST.Services.Services
 
                 LoanDetail[] itemsListed = new LoanDetail[loanSubmission.InventoryItems.Count];
 
-                for (int i = 0; i < itemsListed.Length; i++)
+                for (int i = 0; i < itemsListed.Length; i ++)
                 {
                     foreach (var itemId in loanSubmission.InventoryItems)
                     {
@@ -707,7 +707,7 @@ namespace SingularityFAAST.Services.Services
                             i++;
                         //};
                     };
-                    break;
+                    //break;
                 }
                 List<LoanDetail> loanDetailsList = itemsListed.ToList();
 

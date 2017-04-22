@@ -32,6 +32,7 @@ namespace SingularityFAAST.Core.Entities
         public string Accessories { get; set; }
         public string Damages { get; set; }
 
+        public bool IsDeleted { get; set; }
 
         //Data Annotations Display would still require logic, DisplayFor is more static for single values
         public string InventoryCategoryName

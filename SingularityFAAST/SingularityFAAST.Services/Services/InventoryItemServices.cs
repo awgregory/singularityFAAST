@@ -51,7 +51,7 @@ namespace SingularityFAAST.Services.Services
         {
             using (var context = new SingularityDBContext())
             {
-                var inventory = context.InventoryItems;
+                var inventory = context.InventoryItems.Where(i => i.IsDeleted == false);
                 
                 var inventoryList = inventory.ToList();
 
@@ -137,9 +137,11 @@ namespace SingularityFAAST.Services.Services
 
                 if (item != null)
                 {
+                    item.IsDeleted = true;
+
                     context.InventoryItems.Attach(item);
                     var entry = context.Entry(item);
-                    entry.State = EntityState.Deleted;
+                    entry.State = EntityState.Modified;
                     context.SaveChanges();
                 }
             }

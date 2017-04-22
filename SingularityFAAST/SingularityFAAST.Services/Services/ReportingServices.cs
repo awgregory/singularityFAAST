@@ -18,6 +18,9 @@ namespace SingularityFAAST.Services.Services
                 // We created a view model object that we will populate with information
                 var viewModel = new LoanReportViewModel();
 
+                viewModel.StartDate = startDate;
+                viewModel.EndDate = endDate;
+
                 // Created variable that holds the total amount of loans between two dates
                 var timeFramedLoans = context.LoanMasters
                                     .Where(loan => loan.DateCreated >= startDate
@@ -91,9 +94,29 @@ namespace SingularityFAAST.Services.Services
                 viewModel.PurposeShortTerm = purposeShortTerm;
                 viewModel.PurposeConductTraining = purposeConductTraining;
 
+                viewModel.PurposesTotal = totalPurpose;
+                viewModel.NumberOfTotalBorrowers = totalBorrowers;
+
                 return viewModel;
             }
             
         }
+
+        // Create a new service that will pass the values of the Client View Model to the Client report which will show 
+        // All of the clients along with their email and phone number
+        public ClientReportViewModel CreateClientReportViewModel()
+        {
+            using (var context = new SingularityDBContext())
+            {
+                var viewModel = new ClientReportViewModel();
+
+                var clients = context.Clients.ToList();
+
+                viewModel.clientList = clients;
+
+                return viewModel;
+            }
+        }
     }
+    
 }

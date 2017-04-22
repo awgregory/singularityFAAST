@@ -1,4 +1,4 @@
-﻿@model SingularityFAAST.Core.ViewModels.ItemIndexViewModel  
+﻿@model SingularityFAAST.Core.ViewModels.ItemIndexViewModel
 
 @*Inventory Home page
      -Homepage for all Inventory actions
@@ -44,8 +44,17 @@
                 <div class="form-inline">
                     @using (Html.BeginForm("IndexInventory", "InventoryItem", FormMethod.Post, new { @class = "form-inline" }))
                     {
-                        <input type="text" class="form-control" id="searchby" placeholder="Search by Item Name" style="width: 60%;" />
-                        <input type="submit" class="btn btn-primary" name="byName" value="Search" />
+                        @Html.EditorFor(m => m.InventoryItemSearchRequest.FilterByItemName,
+                            new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @class = "form-control",
+                                    placeholder = "Item Name",
+                                    style = "width:60%"
+                                }
+                            })
+                        <button class="btn btn-primary" type="submit">Search </button>
                     }
                 </div>
             </div>
@@ -54,8 +63,17 @@
                 <div class="form-inline">
                     @using (Html.BeginForm("IndexInventory", "InventoryItem", FormMethod.Post, new { @class = "form-inline" }))
                     {
-                        <input type="text" class="form-control" id="searchby" placeholder="Search by Item #" style="width: 60%;" />
-                        <input type="submit" class="btn btn-primary" name="byNum" value="Search" />
+                        @Html.EditorFor(m => m.InventoryItemSearchRequest.FilterByItemNumber,
+                            new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @class = "form-control",
+                                    placeholder = "Item #",
+                                    style = "width:60%"
+                                }
+                            })
+                        <button class="btn btn-primary" type="submit">Search </button>
                     }
                 </div>
             </div>
@@ -70,23 +88,23 @@
         <div class="col-md-12">
             <table class="table table-striped table-responsive table-hover">
                 <thead>
-                <tr>
-                    <th>Item Number</th>
-                    <th>Name</th>
-                    <th>Location</th>
-                    <th>Category</th>
-                    <th>Date Purchased</th>
-                    <th>Description</th>
-                    <th>Serial Number</th>
-                    <th>Availability</th>
-                    <th>Active</th>
-                    <th>Edit Item</th>
-                </tr>
+                    <tr>
+                        <th>Item Number</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Category</th>
+                        <th>Date Purchased</th>
+                        <th>Description</th>
+                        <th>Serial Number</th>
+                        <th>Availability</th>
+                        <th>Active</th>
+                        <th>Edit Item</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach (var inventoryItem in Model.InventoryItems)
-                {
-                         <tr>
+                    @foreach (var inventoryItem in Model.InventoryItems)
+                    {
+                        <tr>
                             <td>@inventoryItem.InventoryItemId</td>
                             <td>@inventoryItem.ItemName</td>
                             <td>@inventoryItem.Location</td>
@@ -98,7 +116,7 @@
                             <td>@inventoryItem.Active</td>
                             <td>@Html.ActionLink("Edit", "UpdateInventoryItem", new { id = inventoryItem.InventoryItemId })</td>
                         </tr>
-                }
+                    }
                 </tbody>
             </table>
 
