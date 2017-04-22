@@ -12,10 +12,20 @@
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
-    <script src="~/Scripts/jquery-ui-1.12.1.custom/jquery-ui.js"></script> @*Kath Added*@
-    
-    <script src="~/Scripts/jquery.validate.js"></script> 
+    @*<script src="~/Scripts/jquery-ui-1.12.1.custom/jquery-ui.js"></script>*@ @*Kath Added*@
 
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <style>
+        .navbar-inverse .navbar-nav > li > a {
+            color: #fff;
+        }
+
+            .navbar-inverse .navbar-nav > li > a:hover,
+            .navbar-inverse .navbar-nav > li > a:focus {
+                color: #ffeb3b;
+                background-color: transparent;
+        }
+    </style>
 </head>
 
 <body>
@@ -36,6 +46,13 @@
                 </ul>
             </div>
         </div>
+
+        @*<div class="navbar-collapse collapse">
+                @*needs to be reactive to log in credentials
+                <ul class="nav navbar-nav navbar-right">
+                    @Html.ActionLink("Log Out", null, null, new {area = ""}, new {@class = "navbar-brand"})
+                </ul>
+            </div>*@
     </div>
 
     <div class="container body-content">

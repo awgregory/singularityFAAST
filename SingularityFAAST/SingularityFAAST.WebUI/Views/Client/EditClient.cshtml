@@ -26,7 +26,16 @@
             </div>
         </div>
 
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(viewModel => viewModel.Client.ClientID, "Client Number")
+                @Html.TextBoxFor(viewModel => viewModel.Client.ClientID, new { @class = "form-control", disabled="disabled" })
 
+                @*<a data-toggle="tooltip" data-placement="bottom" title="This has been entered for you">
+                    <Input disabled="disabled" type="text" class="form-control" value="@Model.NextInventoryNumber" name="InventoryNumber">
+                </a>*@
+            </div>
+        </div>
 
 
     </div>
@@ -59,14 +68,14 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.Address1, "Address *")
+                @Html.LabelFor(viewModel => viewModel.Client.Address1, "Street Address *")
                 @Html.TextBoxFor(viewModel => viewModel.Client.Address1, new { @class = "form-control", required = "required", maxlength = "200" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.Address2, "Address")
+                @Html.LabelFor(viewModel => viewModel.Client.Address2, "Unit/Apartment Number")
                 @Html.TextBoxFor(viewModel => viewModel.Client.Address2, new { @class = "form-control", maxlength = "200" })
             </div>
         </div>
@@ -84,8 +93,8 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.StateName, "State Name *")
-                @Html.TextBoxFor(viewModel => viewModel.Client.StateName, new { @class = "form-control", required = "required", maxlength = "30" })
+                @Html.LabelFor(viewModel => viewModel.Client.StateName, "State Name")
+                @Html.TextBoxFor(viewModel => viewModel.Client.StateName, new { @class = "form-control", maxlength = "30" })
             </div>
         </div>
 
@@ -109,8 +118,8 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.CountyFIPS)
-                @Html.TextBoxFor(viewModel => viewModel.Client.CountyFIPS, new { @class = "form-control", maxlength = "10" })
+                @Html.LabelFor(viewModel => viewModel.Client.CountyFIPS, "CountyFIPS *")
+                @Html.TextBoxFor(viewModel => viewModel.Client.CountyFIPS, new { @class = "form-control", required = "required", maxlength = "10" })
             </div>
         </div>
 
@@ -133,14 +142,14 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.CellPhone)
-                @Html.TextBoxFor(viewModel => viewModel.Client.CellPhone, new { @class = "form-control", maxlength = "20" })
+                @Html.LabelFor(viewModel => viewModel.Client.CellPhone, "Primary Phone")
+                @Html.TextBoxFor(viewModel => viewModel.Client.CellPhone, new { @class = "form-control", required = "required", maxlength = "20" })
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.HomePhone)
+                @Html.LabelFor(viewModel => viewModel.Client.HomePhone, "Secondary Phone")
                 @Html.TextBoxFor(viewModel => viewModel.Client.HomePhone, new { @class = "form-control", maxlength = "20" })
             </div>
         </div>
@@ -148,7 +157,7 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(viewModel => viewModel.Client.WorkPhone)
+                @Html.LabelFor(viewModel => viewModel.Client.WorkPhone, "Work Phone")
                 @Html.TextBoxFor(viewModel => viewModel.Client.WorkPhone, new { @class = "form-control", maxlength = "30" })
             </div>
         </div>
@@ -206,8 +215,6 @@
                 @Html.TextBoxFor(viewModel => viewModel.Client.Company, new { @class = "form-control", maxlength = "50" })
             </div>
         </div>
-
-
     </div>
 
 
@@ -270,7 +277,9 @@
                     <tr>
                         <td>@associatedLoan.LoanMasterId</td>
                         <td>@associatedLoan.DateCreated</td>
-                        <td>@Html.ActionLink("View", "ViewLoan", "Loan", new { loanId = associatedLoan.LoanMasterId }, null)</td>
+                        <td>
+                            <a href="/Loan/ViewItems?loanNumber=@associatedLoan.LoanNumber"> View </a>
+                        </td>
                     </tr>
                 }
             </table>
@@ -294,7 +303,7 @@
     <br />
 
     <div class="text-left">
-        <input class="btn btn-primary" type="submit" value="Edit Client" />
+        <input class="btn btn-primary" type="submit" value="Update" />
     </div>
 
     <br />
@@ -303,8 +312,9 @@
         @Html.ActionLink("Cancel", "Index")
     </div>
 
-    <script>
+    //JQuery Validation Plugin, link in Layout?
+    @*<script>
         $("#commentForm").validate();
-    </script>
+    </script>*@
 
 }

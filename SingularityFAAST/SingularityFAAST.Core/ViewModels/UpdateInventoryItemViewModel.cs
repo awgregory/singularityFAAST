@@ -5,8 +5,10 @@ namespace SingularityFAAST.Core.ViewModels
 {
     public class UpdateInventoryItemViewModel
     {
-        public InventoryItem InventoryItems { get; set; }
+        public InventoryItem InventoryItem { get; set; }
 
         public int NextInventoryNumber { get; set; } //added int property to page
+
+        public IList<InventoryItemCategory> InventoryItemCategories { get; set; }
     }
 }

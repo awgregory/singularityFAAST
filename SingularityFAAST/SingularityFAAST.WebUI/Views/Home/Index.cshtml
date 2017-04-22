@@ -2,22 +2,31 @@
 @{
     ViewBag.Title = "FAASTer Home";
 }
-
-<h1>Welcome!</h1>
-
-<h2>FAAST Device Management Homepage</h2>
-
-<h3>Choose an option from the banner above @*or to the right*@ to continue.</h3>
-
-<br/>
-
-The Florida Alliance for Assistive Services and Technology Inc, Florida's Assistive Technology Program for Floridians with Disabilities, 
-is dedicated to increasing access to and acquisition of assistive technology (AT) devices and services for Floridians of all ages and 
-disabilities so they can live, learn, work and play independently in their communities.
-
-<br/>
 <br />
-FAAST provides free access to information assistance services, training programs, short-term assistive technology device loans, and assistive
--technology demonstrations.  FAAST works to accomplish our mission through The New Horizon Loan Program, FAAST's Alternative Financing Program, 
-the FAAST Regional Recycling Centers, and FAAST Regional Demonstration Centers.
-
+<div class="jumbotron jumbotron-fluid">
+    <div class="container-fluid">
+        <h1 class="display-3">Welcome!</h1>
+        <h2 class="display-4">FAAST Device Management Homepage</h2>
+        <p class="lead">Choose an option from the banner above or the buttons below  to continue.</p>
+        <hr class="my-4" />
+        
+        @Html.ActionLink("Clients", "Index", "Client", null, new { @class = "btn btn-primary btn-lg" })
+        @Html.ActionLink("Loans", "Index", "Loan", null, new { @class = "btn btn-primary btn-lg" })
+        @Html.ActionLink("Inventory", "IndexInventory", "InventoryItem", null, new { @class = "btn btn-primary btn-lg" })
+        @Html.ActionLink("Reports", "Index", "Report", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+</div>
+<div class="container-fluid">
+<br />
+<p class="lead">
+    The Florida Alliance for Assistive Services and Technology Inc, Florida's Assistive Technology Program for Floridians with Disabilities,
+    is dedicated to increasing access to and acquisition of assistive technology (AT) devices and services for Floridians of all ages and
+    disabilities so they can live, learn, work and play independently in their communities.
+</p>
+<br />
+<p class="lead">
+    FAAST provides free access to information assistance services, training programs, short-term assistive technology device loans, and assistive
+    -technology demonstrations.  FAAST works to accomplish our mission through The New Horizon Loan Program, FAAST's Alternative Financing Program,
+    the FAAST Regional Recycling Centers, and FAAST Regional Demonstration Centers.
+</p>
+</div>

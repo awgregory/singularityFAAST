@@ -41,10 +41,30 @@
         if (!chosenInventoryId) //if variable doesn't mean anything: we are invalid/error
             return; //safely exit doing nothing
 
+        var infoPanel = $('#iItems');
+
         if (itemIds) {
             for (var i = 0; i < itemIds.length; i++) {
-                if (chosenInventoryId == itemIds[i]) {
-                    $('#itemsInfoAlert').text('Item can be added only once.')
+                if (chosenInventoryId == itemIds[i]) {  //if item being added is the same as an item in the itemIds array (would've been added below)...
+
+                    //$('#itemsInfoAlert').text('Item can be added only once.')
+
+                    //remove all items from panel
+                    $('#iItems').text('');  //emptys entire div
+
+                    //remove item from the itemids Array
+                    itemIds.splice($.inArray(chosenInventoryId, itemIds), 1);
+
+                    //logging
+                    console.log(itemIds);
+
+                    //make null
+                    chosenInventoryId = null;
+
+                    //add remaining items back to panel
+                    for (var i = 0; i < itemIds.length; i++) {
+                        infoPanel.append('<h5>Item #' + itemIds[i] + '</h5>');
+                    }
                     return;
                 }
             }
@@ -59,7 +79,6 @@
         console.log(itemIds);
 
         //Update the info panel
-        var infoPanel = $('#iItems');
         infoPanel.append('<h5>Item #' + chosenInventoryId + '</h5>');
     }
 
@@ -166,26 +185,40 @@
         //$("input:radio[name=radioInventoryId]").on('click', updateInventoryIdFormValue);   //radio displays only if there are results   
 
         $("input:button[name=addInvButton]").on('click', updateInventoryIdFormValue);
-        $("input:button[name=addInvButton]").on('click', function () { $(this).css('background', 'green') });
-        $("input:button[name=addInvButton]").on('click', function () { $(this).val('Added') });
-
-        //Submit - add inventoryItemIds before submission
-        $("form")
-            .submit(function (e) {
-                //validate inventoryId array
-                //debugger;
-                if (itemIds) {
-                    //var hiddenInput = $("input[name='InventoryItemIds']");
-                    //hiddenInput.val(itemIds);
-                    for (var i = 0; i < itemIds.length; i++) {
-                        $('<input />')
-                            .attr('type', 'hidden')
-                            .attr('name', 'InventoryItemIds[' + i + ']')
-                            .attr('value', itemIds[i])
-                            .appendTo("form");
-                    }
-                }
-                updatecheckboxesThreeCategories()
-            })
+        $("input:button[name=addInvButton]").on('click', function() { $(this).toggleClass("btn-primary btn-danger") });
+        $("input:button[name=addInvButton]")
+            .on('click', function() { $(this).val(function(i, v) { return v === 'Add' ? 'Remove' : 'Add' }) });
     }
+    
+    $("form").submit(function (e) {
+        if (!isLoanValid()) {
+            e.preventDefault();
+            return;
+        }
+
+        if (itemIds) {
+            for (var i = 0; i < itemIds.length; i++) {
+                $('<input />')
+                    .attr('type', 'hidden')
+                    .attr('name', 'InventoryItemIds[' + i + ']')
+                    .attr('value', itemIds[i])
+                    .appendTo("form");
+            }
+        }
+        updatecheckboxesThreeCategories()
+    });
+
+    function isLoanValid() {
+        var valid = true;
+        $('#itemErrorTextDiv').hide();
+
+        if (itemIds.length === 0) {
+            $('#itemErrorTextDiv').show();
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    
 }(window.jQuery));

@@ -141,16 +141,6 @@
     <Content Include="fonts\DaysOne-Regular.ttf" />
     <None Include="Properties\PublishProfiles\singularityFAAST - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\AUTHORS.txt" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\external\jquery\jquery.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\index.html" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.css" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.min.css" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.min.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.structure.css" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\jquery-ui.structure.min.css" />
-    <Content Include="Scripts\jquery-ui-1.12.1.custom\LICENSE.txt" />
     <Content Include="Scripts\Loans\EditLoan.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -183,6 +173,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Models\AddLoanInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,5 +1,5 @@
-﻿@using System.Data.Entity.Core.Objects.DataClasses
-@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+@*@model IEnumerable < SingularityFAAST.Core.DataTransferObjects.MainIndexPageAllLoans>*@ 
 
 @{
     ViewBag.Title = "Loan";
@@ -17,7 +17,7 @@
                 @Html.ActionLink("Create New Loan", "AddLoan", null, new { @class = "btn btn-primary" })
 
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 @using (Html.BeginForm("Index", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                 {
                     <input type="text" class="form-control" id="LName" name="searchby" placeholder="Search Client Last Name" /> @*Search by last name*@
@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col-md-6">
                 <i class="fa fa-search-plus fa-lg"></i> Select any loan to view the loan's details, and to edit or renew. <br />
-                <i class="fa fa-check text-info fa-lg"></i> Select any active loan to check-in. <br />
+                <i class="fa fa-check text-info fa-lg"></i> Select any active loan to check-in. If the check is not visible, the loan has been checked in.<br />
                 <i class="fa fa-times text-info fa-lg text-danger"></i> Select any loan to eliminate it. <br />
                 <br />
                 <i class="fa fa-exclamation-circle fa-lg text-danger"></i> Indicates a loan or item in loan is overdue.
@@ -83,28 +83,35 @@
                             <tr>
                                 <td>
                                     <div style="width: 100px;">
-                                        @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                        {
-                                            <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                                            <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan*@
-                                        }
+                                        @*@using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                            {
+                                                <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
+                                                <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan
+                                            }*@
+
+                                        @*Convert the other buttons to be like this one*@
+                                        <button style="float: left">
+                                            <a href="@Url.Action("ViewItems", "Loan", new { loanNumber = @item.LoanNumber})">
+                                                <i class="fa fa-search-plus text-info fa-lg" style="color: black;"></i>
+                                            </a>
+                                        </button>
 
                                         @if (item.IsActive)
                                         {
                                             using (Html.BeginForm("CheckIn", "Loan", FormMethod.Post, new { @class = "form-inline" }))
                                             {
                                                 <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                                                <button type="submit" style="float: left"><i class="fa fa-check text-info fa-md"></i></button> @*Check in Entire loan*@
+                                                <button type="submit" style="float: left"><i class="fa fa-check text-info fa-lg"></i></button> @*Check in Entire loan*@
                                             }
                                         }
 
                                         @*@if (item.IsActive)*@
                                         @*{*@
-                                            @using (Html.BeginForm("CancelLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                            {
-                                                <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                                                <button type="submit"><i class="fa fa-times text-info fa-md text-danger"></i></button> @*View items in Loan*@
-                                            }
+                                        @using (Html.BeginForm("CancelLoan", "Loan", FormMethod.Post, new { @class = "form-inline" }))
+                                        {
+                                            <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
+                                            <button type="submit"><i class="fa fa-times text-info fa-lg text-danger"></i></button> @*View items in Loan*@
+                                        }
                                         @*}*@
                                         @*<button><i>  issue with the first string and size of button
                                                 @Html.ActionLink(" ", "DeleteLoan", new {loanNumber = item.LoanNumber }, new {@class= "fa fa-times text-info fa-md text-danger", style = "float: right;" })
@@ -137,8 +144,8 @@
                         }
                     </tbody>
                 </table>
-                <a href="Index.cshtml">< Previous 10 </a> @*use bootstrap pagination here*@
-                <a href="Index.cshtml">| Next 10 ></a>
+                @*<a href="Index.cshtml">< Previous 10 </a> @*use bootstrap pagination here*@
+                @*<a href="Index.cshtml">| Next 10 ></a>*@
             </div>
 
             @*@*<div class="col-md-2 col-sm-3 hidden-xs">*@
@@ -174,11 +181,14 @@
                                         {
                                             <tr>
                                                 <td>
-                                                    @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                                    {
-                                                        <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                                                        <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan*@
-                                                    }
+                                           
+                                                    <div>
+                                                        <button style="float: left">
+                                                            <a href="@Url.Action("ViewItems", "Loan", new { loanNumber = @item.LoanNumber})">
+                                                                <i class="fa fa-search-plus text-info fa-lg" style="color: black;"></i>
+                                                            </a>
+                                                        </button>
+                                                    </div>
                                                     12-DL-@item.LoanNumber  @*DL is device loan. what is 12?*@
                                                 </td>
                                                 <td>@item.DateCreated.AddDays(29).ToString("MMMM dd, yyyy")</td>
@@ -217,11 +227,13 @@
                                     {
                                         <tr>
                                             <td>
-                                                @using (Html.BeginForm("ViewItems", "Loan", FormMethod.Post, new { @class = "form-inline" }))
-                                                {
-                                                    <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
-                                                    <button type="submit" style="float: left"><i class="fa fa-search-plus fa-md"></i></button> @*View items in Loan*@
-                                                }
+                                                <div>
+                                                    <button style="float: left">
+                                                        <a href="@Url.Action("ViewItems", "Loan", new { loanNumber = @item.LoanNumber})">
+                                                            <i class="fa fa-search-plus text-info fa-lg" style="color: black;"></i>
+                                                        </a>
+                                                    </button>
+                                                </div>
                                                 12-DL-@item.LoanNumber
                                             </td>
                                             <td>@item.DateCreated.AddDays(29).ToString("MMMM dd")</td>
@@ -234,7 +246,7 @@
                 </div>
             </div>
         </div>
-    <br />
+        <br />
         <div class="row">
             <div class="col-md-6">
                 <p>
