@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using SingularityFAAST.Core.Entities;
@@ -76,6 +77,9 @@ namespace SingularityFAAST.Services.Services
             htmlContent.AppendLine(
                 "Representatives of Technology" + ", " +
                 loansReportData.NumberOfBorrowerTechnology);
+            htmlContent.AppendLine(
+                "Total" + ", " +
+                loansReportData.NumberOfTotalBorrowers);
             #endregion
 
 
@@ -122,6 +126,9 @@ namespace SingularityFAAST.Services.Services
             htmlContent.AppendLine(
                 "Vision" + ", " +
                 loansReportData.categoryCounts[9].Count);
+            htmlContent.AppendLine(
+                "Total" + ", " +
+                loansReportData.categoryCounts.Sum(c => c.Count));
             #endregion
 
 
@@ -150,6 +157,10 @@ namespace SingularityFAAST.Services.Services
             htmlContent.AppendLine(
                 "Conduct training + self-education or other professional development activity" + ", " +
                 loansReportData.PurposeConductTraining);
+            htmlContent.AppendLine(
+                "Total" + ", " +
+                loansReportData.PurposesTotal);
+
             #endregion
 
             return htmlContent.ToString();

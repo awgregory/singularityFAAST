@@ -58,6 +58,17 @@
                     <td>Representatives of Technology</td>
                     <td>@Model.NumberOfBorrowerTechnology</td>
                 </tr>
+                <hr />
+                <tr>
+                    <td><b>
+                            Total
+                        </b>
+                    </td>
+                    <td><b>
+                            @Model.NumberOfTotalBorrowers
+                        </b>
+                    </td>
+                </tr>
             </tbody>
         </table>
     <br />
@@ -79,11 +90,22 @@
                     <td>@item.Count</td>
                 </tr>
             }
+           <hr />
+           <tr>
+               <td> <b>
+                        Total
+                   </b>
+               </td>
+               <td><b>
+                       @Model.categoryCounts.Sum(c => c.Count)
+                   </b>
+               </td>
+           </tr>
              </tbody>
         </table>
     <br />
     <br />
-    <h4><bold>Device Loans by Type of Purpose</bold></h4>
+    <h4><bold>Type of Purpose Per Device</bold></h4>
     <table class="table">
         <thead>
             <tr>
@@ -107,6 +129,15 @@
             <tr>
                 <td>Conduct training, self-education or other professional development activity</td>
                 <td>@Model.PurposeConductTraining</td>
+            </tr>
+        <hr />
+            <tr>
+                <td><b>Total</b></td>
+                <td>
+                    <b>
+                        @Model.PurposesTotal
+                    </b>
+                </td>
             </tr>
         </tbody>
     </table>

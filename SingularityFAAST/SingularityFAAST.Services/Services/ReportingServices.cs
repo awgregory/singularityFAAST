@@ -94,6 +94,9 @@ namespace SingularityFAAST.Services.Services
                 viewModel.PurposeShortTerm = purposeShortTerm;
                 viewModel.PurposeConductTraining = purposeConductTraining;
 
+                viewModel.PurposesTotal = totalPurpose;
+                viewModel.NumberOfTotalBorrowers = totalBorrowers;
+
                 return viewModel;
             }
             
