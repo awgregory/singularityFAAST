@@ -75,20 +75,6 @@
             @*Category*@
             <div class="form-group">
                 <label for="Category"><a data-toggle="tooltip" data-placement="bottom" title="Required">Category *</a></label>
-                @*<select class="form-control" name="InventoryCategoryId" value="@Model.InventoryItem.InventoryCategoryId" required>
-                    <option disabled selected> -- select and option -- </option>
-                    <option value="1">Computers and Related Technology</option>
-                    <option value="2">Daily Living</option>
-                    <option value="3">Environmental Adaptations</option>
-                    <option value="4">Hearing</option>
-                    <option value="5">Learing, Cognition, and Development</option>
-                    <option value="6">Mobility, Seating, and Positioning</option>
-                    <option value="7">Recreational, Sports, and Leisure</option>
-                    <option value="8">Speech Communication</option>
-                    <option value="9">Vehicle Mods and Transport</option>
-                    <option value="10">Vision</option>
-                </select>*@
-                
                 <select class="form-control" name="InventoryCategoryId" value="@Model.InventoryItem.InventoryCategoryId" required>
                     <option value="0">Select Category</option>
                     @foreach(var category in Model.InventoryItemCategories)
@@ -207,7 +193,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h4>Are you sure that you would like to delete this item? This is a destructive act that cannot be undone.</h4> @*A little over exagerated*@ 
+                    <h4>Are you sure that you would like to delete this item?</h4> @*A little over exagerated*@ 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
