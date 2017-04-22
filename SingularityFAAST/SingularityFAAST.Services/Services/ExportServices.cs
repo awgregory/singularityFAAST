@@ -80,6 +80,7 @@ namespace SingularityFAAST.Services.Services
 
 
             #region Types of Devices Loaned
+            htmlContent.AppendLine();
             htmlContent.AppendLine(
                 "Types of Devices Loaned"
             );
@@ -125,6 +126,7 @@ namespace SingularityFAAST.Services.Services
 
 
             #region Device Loan by Types of Purpose
+            htmlContent.AppendLine();
             htmlContent.AppendLine(
                 "Devices Loans By Type of Purpose"
             );

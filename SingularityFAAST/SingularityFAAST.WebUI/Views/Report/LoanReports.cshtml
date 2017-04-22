@@ -9,14 +9,13 @@
     <br />
     <h4>Total number of loans: @Model.TotalNumberOfLoans </h4>
     <br />
-    <br />
     
         @using (Html.BeginForm("LoanReport", "Export", "POST"))
         {
             @Html.HiddenFor(m => m.StartDate)
             @Html.HiddenFor(m => m.EndDate)
 
-            <button type="submit">
+            <button type="submit" class="btn btn-success">
                 Export
             </button>
         }
