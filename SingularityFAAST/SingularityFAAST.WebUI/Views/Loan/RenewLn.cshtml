@@ -34,15 +34,15 @@
                 </div>
                 <br />
                 <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
+                    <div class="col-md-12 col-md-offset-3">
                         @foreach (var i in Model)
                         {
-                            <div class="form-group">
+                            <div class="col-md-2">
                                 @Html.ActionLink("Renew", "CheckInRenewal", "Loan", new { loanNumber = @i.LoanNumber }, new { @class = "btn btn-primary form-inline" })
                             </div>
 
-                            <div class="form-group">
-                                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-primary form-inline" })
+                            <div class="col-md-1">
+                                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-warning form-inline" })
                             </div>
                             break;
                         }

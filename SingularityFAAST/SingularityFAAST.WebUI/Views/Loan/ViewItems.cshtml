@@ -16,7 +16,7 @@
     <div class="col-md-12">
         
         @*@Html.ActionLink("Renew Entire Loan", "RenewLn", null, new {@class = "btn btn-primary"})*@ @*Currently, this creates a new loan for the month.*@
-        @using (Html.BeginForm("RenewLn", "Loan", FormMethod.Post, new {@class = "form-inline col-md-2"}))
+        @using (Html.BeginForm("RenewLn", "Loan", FormMethod.Post, new {@class = "form-inline col-md-1"}))
          {
              foreach (var i in Model)
              {

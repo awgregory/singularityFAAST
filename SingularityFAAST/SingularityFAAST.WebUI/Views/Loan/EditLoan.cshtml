@@ -100,7 +100,7 @@
                                             12-IN-@item.InventoryItemId
                                             @*&& (!item.Availability)*@
                                             @if ((item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)) && (item.IsActive && !(item.Availability)))
-                                                    {
+                                            {
                                                 <i class="fa fa-exclamation-circle fa-lg text-danger"></i>
                                             }
                                         </div>
@@ -250,22 +250,22 @@
                     </div>
                     <div class="row col-md-6 col-md-offset-1">
                         @foreach (var item in Model)
-                            {
-                                <h5>@item.ItemName </h5>
-                            }
-                            @*Modified Keyboard, Learn To Respond Appropriately*@
+                        {
+                            <h5>@item.ItemName </h5>
+                        }
+                        @*Modified Keyboard, Learn To Respond Appropriately*@
                         <div id="iItems">
                         </div>
                     </div>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                 </div>
             </div>
         </div>
     </div>
     <br />
-    <div class="row form-group">
-        <div class="col-md-10">
+    <div class="row">
+        <div class="col-md-1">
 
             @using (Html.BeginForm("UpdateLoan", "Loan", FormMethod.Post, new { @class = "" }))
             {
@@ -280,9 +280,33 @@
 
             }
         </div>
+        <div class="col-md-1">
+            <button class="btn btn-warning" type="button" name="CancelLoanEntry" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+
+            @*Modal*@
+            <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="ModalTitle">Warning!</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Are you sure that you would like to cancel? You will lose your progress.</h4>  @*A little over exagerated*@
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            @Html.ActionLink("Cancel Entry", "Index", "Loan", null, new { @class = "btn btn-primary btn-warning" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="itemErrorTextDiv" style="color: red; display: none">ITEM ERROR</div>
     </div>
-
+    <br />
     <div class="row col-md-3">
         @Html.ActionLink("Back to Loan List", "Index")
     </div>
