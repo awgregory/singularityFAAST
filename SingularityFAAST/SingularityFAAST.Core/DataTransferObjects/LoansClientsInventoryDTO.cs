@@ -79,5 +79,6 @@ namespace SingularityFAAST.Core.DataTransferObjects
         public IEnumerable<int> InventoryItemIds { get; set; }
         public List<InventoryItem> InventoryItems { get; set; }
 
+        public PagingInfo PagingInfo { get; set; }
     }
 }

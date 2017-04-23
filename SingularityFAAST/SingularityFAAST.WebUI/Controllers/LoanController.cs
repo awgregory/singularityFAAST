@@ -10,6 +10,7 @@ using SingularityFAAST.Core.DataTransferObjects;
 using SingularityFAAST.Services.Services;
 using SingularityFAAST.Core.Entities;
 using SingularityFAAST.Core.SearchRequests;
+using SingularityFAAST.Core.ViewModels;
 using SingularityFAAST.DataAccess.Contexts;
 using SingularityFAAST.WebUI.Models;
 
@@ -22,22 +23,37 @@ namespace SingularityFAAST.WebUI.Controllers
         private readonly LoanMasterServices lm_services = new LoanMasterServices();
         private readonly ClientServices _clientServices = new ClientServices();
         private readonly InventoryItemServices ii_services = new InventoryItemServices();
-
+        private readonly int _pageSize = 10;
 
         #region Index /All Loans Page
         //GET: All Loans
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
-            model = model.OrderByDescending(loan => loan.DateCreated).ToList();
-            return View(model);
+            IList<LoansClientsInventoryDTO> allLoans = lm_services.GetAllLoans();
+            allLoans = allLoans.OrderByDescending(loan => loan.DateCreated).ToList();
+            var list = allLoans
+                .OrderBy(item => item.LoanMasterId)
+                .Skip((page - 1) * _pageSize)
+                .Take(_pageSize);
+
+            var viewModel = new LoanIndexViewModel()
+            {
+                LoansPage = list,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = allLoans.Count
+                }
+            };
+            return View(viewModel);
         }
 
 
         //GET: Loans by Client Name  
         [HttpPost]
-        public ActionResult Index(SearchByString searchRequest)
+        public ActionResult Index(SearchByString searchRequest, int page = 1)
         {
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllLoans();
 
@@ -45,12 +61,32 @@ namespace SingularityFAAST.WebUI.Controllers
             if (int.TryParse(searchRequest.SearchBy, out n))
             {
                 model = lm_services.GetLoanByLoanNumber(searchRequest.SearchBy);
-                return View(model);
+                //return View(model);
             }
 
-            //else
-            model = string.IsNullOrWhiteSpace(searchRequest.SearchBy) ? lm_services.GetAllLoans() : lm_services.GetLoansByClientLastName(searchRequest.SearchBy);
-            return View(model);
+            else
+            {
+                model = string.IsNullOrWhiteSpace(searchRequest.SearchBy)
+                    ? lm_services.GetAllLoans()
+                    : lm_services.GetLoansByClientLastName(searchRequest.SearchBy);
+            }
+
+            var list = model
+            .OrderBy(item => item.LoanMasterId)
+            .Skip((page - 1) * _pageSize)
+            .Take(_pageSize);
+
+            var viewModel = new LoanIndexViewModel()
+            {
+                LoansPage = list,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = _pageSize,
+                    TotalItems = model.Count
+                }
+            };
+            return View(viewModel);
         }
         #endregion
 
@@ -85,7 +121,7 @@ namespace SingularityFAAST.WebUI.Controllers
         //    return View(model);
         //}
 
-            
+
 
         #region Renew
 
@@ -102,12 +138,12 @@ namespace SingularityFAAST.WebUI.Controllers
         [HttpGet]
         public ActionResult CheckInRenewal(string loanNumber)
         {
-            IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);  
-                                     
-            
-            
+            IList<LoansClientsInventoryDTO> model = lm_services.ViewAllItems(loanNumber);
+
+
+
             return View(model);
-        } 
+        }
 
 
         [HttpPost]
@@ -130,7 +166,7 @@ namespace SingularityFAAST.WebUI.Controllers
             //    Purpose = loan.Purpose,
             //    PurposeType = loan.PurposeType
             //};
-            
+
             lm_services.CreateRenewedLoan(loan);
 
             //3. use id to fill in loan with loan details
@@ -143,9 +179,9 @@ namespace SingularityFAAST.WebUI.Controllers
 
 
         //RenewLn.cshtm needs to pass the Id to CheckInRenewal First then collect up the input for the loan
-        public ActionResult RenewAllItems(LoansClientsInventoryDTO loan) 
+        public ActionResult RenewAllItems(LoansClientsInventoryDTO loan)
         {
-     
+
             //IList<LoansClientsInventoryDTO> model = lm_services.AddAllItemsAsNewLoan(loanNumber);
             //lm_services.SaveAllItemsAsNewLoan();
 
@@ -165,7 +201,7 @@ namespace SingularityFAAST.WebUI.Controllers
         }
 
         #endregion
-        
+
 
 
         #region Edit
@@ -189,17 +225,17 @@ namespace SingularityFAAST.WebUI.Controllers
 
         //This executes the loan editing when you click submit on Edit Loan page
         [HttpPost]
-        public ActionResult UpdateLoan(LoansClientsInventoryDTO loan)  
+        public ActionResult UpdateLoan(LoansClientsInventoryDTO loan)
         {
             lm_services.EditLoan(loan);
-            
+
             //Returns to Loan Index page
             return RedirectToAction("Index", "Loan");
         }
 
         #endregion
 
-        
+
 
         #region Check In
 
@@ -259,7 +295,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
             return RedirectToAction("ViewItems", "Loan", new { @LoanNumber = loan.LoanNumber });
         }
-        
+
         #endregion
 
         #region Delete Loan - Mark entirely deleted
@@ -271,7 +307,7 @@ namespace SingularityFAAST.WebUI.Controllers
             IList<LoansClientsInventoryDTO> model = allItems.Where(x => string.Equals(x.LoanNumber, loan.LoanNumber)).ToList();
             return View(model);
         }
-        
+
         //Do the canceling
         public ActionResult CancelLn(string loanNumber)
         {
@@ -282,14 +318,14 @@ namespace SingularityFAAST.WebUI.Controllers
 
         #endregion
 
-        
+
         #region Delete Single Item - actually removes it from loan, no record left of its addition
         //[HttpPost]
-        public ActionResult CancelItem(LoansClientsInventoryDTO loan)  
+        public ActionResult CancelItem(LoansClientsInventoryDTO loan)
         {
             //process delete here, return to ViewItems
             var loanNum = (lm_services.RemoveSingleItemFromLoanByLoanNumber(loan.InventoryItemId)).ToString();
-            return RedirectToAction("ViewItems", "Loan", new {LoanNumber = loanNum});
+            return RedirectToAction("ViewItems", "Loan", new { LoanNumber = loanNum });
             //return RedirectToAction("Index");
         }
 
@@ -364,7 +400,7 @@ namespace SingularityFAAST.WebUI.Controllers
         public JsonResult GetItemsListForEdit(int searchInt)
         {
             IList<LoansClientsInventoryDTO> model = lm_services.GetAllItems();
-            var filteredLoans = model.Where(item => int.Equals(item.LoanMasterId, searchInt)) .ToList();
+            var filteredLoans = model.Where(item => int.Equals(item.LoanMasterId, searchInt)).ToList();
             return Json(filteredLoans, JsonRequestBehavior.AllowGet);
         }
 

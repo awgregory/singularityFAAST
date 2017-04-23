@@ -83,8 +83,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchRequests\InventoryItemSearchRequest.cs" />
     <Compile Include="SearchRequests\SearchRequest.cs" />
-    <Compile Include="ViewModels\Reports\ClientReportViewModel.cs" />
     <Compile Include="ViewModels\ClientIndexViewModel.cs" />
+    <Compile Include="ViewModels\LoanIndexViewModel.cs" />
+    <Compile Include="ViewModels\Reports\ClientReportViewModel.cs" />
     <Compile Include="ViewModels\Reports\LoanReportViewModel.cs" />
     <Compile Include="ViewModels\EditClientViewModel.cs" />
     <Compile Include="ViewModels\ItemIndexViewModel.cs" />

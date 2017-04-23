@@ -23,7 +23,7 @@ INSERT INTO #tempLoanMasters([DateCreated],[ClientId],[IsActive],[LoanNumber],[I
 								(N'2017-02-17 00:00:00',		4,			0,			00006, 0,'AT will meet needs','client also has Bug Vibrator'),
 								(N'2017-02-23 00:00:00',		2,			1,			00007, 0,'AT will meet needs','client wears a metal suit'),
 								(N'2017-03-12 00:00:00',		3,			0,			00008, 1,'AT will meet needs','Item will be borrowed again in 2 months'),
-								(N'2017-03-17 00:00:00',		4,			0,			00009, 1,'AT will meet needs','');
+								(N'2017-03-27 00:00:00',		4,			0,			00009, 1,'AT will meet needs','');
 
 
 MERGE dbo.LoanMasters AS target
