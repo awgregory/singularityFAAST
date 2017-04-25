@@ -81,12 +81,13 @@
                         <th>Email</th>
                         <th>Category</th>
                         <th>Notes</th>
-                        <th>View/Edit</th>  @*To make th width match data*@
+                        <th>View/Edit</th>  
                         <th>Delete</th>
                     </tr>
                 </thead>
 
                 <tbody>
+                    
                     @foreach (var item in Model.Clients)
                     {
                         if (item.IsDeleted == false)
@@ -101,10 +102,13 @@
                                 <td style="max-width: 15em; Overflow: hidden; text-overflow:ellipsis;">@item.Notes</td>
 
                                 <td>@Html.ActionLink("View/Edit", "EditClient", new { id = item.ClientID })</td>
+                                
                                 <td>@Html.ActionLink("Delete", "Delete", new { id = item.ClientID })</td>
-                                
-                                
-                                <td><input type="submit" value="Delete" name="Cancel" data-toggle="modal" data-target="#cancelModal"></td>
+
+
+                                @*<td>@Html.ActionLink("Delete", "Delete", new { ViewBag.idToDelete = item.ClientID })</td>*@
+                                                        
+                                @*<td><input type="submit" value="Delete" name="Cancel" data-toggle="modal" data-target="#cancelModal"></td>*@
                             </tr>
                         }
                     }
