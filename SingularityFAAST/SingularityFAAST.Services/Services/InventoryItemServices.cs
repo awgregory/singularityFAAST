@@ -24,10 +24,11 @@
 //   [____||____]
 //
 //Items that need fixin - HIGH PRIORITY
-//      1). Update and Delete Items not working:
-//              --> Both get hung up on "context.SaveChanges();"
+//      1).Delete Item not working:
+//              --> gets hung up on "context.SaveChanges();"
 //      2). Return Next Inventory Number:
 //              --> Needs to be fixed to use ID and not just Database count
+//      3). Fix Searching Services
 #endregion
 
 
@@ -38,8 +39,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using SingularityFAAST.Core.ViewModels;
-
+using SingularityFAAST.Core.DataTransferObjects;
 
 namespace SingularityFAAST.Services.Services
 {
@@ -83,24 +83,21 @@ namespace SingularityFAAST.Services.Services
             //NEEDS FIXIN
             //**************
 
-            //using (var context = new SingularityDBContext())
-            //{
-            //    IList<InventoryItem> allitems = GetAllInventory(); //gets full list of inventory items from db
-
-            //    IList<InventoryItem> ItemsOnLoan = allitems.Where(item => item.Availability = true).ToList(); //filters out items which have an availability of True (or 1)
-
-            //    return ItemsOnLoan;
-            //}
-
-            //Using the code to get all inventory as a temporary placeholder
             using (var context = new SingularityDBContext())
             {
-                var inventory = context.InventoryItems;
+                IList<InventoryItem> allitems = GetAllInventory(); //gets full list of inventory items from db
 
-                var inventoryList = inventory.ToList();
+                IList<InventoryItem> ItemsOnLoan = allitems.Where(item => item.Availability == false).ToList(); //filters out items which have an availability of True (or 1)
 
-                return inventoryList;
+                return ItemsOnLoan;
             }
+
+
+        }
+
+        public IList<LoansClientsInventoryDTO> ViewAllItems(object loanNumber)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
@@ -136,7 +133,7 @@ namespace SingularityFAAST.Services.Services
         {
             using (var context = new SingularityDBContext())
             {
-                var item = context.InventoryItems.Find(id);
+                var item = context.InventoryItems.FirstOrDefault(x => x.InventoryItemId ==id);
 
                 if (item != null)
                 {
@@ -261,7 +258,7 @@ namespace SingularityFAAST.Services.Services
         }
         #endregion
 
-
+        #region Get Item Categories
         public IList<InventoryItemCategory> GetItemCategories()
         {
             using (var context = new SingularityDBContext())
@@ -271,5 +268,17 @@ namespace SingularityFAAST.Services.Services
                 return list;
             }
         }
+        #endregion
+
+        #region Get Loans associated with items
+        //public  IList<LoansClientsInventoryDTO> ReturnAssociatedLoanNumber(int id)
+        //{
+        //    IList<LoansClientsInventoryDTO> allItems = GetAllItems();
+        //    IList<LoansClientsInventoryDTO> filteredLoans =
+        //        allItems.Where(loan => string.Equals(loan.LoanNumber, loanNumber)).ToList();
+
+        //    return filteredLoans;
+        //}
+        #endregion
     }
 }
