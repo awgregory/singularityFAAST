@@ -7,8 +7,7 @@
 <h2>Item Check-In</h2>
 @using (Html.BeginForm("CheckItemIn", "Loan", FormMethod.Post, new { @class = "" }))
 {
-    <div>
-        <hr />
+   <hr />
         <div class="row">
             <h4>
                 @foreach (var item in Model)
@@ -22,7 +21,8 @@
             </h4>
 
         </div>
-        <br />
+    <br />
+    <br/>
         <div class="row">
             @foreach (var item in Model)
             {
@@ -59,6 +59,7 @@
                     </div>
                     <br />
                 </div>
+                <br/>
                 <div class="col-md-8">
                     <div class="form-group">
                         <label for="damages">Item Damages:</label>
@@ -74,13 +75,41 @@
         <br />
         <br />
         <br />
-        <div class="form-group">
-            <div class="col-md-2 col-md-10">
-                <input type="submit" value="Check-In Item" class="btn btn-default" />
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-1">
+                    <input type="submit" value="Check-In Item" class="btn btn-primary" />
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-warning" type="button" name="CancelItem" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+                </div>
+                <div class="col-md-4">
+                    <i>Choosing Check-In Item will check-in and renew this item in one step.</i>
+                </div>
             </div>
         </div>
-    </div>
-}
+        }
+        @*Modal*@
+        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="ModalTitle">Warning!</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Are you sure that you would like to cancel? You will lose your progress.</h4> @*A little over exagerated*@
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        @Html.ActionLink("Cancel Entry", "Index", "Loan", null, new { @class = "btn btn-primary btn-warning" })
+                    </div>
+                </div>
+            </div>
+        </div>
+   <br/>
 <div>
     @Html.ActionLink("Back to Loans List", "Index")
 </div>
