@@ -336,19 +336,59 @@
 
     <br />
 
-        <div class="text-left">
-            <input class="btn btn-primary" type="submit" value="Add Client" />
+        <div class="text-left">          
+            <input class="btn btn-primary" type="submit" value="Submit" />
         </div>
 
         <br />
 
-        <div class="btn btn-default">
-            @Html.ActionLink("Cancel", "Index")
+        @*<div class="btn btn-default">*@
+           @* <button class="btn btn-default" type="button" name="CancelInventoryItem" data-toggle="modal" data-target="#cancelModal">Submit</button>*@
+            
+            @*@Html.ActionLink("Cancel", "Index")*@
+
+            <button class="btn btn-default" type="button" name="Cancel" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+
+        @*</div>*@
+
+
+        @*Modal*@
+        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="ModalTitle">Please Confirm!</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <h4>Delete all information on the form and return to all clients page.</h4>  @*A little over exagerated*@
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Go Back</button>
+                        
+                        <div class="btn btn-default">
+                        @Html.ActionLink("Confirm", "Index")
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
+
+
+
 
 }
 
-<br />
+
+
+
+
+
 
 
 

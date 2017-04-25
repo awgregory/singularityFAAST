@@ -2,42 +2,31 @@
 @{
     ViewBag.Title = "FAASTer Home";
 }
-
 <br />
-<br />
-
-<div class="row">
-    <div class="col-md-7">
-
-        <h2>FAAST Electronic Records</h2>
-        <br />
-
-        <p>Welcome to The Florida Alliance for Assistive Services and Technology Inc's
-        electronic record managment system.  Please choose an option from above to continue</p>
-
-        <br />
-        <br />
-        <p>
-        The Florida Alliance for Assistive Services and Technology Inc, Florida's Assistive Technology Program for Floridians with Disabilities,
-        is dedicated to increasing access to and acquisition of assistive technology (AT) devices and services for Floridians of all ages and
-        disabilities so they can live, learn, work and play independently in their communities.
-        </p>
-
-        <br />
-        <p>
-        FAAST provides free access to information assistance services, training programs, short-term assistive technology device loans, and assistive
-        -technology demonstrations.  FAAST works to accomplish our mission through The New Horizon Loan Program, FAAST's Alternative Financing Program,
-        the FAAST Regional Recycling Centers, and FAAST Regional Demonstration Centers.
-        </p>
-        </div>
-
-    <div class="col-md-5">
-        <br />
-        <img src="~/Content/NERDC3small.png"/>
-        <h3>Device Loan Program</h3>
-        <p>The FAAST Device Loan Program is a way for people with disabilities of all ages to try out different assistive devices to best determine those most helpful for them.</p>
-
-
-        </div>
-
+<div class="jumbotron jumbotron-fluid">
+    <div class="container-fluid">
+        <h1 class="display-3">Welcome!</h1>
+        <h2 class="display-4">FAAST Device Management Homepage</h2>
+        <p class="lead">Choose an option from the banner above or the buttons below  to continue.</p>
+        <hr class="my-4" />
+        
+        @Html.ActionLink("Clients", "Index", "Client", null, new { @class = "btn btn-primary btn-lg" })
+        @Html.ActionLink("Loans", "Index", "Loan", null, new { @class = "btn btn-primary btn-lg" })
+        @Html.ActionLink("Inventory", "IndexInventory", "InventoryItem", null, new { @class = "btn btn-primary btn-lg" })
+        @Html.ActionLink("Reports", "Index", "Report", null, new { @class = "btn btn-primary btn-lg" })
     </div>
+</div>
+<div class="container-fluid">
+<br />
+<p class="lead">
+    The Florida Alliance for Assistive Services and Technology Inc, Florida's Assistive Technology Program for Floridians with Disabilities,
+    is dedicated to increasing access to and acquisition of assistive technology (AT) devices and services for Floridians of all ages and
+    disabilities so they can live, learn, work and play independently in their communities.
+</p>
+<br />
+<p class="lead">
+    FAAST provides free access to information assistance services, training programs, short-term assistive technology device loans, and assistive
+    -technology demonstrations.  FAAST works to accomplish our mission through The New Horizon Loan Program, FAAST's Alternative Financing Program,
+    the FAAST Regional Recycling Centers, and FAAST Regional Demonstration Centers.
+</p>
+</div>
