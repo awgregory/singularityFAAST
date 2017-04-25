@@ -18,9 +18,9 @@
 
 <div class="container-fluid">
 
-    @using (Html.BeginForm("CheckInRenewal", "Loan", FormMethod.Post, new {@class = ""}))
+    @using (Html.BeginForm("CheckInRenewal", "Loan", FormMethod.Post, new { @class = "" }))
     {
-        <hr/>
+        <hr />
         <div class="row">
             <h5>
                 @foreach (var item in Model)
@@ -31,9 +31,9 @@
                 }
             </h5>
         </div>
-        <br/>
+        <br />
 
-    @*Need to do this section like EditClient for the Disabilities,  OR BYPASS listing?*@
+        @*Need to do this section like EditClient for the Disabilities,  OR BYPASS listing?*@
 
         <div class="row">
 
@@ -46,11 +46,11 @@
                         <div class="row">
                             <div class="col-md-4">
 
-                                <input type="hidden" value="@item.LoanNumber" name="LoanNumber"/>
-                                <input type="hidden" value="@item.ClientId" name="ClientId"/>
-                                <input type="hidden" value="@item.Purpose" name="Purpose"/>
-                                <input type="hidden" value="@item.PurposeType" name="PurposeType"/>
-                                <input type="hidden" name="InventoryItems[@i].InventoryItemId" value="@item.InventoryItemId"/>
+                                <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
+                                <input type="hidden" value="@item.ClientId" name="ClientId" />
+                                <input type="hidden" value="@item.Purpose" name="Purpose" />
+                                <input type="hidden" value="@item.PurposeType" name="PurposeType" />
+                                <input type="hidden" name="InventoryItems[@i].InventoryItemId" value="@item.InventoryItemId" />
                                 @{ i++; }
 
                                 <dl class="dl-horizontal">
@@ -91,17 +91,17 @@
                             </div>
 
                         </div>
-                        <br/>
-                        <hr/>
+                        <br />
+                        <hr />
+                        }
                     }
-                }
-                break;
+                    break;
 
-            }
+                }
 
         </div>
 
-        <br/>
+        <br />
 
         <div class="row">
             <div class="col-md-4" id="decision">
@@ -128,11 +128,11 @@
                 </div>
             </div>
         </div>
-        <br/>
+        <br />
         <div class="row">
             <div class="form-group">
                 <div class="col-md-1">
-                    <input type="submit" value="Continue" class="btn btn-primary"/>
+                    <input type="submit" value="Continue" class="btn btn-primary" />
                 </div>
                 <div class="col-md-1">
                     <button class="btn btn-warning" type="button" name="CancelLoanEntry" data-toggle="modal" data-target="#cancelModal">Cancel</button>
@@ -143,29 +143,29 @@
             </div>
         </div>
 
-    @*Modal*@
-        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="ModalTitle">Warning!</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h4>Are you sure that you would like to cancel? You will lose your progress.</h4> @*A little over exagerated*@
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        @Html.ActionLink("Cancel Entry", "Index", "Loan", null, new {@class = "btn btn-primary btn-warning"})
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
+        @*Modal*@
+                                    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h3 class="modal-title" id="ModalTitle">Warning!</h3>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>Are you sure that you would like to cancel? You will lose your progress.</h4> @*A little over exagerated*@
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    @Html.ActionLink("Cancel Entry", "Index", "Loan", null, new { @class = "btn btn-primary btn-warning" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }
 </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
