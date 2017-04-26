@@ -43,7 +43,7 @@ namespace SingularityFAAST.WebUI.Controllers
 
             Response.Clear();
             Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment;filename=ClientListExport.csv");
+            Response.AddHeader("content-disposition", "attachment;filename=LoanExport.csv");
             Response.Charset = "";
             Response.ContentType = "application/text";
             Response.Output.Write(excelContent);
