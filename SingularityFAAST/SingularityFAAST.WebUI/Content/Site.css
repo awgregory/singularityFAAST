@@ -7,6 +7,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    max-width: 85%;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -15,4 +16,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*Styling for input elements with ModelState validation errors*/
+.field-validation-error { color: #f00;}
+
+.validation-summary-errors { color: #f00; font-weight: bold;}
+
+.input-validation-error { border: 2px solid #f00; background-color: #fee; }
+
+input[type="checkbox"].input-validation-error { outline: 2px solid #f00;}
 

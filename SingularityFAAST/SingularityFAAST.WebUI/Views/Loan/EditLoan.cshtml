@@ -1,0 +1,316 @@
+﻿@using SingularityFAAST.Core.DataTransferObjects
+@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+
+@{
+    ViewBag.Title = "EditLoan";
+}
+
+<style>
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #fff;
+    }
+</style>
+
+<h2>Edit Existing Loan</h2>
+
+<br />
+<div class="container-fluid">
+
+
+    @*Date appears, Due date appears*@
+    <b>
+        Today's Date: @DateTime.Now.ToString("MMMM dd, yyyy")
+        <br />
+        @*Loan Due Date: @Html.Display(x=> item.DateCreated.AddDays(28).ToString("MMMM dd"))*@
+    </b>
+
+    <hr />
+
+    <h4>Loan and Client Information: </h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <h4>
+                    @foreach (var item in Model)
+                    {
+                        <span class="col-md-1">Loan #: @item.LoanNumber</span>
+                        <span class="col-md-2">Name: @item.LastName, @Html.DisplayFor(x => item.FirstName)</span>
+                        <span class="col-md-2">Phone: @item.CellPhone  </span>
+                        <span class="col-md-3">Email: @item.Email</span>
+                        <input type="hidden" name="LoanMasterId" value="@item.LoanMasterId" id="loanMasterIdHidden" />
+                        <input type="hidden" name="ClientId" value="@item.ClientId" id="clientIdHiddenHere" />
+                        break; //or will print client for each item in client loan
+                    }
+                </h4>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div id="sectionTwo">
+
+    </div>
+    <br />
+    <div id="sectionThree">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Current Loan Items: </h4>
+                <div class="col-md-6 ">
+                    @*<h5><i class="fa fa-times fa-lg text-danger"></i> Select any item to remove it from the loan. </h5>*@
+                    <h5><i class="fa fa-exclamation-circle fa-lg text-danger"></i> Indicates an overdue item.</h5>
+                    <br />
+                </div>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>
+                                Item ID
+                            </th>
+                            <th>
+                                Item Name
+                            </th>
+                            <th>
+                                Manufacturer
+                            </th>
+                            <th>
+                                Date Loaned
+                            </th>
+                            <th>
+                                Item Date Due
+                            </th>
+                            <th>
+                                Notes
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            if (!item.Availability)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <div style="width: 110px;">
+                                            12-IN-@item.InventoryItemId
+                                            @*&& (!item.Availability)*@
+                                            @if ((item.LoanDate.AddDays(28) < DateTime.Today.AddDays(1)) && (item.IsActive && !(item.Availability)))
+                                            {
+                                                <i class="fa fa-exclamation-circle fa-lg text-danger"></i>
+                                            }
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @item.ItemName
+                                        <input type="hidden" name="InventoryItemId" value="@item.InventoryItemId" id="inventoryItemHiddenHere" />
+                                    </td>
+                                    <td>
+                                        @item.Manufacturer
+                                    </td>
+                                    <td>
+                                        @item.LoanDate.ToString("MMMM dd, yyyy") @*Date item added to loan - may be the same day loan was created*@
+                                    </td>
+                                    <td>
+                                        @item.LoanDate.AddDays(28).ToString("MMMM dd, yyyy") @* + 28 days *@
+                                    </td>
+                                    <td>
+                                        <div style="width: 300px;">
+                                            @item.LoanNotes
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Update Loan Purpose Information: </h4>
+
+                        <div class="col-md-5" id="purpose">
+                            <h5><b>Primary Purpose</b></h5>
+                            <div class="radio">
+                                <label><input type="radio" name="purp" value="Assist in decision making (device trial or evaluation" checked>Assist in decision making (device trial or evaluation)</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="purp" value="Provide an accomodation on a short-term basis">Provide an accomodation on a short-term basis</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="purp" value="Conduct training, self-education or other professional development activity">Conduct training, self-education or other professional development activity</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="purp" value="Serve as Loaner during Device Repair or while waiting for funding">Serve as Loaner during Device Repair or while waiting for funding</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" id="decision">
+                            <h5><b>Primary Purpose Decision Area</b></h5>
+                            <div class="radio">
+                                <label><input type="radio" name="ppda" value="Education" checked>Education</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="ppda" value="Employment">Employment</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="ppda" value="Community Living">Community Living</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        @*Error message*@
+        <div class="col-md-3" style="color: red;" id="purposeInfoAlert"></div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Add Loan Items: </h4>
+                        @*search for item by name, select*@
+                        <div class="col-md-4 form-inline">
+                            <input type="text" class="form-control" id="itemSearchInput" name="searchby" placeholder="Search by Item Name" /> @*Search by last name*@
+                            <input type="submit" class="btn btn-primary" name="byName" value='Search' id="itemSearchButton" />
+                        </div>
+
+                        @*Error message*@
+                        <div class="col-md-3" style="color: red;" id="itemsInfoAlert"></div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-hover table-condensed"
+                               id="inventorySearchTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Select
+                                    </th>
+                                    <th>
+                                        Inventory Id
+                                    </th>
+                                    <th>
+                                        Item Name
+                                    </th>
+                                    <th>
+                                        Manufacturer
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Accessories
+                                    </th>
+                                    <th>
+                                        Availability
+                                    </th>
+                                    <th>
+                                        Damages
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><b>Updated Loan Information </b></h4>
+                </div>
+                <div class="panel-body">
+                    <br />
+                    <b>Items are due on @DateTime.Now.AddDays(29).ToString("MMMM dd") </b>
+                    <div id="cName">
+                        @foreach (var item in Model)
+                        {
+                            <h5>Client @item.FirstName @item.LastName has these items: </h5>
+                            break;
+                        }
+                    </div>
+                    <div class="row col-md-6 col-md-offset-1">
+                        @foreach (var item in Model)
+                        {
+                            <h5>@item.ItemName </h5>
+                        }
+                        @*Modified Keyboard, Learn To Respond Appropriately*@
+                        <div id="iItems">
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-1">
+
+            @using (Html.BeginForm("UpdateLoan", "Loan", FormMethod.Post, new { @class = "" }))
+            {
+                @Html.Hidden("ClientId", null, new { id = "clientIdHiddenHere" })
+                @Html.Hidden("LoanMasterId", null, new { id = "loanMasterIdHidden" })
+                @Html.Hidden("InventoryItemId", null, new { id = "inventoryItemHiddenHere" }) @*Though, these aren't being altered so don't need to include them.*@
+                @Html.Hidden("LoanNumber", null, new { id = "LoanNumIdHiddenHere" })
+                @*The two checkbox values*@
+                @Html.Hidden("Purpose", null, new { id = "purposeHidden" })
+                @Html.Hidden("PurposeType", null, new { id = "purposeTypeHidden" })
+                <input type="submit" value="Update Loan" class="btn btn-primary" />
+
+            }
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-warning" type="button" name="CancelLoanEntry" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+
+            @*Modal*@
+            <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="ModalTitle">Warning!</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Are you sure that you would like to cancel? You will lose your progress.</h4>  @*A little over exagerated*@
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            @Html.ActionLink("Cancel Entry", "Index", "Loan", null, new { @class = "btn btn-primary btn-warning" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="itemErrorTextDiv" style="color: red; display: none">ITEM ERROR</div>
+    </div>
+    <br />
+    <div class="row col-md-3">
+        @Html.ActionLink("Back to Loan List", "Index")
+    </div>
+</div>
+
+
+<script src="~/Scripts/Loans/EditLoan.js" type="text/javascript"></script>

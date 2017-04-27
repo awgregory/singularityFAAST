@@ -1,34 +1,58 @@
-﻿<!DOCTYPE html>
+﻿@using SingularityFAAST.WebUI.Controllers
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    @*<script src="~/Scripts/jquery-ui-1.12.1.custom/jquery-ui.js"></script>*@ @*Kath Added*@
+
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <style>
+        .navbar-inverse .navbar-nav > li > a {
+            color: #fff;
+        }
+
+            .navbar-inverse .navbar-nav > li > a:hover,
+            .navbar-inverse .navbar-nav > li > a:focus {
+                color: #ffeb3b;
+                background-color: transparent;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Singularity FAAST", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Client", "Client", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Loan", "Index", "Loan", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Inventory", "Index", "InventoryItem", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Report", "Index", "Report", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="/" style="color: #FFFFFF; font-family: 'Days One', sans-serif; font-size: 30px; margin-left:30px;"><i>FAAST</i>er</a>
             </div>
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Clients", "Index", "Client", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li>@Html.ActionLink("Loans", "Index", "Loan", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li>@Html.ActionLink("Inventory", "IndexInventory", "InventoryItem", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li>@Html.ActionLink("Reports", "Index", "Report", new { area = "" }, new { @class = "navbar-brand" })</li>
+            </ul>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-right">
+                    @Html.ActionLink("Logout", "LogOff", "Account", new { area = "" }, new { @class = "navbar-brand", style = "margin-right: 60px;" })
                 </ul>
             </div>
         </div>
+
+        @*<div class="navbar-collapse collapse">
+                @*needs to be reactive to log in credentials
+                <ul class="nav navbar-nav navbar-right">
+                    @Html.ActionLink("Log Out", null, null, new {area = ""}, new {@class = "navbar-brand"})
+                </ul>
+            </div>*@
     </div>
 
     <div class="container body-content">

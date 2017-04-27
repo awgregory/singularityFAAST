@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,8 +52,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ClientServices.cs" />
+    <Compile Include="Services\ExportServices.cs" />
     <Compile Include="Services\InventoryItemServices.cs" />
-    <Compile Include="Services\LoanServices.cs" />
+    <Compile Include="Services\LoanMasterServices.cs" />
     <Compile Include="Services\ReportingServices.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,10 +65,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SingularityFAAST.Core\SingularityFAAST.Core.csproj">
+      <Project>{FD88BACA-7834-4214-A412-A79EBD7BC9FE}</Project>
+      <Name>SingularityFAAST.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SingularityFAAST.DataAccess\SingularityFAAST.DataAccess.csproj">
       <Project>{ca39d2c1-bb2a-473a-960b-d45fa9e110e9}</Project>
       <Name>SingularityFAAST.DataAccess</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

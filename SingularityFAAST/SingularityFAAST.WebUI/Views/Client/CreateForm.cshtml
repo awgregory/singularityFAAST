@@ -1,0 +1,29 @@
+﻿@model SingularityFAAST.WebUI.Models.Client
+
+@{
+    ViewBag.Title = "CreateForm";
+}
+
+<h2>Create New Client Form</h2>
+
+@using (Html.BeginForm())
+{
+
+
+    foreach (var property in ViewData.ModelMetadata.Properties)  // Loops through properties of Model
+    {
+        if (property.PropertyName != "ClientID")
+        {
+            <div class="form-group">
+                <label>@(property.DisplayName ?? property.PropertyName)</label>
+                @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+            </div>
+        }
+    }
+
+    <div class="text-left">
+        <input class="btn btn-primary" type="submit" value="Add Client" />
+    </div>
+
+}
+

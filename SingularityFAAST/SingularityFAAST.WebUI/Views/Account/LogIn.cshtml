@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "FAASTer Log In";
+}
+@* below razor statement is to allow this page to act separately from the layout page *@
+@{
+    Layout = null;
+}
+
+@using SingularityFAAST.WebUI.Controllers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Chewy|Days+One|Orbitron|Poiret+One" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("FAASTer", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", style = "color: #FFFFFF; font-family: 'Days One', sans-serif; font-size: 30px; margin-left:30px; text-outline: 2px; #ffffff;" })
+                @Html.ActionLink("Clients", "Index", "Client", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Loans", "Index", "Loan", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Inventory", "IndexInventory", "InventoryItem", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Reports", "IndexReport", "Report", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @* log in body *@
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <div class="container container-fluid">
+            <div class="col-lg-4 col-lg-offset-4">
+                @using (Html.BeginForm())
+                {
+                    <div>
+                        <h2 class="form-signin-heading">Please Sign In</h2>
+                    </div>
+                        <label for="inputUsername" class="sr-only">Username</label>
+                        <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="Username" required autofocus>
+                        <br />
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="Password" required>
+                        <br />
+                        @*<div class="checkbox">
+                              <label>
+                                  <input type="checkbox" value="remember-me"> Remember me
+                              </label>
+                            </div>*@
+                        <div>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit" style="width: 250px;">Sign in</button>
+                        </div>
+                }
+            </div>
+            
+            <div class="col-lg-3 col-lg-offset-4">
+                <br />
+                <br />
+                @*message displays back to user when there are errors with the login*@
+                @Html.ValidationSummary(true, "Uh Oh! An Error Occurred:", new { @class = "alert alert-warning " })
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - singularityFAAST</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

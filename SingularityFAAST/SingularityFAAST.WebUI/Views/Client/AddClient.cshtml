@@ -1,0 +1,399 @@
+﻿@model SingularityFAAST.Core.Entities.Client
+
+@{
+    ViewBag.Title = "AddClient";
+
+}
+
+<h2>Add New Client</h2>
+
+@using (Html.BeginForm())
+{
+
+    @* Displays the error messages which got registered with the ModelState in AddClient action method *@
+    @Html.ValidationSummary()
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Title)
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control", maxlength = "20" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.ClientID, "Client Number")
+                <a data-toggle="tooltip" data-placement="bottom" title="Client Number not official until Client has been successfully added">
+                    <Input disabled="disabled" value="@ViewBag.nextClientId" type="text" name="ClientID" class="form-control">
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.FirstName, "First Name *")
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required = "required", maxlength = "50" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.MiddleInitial, "Middle Initial")
+                @Html.TextBoxFor(m => m.MiddleInitial, new { @class = "form-control", maxlength = "1" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.LastName, "Last Name *")
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", required = "required", maxlength = "50" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Address1, "Street Address *")
+                @Html.TextBoxFor(m => m.Address1, new { @class = "form-control", required = "required", maxlength = "200" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Address2, "Unit/Apartment Number")
+                @Html.TextBoxFor(m => m.Address2, new { @class = "form-control", maxlength = "200" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.City, "City *")
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control", required = "required", maxlength = "50" })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.StateName, "State Name")
+                @Html.TextBoxFor(m => m.StateName, new { @class = "form-control", maxlength = "30" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.StateCode, "State Code")
+                @Html.TextBoxFor(m => m.StateCode, new { @class = "form-control", maxlength = "2" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.County)
+                @Html.TextBoxFor(m => m.County, new { @class = "form-control", maxlength = "50" })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.CountyFIPS, "CountyFIPS *")
+                <a data-toggle="tooltip" data-placement="bottom" 
+                   title="The FIPS county code is a five-digit Federal Information Processing Standards (FIPS) 
+                   code which uniquely identifies counties and county equivalents in the United States,
+                   certain U.S. possessions, and certain freely associated states.">
+                    @Html.TextBoxFor(m => m.CountyFIPS, new { @class = "form-control", required = "required", maxlength = "10" })
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Zip, "Zip *")
+                @Html.TextBoxFor(m => m.Zip, new { @class = "form-control", required = "required", maxlength = "10" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", maxlength = "100", type = "email" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.CellPhone, "Primary Phone *")
+                @Html.TextBoxFor(m => m.CellPhone, new { @class = "form-control", required = "required", maxlength = "20" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.HomePhone, "Secondary Phone")
+                @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control", maxlength = "20" })
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.WorkPhone, "Work Phone")
+                @Html.TextBoxFor(m => m.WorkPhone, new { @class = "form-control", maxlength = "30" })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="ClientCategoryId">Client Category</label>
+
+                <select class="form-control" id="ClientCategoryId" name="ClientCategoryId">
+                    <option value="1">Individual with Disability</option>
+                    <option value="2">Family Member</option>
+                    <option value="3">Professional / Representative of Community Living</option>
+                    <option value="4">Professional / Representative of Education</option>
+                    <option value="5">Professional / Representative of Technology</option>
+                    <option value="6">Professional / Representative of Employment</option>
+                    <option value="7">Professional / Representative of Health, Allied Health, Rehabilitative Services</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <label>Eligible for Loan?</label>
+                <div class="radio mb-2 mr-sm-2 mb-sm-0">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="LoanEligibility" value="True" checked> True
+                    </label>
+
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="LoanEligibility" value="False"> False
+                    </label>
+                </div>
+            </div>
+
+
+            @*<div class="form-group">
+                    @Html.LabelFor(client => client.LoanEligibility, "Eligible for Loan? (Default is true)")
+                    @Html.TextBoxFor(m => m.LoanEligibility, new { @class = "form-control" })
+                </div>*@
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Company)
+                @Html.TextBoxFor(m => m.Company, new { @class = "form-control", maxlength = "50" })
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="row">
+
+
+        @*Disabilities Start Here*@
+
+
+        <div class="col-md-4">
+
+            <label>Disabilities</label>
+            <br />
+
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="1">
+                    Cognitive Impairment
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="2">
+                    Hearing Impairment
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="3">
+                    Visual Impairment
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="4">
+                    Deaf-Blind
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="5">
+                    Learning Disability
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="6">
+                    No Impairment
+                </label>
+            </div>
+
+
+
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="7">
+                    Dexterity Impairment
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="8">
+                    Mobility Impairment
+                </label>
+            </div>
+
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="9">
+                    Spinal Cord Injury
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="10">
+                    Elderly
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="11">
+                    Speech/Language Impairment
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="12">
+                    Traumatic Brain Injury
+                </label>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="DisabilityIds" value="13">
+                    Other
+                </label>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(client => client.Notes)
+                @Html.TextAreaFor(client => client.Notes, new { @class = "form-control" })
+            </div>
+        </div>
+
+    </div>
+
+
+    <br />
+
+        <div class="text-left">          
+            <input class="btn btn-primary" type="submit" value="Submit" />
+        </div>
+        <br />
+
+
+        @*<div class="btn btn-default">*@
+           
+            @*@Html.ActionLink("Cancel", "Index")*@
+         
+        @*</div>*@
+
+
+        <button class="btn btn-default" type="button" name="Cancel" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+
+        
+
+}
+
+        @*Modal*@
+        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="ModalTitle">Please Confirm</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <h4>You want to discard all information on this form?</h4>   
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No, Go Back</button>
+                        
+                        <div class="btn btn-default">
+                        @Html.ActionLink("Confirm", "Index")
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

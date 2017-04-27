@@ -1,0 +1,56 @@
+﻿@using SingularityFAAST.WebUI.Controllers
+@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+
+@{
+    ViewBag.Title = "RenewLn";
+}
+
+@*View Devices in Loan should go to its own page that lists each item with the ability to renew individually *@
+@* This page gets Loan number and passes it to RenewItems *@
+<br />
+<div class="row">
+    <div class="col-md-5 col-md-offset-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="col-md-offset-4">Renew Loan</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <h4>Would you like to renew this loan?</h4>
+                        @*<h5>You will be given a chance to Edit the items.</h5>*@
+                        <br />
+                        @foreach (var i in Model)
+                        {
+                            <h5>
+                                Client: @i.FirstName @i.LastName, Loan# @i.LoanNumber
+                            </h5>
+                            break;
+                        }
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-3">
+                        @foreach (var i in Model)
+                        {
+                            <div class="col-md-2">
+                                @Html.ActionLink("Renew", "CheckInRenewal", "Loan", new { loanNumber = @i.LoanNumber }, new { @class = "btn btn-primary form-inline" })
+                            </div>
+
+                            <div class="col-md-1">
+                                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-warning form-inline" })
+                            </div>
+                            break;
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

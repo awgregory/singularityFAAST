@@ -154,4 +154,39 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="InventoryCategoryId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="7f3194f1-d699-424d-b6ad-9a1c833c8e83" ChangeDateTime="11/01/2016 14:33:07">
+    <Property Name="ElementName" Value="[dbo].[LoanMaster].[InventoryItemId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InventoryItemId1" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9859fd55-b8a1-4b38-824e-88151c78040c" ChangeDateTime="11/01/2016 14:49:11">
+    <Property Name="ElementName" Value="[dbo].[LoanDetails].[Purpose]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanDetails]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PurposeType" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="55b264e9-d618-42e0-a129-4c7555da1110" ChangeDateTime="11/01/2016 14:58:05">
+    <Property Name="ElementName" Value="[dbo].[LoanDetails].[LoanEndDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanDetails]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LoanDuration" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b1ebb9de-a7d1-45bf-bcef-b5ac5a96f0e9" ChangeDateTime="01/29/2017 21:20:31">
+    <Property Name="ElementName" Value="[dbo].[LoanMasters].[LoanCategoryId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LoanMasters]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ClientCategoryId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e15bc545-9d75-4501-86aa-f9cc750ca96f" ChangeDateTime="03/12/2017 17:02:31">
+    <Property Name="ElementName" Value="[dbo].[UserLogIns].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserLogIns]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserId" />
+  </Operation>
 </Operations>

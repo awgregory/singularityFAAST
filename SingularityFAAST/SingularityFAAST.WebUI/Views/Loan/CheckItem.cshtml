@@ -1,0 +1,119 @@
+﻿@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+
+@{
+    ViewBag.Title = "CheckInItem";
+}
+
+<h2>Item Check-In</h2>
+@using (Html.BeginForm("CheckItemIn", "Loan", FormMethod.Post, new { @class = "" }))
+{
+   <hr />
+        <div class="row">
+            <h4>
+                @foreach (var item in Model)
+                {
+                    <span class="col-md-1">Loan #: @Html.DisplayFor(x => item.LoanNumber)</span>
+                    <span class="col-md-2">Name: @Html.DisplayFor(x => item.LastName), @Html.DisplayFor(x => item.FirstName)</span>
+                    <span class="col-md-2">Phone: @Html.DisplayFor(x => item.CellPhone)  </span>
+                    <span class="col-md-3">Email: @Html.DisplayFor(x => item.Email)</span>
+                    break; //or will print client for each item in client loan
+                }
+            </h4>
+
+        </div>
+    <br />
+    <br/>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="hidden" value="@item.LoanNumber" name="LoanNumber" />
+                        <input type="hidden" value="@item.Availability" name="Availability" />
+                        <input type="hidden" value="@item.IsActive" name="IsActive" />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Item Number:
+                            </dt>
+
+                            <dd>
+                                <input type="hidden" value="@item.InventoryItemId" name="InventoryItemId" />
+                                @item.InventoryItemId
+                            </dd>
+                            <dt>
+                                Item:
+                            </dt>
+
+                            <dd>
+                                @item.ItemName
+                            </dd>
+
+                            <dt>
+                                Item Loan End Date:
+                            </dt>
+
+                            <dd>
+                                @item.LoanDate.AddDays(29).ToString("MMMM dd, yyyy")
+                            </dd>
+                        </dl>
+                    </div>
+                    <br />
+                </div>
+                <br/>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="damages">Item Damages:</label>
+                        <textarea class="form-control" name="Damages" id="damages" rows="3"></textarea>
+                    </div>
+                </div>
+                break;
+            }
+
+        </div>
+        <br />
+
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-1">
+                    <input type="submit" value="Check-In Item" class="btn btn-primary" />
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-warning" type="button" name="CancelItem" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+                </div>
+                <div class="col-md-4">
+                    <i>Choosing Check-In Item will check-in and renew this item in one step.</i>
+                </div>
+            </div>
+        </div>
+        }
+        @*Modal*@
+        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="ModalTitle">Warning!</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Are you sure that you would like to cancel? You will lose your progress.</h4> @*A little over exagerated*@
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        @Html.ActionLink("Cancel Entry", "Index", "Loan", null, new { @class = "btn btn-primary btn-warning" })
+                    </div>
+                </div>
+            </div>
+        </div>
+   <br/>
+<div>
+    @Html.ActionLink("Back to Loans List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
