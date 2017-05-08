@@ -768,13 +768,13 @@ namespace SingularityFAAST.Services.Services
         //Poll the DateCreated in LoanMaster every 24 hours. Trigger this email  if ((item.DateCreated.AddDays(28) <= DateTime.Now.AddDays(7) && item.DateCreated.AddDays(28) >= DateTime.Now) && (item.IsActive)) 
         //Add Email Notification
         //use Windows service running on vm Windows rt 
-        public void NotifyEmail(string loanNumber) //or LoanClientsInventoryDTO
+        public void NotifyEmail()    //string loanNumber) //or LoanClientsInventoryDTO
         {
             var template =
                 File.ReadAllText(
                     HttpContext.Current.Server.MapPath("~/SingularityFAAST.WebUI/Views/Loan/EmailTemplate.html"));
 
-            IList<LoansClientsInventoryDTO> model = ViewAllItems(loanNumber);
+            //IList<LoansClientsInventoryDTO> model = ViewAllItems(loanNumber);
 
             //var le = new LoansClientsInventoryDTO()
             //{

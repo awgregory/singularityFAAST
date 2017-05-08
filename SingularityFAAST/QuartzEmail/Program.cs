@@ -38,7 +38,7 @@ namespace QuartzEmail
                     .WithIdentity("trigger1", "group1")
                     .StartNow()
                     .WithSimpleSchedule(x => x
-                        .WithIntervalInSeconds(120)
+                        .WithIntervalInSeconds(240)
                         .RepeatForever())
                     .Build();
 
