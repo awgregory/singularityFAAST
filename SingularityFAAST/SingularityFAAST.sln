@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.10
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingularityFAAST.WebUI", "SingularityFAAST.WebUI\SingularityFAAST.WebUI.csproj", "{09DB6633-CCBE-43BF-9BEE-652B6EF9A96C}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -17,6 +17,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingularityFAAST.Services", "SingularityFAAST.Services\SingularityFAAST.Services.csproj", "{8F6A22DB-9E94-4F6F-A5D7-FA0B94FEAAD9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingularityFAAST.DataAccess", "SingularityFAAST.DataAccess\SingularityFAAST.DataAccess.csproj", "{CA39D2C1-BB2A-473A-960B-D45FA9E110E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuartzEmail", "QuartzEmail\QuartzEmail.csproj", "{419F8A5B-C105-4FF0-83EE-9E673A0EA891}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{CA39D2C1-BB2A-473A-960B-D45FA9E110E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA39D2C1-BB2A-473A-960B-D45FA9E110E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA39D2C1-BB2A-473A-960B-D45FA9E110E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419F8A5B-C105-4FF0-83EE-9E673A0EA891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419F8A5B-C105-4FF0-83EE-9E673A0EA891}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{419F8A5B-C105-4FF0-83EE-9E673A0EA891}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419F8A5B-C105-4FF0-83EE-9E673A0EA891}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
