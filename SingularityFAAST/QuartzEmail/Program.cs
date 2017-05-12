@@ -13,7 +13,8 @@ namespace QuartzEmail
 {
     public class Program
     {
-        private static void Main(string[] args)
+        //private static void Main(string[] args)
+        public static void Start()
 
         {
             try
@@ -31,33 +32,35 @@ namespace QuartzEmail
 
                 // define the job and tie it to our HelloJob class
                 IJobDetail job = JobBuilder.Create<EmailJob>()
-                    .WithIdentity("job1", "group1")
+                    //.WithIdentity("EmailJob", "group1")
                     .Build();
+                Debug.WriteLine("step 2");
 
                 ITrigger trigger = TriggerBuilder.Create()
-                    .WithIdentity("trigger1", "group1")
+                    .WithIdentity("EmailJob", "group1")
                     .StartNow()
                     .WithSimpleSchedule(x => x
                         .WithIntervalInSeconds(240)
                         .RepeatForever())
                     .Build();
-
+                Debug.WriteLine("step 3");
+                
                 // Trigger the job to run at 9 am every day
                 //ITrigger trigger = TriggerBuilder.Create()
                 //    .WithIdentity("trigger1", "group1")
-                //    .ForJob("job1")
+                //    .ForJob("EmailJob")
                 //    .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(9, 0))
                 //    .Build();
 
                 // Tell quartz to schedule the job using our trigger
                 scheduler.ScheduleJob(job, trigger);
-                Console.WriteLine("Job scheduled");
+
                 Debug.WriteLine("Job scheduled");
                 // some sleep to show what's happening
                 //Thread.Sleep(TimeSpan.FromSeconds(60));
 
                 // and last shut down the scheduler when you are ready to close your program
-                scheduler.Shutdown();
+                //scheduler.Shutdown();
             }
             catch (SchedulerException se)
             {

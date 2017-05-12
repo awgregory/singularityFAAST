@@ -9,6 +9,12 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Linq.Expressions;
+using RazorEngine;
+using RazorEngine.Configuration;
+using RazorEngine.Templating;
+
 //using RazorEngine;  //for the email template parsing
 //using RazorEngine.Templating;   //for the email template parsing
 
@@ -16,7 +22,7 @@ namespace SingularityFAAST.Services.Services
 {
     public class LoanMasterServices
     {
-     #region Get All From DB - 3 basic methods for Loans, Clients, Inventory
+        #region Get All From DB - 3 basic methods for Loans, Clients, Inventory
 
         //Get All Loans in DB
         public IList<LoansClientsInventoryDTO> GetAllLoans()
@@ -24,7 +30,7 @@ namespace SingularityFAAST.Services.Services
             using (var context = new SingularityDBContext())
             {
                 //Get all Loans in DB
-                var loans = from c in context.Clients  
+                var loans = from c in context.Clients
                             join l in context.LoanMasters
                             on c.ClientID equals l.ClientId
                             where l.IsDeleted == false
@@ -68,7 +74,7 @@ namespace SingularityFAAST.Services.Services
         //                        IsActive = l.IsActive,
         //                        CellPhone = c.CellPhone,
         //                        Email = c.Email
-                               
+
         //                    };
 
         //        return loans.ToList();
@@ -360,8 +366,8 @@ namespace SingularityFAAST.Services.Services
         {
             IList<LoansClientsInventoryDTO> allLoans = GetAllLoans(); //Gets all the loans from the GetAllLoans() method
             IList<LoansClientsInventoryDTO> filteredLoans =
-                //allLoans.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase))
-                //    .ToList();
+            //allLoans.Where(client => string.Equals(client.LastName, searchby, StringComparison.OrdinalIgnoreCase))
+            //    .ToList();
             allLoans.Where(thing => thing.LastName.ToLower().Contains(searchby.ToLower())).ToList();
             return filteredLoans;
         }
@@ -447,8 +453,8 @@ namespace SingularityFAAST.Services.Services
             IList<LoansClientsInventoryDTO> allLoans = GetAllLoansByNum();
             //Gets all the loans from the GetAllLoans() method
             IList<LoansClientsInventoryDTO> filteredLoans =
-                //allLoans.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase))
-                //    .ToList();
+            //allLoans.Where(loan => string.Equals(loan.LoanNumber, searchby, StringComparison.OrdinalIgnoreCase))
+            //    .ToList();
             allLoans.Where(thing => thing.LoanNumber.ToLower().Contains(searchby.ToLower())).ToList();
             return filteredLoans;
         }
@@ -463,7 +469,7 @@ namespace SingularityFAAST.Services.Services
                 var items = context.InventoryItems;
 
                 var itemList = items.ToList();
-                
+
                 return itemList;
             }
         }
@@ -516,7 +522,7 @@ namespace SingularityFAAST.Services.Services
         #region CheckInSingleItem
 
         //Updates the Inventory CheckIn DB fields 
-        public void CheckInLoanInventoryItem(LoansClientsInventoryDTO loan) 
+        public void CheckInLoanInventoryItem(LoansClientsInventoryDTO loan)
         {
             using (var context = new SingularityDBContext())
             {
@@ -528,9 +534,9 @@ namespace SingularityFAAST.Services.Services
                 if (itemIds.Count() > 1)
                 {
                     var itemId = (from ii in context.InventoryItems
-                        where ii.InventoryItemId == loan.InventoryItemId
-                        select ii).FirstOrDefault();
-                    
+                                  where ii.InventoryItemId == loan.InventoryItemId
+                                  select ii).FirstOrDefault();
+
                     if (itemId != null)
                     {
                         itemId.Availability = true;
@@ -596,7 +602,7 @@ namespace SingularityFAAST.Services.Services
         }
 
         #endregion
-   
+
 
         #region Edit Loan
 
@@ -619,8 +625,8 @@ namespace SingularityFAAST.Services.Services
                 foreach (var itemId in query)
                 {
                     var item = (from ii in context.InventoryItems
-                                  where ii.InventoryItemId == itemId.InventoryItemId
-                                  select ii).FirstOrDefault();
+                                where ii.InventoryItemId == itemId.InventoryItemId
+                                select ii).FirstOrDefault();
 
                     if (item != null)
                         item.Availability = false;
@@ -629,12 +635,12 @@ namespace SingularityFAAST.Services.Services
                 }
                 //now we can add a range of loan details to the loan details table
                 context.LoanDetails.AddRange(loanDetailsList);
-                context.SaveChanges();                              
+                context.SaveChanges();
 
             }
         }
-#endregion
-      
+        #endregion
+
         #region Renew Loan
         //Renews all Items in a loan as a new loan
         public void RenewLoan(LoansClientsInventoryDTO renewedDTO)
@@ -691,20 +697,20 @@ namespace SingularityFAAST.Services.Services
 
                 LoanDetail[] itemsListed = new LoanDetail[loanSubmission.InventoryItems.Count];
 
-                for (int i = 0; i < itemsListed.Length; i ++)
+                for (int i = 0; i < itemsListed.Length; i++)
                 {
                     foreach (var itemId in loanSubmission.InventoryItems)
                     {
                         //if (loanSubmission.Availability)
                         //{
-                            itemsListed[i] = new LoanDetail
-                            {
-                                InventoryItemId = itemId.InventoryItemId,
-                                LoanMasterId = newLoan.LoanMasterId,
-                                Purpose = loanSubmission.Purpose,
-                                PurposeType = loanSubmission.PurposeType
-                            };
-                            i++;
+                        itemsListed[i] = new LoanDetail
+                        {
+                            InventoryItemId = itemId.InventoryItemId,
+                            LoanMasterId = newLoan.LoanMasterId,
+                            Purpose = loanSubmission.Purpose,
+                            PurposeType = loanSubmission.PurposeType
+                        };
+                        i++;
                         //};
                     };
                     //break;
@@ -717,7 +723,7 @@ namespace SingularityFAAST.Services.Services
 
                 //Update Inventory Items' Availability
                 var itemIds = GetInventoryItemIdsByLoanNumber(newLoan.LoanNumber);
-                MarkInventoryItemsAsNotAvailable(context, itemIds);  
+                MarkInventoryItemsAsNotAvailable(context, itemIds);
 
             }
         }
@@ -767,61 +773,125 @@ namespace SingularityFAAST.Services.Services
 
         //Poll the DateCreated in LoanMaster every 24 hours. Trigger this email  if ((item.DateCreated.AddDays(28) <= DateTime.Now.AddDays(7) && item.DateCreated.AddDays(28) >= DateTime.Now) && (item.IsActive)) 
         //Add Email Notification
-        //use Windows service running on vm Windows rt 
-        public void NotifyEmail()    //string loanNumber) //or LoanClientsInventoryDTO
+
+        public void NotifyEmail()
         {
-            var template =
-                File.ReadAllText(
-                    HttpContext.Current.Server.MapPath("~/SingularityFAAST.WebUI/Views/Loan/EmailTemplate.html"));
+            var config = new TemplateServiceConfiguration();
+            // .. configure your instance
+            config.Debug = true;
 
-            //IList<LoansClientsInventoryDTO> model = ViewAllItems(loanNumber);
+            var service = RazorEngineService.Create(config);
 
-            //var le = new LoansClientsInventoryDTO()
-            //{
-            //    LoanNumber = model.LoanNumber,
-            //    LastName = LastName,
-            //    FirstName = FirstName,
-            //    HomePhone = HomePhone,
-            //    ItemName = ItemName,
-            //    LoanDate = LoanDate.Add(28),
-            //};
+            Engine.Razor = service;
 
-            //var body = RazorEngine.Parse(template, model);  // le?    bring in nuget razor engine?
-            var body =
-                "Hi, < br > Client<loan.FirstName>, < loan.LastName >, Phone<loan.PhoneNumber>, has a loan due within one week.Loan Number < loan.LoanNumber > has devices < devices > < br > Thanks, FAASTer";
+            //var template =
+            //     File.ReadAllText(
+            //         HttpContext.Current.Server.MapPath("~/SingularityFAAST.WebUI/Views/Loan/EmailTemplate.html"));  //error is the template
 
-            var fromAddress = new MailAddress("faasterEmailNotification@gmail.com", "FAASTer Inventory System");
-            var toAddress = new MailAddress("kyoungbe@gmail.com", "FAAST Admin");
-            const string fromPassword = "faastemail";
-            const string subject = "Device Loan Coming Due";
+            string template = @"
+@model IEnumerable<SingularityFAAST.Core.DataTransferObjects.LoansClientsInventoryDTO>
+@using SingularityFAAST.Core
+@using RazorEngine.Templating
 
-            var smtp = new SmtpClient
+<!DOCTYPE html>
+<html>
+    <body>
+       <h1> Device Loan Coming Due </h1>
+             @foreach(var item in Model){
+                  <p>
+                      <strong> Loan Number: </strong> @item.LoanNumber is due within one week.        
+                  </p>
+                  <p>
+                      <strong> Client: </strong> @item.FirstName, @item.LastName
+                  </p>
+                  <p>
+                      <strong> Phone Number: </strong> @item.CellPhone
+                  </p>
+                  <p>
+                      <strong> Email: </strong> @item.Email
+                  </p>
+             }
+        </br>
+        Thanks, and have a good day. 
+    </body>
+</html>
+";
+
+
+            //GET THE LOANS HERE
+            string bd = null;
+            var body = bd;
+
+            using (var context = new SingularityDBContext())
             {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                Timeout = 10000,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-            };
-            using (var messageEmail = new MailMessage(fromAddress, toAddress)
-            {
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true
-            })
+                //DateTime dtFrom = Convert.ToDateTime(DateTime.Today.AddDays(1));
 
+                //DateTime now = DateTime.Now;
+                //DateTime nowPlus = now.AddDays(29);
+                
+                var model = from l in context.LoanMasters
+                            join c in context.Clients
+                            on l.ClientId equals c.ClientID
+                            //where l.DateCreated < nowPlus && l.IsActive
+                            where c.LastName == "Otero" && l.IsActive 
+
+                            select new LoansClientsInventoryDTO()
+                            {
+                                LoanNumber = l.LoanNumber,
+                                //DateCreated = l.DateCreated,
+                                //ClientId = c.ClientID,
+                                LastName = c.LastName,
+                                FirstName = c.FirstName,
+                                CellPhone = c.CellPhone,
+                                Email = c.Email,
+                            };
+                //var model = model1.ToList();
+
+                //CREATE EMAIL FROM TEMPLATE FOR ALL LOANS IN ARRAY
                 try
                 {
-                    smtp.Send(messageEmail);
+                    body = Engine.Razor.RunCompile(template, "key", null, model); //typeof(LoansClientsInventoryDTO)
+                    //string body = Razor.Parse(template, model);
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    Console.WriteLine("Exception caught in CreateMessageWithAttachment(): {0}",
-                        ex.ToString());
+                    Debug.WriteLine(e);
                 }
+                //var body =
+                //    "Hi, < br > Client<loan.FirstName>, < loan.LastName >, Phone<loan.PhoneNumber>, has a loan due within one week.Loan Number < loan.LoanNumber > has devices < devices > < br > Thanks, FAASTer";
 
+                var fromAddress = new MailAddress("faasterEmailNotification@gmail.com", "FAASTer Inventory System");
+                var toAddress = new MailAddress("kyoungbe@gmail.com", "FAAST Admin");
+                const string fromPassword = "faastemail";
+                const string subject = "Device Loan Coming Due";
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    Timeout = 10000,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+                using (var messageEmail = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true
+                })
+
+                    try
+                    {
+                        smtp.Send(messageEmail);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Exception caught in CreateMessageWithAttachment(): {0}",
+                            ex.ToString());
+                    }
+            }
         }
 
         #endregion

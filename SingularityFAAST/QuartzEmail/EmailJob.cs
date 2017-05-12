@@ -20,8 +20,7 @@ namespace QuartzEmail
             {
                 LoanMasterServices lm_services = new LoanMasterServices();
                 lm_services.NotifyEmail();
-                Console.WriteLine("Call Email");
-                Debug.WriteLine("Call Email");
+                Debug.WriteLine("Email run");
 
             }
         }

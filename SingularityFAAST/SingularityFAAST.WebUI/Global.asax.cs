@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using QuartzEmail;
 
 namespace SingularityFAAST.WebUI
 {
@@ -13,6 +14,10 @@ namespace SingularityFAAST.WebUI
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            // Code that runs on application startup
+
+            Program.Start();
         }
     }
 }

@@ -216,6 +216,10 @@
     <Folder Include="Views\Export\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\QuartzEmail\QuartzEmail.csproj">
+      <Project>{419F8A5B-C105-4FF0-83EE-9E673A0EA891}</Project>
+      <Name>QuartzEmail</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SingularityFAAST.Core\SingularityFAAST.Core.csproj">
       <Project>{FD88BACA-7834-4214-A412-A79EBD7BC9FE}</Project>
       <Name>SingularityFAAST.Core</Name>
